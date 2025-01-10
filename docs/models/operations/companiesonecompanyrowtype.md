@@ -1,0 +1,19 @@
+# CompaniesOneCompanyRowType
+
+## Example Usage
+
+```typescript
+import { CompaniesOneCompanyRowType } from "apideck/models/operations";
+
+let value: CompaniesOneCompanyRowType = {
+  id: "12345",
+  name: "Customer Account",
+};
+```
+
+## Fields
+
+| Field              | Type               | Required           | Description        | Example            |
+| ------------------ | ------------------ | ------------------ | ------------------ | ------------------ |
+| `id`               | *string*           | :heavy_minus_sign: | N/A                | 12345              |
+| `name`             | *string*           | :heavy_minus_sign: | N/A                | Customer Account   |

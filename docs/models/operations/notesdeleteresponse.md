@@ -1,0 +1,39 @@
+# NotesDeleteResponse
+
+
+## Supported Types
+
+### `operations.NotesDeleteResponseBody`
+
+```typescript
+const value: operations.NotesDeleteResponseBody = {
+  statusCode: 200,
+  status: "OK",
+  service: "zoho-crm",
+  resource: "notes",
+  operation: "delete",
+  data: {
+    id: "12345",
+  },
+};
+```
+
+### `operations.NotesDeleteNotesResponseBody`
+
+```typescript
+const value: operations.NotesDeleteNotesResponseBody = {
+  statusCode: 400,
+  error: "Bad Request",
+  typeName: "RequestHeadersValidationError",
+  message: "Invalid Params",
+  detail: {
+    "missing": [
+      {
+        "x-apideck-consumer-id": "required",
+      },
+    ],
+  },
+  ref: "https://developers.apideck.com/errors#unauthorizederror",
+};
+```
+

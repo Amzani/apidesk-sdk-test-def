@@ -1,0 +1,36 @@
+speakeasyVersion: 1.466.1
+sources:
+    CRM API:
+        sourceNamespace: crm-api
+        sourceRevisionDigest: sha256:5f8d7f72da5ade7602ca91f872998841a65b414461b459602febadfbe6fc4752
+        sourceBlobDigest: sha256:47f1ac2d3f7e0de68999200ede7d81e740878a34fc11f218bcfdc199785185a5
+        tags:
+            - latest
+            - 10.8.2
+targets:
+    apideck:
+        source: CRM API
+        sourceNamespace: crm-api
+        sourceRevisionDigest: sha256:5f8d7f72da5ade7602ca91f872998841a65b414461b459602febadfbe6fc4752
+        sourceBlobDigest: sha256:47f1ac2d3f7e0de68999200ede7d81e740878a34fc11f218bcfdc199785185a5
+        codeSamplesNamespace: crm-api-typescript-code-samples
+        codeSamplesRevisionDigest: sha256:c0c09ae7a38a464633755cf6415fbbae33de25a81c4e23ccc5c16801e21a31e3
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        CRM API:
+            inputs:
+                - location: ../crm.enhanced.json
+            registry:
+                location: registry.speakeasyapi.dev/apideck-k2o/apideck/crm-api
+    targets:
+        apideck:
+            target: typescript
+            source: CRM API
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/apideck-k2o/apideck/crm-api-typescript-code-samples
+                labelOverride:
+                    fixedValue: Typescript (SDK)
+                blocking: false
