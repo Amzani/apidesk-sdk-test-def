@@ -7,7 +7,7 @@ The FLSA status for this compensation.
 ```typescript
 import { HrisEmployeeSchedulesAllFlsaStatus } from "apideck/models/operations";
 
-let value: HrisEmployeeSchedulesAllFlsaStatus = "other";
+let value: HrisEmployeeSchedulesAllFlsaStatus = "owner";
 ```
 
 ## Values

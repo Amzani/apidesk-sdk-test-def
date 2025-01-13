@@ -172,9 +172,7 @@ export async function hrisTimeOffRequestsUpdate(
     | RequestTimeoutError
     | ConnectionError
   >(
-    M.json(200, operations.HrisTimeOffRequestsUpdateResponse$inboundSchema, {
-      key: "200_application/json_object",
-    }),
+    M.json(200, operations.HrisTimeOffRequestsUpdateResponse$inboundSchema),
     M.jsonErr(400, errors.HrisTimeOffRequestsUpdateResponseBody$inboundSchema),
     M.jsonErr(
       401,
@@ -200,9 +198,8 @@ export async function hrisTimeOffRequestsUpdate(
     M.json(
       "default",
       operations.HrisTimeOffRequestsUpdateResponse$inboundSchema,
-      { key: "default_application/json_object" },
     ),
-  )(response, req, { extraFields: responseFields });
+  )(response, { extraFields: responseFields });
   if (!result.ok) {
     return result;
   }

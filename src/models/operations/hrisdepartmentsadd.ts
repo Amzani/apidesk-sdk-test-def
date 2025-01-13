@@ -6,7 +6,6 @@ import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
-import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type HrisDepartmentsAddGlobals = {
@@ -144,21 +143,9 @@ export type HrisDepartmentsAddResponseBody = {
   data: HrisDepartmentsAddUnifiedId;
 };
 
-export type HrisDepartmentsAddResponse = {
-  httpMeta: components.HTTPMetadata;
-  /**
-   * Departments
-   */
-  twoHundredAndOneApplicationJsonObject?:
-    | HrisDepartmentsAddResponseBody
-    | undefined;
-  /**
-   * Unexpected error
-   */
-  defaultApplicationJsonObject?:
-    | HrisDepartmentsAddHrisDepartmentsResponseBody
-    | undefined;
-};
+export type HrisDepartmentsAddResponse =
+  | HrisDepartmentsAddResponseBody
+  | HrisDepartmentsAddHrisDepartmentsResponseBody;
 
 /** @internal */
 export const HrisDepartmentsAddGlobals$inboundSchema: z.ZodType<
@@ -784,53 +771,25 @@ export const HrisDepartmentsAddResponse$inboundSchema: z.ZodType<
   HrisDepartmentsAddResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  HttpMeta: components.HTTPMetadata$inboundSchema,
-  "201_application/json_object": z.lazy(() =>
-    HrisDepartmentsAddResponseBody$inboundSchema
-  ).optional(),
-  "default_application/json_object": z.lazy(() =>
-    HrisDepartmentsAddHrisDepartmentsResponseBody$inboundSchema
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "HttpMeta": "httpMeta",
-    "201_application/json_object": "twoHundredAndOneApplicationJsonObject",
-    "default_application/json_object": "defaultApplicationJsonObject",
-  });
-});
+> = z.union([
+  z.lazy(() => HrisDepartmentsAddResponseBody$inboundSchema),
+  z.lazy(() => HrisDepartmentsAddHrisDepartmentsResponseBody$inboundSchema),
+]);
 
 /** @internal */
-export type HrisDepartmentsAddResponse$Outbound = {
-  HttpMeta: components.HTTPMetadata$Outbound;
-  "201_application/json_object"?:
-    | HrisDepartmentsAddResponseBody$Outbound
-    | undefined;
-  "default_application/json_object"?:
-    | HrisDepartmentsAddHrisDepartmentsResponseBody$Outbound
-    | undefined;
-};
+export type HrisDepartmentsAddResponse$Outbound =
+  | HrisDepartmentsAddResponseBody$Outbound
+  | HrisDepartmentsAddHrisDepartmentsResponseBody$Outbound;
 
 /** @internal */
 export const HrisDepartmentsAddResponse$outboundSchema: z.ZodType<
   HrisDepartmentsAddResponse$Outbound,
   z.ZodTypeDef,
   HrisDepartmentsAddResponse
-> = z.object({
-  httpMeta: components.HTTPMetadata$outboundSchema,
-  twoHundredAndOneApplicationJsonObject: z.lazy(() =>
-    HrisDepartmentsAddResponseBody$outboundSchema
-  ).optional(),
-  defaultApplicationJsonObject: z.lazy(() =>
-    HrisDepartmentsAddHrisDepartmentsResponseBody$outboundSchema
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    httpMeta: "HttpMeta",
-    twoHundredAndOneApplicationJsonObject: "201_application/json_object",
-    defaultApplicationJsonObject: "default_application/json_object",
-  });
-});
+> = z.union([
+  z.lazy(() => HrisDepartmentsAddResponseBody$outboundSchema),
+  z.lazy(() => HrisDepartmentsAddHrisDepartmentsResponseBody$outboundSchema),
+]);
 
 /**
  * @internal

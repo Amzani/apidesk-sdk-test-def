@@ -6,7 +6,6 @@ import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
-import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type HrisDepartmentsDeleteGlobals = {
@@ -104,21 +103,9 @@ export type HrisDepartmentsDeleteResponseBody = {
   data: HrisDepartmentsDeleteUnifiedId;
 };
 
-export type HrisDepartmentsDeleteResponse = {
-  httpMeta: components.HTTPMetadata;
-  /**
-   * Departments
-   */
-  twoHundredApplicationJsonObject?:
-    | HrisDepartmentsDeleteResponseBody
-    | undefined;
-  /**
-   * Unexpected error
-   */
-  defaultApplicationJsonObject?:
-    | HrisDepartmentsDeleteHrisDepartmentsResponseBody
-    | undefined;
-};
+export type HrisDepartmentsDeleteResponse =
+  | HrisDepartmentsDeleteResponseBody
+  | HrisDepartmentsDeleteHrisDepartmentsResponseBody;
 
 /** @internal */
 export const HrisDepartmentsDeleteGlobals$inboundSchema: z.ZodType<
@@ -527,53 +514,25 @@ export const HrisDepartmentsDeleteResponse$inboundSchema: z.ZodType<
   HrisDepartmentsDeleteResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  HttpMeta: components.HTTPMetadata$inboundSchema,
-  "200_application/json_object": z.lazy(() =>
-    HrisDepartmentsDeleteResponseBody$inboundSchema
-  ).optional(),
-  "default_application/json_object": z.lazy(() =>
-    HrisDepartmentsDeleteHrisDepartmentsResponseBody$inboundSchema
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "HttpMeta": "httpMeta",
-    "200_application/json_object": "twoHundredApplicationJsonObject",
-    "default_application/json_object": "defaultApplicationJsonObject",
-  });
-});
+> = z.union([
+  z.lazy(() => HrisDepartmentsDeleteResponseBody$inboundSchema),
+  z.lazy(() => HrisDepartmentsDeleteHrisDepartmentsResponseBody$inboundSchema),
+]);
 
 /** @internal */
-export type HrisDepartmentsDeleteResponse$Outbound = {
-  HttpMeta: components.HTTPMetadata$Outbound;
-  "200_application/json_object"?:
-    | HrisDepartmentsDeleteResponseBody$Outbound
-    | undefined;
-  "default_application/json_object"?:
-    | HrisDepartmentsDeleteHrisDepartmentsResponseBody$Outbound
-    | undefined;
-};
+export type HrisDepartmentsDeleteResponse$Outbound =
+  | HrisDepartmentsDeleteResponseBody$Outbound
+  | HrisDepartmentsDeleteHrisDepartmentsResponseBody$Outbound;
 
 /** @internal */
 export const HrisDepartmentsDeleteResponse$outboundSchema: z.ZodType<
   HrisDepartmentsDeleteResponse$Outbound,
   z.ZodTypeDef,
   HrisDepartmentsDeleteResponse
-> = z.object({
-  httpMeta: components.HTTPMetadata$outboundSchema,
-  twoHundredApplicationJsonObject: z.lazy(() =>
-    HrisDepartmentsDeleteResponseBody$outboundSchema
-  ).optional(),
-  defaultApplicationJsonObject: z.lazy(() =>
-    HrisDepartmentsDeleteHrisDepartmentsResponseBody$outboundSchema
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    httpMeta: "HttpMeta",
-    twoHundredApplicationJsonObject: "200_application/json_object",
-    defaultApplicationJsonObject: "default_application/json_object",
-  });
-});
+> = z.union([
+  z.lazy(() => HrisDepartmentsDeleteResponseBody$outboundSchema),
+  z.lazy(() => HrisDepartmentsDeleteHrisDepartmentsResponseBody$outboundSchema),
+]);
 
 /**
  * @internal

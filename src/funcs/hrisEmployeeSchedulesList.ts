@@ -178,9 +178,7 @@ export async function hrisEmployeeSchedulesList(
     | RequestTimeoutError
     | ConnectionError
   >(
-    M.json(200, operations.HrisEmployeeSchedulesAllResponse$inboundSchema, {
-      key: "200_application/json_object",
-    }),
+    M.json(200, operations.HrisEmployeeSchedulesAllResponse$inboundSchema),
     M.jsonErr(400, errors.HrisEmployeeSchedulesAllResponseBody$inboundSchema),
     M.jsonErr(
       401,
@@ -206,9 +204,8 @@ export async function hrisEmployeeSchedulesList(
     M.json(
       "default",
       operations.HrisEmployeeSchedulesAllResponse$inboundSchema,
-      { key: "default_application/json_object" },
     ),
-  )(response, req, { extraFields: responseFields });
+  )(response, { extraFields: responseFields });
   if (!result.ok) {
     return result;
   }

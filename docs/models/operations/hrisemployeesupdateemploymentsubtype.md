@@ -7,7 +7,7 @@ The work schedule of the employee.
 ```typescript
 import { HrisEmployeesUpdateEmploymentSubType } from "apideck/models/operations";
 
-let value: HrisEmployeesUpdateEmploymentSubType = "hourly";
+let value: HrisEmployeesUpdateEmploymentSubType = "part_time";
 ```
 
 ## Values

@@ -2,7 +2,7 @@ speakeasyVersion: 1.468.2
 sources:
     CRM API:
         sourceNamespace: crm-api
-        sourceRevisionDigest: sha256:14f5025166bf39fafc77f1cd8f2901df439ae55ae12a2f6ee47bc6661d19596f
+        sourceRevisionDigest: sha256:74e04758cb77e5f348530fe0a8270a72f510ebaed63e71fd37a5b985df2f073e
         sourceBlobDigest: sha256:4280bcac295da1e00b7b8425c8c2f1d4e114ebcff07e33fa13c68a32e63e2380
         tags:
             - latest
@@ -11,10 +11,10 @@ targets:
     apideck:
         source: CRM API
         sourceNamespace: crm-api
-        sourceRevisionDigest: sha256:14f5025166bf39fafc77f1cd8f2901df439ae55ae12a2f6ee47bc6661d19596f
+        sourceRevisionDigest: sha256:74e04758cb77e5f348530fe0a8270a72f510ebaed63e71fd37a5b985df2f073e
         sourceBlobDigest: sha256:4280bcac295da1e00b7b8425c8c2f1d4e114ebcff07e33fa13c68a32e63e2380
         codeSamplesNamespace: crm-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:57808a1d50eff5a35b263597838044889a2104ca53c7179f4776a1f5ab1a785f
+        codeSamplesRevisionDigest: sha256:746c4b4d374dfbd7b4a7793bd570353be9bc1440b4add6048a7f5c84f0eca7ab
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

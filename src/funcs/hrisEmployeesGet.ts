@@ -176,9 +176,7 @@ export async function hrisEmployeesGet(
     | RequestTimeoutError
     | ConnectionError
   >(
-    M.json(200, operations.HrisEmployeesOneResponse$inboundSchema, {
-      key: "200_application/json_object",
-    }),
+    M.json(200, operations.HrisEmployeesOneResponse$inboundSchema),
     M.jsonErr(400, errors.HrisEmployeesOneResponseBody$inboundSchema),
     M.jsonErr(
       401,
@@ -197,10 +195,8 @@ export async function hrisEmployeesGet(
       errors.HrisEmployeesOneHrisEmployeesResponse422ResponseBody$inboundSchema,
     ),
     M.fail(["4XX", "5XX"]),
-    M.json("default", operations.HrisEmployeesOneResponse$inboundSchema, {
-      key: "default_application/json_object",
-    }),
-  )(response, req, { extraFields: responseFields });
+    M.json("default", operations.HrisEmployeesOneResponse$inboundSchema),
+  )(response, { extraFields: responseFields });
   if (!result.ok) {
     return result;
   }

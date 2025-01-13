@@ -183,7 +183,7 @@ export async function hrisEmployeesList(
     | ConnectionError
   >(
     M.json(200, operations.HrisEmployeesAllResponse$inboundSchema, {
-      key: "200_application/json_object",
+      key: "Result",
     }),
     M.jsonErr(400, errors.HrisEmployeesAllResponseBody$inboundSchema),
     M.jsonErr(
@@ -204,9 +204,9 @@ export async function hrisEmployeesList(
     ),
     M.fail(["4XX", "5XX"]),
     M.json("default", operations.HrisEmployeesAllResponse$inboundSchema, {
-      key: "default_application/json_object",
+      key: "Result",
     }),
-  )(response, req, { extraFields: responseFields });
+  )(response, { extraFields: responseFields });
   if (!result.ok) {
     return haltIterator(result);
   }

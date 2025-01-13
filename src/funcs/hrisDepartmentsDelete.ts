@@ -165,9 +165,7 @@ export async function hrisDepartmentsDelete(
     | RequestTimeoutError
     | ConnectionError
   >(
-    M.json(200, operations.HrisDepartmentsDeleteResponse$inboundSchema, {
-      key: "200_application/json_object",
-    }),
+    M.json(200, operations.HrisDepartmentsDeleteResponse$inboundSchema),
     M.jsonErr(400, errors.HrisDepartmentsDeleteResponseBody$inboundSchema),
     M.jsonErr(
       401,
@@ -189,10 +187,8 @@ export async function hrisDepartmentsDelete(
         .HrisDepartmentsDeleteHrisDepartmentsResponse422ResponseBody$inboundSchema,
     ),
     M.fail(["4XX", "5XX"]),
-    M.json("default", operations.HrisDepartmentsDeleteResponse$inboundSchema, {
-      key: "default_application/json_object",
-    }),
-  )(response, req, { extraFields: responseFields });
+    M.json("default", operations.HrisDepartmentsDeleteResponse$inboundSchema),
+  )(response, { extraFields: responseFields });
   if (!result.ok) {
     return result;
   }

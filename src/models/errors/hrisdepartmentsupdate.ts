@@ -6,7 +6,6 @@ import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
-import * as components from "../components/index.js";
 import { SDKValidationError } from "./sdkvalidationerror.js";
 
 /**
@@ -44,7 +43,6 @@ export type HrisDepartmentsUpdateHrisDepartmentsResponse422ResponseBodyData = {
    * Link to documentation of error type
    */
   ref?: string | undefined;
-  httpMeta: components.HTTPMetadata;
 };
 
 /**
@@ -73,7 +71,6 @@ export class HrisDepartmentsUpdateHrisDepartmentsResponse422ResponseBody
    * Link to documentation of error type
    */
   ref?: string | undefined;
-  httpMeta: components.HTTPMetadata;
 
   /** The original data that was passed to this error instance. */
   data$: HrisDepartmentsUpdateHrisDepartmentsResponse422ResponseBodyData;
@@ -90,7 +87,6 @@ export class HrisDepartmentsUpdateHrisDepartmentsResponse422ResponseBody
     if (err.typeName != null) this.typeName = err.typeName;
     if (err.detail != null) this.detail = err.detail;
     if (err.ref != null) this.ref = err.ref;
-    this.httpMeta = err.httpMeta;
 
     this.name = "HrisDepartmentsUpdateHrisDepartmentsResponse422ResponseBody";
   }
@@ -131,7 +127,6 @@ export type HrisDepartmentsUpdateHrisDepartmentsResponse404ResponseBodyData = {
    * Link to documentation of error type
    */
   ref?: string | undefined;
-  httpMeta: components.HTTPMetadata;
 };
 
 /**
@@ -160,7 +155,6 @@ export class HrisDepartmentsUpdateHrisDepartmentsResponse404ResponseBody
    * Link to documentation of error type
    */
   ref?: string | undefined;
-  httpMeta: components.HTTPMetadata;
 
   /** The original data that was passed to this error instance. */
   data$: HrisDepartmentsUpdateHrisDepartmentsResponse404ResponseBodyData;
@@ -177,7 +171,6 @@ export class HrisDepartmentsUpdateHrisDepartmentsResponse404ResponseBody
     if (err.typeName != null) this.typeName = err.typeName;
     if (err.detail != null) this.detail = err.detail;
     if (err.ref != null) this.ref = err.ref;
-    this.httpMeta = err.httpMeta;
 
     this.name = "HrisDepartmentsUpdateHrisDepartmentsResponse404ResponseBody";
   }
@@ -211,7 +204,6 @@ export type HrisDepartmentsUpdateHrisDepartmentsResponseResponseBodyData = {
    * Link to documentation of error type
    */
   ref?: string | undefined;
-  httpMeta: components.HTTPMetadata;
 };
 
 /**
@@ -240,7 +232,6 @@ export class HrisDepartmentsUpdateHrisDepartmentsResponseResponseBody
    * Link to documentation of error type
    */
   ref?: string | undefined;
-  httpMeta: components.HTTPMetadata;
 
   /** The original data that was passed to this error instance. */
   data$: HrisDepartmentsUpdateHrisDepartmentsResponseResponseBodyData;
@@ -257,7 +248,6 @@ export class HrisDepartmentsUpdateHrisDepartmentsResponseResponseBody
     if (err.typeName != null) this.typeName = err.typeName;
     if (err.detail != null) this.detail = err.detail;
     if (err.ref != null) this.ref = err.ref;
-    this.httpMeta = err.httpMeta;
 
     this.name = "HrisDepartmentsUpdateHrisDepartmentsResponseResponseBody";
   }
@@ -298,7 +288,6 @@ export type HrisDepartmentsUpdateHrisDepartmentsResponseBodyData = {
    * Link to documentation of error type
    */
   ref?: string | undefined;
-  httpMeta: components.HTTPMetadata;
 };
 
 /**
@@ -325,7 +314,6 @@ export class HrisDepartmentsUpdateHrisDepartmentsResponseBody extends Error {
    * Link to documentation of error type
    */
   ref?: string | undefined;
-  httpMeta: components.HTTPMetadata;
 
   /** The original data that was passed to this error instance. */
   data$: HrisDepartmentsUpdateHrisDepartmentsResponseBodyData;
@@ -340,7 +328,6 @@ export class HrisDepartmentsUpdateHrisDepartmentsResponseBody extends Error {
     if (err.typeName != null) this.typeName = err.typeName;
     if (err.detail != null) this.detail = err.detail;
     if (err.ref != null) this.ref = err.ref;
-    this.httpMeta = err.httpMeta;
 
     this.name = "HrisDepartmentsUpdateHrisDepartmentsResponseBody";
   }
@@ -379,7 +366,6 @@ export type HrisDepartmentsUpdateResponseBodyData = {
    * Link to documentation of error type
    */
   ref?: string | undefined;
-  httpMeta: components.HTTPMetadata;
 };
 
 /**
@@ -406,7 +392,6 @@ export class HrisDepartmentsUpdateResponseBody extends Error {
    * Link to documentation of error type
    */
   ref?: string | undefined;
-  httpMeta: components.HTTPMetadata;
 
   /** The original data that was passed to this error instance. */
   data$: HrisDepartmentsUpdateResponseBodyData;
@@ -421,7 +406,6 @@ export class HrisDepartmentsUpdateResponseBody extends Error {
     if (err.typeName != null) this.typeName = err.typeName;
     if (err.detail != null) this.detail = err.detail;
     if (err.ref != null) this.ref = err.ref;
-    this.httpMeta = err.httpMeta;
 
     this.name = "HrisDepartmentsUpdateResponseBody";
   }
@@ -504,13 +488,11 @@ export const HrisDepartmentsUpdateHrisDepartmentsResponse422ResponseBody$inbound
     message: z.string().optional(),
     detail: z.union([z.string(), z.record(z.any())]).optional(),
     ref: z.string().optional(),
-    HttpMeta: components.HTTPMetadata$inboundSchema,
   })
     .transform((v) => {
       const remapped = remap$(v, {
         "status_code": "statusCode",
         "type_name": "typeName",
-        "HttpMeta": "httpMeta",
       });
 
       return new HrisDepartmentsUpdateHrisDepartmentsResponse422ResponseBody(
@@ -527,7 +509,6 @@ export type HrisDepartmentsUpdateHrisDepartmentsResponse422ResponseBody$Outbound
     message?: string | undefined;
     detail?: string | { [k: string]: any } | undefined;
     ref?: string | undefined;
-    HttpMeta: components.HTTPMetadata$Outbound;
   };
 
 /** @internal */
@@ -546,12 +527,10 @@ export const HrisDepartmentsUpdateHrisDepartmentsResponse422ResponseBody$outboun
         message: z.string().optional(),
         detail: z.union([z.string(), z.record(z.any())]).optional(),
         ref: z.string().optional(),
-        httpMeta: components.HTTPMetadata$outboundSchema,
       }).transform((v) => {
         return remap$(v, {
           statusCode: "status_code",
           typeName: "type_name",
-          httpMeta: "HttpMeta",
         });
       }),
     );
@@ -649,13 +628,11 @@ export const HrisDepartmentsUpdateHrisDepartmentsResponse404ResponseBody$inbound
     message: z.string().optional(),
     detail: z.union([z.string(), z.record(z.any())]).optional(),
     ref: z.string().optional(),
-    HttpMeta: components.HTTPMetadata$inboundSchema,
   })
     .transform((v) => {
       const remapped = remap$(v, {
         "status_code": "statusCode",
         "type_name": "typeName",
-        "HttpMeta": "httpMeta",
       });
 
       return new HrisDepartmentsUpdateHrisDepartmentsResponse404ResponseBody(
@@ -672,7 +649,6 @@ export type HrisDepartmentsUpdateHrisDepartmentsResponse404ResponseBody$Outbound
     message?: string | undefined;
     detail?: string | { [k: string]: any } | undefined;
     ref?: string | undefined;
-    HttpMeta: components.HTTPMetadata$Outbound;
   };
 
 /** @internal */
@@ -691,12 +667,10 @@ export const HrisDepartmentsUpdateHrisDepartmentsResponse404ResponseBody$outboun
         message: z.string().optional(),
         detail: z.union([z.string(), z.record(z.any())]).optional(),
         ref: z.string().optional(),
-        httpMeta: components.HTTPMetadata$outboundSchema,
       }).transform((v) => {
         return remap$(v, {
           statusCode: "status_code",
           typeName: "type_name",
-          httpMeta: "HttpMeta",
         });
       }),
     );
@@ -730,13 +704,11 @@ export const HrisDepartmentsUpdateHrisDepartmentsResponseResponseBody$inboundSch
     message: z.string().optional(),
     detail: z.string().optional(),
     ref: z.string().optional(),
-    HttpMeta: components.HTTPMetadata$inboundSchema,
   })
     .transform((v) => {
       const remapped = remap$(v, {
         "status_code": "statusCode",
         "type_name": "typeName",
-        "HttpMeta": "httpMeta",
       });
 
       return new HrisDepartmentsUpdateHrisDepartmentsResponseResponseBody(
@@ -753,7 +725,6 @@ export type HrisDepartmentsUpdateHrisDepartmentsResponseResponseBody$Outbound =
     message?: string | undefined;
     detail?: string | undefined;
     ref?: string | undefined;
-    HttpMeta: components.HTTPMetadata$Outbound;
   };
 
 /** @internal */
@@ -772,12 +743,10 @@ export const HrisDepartmentsUpdateHrisDepartmentsResponseResponseBody$outboundSc
         message: z.string().optional(),
         detail: z.string().optional(),
         ref: z.string().optional(),
-        httpMeta: components.HTTPMetadata$outboundSchema,
       }).transform((v) => {
         return remap$(v, {
           statusCode: "status_code",
           typeName: "type_name",
-          httpMeta: "HttpMeta",
         });
       }),
     );
@@ -871,13 +840,11 @@ export const HrisDepartmentsUpdateHrisDepartmentsResponseBody$inboundSchema:
     message: z.string().optional(),
     detail: z.union([z.string(), z.record(z.any())]).optional(),
     ref: z.string().optional(),
-    HttpMeta: components.HTTPMetadata$inboundSchema,
   })
     .transform((v) => {
       const remapped = remap$(v, {
         "status_code": "statusCode",
         "type_name": "typeName",
-        "HttpMeta": "httpMeta",
       });
 
       return new HrisDepartmentsUpdateHrisDepartmentsResponseBody(remapped);
@@ -891,7 +858,6 @@ export type HrisDepartmentsUpdateHrisDepartmentsResponseBody$Outbound = {
   message?: string | undefined;
   detail?: string | { [k: string]: any } | undefined;
   ref?: string | undefined;
-  HttpMeta: components.HTTPMetadata$Outbound;
 };
 
 /** @internal */
@@ -910,12 +876,10 @@ export const HrisDepartmentsUpdateHrisDepartmentsResponseBody$outboundSchema:
         message: z.string().optional(),
         detail: z.union([z.string(), z.record(z.any())]).optional(),
         ref: z.string().optional(),
-        httpMeta: components.HTTPMetadata$outboundSchema,
       }).transform((v) => {
         return remap$(v, {
           statusCode: "status_code",
           typeName: "type_name",
-          httpMeta: "HttpMeta",
         });
       }),
     );
@@ -1000,13 +964,11 @@ export const HrisDepartmentsUpdateResponseBody$inboundSchema: z.ZodType<
   message: z.string().optional(),
   detail: z.union([z.string(), z.record(z.any())]).optional(),
   ref: z.string().optional(),
-  HttpMeta: components.HTTPMetadata$inboundSchema,
 })
   .transform((v) => {
     const remapped = remap$(v, {
       "status_code": "statusCode",
       "type_name": "typeName",
-      "HttpMeta": "httpMeta",
     });
 
     return new HrisDepartmentsUpdateResponseBody(remapped);
@@ -1020,7 +982,6 @@ export type HrisDepartmentsUpdateResponseBody$Outbound = {
   message?: string | undefined;
   detail?: string | { [k: string]: any } | undefined;
   ref?: string | undefined;
-  HttpMeta: components.HTTPMetadata$Outbound;
 };
 
 /** @internal */
@@ -1038,12 +999,10 @@ export const HrisDepartmentsUpdateResponseBody$outboundSchema: z.ZodType<
       message: z.string().optional(),
       detail: z.union([z.string(), z.record(z.any())]).optional(),
       ref: z.string().optional(),
-      httpMeta: components.HTTPMetadata$outboundSchema,
     }).transform((v) => {
       return remap$(v, {
         statusCode: "status_code",
         typeName: "type_name",
-        httpMeta: "HttpMeta",
       });
     }),
   );

@@ -7,7 +7,7 @@ The FLSA status for this compensation.
 ```typescript
 import { HrisEmployeesUpdateFlsaStatus } from "apideck/models/operations";
 
-let value: HrisEmployeesUpdateFlsaStatus = "nonexempt";
+let value: HrisEmployeesUpdateFlsaStatus = "owner";
 ```
 
 ## Values

@@ -6,7 +6,6 @@ import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
-import * as components from "../components/index.js";
 import { SDKValidationError } from "./sdkvalidationerror.js";
 
 /**
@@ -45,7 +44,6 @@ export type HrisTimeOffRequestsOneHrisTimeOffRequestsResponse422ResponseBodyData
      * Link to documentation of error type
      */
     ref?: string | undefined;
-    httpMeta: components.HTTPMetadata;
   };
 
 /**
@@ -74,7 +72,6 @@ export class HrisTimeOffRequestsOneHrisTimeOffRequestsResponse422ResponseBody
    * Link to documentation of error type
    */
   ref?: string | undefined;
-  httpMeta: components.HTTPMetadata;
 
   /** The original data that was passed to this error instance. */
   data$: HrisTimeOffRequestsOneHrisTimeOffRequestsResponse422ResponseBodyData;
@@ -91,7 +88,6 @@ export class HrisTimeOffRequestsOneHrisTimeOffRequestsResponse422ResponseBody
     if (err.typeName != null) this.typeName = err.typeName;
     if (err.detail != null) this.detail = err.detail;
     if (err.ref != null) this.ref = err.ref;
-    this.httpMeta = err.httpMeta;
 
     this.name =
       "HrisTimeOffRequestsOneHrisTimeOffRequestsResponse422ResponseBody";
@@ -134,7 +130,6 @@ export type HrisTimeOffRequestsOneHrisTimeOffRequestsResponse404ResponseBodyData
      * Link to documentation of error type
      */
     ref?: string | undefined;
-    httpMeta: components.HTTPMetadata;
   };
 
 /**
@@ -163,7 +158,6 @@ export class HrisTimeOffRequestsOneHrisTimeOffRequestsResponse404ResponseBody
    * Link to documentation of error type
    */
   ref?: string | undefined;
-  httpMeta: components.HTTPMetadata;
 
   /** The original data that was passed to this error instance. */
   data$: HrisTimeOffRequestsOneHrisTimeOffRequestsResponse404ResponseBodyData;
@@ -180,7 +174,6 @@ export class HrisTimeOffRequestsOneHrisTimeOffRequestsResponse404ResponseBody
     if (err.typeName != null) this.typeName = err.typeName;
     if (err.detail != null) this.detail = err.detail;
     if (err.ref != null) this.ref = err.ref;
-    this.httpMeta = err.httpMeta;
 
     this.name =
       "HrisTimeOffRequestsOneHrisTimeOffRequestsResponse404ResponseBody";
@@ -216,7 +209,6 @@ export type HrisTimeOffRequestsOneHrisTimeOffRequestsResponseResponseBodyData =
      * Link to documentation of error type
      */
     ref?: string | undefined;
-    httpMeta: components.HTTPMetadata;
   };
 
 /**
@@ -245,7 +237,6 @@ export class HrisTimeOffRequestsOneHrisTimeOffRequestsResponseResponseBody
    * Link to documentation of error type
    */
   ref?: string | undefined;
-  httpMeta: components.HTTPMetadata;
 
   /** The original data that was passed to this error instance. */
   data$: HrisTimeOffRequestsOneHrisTimeOffRequestsResponseResponseBodyData;
@@ -262,7 +253,6 @@ export class HrisTimeOffRequestsOneHrisTimeOffRequestsResponseResponseBody
     if (err.typeName != null) this.typeName = err.typeName;
     if (err.detail != null) this.detail = err.detail;
     if (err.ref != null) this.ref = err.ref;
-    this.httpMeta = err.httpMeta;
 
     this.name = "HrisTimeOffRequestsOneHrisTimeOffRequestsResponseResponseBody";
   }
@@ -303,7 +293,6 @@ export type HrisTimeOffRequestsOneHrisTimeOffRequestsResponseBodyData = {
    * Link to documentation of error type
    */
   ref?: string | undefined;
-  httpMeta: components.HTTPMetadata;
 };
 
 /**
@@ -332,7 +321,6 @@ export class HrisTimeOffRequestsOneHrisTimeOffRequestsResponseBody
    * Link to documentation of error type
    */
   ref?: string | undefined;
-  httpMeta: components.HTTPMetadata;
 
   /** The original data that was passed to this error instance. */
   data$: HrisTimeOffRequestsOneHrisTimeOffRequestsResponseBodyData;
@@ -347,7 +335,6 @@ export class HrisTimeOffRequestsOneHrisTimeOffRequestsResponseBody
     if (err.typeName != null) this.typeName = err.typeName;
     if (err.detail != null) this.detail = err.detail;
     if (err.ref != null) this.ref = err.ref;
-    this.httpMeta = err.httpMeta;
 
     this.name = "HrisTimeOffRequestsOneHrisTimeOffRequestsResponseBody";
   }
@@ -386,7 +373,6 @@ export type HrisTimeOffRequestsOneResponseBodyData = {
    * Link to documentation of error type
    */
   ref?: string | undefined;
-  httpMeta: components.HTTPMetadata;
 };
 
 /**
@@ -413,7 +399,6 @@ export class HrisTimeOffRequestsOneResponseBody extends Error {
    * Link to documentation of error type
    */
   ref?: string | undefined;
-  httpMeta: components.HTTPMetadata;
 
   /** The original data that was passed to this error instance. */
   data$: HrisTimeOffRequestsOneResponseBodyData;
@@ -428,7 +413,6 @@ export class HrisTimeOffRequestsOneResponseBody extends Error {
     if (err.typeName != null) this.typeName = err.typeName;
     if (err.detail != null) this.detail = err.detail;
     if (err.ref != null) this.ref = err.ref;
-    this.httpMeta = err.httpMeta;
 
     this.name = "HrisTimeOffRequestsOneResponseBody";
   }
@@ -509,13 +493,11 @@ export const HrisTimeOffRequestsOneHrisTimeOffRequestsResponse422ResponseBody$in
     message: z.string().optional(),
     detail: z.union([z.string(), z.record(z.any())]).optional(),
     ref: z.string().optional(),
-    HttpMeta: components.HTTPMetadata$inboundSchema,
   })
     .transform((v) => {
       const remapped = remap$(v, {
         "status_code": "statusCode",
         "type_name": "typeName",
-        "HttpMeta": "httpMeta",
       });
 
       return new HrisTimeOffRequestsOneHrisTimeOffRequestsResponse422ResponseBody(
@@ -532,7 +514,6 @@ export type HrisTimeOffRequestsOneHrisTimeOffRequestsResponse422ResponseBody$Out
     message?: string | undefined;
     detail?: string | { [k: string]: any } | undefined;
     ref?: string | undefined;
-    HttpMeta: components.HTTPMetadata$Outbound;
   };
 
 /** @internal */
@@ -553,12 +534,10 @@ export const HrisTimeOffRequestsOneHrisTimeOffRequestsResponse422ResponseBody$ou
         message: z.string().optional(),
         detail: z.union([z.string(), z.record(z.any())]).optional(),
         ref: z.string().optional(),
-        httpMeta: components.HTTPMetadata$outboundSchema,
       }).transform((v) => {
         return remap$(v, {
           statusCode: "status_code",
           typeName: "type_name",
-          httpMeta: "HttpMeta",
         });
       }),
     );
@@ -654,13 +633,11 @@ export const HrisTimeOffRequestsOneHrisTimeOffRequestsResponse404ResponseBody$in
     message: z.string().optional(),
     detail: z.union([z.string(), z.record(z.any())]).optional(),
     ref: z.string().optional(),
-    HttpMeta: components.HTTPMetadata$inboundSchema,
   })
     .transform((v) => {
       const remapped = remap$(v, {
         "status_code": "statusCode",
         "type_name": "typeName",
-        "HttpMeta": "httpMeta",
       });
 
       return new HrisTimeOffRequestsOneHrisTimeOffRequestsResponse404ResponseBody(
@@ -677,7 +654,6 @@ export type HrisTimeOffRequestsOneHrisTimeOffRequestsResponse404ResponseBody$Out
     message?: string | undefined;
     detail?: string | { [k: string]: any } | undefined;
     ref?: string | undefined;
-    HttpMeta: components.HTTPMetadata$Outbound;
   };
 
 /** @internal */
@@ -698,12 +674,10 @@ export const HrisTimeOffRequestsOneHrisTimeOffRequestsResponse404ResponseBody$ou
         message: z.string().optional(),
         detail: z.union([z.string(), z.record(z.any())]).optional(),
         ref: z.string().optional(),
-        httpMeta: components.HTTPMetadata$outboundSchema,
       }).transform((v) => {
         return remap$(v, {
           statusCode: "status_code",
           typeName: "type_name",
-          httpMeta: "HttpMeta",
         });
       }),
     );
@@ -737,13 +711,11 @@ export const HrisTimeOffRequestsOneHrisTimeOffRequestsResponseResponseBody$inbou
     message: z.string().optional(),
     detail: z.string().optional(),
     ref: z.string().optional(),
-    HttpMeta: components.HTTPMetadata$inboundSchema,
   })
     .transform((v) => {
       const remapped = remap$(v, {
         "status_code": "statusCode",
         "type_name": "typeName",
-        "HttpMeta": "httpMeta",
       });
 
       return new HrisTimeOffRequestsOneHrisTimeOffRequestsResponseResponseBody(
@@ -760,7 +732,6 @@ export type HrisTimeOffRequestsOneHrisTimeOffRequestsResponseResponseBody$Outbou
     message?: string | undefined;
     detail?: string | undefined;
     ref?: string | undefined;
-    HttpMeta: components.HTTPMetadata$Outbound;
   };
 
 /** @internal */
@@ -781,12 +752,10 @@ export const HrisTimeOffRequestsOneHrisTimeOffRequestsResponseResponseBody$outbo
         message: z.string().optional(),
         detail: z.string().optional(),
         ref: z.string().optional(),
-        httpMeta: components.HTTPMetadata$outboundSchema,
       }).transform((v) => {
         return remap$(v, {
           statusCode: "status_code",
           typeName: "type_name",
-          httpMeta: "HttpMeta",
         });
       }),
     );
@@ -884,13 +853,11 @@ export const HrisTimeOffRequestsOneHrisTimeOffRequestsResponseBody$inboundSchema
     message: z.string().optional(),
     detail: z.union([z.string(), z.record(z.any())]).optional(),
     ref: z.string().optional(),
-    HttpMeta: components.HTTPMetadata$inboundSchema,
   })
     .transform((v) => {
       const remapped = remap$(v, {
         "status_code": "statusCode",
         "type_name": "typeName",
-        "HttpMeta": "httpMeta",
       });
 
       return new HrisTimeOffRequestsOneHrisTimeOffRequestsResponseBody(
@@ -906,7 +873,6 @@ export type HrisTimeOffRequestsOneHrisTimeOffRequestsResponseBody$Outbound = {
   message?: string | undefined;
   detail?: string | { [k: string]: any } | undefined;
   ref?: string | undefined;
-  HttpMeta: components.HTTPMetadata$Outbound;
 };
 
 /** @internal */
@@ -925,12 +891,10 @@ export const HrisTimeOffRequestsOneHrisTimeOffRequestsResponseBody$outboundSchem
         message: z.string().optional(),
         detail: z.union([z.string(), z.record(z.any())]).optional(),
         ref: z.string().optional(),
-        httpMeta: components.HTTPMetadata$outboundSchema,
       }).transform((v) => {
         return remap$(v, {
           statusCode: "status_code",
           typeName: "type_name",
-          httpMeta: "HttpMeta",
         });
       }),
     );
@@ -1015,13 +979,11 @@ export const HrisTimeOffRequestsOneResponseBody$inboundSchema: z.ZodType<
   message: z.string().optional(),
   detail: z.union([z.string(), z.record(z.any())]).optional(),
   ref: z.string().optional(),
-  HttpMeta: components.HTTPMetadata$inboundSchema,
 })
   .transform((v) => {
     const remapped = remap$(v, {
       "status_code": "statusCode",
       "type_name": "typeName",
-      "HttpMeta": "httpMeta",
     });
 
     return new HrisTimeOffRequestsOneResponseBody(remapped);
@@ -1035,7 +997,6 @@ export type HrisTimeOffRequestsOneResponseBody$Outbound = {
   message?: string | undefined;
   detail?: string | { [k: string]: any } | undefined;
   ref?: string | undefined;
-  HttpMeta: components.HTTPMetadata$Outbound;
 };
 
 /** @internal */
@@ -1053,12 +1014,10 @@ export const HrisTimeOffRequestsOneResponseBody$outboundSchema: z.ZodType<
       message: z.string().optional(),
       detail: z.union([z.string(), z.record(z.any())]).optional(),
       ref: z.string().optional(),
-      httpMeta: components.HTTPMetadata$outboundSchema,
     }).transform((v) => {
       return remap$(v, {
         statusCode: "status_code",
         typeName: "type_name",
-        httpMeta: "HttpMeta",
       });
     }),
   );

@@ -7,7 +7,6 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
-import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type HrisTimeOffRequestsAllGlobals = {
@@ -394,20 +393,14 @@ export type HrisTimeOffRequestsAllResponseBody = {
   links?: HrisTimeOffRequestsAllLinks | undefined;
 };
 
+export type HrisTimeOffRequestsAllResponseResult =
+  | HrisTimeOffRequestsAllHrisTimeOffRequestsResponseBody
+  | HrisTimeOffRequestsAllResponseBody;
+
 export type HrisTimeOffRequestsAllResponse = {
-  httpMeta: components.HTTPMetadata;
-  /**
-   * TimeOffRequests
-   */
-  twoHundredApplicationJsonObject?:
-    | HrisTimeOffRequestsAllResponseBody
-    | undefined;
-  /**
-   * Unexpected error
-   */
-  defaultApplicationJsonObject?:
+  result:
     | HrisTimeOffRequestsAllHrisTimeOffRequestsResponseBody
-    | undefined;
+    | HrisTimeOffRequestsAllResponseBody;
 };
 
 /** @internal */
@@ -1577,35 +1570,93 @@ export function hrisTimeOffRequestsAllResponseBodyFromJSON(
 }
 
 /** @internal */
+export const HrisTimeOffRequestsAllResponseResult$inboundSchema: z.ZodType<
+  HrisTimeOffRequestsAllResponseResult,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() =>
+    HrisTimeOffRequestsAllHrisTimeOffRequestsResponseBody$inboundSchema
+  ),
+  z.lazy(() => HrisTimeOffRequestsAllResponseBody$inboundSchema),
+]);
+
+/** @internal */
+export type HrisTimeOffRequestsAllResponseResult$Outbound =
+  | HrisTimeOffRequestsAllHrisTimeOffRequestsResponseBody$Outbound
+  | HrisTimeOffRequestsAllResponseBody$Outbound;
+
+/** @internal */
+export const HrisTimeOffRequestsAllResponseResult$outboundSchema: z.ZodType<
+  HrisTimeOffRequestsAllResponseResult$Outbound,
+  z.ZodTypeDef,
+  HrisTimeOffRequestsAllResponseResult
+> = z.union([
+  z.lazy(() =>
+    HrisTimeOffRequestsAllHrisTimeOffRequestsResponseBody$outboundSchema
+  ),
+  z.lazy(() => HrisTimeOffRequestsAllResponseBody$outboundSchema),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace HrisTimeOffRequestsAllResponseResult$ {
+  /** @deprecated use `HrisTimeOffRequestsAllResponseResult$inboundSchema` instead. */
+  export const inboundSchema =
+    HrisTimeOffRequestsAllResponseResult$inboundSchema;
+  /** @deprecated use `HrisTimeOffRequestsAllResponseResult$outboundSchema` instead. */
+  export const outboundSchema =
+    HrisTimeOffRequestsAllResponseResult$outboundSchema;
+  /** @deprecated use `HrisTimeOffRequestsAllResponseResult$Outbound` instead. */
+  export type Outbound = HrisTimeOffRequestsAllResponseResult$Outbound;
+}
+
+export function hrisTimeOffRequestsAllResponseResultToJSON(
+  hrisTimeOffRequestsAllResponseResult: HrisTimeOffRequestsAllResponseResult,
+): string {
+  return JSON.stringify(
+    HrisTimeOffRequestsAllResponseResult$outboundSchema.parse(
+      hrisTimeOffRequestsAllResponseResult,
+    ),
+  );
+}
+
+export function hrisTimeOffRequestsAllResponseResultFromJSON(
+  jsonString: string,
+): SafeParseResult<HrisTimeOffRequestsAllResponseResult, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      HrisTimeOffRequestsAllResponseResult$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'HrisTimeOffRequestsAllResponseResult' from JSON`,
+  );
+}
+
+/** @internal */
 export const HrisTimeOffRequestsAllResponse$inboundSchema: z.ZodType<
   HrisTimeOffRequestsAllResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  HttpMeta: components.HTTPMetadata$inboundSchema,
-  "200_application/json_object": z.lazy(() =>
-    HrisTimeOffRequestsAllResponseBody$inboundSchema
-  ).optional(),
-  "default_application/json_object": z.lazy(() =>
-    HrisTimeOffRequestsAllHrisTimeOffRequestsResponseBody$inboundSchema
-  ).optional(),
+  Result: z.union([
+    z.lazy(() =>
+      HrisTimeOffRequestsAllHrisTimeOffRequestsResponseBody$inboundSchema
+    ),
+    z.lazy(() => HrisTimeOffRequestsAllResponseBody$inboundSchema),
+  ]),
 }).transform((v) => {
   return remap$(v, {
-    "HttpMeta": "httpMeta",
-    "200_application/json_object": "twoHundredApplicationJsonObject",
-    "default_application/json_object": "defaultApplicationJsonObject",
+    "Result": "result",
   });
 });
 
 /** @internal */
 export type HrisTimeOffRequestsAllResponse$Outbound = {
-  HttpMeta: components.HTTPMetadata$Outbound;
-  "200_application/json_object"?:
-    | HrisTimeOffRequestsAllResponseBody$Outbound
-    | undefined;
-  "default_application/json_object"?:
+  Result:
     | HrisTimeOffRequestsAllHrisTimeOffRequestsResponseBody$Outbound
-    | undefined;
+    | HrisTimeOffRequestsAllResponseBody$Outbound;
 };
 
 /** @internal */
@@ -1614,18 +1665,15 @@ export const HrisTimeOffRequestsAllResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HrisTimeOffRequestsAllResponse
 > = z.object({
-  httpMeta: components.HTTPMetadata$outboundSchema,
-  twoHundredApplicationJsonObject: z.lazy(() =>
-    HrisTimeOffRequestsAllResponseBody$outboundSchema
-  ).optional(),
-  defaultApplicationJsonObject: z.lazy(() =>
-    HrisTimeOffRequestsAllHrisTimeOffRequestsResponseBody$outboundSchema
-  ).optional(),
+  result: z.union([
+    z.lazy(() =>
+      HrisTimeOffRequestsAllHrisTimeOffRequestsResponseBody$outboundSchema
+    ),
+    z.lazy(() => HrisTimeOffRequestsAllResponseBody$outboundSchema),
+  ]),
 }).transform((v) => {
   return remap$(v, {
-    httpMeta: "HttpMeta",
-    twoHundredApplicationJsonObject: "200_application/json_object",
-    defaultApplicationJsonObject: "default_application/json_object",
+    result: "Result",
   });
 });
 

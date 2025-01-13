@@ -7,7 +7,6 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
-import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type HrisTimeOffRequestsOneGlobals = {
@@ -282,21 +281,9 @@ export type HrisTimeOffRequestsOneResponseBody = {
   data: HrisTimeOffRequestsOneData;
 };
 
-export type HrisTimeOffRequestsOneResponse = {
-  httpMeta: components.HTTPMetadata;
-  /**
-   * TimeOffRequests
-   */
-  twoHundredApplicationJsonObject?:
-    | HrisTimeOffRequestsOneResponseBody
-    | undefined;
-  /**
-   * Unexpected error
-   */
-  defaultApplicationJsonObject?:
-    | HrisTimeOffRequestsOneHrisTimeOffRequestsResponseBody
-    | undefined;
-};
+export type HrisTimeOffRequestsOneResponse =
+  | HrisTimeOffRequestsOneResponseBody
+  | HrisTimeOffRequestsOneHrisTimeOffRequestsResponseBody;
 
 /** @internal */
 export const HrisTimeOffRequestsOneGlobals$inboundSchema: z.ZodType<
@@ -1151,53 +1138,29 @@ export const HrisTimeOffRequestsOneResponse$inboundSchema: z.ZodType<
   HrisTimeOffRequestsOneResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  HttpMeta: components.HTTPMetadata$inboundSchema,
-  "200_application/json_object": z.lazy(() =>
-    HrisTimeOffRequestsOneResponseBody$inboundSchema
-  ).optional(),
-  "default_application/json_object": z.lazy(() =>
+> = z.union([
+  z.lazy(() => HrisTimeOffRequestsOneResponseBody$inboundSchema),
+  z.lazy(() =>
     HrisTimeOffRequestsOneHrisTimeOffRequestsResponseBody$inboundSchema
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "HttpMeta": "httpMeta",
-    "200_application/json_object": "twoHundredApplicationJsonObject",
-    "default_application/json_object": "defaultApplicationJsonObject",
-  });
-});
+  ),
+]);
 
 /** @internal */
-export type HrisTimeOffRequestsOneResponse$Outbound = {
-  HttpMeta: components.HTTPMetadata$Outbound;
-  "200_application/json_object"?:
-    | HrisTimeOffRequestsOneResponseBody$Outbound
-    | undefined;
-  "default_application/json_object"?:
-    | HrisTimeOffRequestsOneHrisTimeOffRequestsResponseBody$Outbound
-    | undefined;
-};
+export type HrisTimeOffRequestsOneResponse$Outbound =
+  | HrisTimeOffRequestsOneResponseBody$Outbound
+  | HrisTimeOffRequestsOneHrisTimeOffRequestsResponseBody$Outbound;
 
 /** @internal */
 export const HrisTimeOffRequestsOneResponse$outboundSchema: z.ZodType<
   HrisTimeOffRequestsOneResponse$Outbound,
   z.ZodTypeDef,
   HrisTimeOffRequestsOneResponse
-> = z.object({
-  httpMeta: components.HTTPMetadata$outboundSchema,
-  twoHundredApplicationJsonObject: z.lazy(() =>
-    HrisTimeOffRequestsOneResponseBody$outboundSchema
-  ).optional(),
-  defaultApplicationJsonObject: z.lazy(() =>
+> = z.union([
+  z.lazy(() => HrisTimeOffRequestsOneResponseBody$outboundSchema),
+  z.lazy(() =>
     HrisTimeOffRequestsOneHrisTimeOffRequestsResponseBody$outboundSchema
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    httpMeta: "HttpMeta",
-    twoHundredApplicationJsonObject: "200_application/json_object",
-    defaultApplicationJsonObject: "default_application/json_object",
-  });
-});
+  ),
+]);
 
 /**
  * @internal
