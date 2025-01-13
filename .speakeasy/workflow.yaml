@@ -3,7 +3,7 @@ speakeasyVersion: latest
 sources:
     CRM API:
         inputs:
-            - location: ../crm.enhanced.json
+            - location: ../speakeasy-spec-def.yml
         registry:
             location: registry.speakeasyapi.dev/apideck-k2o/apideck/crm-api
 targets:

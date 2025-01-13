@@ -1,27 +1,27 @@
-speakeasyVersion: 1.466.1
+speakeasyVersion: 1.468.2
 sources:
     CRM API:
         sourceNamespace: crm-api
-        sourceRevisionDigest: sha256:5f8d7f72da5ade7602ca91f872998841a65b414461b459602febadfbe6fc4752
-        sourceBlobDigest: sha256:47f1ac2d3f7e0de68999200ede7d81e740878a34fc11f218bcfdc199785185a5
+        sourceRevisionDigest: sha256:3a0cf36b55eafbf71db8f44360738bd2de72f04616a8f5be68d3ca273d11de9c
+        sourceBlobDigest: sha256:4280bcac295da1e00b7b8425c8c2f1d4e114ebcff07e33fa13c68a32e63e2380
         tags:
             - latest
-            - 10.8.2
+            - 10.9.0
 targets:
     apideck:
         source: CRM API
         sourceNamespace: crm-api
-        sourceRevisionDigest: sha256:5f8d7f72da5ade7602ca91f872998841a65b414461b459602febadfbe6fc4752
-        sourceBlobDigest: sha256:47f1ac2d3f7e0de68999200ede7d81e740878a34fc11f218bcfdc199785185a5
+        sourceRevisionDigest: sha256:3a0cf36b55eafbf71db8f44360738bd2de72f04616a8f5be68d3ca273d11de9c
+        sourceBlobDigest: sha256:4280bcac295da1e00b7b8425c8c2f1d4e114ebcff07e33fa13c68a32e63e2380
         codeSamplesNamespace: crm-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:c0c09ae7a38a464633755cf6415fbbae33de25a81c4e23ccc5c16801e21a31e3
+        codeSamplesRevisionDigest: sha256:a4b02ca6de487920281f3836e2645344a45e360421dd59c77b821108955a1797
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
     sources:
         CRM API:
             inputs:
-                - location: ../crm.enhanced.json
+                - location: ../speakeasy-spec-def.yml
             registry:
                 location: registry.speakeasyapi.dev/apideck-k2o/apideck/crm-api
     targets:

@@ -1,6 +1,6 @@
 # Currency
 
-Specifies the currency in which the company's financial transactions are conducted, adhering to the ISO 4217 standard. This field is essential for financial consistency and accuracy in reporting, billing, and accounting processes within the CRM. It ensures that all monetary values are correctly interpreted and managed across different regions and markets.
+Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
 
 ## Example Usage
 

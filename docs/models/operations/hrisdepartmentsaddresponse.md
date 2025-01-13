@@ -1,0 +1,33 @@
+# HrisDepartmentsAddResponse
+
+
+## Supported Types
+
+### `operations.HrisDepartmentsAddResponseBody`
+
+```typescript
+const value: operations.HrisDepartmentsAddResponseBody = {
+  statusCode: 200,
+  status: "OK",
+  service: "workday",
+  resource: "Departments",
+  operation: "add",
+  data: {
+    id: "12345",
+  },
+};
+```
+
+### `operations.HrisDepartmentsAddHrisDepartmentsResponseBody`
+
+```typescript
+const value: operations.HrisDepartmentsAddHrisDepartmentsResponseBody = {
+  statusCode: 400,
+  error: "Bad Request",
+  typeName: "RequestHeadersValidationError",
+  message: "Invalid Params",
+  detail: "Missing Header: x-apideck-consumer-id",
+  ref: "https://developers.apideck.com/errors#unauthorizederror",
+};
+```
+

@@ -17,271 +17,7 @@ Developer-friendly & type-safe Typescript SDK specifically catered to leverage *
 <!-- Start Summary [summary] -->
 ## Summary
 
-CRM API: Welcome to the CRM API.
-
-You can use this API to access all CRM API endpoints.
-
-## Base URL
-
-The base URL for all API requests is `https://unify.apideck.com`
-
-## Headers
-
-Custom headers that are expected as part of the request. Note that [RFC7230](https://tools.ietf.org/html/rfc7230) states header names are case insensitive.
-
-| Name                  | Type    | Required | Description                                                                                                                                                    |
-| --------------------- | ------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| x-apideck-consumer-id | String  | Yes      | The id of the customer stored inside Apideck Vault. This can be a user id, account id, device id or whatever entity that can have integration within your app. |
-| x-apideck-service-id  | String  | No       | Describe the service you want to call (e.g., pipedrive). Only needed when a customer has activated multiple integrations for the same Unified API.             |
-| x-apideck-raw         | Boolean | No       | Include raw response. Mostly used for debugging purposes.                                                                                                      |
-| x-apideck-app-id      | String  | Yes      | The application id of your Unify application. Available at https://app.apideck.com/unify/api-keys.                                                             |
-| Authorization         | String  | Yes      | Bearer API KEY                                                                                                                                                 |
-
-## Authorization
-
-You can interact with the API through the authorization methods below.
-
-<!-- ReDoc-Inject: <security-definitions> -->
-
-## Pagination
-
-All API resources have support for bulk retrieval via list APIs.  Apideck uses cursor-based pagination via the optional `cursor` and `limit` parameters.
-
-To fetch the first page of results, call the list API without a `cursor` parameter. Afterwards you can fetch subsequent pages by providing a cursor parameter. You will find the next cursor in the response body in `meta.cursors.next`. If `meta.cursors.next` is `null` you're at the end of the list.
-
-In the REST API you can also use the `links` from the response for added convenience. Simply call the URL in `links.next` to get the next page of results.
-
-### Query Parameters
-
-| Name   | Type   | Required | Description                                                                                                        |
-| ------ | ------ | -------- | ------------------------------------------------------------------------------------------------------------------ |
-| cursor | String | No       | Cursor to start from. You can find cursors for next & previous pages in the meta.cursors property of the response. |
-| limit  | Number | No       | Number of results to return. Minimum 1, Maximum 200, Default 20                                                    |
-
-### Response Body
-
-| Name                  | Type   | Description                                                        |
-| --------------------- | ------ | ------------------------------------------------------------------ |
-| meta.cursors.previous | String | Cursor to navigate to the previous page of results through the API |
-| meta.cursors.current  | String | Cursor to navigate to the current page of results through the API  |
-| meta.cursors.next     | String | Cursor to navigate to the next page of results through the API     |
-| meta.items_on_page    | Number | Number of items returned in the data property of the response      |
-| links.previous        | String | Link to navigate to the previous page of results through the API   |
-| links.current         | String | Link to navigate to the current page of results through the API    |
-| links.next            | String | Link to navigate to the next page of results through the API       |
-
-⚠️ `meta.cursors.previous`/`links.previous` is not available for all connectors.
-
-## SDKs and API Clients
-
-We currently offer a [Node.js](https://developers.apideck.com/sdks/node), [PHP](https://developers.apideck.com/sdks/php), [Python](https://developers.apideck.com/sdks/python) and [.NET](https://developers.apideck.com/sdks/dot-net) SDK.
-Need another SDK? [Request the SDK of your choice](https://requests.apideck.io/request).
-
-## Debugging
-
-Because of the nature of the abstraction we do in Apideck Unify we still provide the option to the receive raw requests and responses being handled underlying. By including the raw flag `?raw=true` in your requests you can still receive the full request. Please note that this increases the response size and can introduce extra latency.
-
-## Errors
-
-The API returns standard HTTP response codes to indicate success or failure of the API requests. For errors, we also return a customized error message inside the JSON response. You can see the returned HTTP status codes below.
-
-| Code | Title                | Description                                                                                                                                                                                              |
-| ---- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 200  | OK                   | The request message has been successfully processed, and it has produced a response. The response message varies, depending on the request method and the requested data.                                |
-| 201  | Created              | The request has been fulfilled and has resulted in one or more new resources being created.                                                                                                              |
-| 204  | No Content           | The server has successfully fulfilled the request and that there is no additional content to send in the response payload body.                                                                          |
-| 400  | Bad Request          | The receiving server cannot understand the request because of malformed syntax. Do not repeat the request without first modifying it; check the request for errors, fix them and then retry the request. |
-| 401  | Unauthorized         | The request has not been applied because it lacks valid authentication credentials for the target resource.                                                                                              |
-| 402  | Payment Required     | Subscription data is incomplete or out of date. You'll need to provide payment details to continue.                                                                                                      |
-| 403  | Forbidden            | You do not have the appropriate user rights to access the request. Do not repeat the request.                                                                                                            |
-| 404  | Not Found            | The origin server did not find a current representation for the target resource or is not willing to disclose that one exists.                                                                           |
-| 409  | Conflict             | The request could not be completed due to a conflict with the current state of the target resource.                                                                                                      |
-| 422  | Unprocessable Entity | The server understands the content type of the request entity, and the syntax of the request entity is correct but was unable to process the contained instructions.                                     |
-| 429  | Too Many Requests    | You sent too many requests in a given amount of time ("rate limit"). Try again later                                                                                                                     |
-| 5xx  | Server Errors        | Something went wrong with the Unify API. These errors are logged on our side. You can contact our team to resolve the issue.                                                                             |
-
-### Handling errors
-
-The Unify API and SDKs can produce errors for many reasons, such as a failed requests due to misconfigured integrations, invalid parameters, authentication errors, and network unavailability.
-
-### Error Types
-
-#### RequestValidationError
-
-Request is not valid for the current endpoint. The response body will include details on the validation error. Check the spelling and types of your attributes, and ensure you are not passing data that is outside of the specification.
-
-#### UnsupportedFiltersError
-
-Filters in the request are valid, but not supported by the connector. Remove the unsupported filter(s) to get a successful response.
-
-#### UnsupportedSortFieldError
-
-Sort field (`sort[by]`) in the request is valid, but not supported by the connector. Replace or remove the sort field to get a successful response.
-
-#### InvalidCursorError
-
-Pagination cursor in the request is not valid for the current connector. Make sure to use a cursor returned from the API, for the same connector.
-
-#### ConnectorExecutionError
-
-A Unified API request made via one of our downstream connectors returned an unexpected error. The `status_code` returned is proxied through to error response along with their original response via the error detail.
-
-#### UnauthorizedError
-
-We were unable to authorize the request as made. This can happen for a number of reasons, from missing header params to passing an incorrect authorization token. Verify your Api Key is being set correctly in the authorization header. ie: `Authorization: 'Bearer sk_live_***'`
-
-#### ConnectorCredentialsError
-
-A request using a given connector has not been authorized. Ensure the connector you are trying to use has been configured correctly and been authorized for use.
-
-#### ConnectorDisabledError
-
-A request has been made to a connector that has since been disabled. This may be temporary - You can contact our team to resolve the issue.
-
-#### ConnectorRateLimitError
-
-You sent too many request to a connector. These rate limits vary from connector to connector. You will need to try again later.
-
-#### RequestLimitError
-
-You have reached the number of requests included in your Free Tier Subscription. You will not be able to make further requests until you upgrade your subscription. Please reach out to sales@apideck.com to continue making requests.
-
-#### EntityNotFoundError
-
-You've made a request for a resource or route that does not exist. Verify your path parameters or any identifiers used to fetch this resource.
-
-#### OAuthCredentialsNotFoundError
-
-When adding a connector integration that implements OAuth, both a `client_id` and `client_secret` must be provided before any authorizations can be performed. Verify the integration has been configured properly before continuing.
-
-#### IntegrationNotFoundError
-
-The requested connector integration could not be found associated to your `application_id`. Verify your `application_id` is correct, and that this connector has been added and configured for your application.
-
-#### ConnectionNotFoundError
-
-A valid connection could not be found associated to your `application_id`. Something _may_ have interrupted the authorization flow. You may need to start the connector authorization process again.
-
-#### ConnectionSettingsError
-
-The connector has required settings that were not supplied. Verify `connection.settings` contains all required settings for the connector to be callable.
-
-#### ConnectorNotFoundError
-
-A request was made for an unknown connector. Verify your `service_id` is spelled correctly, and that this connector is enabled for your provided `unified_api`.
-
-#### OAuthRedirectUriError
-
-A request was made either in a connector authorization flow, or attempting to revoke connector access without a valid `redirect_uri`. This is the url the user should be returned to on completion of process.
-
-#### OAuthInvalidStateError
-
-The state param is required and is used to ensure the outgoing authorization state has not been altered before the user is redirected back. It also contains required params needed to identify the connector being used. If this has been altered, the authorization will not succeed.
-
-#### OAuthCodeExchangeError
-
-When attempting to exchange the authorization code for an `access_token` during an OAuth flow, an error occurred. This may be temporary. You can reattempt authorization or contact our team to resolve the issue.
-
-#### OAuthConnectorError
-
-It seems something went wrong on the connector side. It's possible this connector is in `beta` or still under development. We've been notified and are working to fix this issue.
-
-#### MappingError
-
-There was an error attempting to retrieve the mapping for a given attribute. We've been notified and are working to fix this issue.
-
-#### ConnectorMappingNotFoundError
-
-It seems the implementation for this connector is incomplete. It's possible this connector is in `beta` or still under development. We've been notified and are working to fix this issue.
-
-#### ConnectorResponseMappingNotFoundError
-
-We were unable to retrieve the response mapping for this connector. It's possible this connector is in `beta` or still under development. We've been notified and are working to fix this issue.
-
-#### ConnectorOperationMappingNotFoundError
-
-Connector mapping has not been implemented for the requested operation. It's possible this connector is in `beta` or still under development. We've been notified and are working to fix this issue.
-
-#### ConnectorWorkflowMappingError
-
-The composite api calls required for this operation have not been mapped entirely. It's possible this connector is in `beta` or still under development. We've been notified and are working to fix this issue.
-
-#### ConnectorOperationUnsupportedError
-
-You're attempting a call that is not supported by the connector. It's likely this operation is supported by another connector, but we're unable to implement for this one.
-
-#### PaginationNotSupportedError
-
-Pagination is not yet supported for this connector, try removing limit and/or cursor from the query. It's possible this connector is in `beta` or still under development. We've been notified and are working to fix this issue.
-
-## API Design
-
-### API Styles and data formats
-
-#### REST API
-
-The API is organized around [REST](https://restfulapi.net/), providing simple and predictable URIs to access and modify objects. Requests support standard HTTP methods like GET, PUT, POST, and DELETE and standard status codes. JSON is returned by all API responses, including errors. In all API requests, you must set the content-type HTTP header to application/json. All API requests must be made over HTTPS. Calls made over HTTP will fail.
-
-##### Available HTTP methods
-
-The Apideck API uses HTTP verbs to understand if you want to read (GET), delete (DELETE) or create (POST) an object. When your web application cannot do a POST or DELETE, we provide the ability to set the method through the query parameter \_method.
-
-```
-POST /messages
-GET /messages
-GET /messages/{messageId}
-PATCH /messages/{messageId}
-DELETE /messages/{messageId}
-```
-
-Response bodies are always UTF-8 encoded JSON objects, unless explicitly documented otherwise. For some endpoints and use cases we divert from REST to provide a better developer experience.
-
-### Schema
-
-All API requests and response bodies adhere to a common JSON format representing individual items, collections of items, links to related items and additional meta data.
-
-### Meta
-
-Meta data can be represented as a top level member named “meta”. Any information may be provided in the meta data. It’s most common use is to return the total number of records when requesting a collection of resources.
-
-### Request IDs
-
-Each API request has an associated request identifier. You can find this value in the response headers, under Request-Id. You can also find request identifiers in the URLs of individual request logs in your Dashboard. If you need to contact us about a specific request, providing the request identifier will ensure the fastest possible resolution.
-
-### Fixed field types
-
-#### Dates
-
-The dates returned by the API are all represented in UTC (ISO8601 format).
-
-This example `2019-11-14T00:55:31.820Z` is defined by the ISO 8601 standard. The T in the middle separates the year-month-day portion from the hour-minute-second portion. The Z on the end means UTC, that is, an offset-from-UTC of zero hours-minutes-seconds. The Z is pronounced "Zulu" per military/aviation tradition.
-
-The ISO 8601 standard is more modern. The formats are wisely designed to be easy to parse by machine as well as easy to read by humans across cultures.
-
-#### Prices and Currencies
-
-All prices returned by the API are represented as integer amounts in a currency’s smallest unit. For example, $5 USD would be returned as 500 (i.e, 500 cents).
-
-For zero-decimal currencies, amounts will still be provided as an integer but without the need to divide by 100. For example, an amount of ¥5 (JPY) would be returned as 5.
-
-All currency codes conform to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
-
-## Support
-
-If you have problems or need help with your case, you can always reach out to our Support.
-
-## Static IP
-
-Some of the APIs you want to use can require a static IP. Apideck's static IP feature allows you to use Apideck with a fixed IP avoiding the need for you to set up your own infrastructure. This feature is currently available to all Apideck customers.
-To use this feature, the API Vendor will need to whitelist the associated static IP addresses.
-The provided static IP addresses are fixed to their specified region and shared by all customers who use this feature.
-
-- EU Central 1: **18.197.244.247**, **18.156.9.3**, **3.65.139.215**
-- Other: upcoming
-
-  More info about our data security can be found at [https://compliance.apideck.com/](https://compliance.apideck.com/)
-
-
+Apideck: The Apideck OpenAPI Spec: SDK Optimized
 
 For more information about the API: [Apideck Developer Docs](https://developers.apideck.com)
 <!-- End Summary [summary] -->
@@ -290,15 +26,6 @@ For more information about the API: [Apideck Developer Docs](https://developers.
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
 * [apideck](#apideck)
-  * [Base URL](#base-url)
-  * [Headers](#headers)
-  * [Authorization](#authorization)
-  * [SDKs and API Clients](#sdks-and-api-clients)
-  * [Debugging](#debugging)
-  * [Errors](#errors)
-  * [API Design](#api-design)
-  * [Support](#support)
-  * [Static IP](#static-ip)
   * [SDK Installation](#sdk-installation)
   * [Requirements](#requirements)
   * [SDK Example Usage](#sdk-example-usage)
@@ -309,7 +36,7 @@ For more information about the API: [Apideck Developer Docs](https://developers.
   * [Error Handling](#error-handling)
   * [Server Selection](#server-selection)
   * [Custom HTTP Client](#custom-http-client)
-  * [Debugging](#debugging-1)
+  * [Debugging](#debugging)
 * [Development](#development)
   * [Maturity](#maturity)
   * [Contributions](#contributions)
@@ -366,190 +93,41 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 
 ```typescript
 import { Apideck } from "apideck";
-import { RFCDate } from "apideck/types";
 
-const apideck = new Apideck();
+const apideck = new Apideck({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const result = await apideck.companies.companiesAdd({
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+  const result = await apideck.hris.employees.list({
     serviceId: "salesforce",
-    requestBody: {
-      name: "SpaceX",
-      ownerId: "12345",
-      image: "https://www.spacex.com/static/images/share.jpg",
-      description:
-        "Space Exploration Technologies Corp. is an American aerospace manufacturer, space transportation services and communications company headquartered in Hawthorne, California.",
-      vatNumber: "BE0689615164",
-      currency: "USD",
-      status: "Open",
-      fax: "+12129876543",
-      annualRevenue: "+$35m",
-      numberOfEmployees: "500-1000",
-      industry: "Apparel",
-      ownership: "Public",
-      salesTaxNumber: "12456EN",
-      payeeNumber: "78932EN",
-      abnOrTfn: "46 115 614 695",
-      abnBranch: "123",
-      acn: "XXX XXX XXX",
+    filter: {
+      companyId: "1234",
+      email: "elon@tesla.com",
       firstName: "Elon",
+      title: "Manager",
       lastName: "Musk",
-      bankAccounts: [
-        {
-          bankName: "Monzo",
-          accountNumber: "123465",
-          accountName: "SPACEX LLC",
-          accountType: "credit_card",
-          iban: "CH2989144532982975332",
-          bic: "AUDSCHGGXXX",
-          routingNumber: "012345678",
-          bsbNumber: "062-001",
-          branchIdentifier: "001",
-          bankCode: "BNH",
-          currency: "USD",
-        },
-        {
-          bankName: "Monzo",
-          accountNumber: "123465",
-          accountName: "SPACEX LLC",
-          accountType: "credit_card",
-          iban: "CH2989144532982975332",
-          bic: "AUDSCHGGXXX",
-          routingNumber: "012345678",
-          bsbNumber: "062-001",
-          branchIdentifier: "001",
-          bankCode: "BNH",
-          currency: "USD",
-        },
-      ],
-      websites: [
-        {
-          id: "12345",
-          url: "http://example.com",
-          type: "primary",
-        },
-      ],
-      addresses: [
-        {
-          id: "123",
-          type: "primary",
-          string: "25 Spring Street, Blackburn, VIC 3130",
-          name: "HQ US",
-          line1: "Main street",
-          line2: "apt #",
-          line3: "Suite #",
-          line4: "delivery instructions",
-          streetNumber: "25",
-          city: "San Francisco",
-          state: "CA",
-          postalCode: "94104",
-          country: "US",
-          latitude: "40.759211",
-          longitude: "-73.984638",
-          county: "Santa Clara",
-          contactName: "Elon Musk",
-          salutation: "Mr",
-          phoneNumber: "111-111-1111",
-          fax: "122-111-1111",
-          email: "elon@musk.com",
-          website: "https://elonmusk.com",
-          notes: "Address notes or delivery instructions.",
-          rowVersion: "1-12345",
-        },
-      ],
-      socialLinks: [
-        {
-          id: "12345",
-          url: "https://www.twitter.com/apideck",
-          type: "twitter",
-        },
-        {
-          id: "12345",
-          url: "https://www.twitter.com/apideck",
-          type: "twitter",
-        },
-      ],
-      phoneNumbers: [
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-      ],
-      emails: [
-        {
-          id: "123",
-          email: "elon@musk.com",
-          type: "primary",
-        },
-      ],
-      rowType: {
-        id: "12345",
-        name: "Customer Account",
-      },
-      customFields: [
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: 10,
-        },
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: 10,
-        },
-      ],
-      tags: [
-        "New",
-      ],
-      readOnly: false,
-      salutation: "Mr",
-      birthday: new RFCDate("2000-08-12"),
-      passThrough: [
-        {
-          serviceId: "<id>",
-          extendPaths: [
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-          ],
-        },
-      ],
+      managerId: "1234",
+      employmentStatus: "active",
+      employeeNumber: "123456-AB",
+      departmentId: "1234",
     },
+    sort: {
+      by: "created_at",
+      direction: "desc",
+    },
+    passThrough: {
+      "search": "San Francisco",
+    },
+    fields: "id,updated_at",
   });
 
-  // Handle the result
-  console.log(result);
+  for await (const page of result) {
+    // Handle the page
+    console.log(page);
+  }
 }
 
 run();
@@ -562,206 +140,50 @@ run();
 
 ### Per-Client Security Schemes
 
-This SDK supports the following security schemes globally:
+This SDK supports the following security scheme globally:
 
-| Name            | Type   | Scheme  | Environment Variable     |
-| --------------- | ------ | ------- | ------------------------ |
-| `apiKey`        | apiKey | API key | `APIDECK_API_KEY`        |
-| `applicationId` | apiKey | API key | `APIDECK_APPLICATION_ID` |
-| `consumerId`    | apiKey | API key | `APIDECK_CONSUMER_ID`    |
+| Name     | Type | Scheme      | Environment Variable |
+| -------- | ---- | ----------- | -------------------- |
+| `apiKey` | http | HTTP Bearer | `APIDECK_API_KEY`    |
 
-You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
-
-
-### Per-Operation Security Schemes
-
-Some operations in this SDK require the security scheme to be specified at the request level. For example:
+To authenticate with the API the `apiKey` parameter must be set when initializing the SDK client instance. For example:
 ```typescript
 import { Apideck } from "apideck";
-import { RFCDate } from "apideck/types";
 
-const apideck = new Apideck();
+const apideck = new Apideck({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const result = await apideck.companies.companiesAdd({
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+  const result = await apideck.hris.employees.list({
     serviceId: "salesforce",
-    requestBody: {
-      name: "SpaceX",
-      ownerId: "12345",
-      image: "https://www.spacex.com/static/images/share.jpg",
-      description:
-        "Space Exploration Technologies Corp. is an American aerospace manufacturer, space transportation services and communications company headquartered in Hawthorne, California.",
-      vatNumber: "BE0689615164",
-      currency: "USD",
-      status: "Open",
-      fax: "+12129876543",
-      annualRevenue: "+$35m",
-      numberOfEmployees: "500-1000",
-      industry: "Apparel",
-      ownership: "Public",
-      salesTaxNumber: "12456EN",
-      payeeNumber: "78932EN",
-      abnOrTfn: "46 115 614 695",
-      abnBranch: "123",
-      acn: "XXX XXX XXX",
+    filter: {
+      companyId: "1234",
+      email: "elon@tesla.com",
       firstName: "Elon",
+      title: "Manager",
       lastName: "Musk",
-      bankAccounts: [
-        {
-          bankName: "Monzo",
-          accountNumber: "123465",
-          accountName: "SPACEX LLC",
-          accountType: "credit_card",
-          iban: "CH2989144532982975332",
-          bic: "AUDSCHGGXXX",
-          routingNumber: "012345678",
-          bsbNumber: "062-001",
-          branchIdentifier: "001",
-          bankCode: "BNH",
-          currency: "USD",
-        },
-        {
-          bankName: "Monzo",
-          accountNumber: "123465",
-          accountName: "SPACEX LLC",
-          accountType: "credit_card",
-          iban: "CH2989144532982975332",
-          bic: "AUDSCHGGXXX",
-          routingNumber: "012345678",
-          bsbNumber: "062-001",
-          branchIdentifier: "001",
-          bankCode: "BNH",
-          currency: "USD",
-        },
-      ],
-      websites: [
-        {
-          id: "12345",
-          url: "http://example.com",
-          type: "primary",
-        },
-      ],
-      addresses: [
-        {
-          id: "123",
-          type: "primary",
-          string: "25 Spring Street, Blackburn, VIC 3130",
-          name: "HQ US",
-          line1: "Main street",
-          line2: "apt #",
-          line3: "Suite #",
-          line4: "delivery instructions",
-          streetNumber: "25",
-          city: "San Francisco",
-          state: "CA",
-          postalCode: "94104",
-          country: "US",
-          latitude: "40.759211",
-          longitude: "-73.984638",
-          county: "Santa Clara",
-          contactName: "Elon Musk",
-          salutation: "Mr",
-          phoneNumber: "111-111-1111",
-          fax: "122-111-1111",
-          email: "elon@musk.com",
-          website: "https://elonmusk.com",
-          notes: "Address notes or delivery instructions.",
-          rowVersion: "1-12345",
-        },
-      ],
-      socialLinks: [
-        {
-          id: "12345",
-          url: "https://www.twitter.com/apideck",
-          type: "twitter",
-        },
-        {
-          id: "12345",
-          url: "https://www.twitter.com/apideck",
-          type: "twitter",
-        },
-      ],
-      phoneNumbers: [
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-      ],
-      emails: [
-        {
-          id: "123",
-          email: "elon@musk.com",
-          type: "primary",
-        },
-      ],
-      rowType: {
-        id: "12345",
-        name: "Customer Account",
-      },
-      customFields: [
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: 10,
-        },
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: 10,
-        },
-      ],
-      tags: [
-        "New",
-      ],
-      readOnly: false,
-      salutation: "Mr",
-      birthday: new RFCDate("2000-08-12"),
-      passThrough: [
-        {
-          serviceId: "<id>",
-          extendPaths: [
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-          ],
-        },
-      ],
+      managerId: "1234",
+      employmentStatus: "active",
+      employeeNumber: "123456-AB",
+      departmentId: "1234",
     },
+    sort: {
+      by: "created_at",
+      direction: "desc",
+    },
+    passThrough: {
+      "search": "San Francisco",
+    },
+    fields: "id,updated_at",
   });
 
-  // Handle the result
-  console.log(result);
+  for await (const page of result) {
+    // Handle the page
+    console.log(page);
+  }
 }
 
 run();
@@ -775,70 +197,55 @@ run();
 <details open>
 <summary>Available methods</summary>
 
-### [activities](docs/sdks/activities/README.md)
 
-* [activitiesAll](docs/sdks/activities/README.md#activitiesall) - List activities
-* [activitiesAdd](docs/sdks/activities/README.md#activitiesadd) - Create activity
-* [activitiesOne](docs/sdks/activities/README.md#activitiesone) - Get activity
-* [activitiesUpdate](docs/sdks/activities/README.md#activitiesupdate) - Update activity
-* [activitiesDelete](docs/sdks/activities/README.md#activitiesdelete) - Delete activity
+### [hris](docs/sdks/hris/README.md)
 
 
-### [companies](docs/sdks/companies/README.md)
+#### [hris.companies](docs/sdks/companies/README.md)
 
-* [companiesAdd](docs/sdks/companies/README.md#companiesadd) - Add a new company to the CRM system.
-* [companiesAll](docs/sdks/companies/README.md#companiesall) - Retrieve a list of companies from the CRM.
-* [companiesOne](docs/sdks/companies/README.md#companiesone) - Get company
-* [companiesUpdate](docs/sdks/companies/README.md#companiesupdate) - Update company
-* [companiesDelete](docs/sdks/companies/README.md#companiesdelete) - Delete company
+* [list](docs/sdks/companies/README.md#list) - List Companies
+* [create](docs/sdks/companies/README.md#create) - Create Company
+* [get](docs/sdks/companies/README.md#get) - Get Company
+* [update](docs/sdks/companies/README.md#update) - Update Company
+* [delete](docs/sdks/companies/README.md#delete) - Delete Company
 
-### [contacts](docs/sdks/contacts/README.md)
+#### [hris.departments](docs/sdks/departments/README.md)
 
-* [contactsAll](docs/sdks/contacts/README.md#contactsall) - List contacts
-* [contactsAdd](docs/sdks/contacts/README.md#contactsadd) - Create contact
-* [contactsOne](docs/sdks/contacts/README.md#contactsone) - Get contact
-* [contactsUpdate](docs/sdks/contacts/README.md#contactsupdate) - Update contact
-* [contactsDelete](docs/sdks/contacts/README.md#contactsdelete) - Delete contact
+* [list](docs/sdks/departments/README.md#list) - List Departments
+* [create](docs/sdks/departments/README.md#create) - Create Department
+* [get](docs/sdks/departments/README.md#get) - Get Department
+* [update](docs/sdks/departments/README.md#update) - Update Department
+* [delete](docs/sdks/departments/README.md#delete) - Delete Department
 
-### [leads](docs/sdks/leads/README.md)
+#### [hris.employeePayrolls](docs/sdks/employeepayrolls/README.md)
 
-* [leadsAll](docs/sdks/leads/README.md#leadsall) - List leads
-* [leadsAdd](docs/sdks/leads/README.md#leadsadd) - Create lead
-* [leadsOne](docs/sdks/leads/README.md#leadsone) - Get lead
-* [leadsUpdate](docs/sdks/leads/README.md#leadsupdate) - Update lead
-* [leadsDelete](docs/sdks/leads/README.md#leadsdelete) - Delete lead
+* [list](docs/sdks/employeepayrolls/README.md#list) - List Employee Payrolls
+* [get](docs/sdks/employeepayrolls/README.md#get) - Get Employee Payroll
 
-### [notes](docs/sdks/notes/README.md)
+#### [hris.employees](docs/sdks/employees/README.md)
 
-* [notesAll](docs/sdks/notes/README.md#notesall) - List notes
-* [notesAdd](docs/sdks/notes/README.md#notesadd) - Create note
-* [notesOne](docs/sdks/notes/README.md#notesone) - Get note
-* [notesUpdate](docs/sdks/notes/README.md#notesupdate) - Update note
-* [notesDelete](docs/sdks/notes/README.md#notesdelete) - Delete note
+* [list](docs/sdks/employees/README.md#list) - List Employees
+* [create](docs/sdks/employees/README.md#create) - Create Employee
+* [get](docs/sdks/employees/README.md#get) - Get Employee
+* [update](docs/sdks/employees/README.md#update) - Update Employee
+* [delete](docs/sdks/employees/README.md#delete) - Delete Employee
 
-### [opportunities](docs/sdks/opportunities/README.md)
+#### [hris.employeeSchedules](docs/sdks/employeeschedules/README.md)
 
-* [opportunitiesAll](docs/sdks/opportunities/README.md#opportunitiesall) - List opportunities
-* [opportunitiesAdd](docs/sdks/opportunities/README.md#opportunitiesadd) - Create opportunity
-* [opportunitiesOne](docs/sdks/opportunities/README.md#opportunitiesone) - Get opportunity
-* [opportunitiesUpdate](docs/sdks/opportunities/README.md#opportunitiesupdate) - Update opportunity
-* [opportunitiesDelete](docs/sdks/opportunities/README.md#opportunitiesdelete) - Delete opportunity
+* [list](docs/sdks/employeeschedules/README.md#list) - List Employee Schedules
 
-### [pipelines](docs/sdks/pipelines/README.md)
+#### [hris.payrolls](docs/sdks/payrolls/README.md)
 
-* [pipelinesAll](docs/sdks/pipelines/README.md#pipelinesall) - List pipelines
-* [pipelinesAdd](docs/sdks/pipelines/README.md#pipelinesadd) - Create pipeline
-* [pipelinesOne](docs/sdks/pipelines/README.md#pipelinesone) - Get pipeline
-* [pipelinesUpdate](docs/sdks/pipelines/README.md#pipelinesupdate) - Update pipeline
-* [pipelinesDelete](docs/sdks/pipelines/README.md#pipelinesdelete) - Delete pipeline
+* [list](docs/sdks/payrolls/README.md#list) - List Payroll
+* [get](docs/sdks/payrolls/README.md#get) - Get Payroll
 
-### [users](docs/sdks/users/README.md)
+#### [hris.timeOffRequests](docs/sdks/timeoffrequests/README.md)
 
-* [usersAll](docs/sdks/users/README.md#usersall) - List users
-* [usersAdd](docs/sdks/users/README.md#usersadd) - Create user
-* [usersOne](docs/sdks/users/README.md#usersone) - Get user
-* [usersUpdate](docs/sdks/users/README.md#usersupdate) - Update user
-* [usersDelete](docs/sdks/users/README.md#usersdelete) - Delete user
+* [list](docs/sdks/timeoffrequests/README.md#list) - List Time Off Requests
+* [create](docs/sdks/timeoffrequests/README.md#create) - Create Time Off Request
+* [get](docs/sdks/timeoffrequests/README.md#get) - Get Time Off Request
+* [update](docs/sdks/timeoffrequests/README.md#update) - Update Time Off Request
+* [delete](docs/sdks/timeoffrequests/README.md#delete) - Delete Time Off Request
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -858,46 +265,31 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 <summary>Available standalone functions</summary>
 
-- [`activitiesActivitiesAdd`](docs/sdks/activities/README.md#activitiesadd) - Create activity
-- [`activitiesActivitiesAll`](docs/sdks/activities/README.md#activitiesall) - List activities
-- [`activitiesActivitiesDelete`](docs/sdks/activities/README.md#activitiesdelete) - Delete activity
-- [`activitiesActivitiesOne`](docs/sdks/activities/README.md#activitiesone) - Get activity
-- [`activitiesActivitiesUpdate`](docs/sdks/activities/README.md#activitiesupdate) - Update activity
-- [`companiesCompaniesAdd`](docs/sdks/companies/README.md#companiesadd) - Add a new company to the CRM system.
-- [`companiesCompaniesAll`](docs/sdks/companies/README.md#companiesall) - Retrieve a list of companies from the CRM.
-- [`companiesCompaniesDelete`](docs/sdks/companies/README.md#companiesdelete) - Delete company
-- [`companiesCompaniesOne`](docs/sdks/companies/README.md#companiesone) - Get company
-- [`companiesCompaniesUpdate`](docs/sdks/companies/README.md#companiesupdate) - Update company
-- [`contactsContactsAdd`](docs/sdks/contacts/README.md#contactsadd) - Create contact
-- [`contactsContactsAll`](docs/sdks/contacts/README.md#contactsall) - List contacts
-- [`contactsContactsDelete`](docs/sdks/contacts/README.md#contactsdelete) - Delete contact
-- [`contactsContactsOne`](docs/sdks/contacts/README.md#contactsone) - Get contact
-- [`contactsContactsUpdate`](docs/sdks/contacts/README.md#contactsupdate) - Update contact
-- [`leadsLeadsAdd`](docs/sdks/leads/README.md#leadsadd) - Create lead
-- [`leadsLeadsAll`](docs/sdks/leads/README.md#leadsall) - List leads
-- [`leadsLeadsDelete`](docs/sdks/leads/README.md#leadsdelete) - Delete lead
-- [`leadsLeadsOne`](docs/sdks/leads/README.md#leadsone) - Get lead
-- [`leadsLeadsUpdate`](docs/sdks/leads/README.md#leadsupdate) - Update lead
-- [`notesNotesAdd`](docs/sdks/notes/README.md#notesadd) - Create note
-- [`notesNotesAll`](docs/sdks/notes/README.md#notesall) - List notes
-- [`notesNotesDelete`](docs/sdks/notes/README.md#notesdelete) - Delete note
-- [`notesNotesOne`](docs/sdks/notes/README.md#notesone) - Get note
-- [`notesNotesUpdate`](docs/sdks/notes/README.md#notesupdate) - Update note
-- [`opportunitiesOpportunitiesAdd`](docs/sdks/opportunities/README.md#opportunitiesadd) - Create opportunity
-- [`opportunitiesOpportunitiesAll`](docs/sdks/opportunities/README.md#opportunitiesall) - List opportunities
-- [`opportunitiesOpportunitiesDelete`](docs/sdks/opportunities/README.md#opportunitiesdelete) - Delete opportunity
-- [`opportunitiesOpportunitiesOne`](docs/sdks/opportunities/README.md#opportunitiesone) - Get opportunity
-- [`opportunitiesOpportunitiesUpdate`](docs/sdks/opportunities/README.md#opportunitiesupdate) - Update opportunity
-- [`pipelinesPipelinesAdd`](docs/sdks/pipelines/README.md#pipelinesadd) - Create pipeline
-- [`pipelinesPipelinesAll`](docs/sdks/pipelines/README.md#pipelinesall) - List pipelines
-- [`pipelinesPipelinesDelete`](docs/sdks/pipelines/README.md#pipelinesdelete) - Delete pipeline
-- [`pipelinesPipelinesOne`](docs/sdks/pipelines/README.md#pipelinesone) - Get pipeline
-- [`pipelinesPipelinesUpdate`](docs/sdks/pipelines/README.md#pipelinesupdate) - Update pipeline
-- [`usersUsersAdd`](docs/sdks/users/README.md#usersadd) - Create user
-- [`usersUsersAll`](docs/sdks/users/README.md#usersall) - List users
-- [`usersUsersDelete`](docs/sdks/users/README.md#usersdelete) - Delete user
-- [`usersUsersOne`](docs/sdks/users/README.md#usersone) - Get user
-- [`usersUsersUpdate`](docs/sdks/users/README.md#usersupdate) - Update user
+- [`hrisCompaniesCreate`](docs/sdks/companies/README.md#create) - Create Company
+- [`hrisCompaniesDelete`](docs/sdks/companies/README.md#delete) - Delete Company
+- [`hrisCompaniesGet`](docs/sdks/companies/README.md#get) - Get Company
+- [`hrisCompaniesList`](docs/sdks/companies/README.md#list) - List Companies
+- [`hrisCompaniesUpdate`](docs/sdks/companies/README.md#update) - Update Company
+- [`hrisDepartmentsCreate`](docs/sdks/departments/README.md#create) - Create Department
+- [`hrisDepartmentsDelete`](docs/sdks/departments/README.md#delete) - Delete Department
+- [`hrisDepartmentsGet`](docs/sdks/departments/README.md#get) - Get Department
+- [`hrisDepartmentsList`](docs/sdks/departments/README.md#list) - List Departments
+- [`hrisDepartmentsUpdate`](docs/sdks/departments/README.md#update) - Update Department
+- [`hrisEmployeePayrollsGet`](docs/sdks/employeepayrolls/README.md#get) - Get Employee Payroll
+- [`hrisEmployeePayrollsList`](docs/sdks/employeepayrolls/README.md#list) - List Employee Payrolls
+- [`hrisEmployeeSchedulesList`](docs/sdks/employeeschedules/README.md#list) - List Employee Schedules
+- [`hrisEmployeesCreate`](docs/sdks/employees/README.md#create) - Create Employee
+- [`hrisEmployeesDelete`](docs/sdks/employees/README.md#delete) - Delete Employee
+- [`hrisEmployeesGet`](docs/sdks/employees/README.md#get) - Get Employee
+- [`hrisEmployeesList`](docs/sdks/employees/README.md#list) - List Employees
+- [`hrisEmployeesUpdate`](docs/sdks/employees/README.md#update) - Update Employee
+- [`hrisPayrollsGet`](docs/sdks/payrolls/README.md#get) - Get Payroll
+- [`hrisPayrollsList`](docs/sdks/payrolls/README.md#list) - List Payroll
+- [`hrisTimeOffRequestsCreate`](docs/sdks/timeoffrequests/README.md#create) - Create Time Off Request
+- [`hrisTimeOffRequestsDelete`](docs/sdks/timeoffrequests/README.md#delete) - Delete Time Off Request
+- [`hrisTimeOffRequestsGet`](docs/sdks/timeoffrequests/README.md#get) - Get Time Off Request
+- [`hrisTimeOffRequestsList`](docs/sdks/timeoffrequests/README.md#list) - List Time Off Requests
+- [`hrisTimeOffRequestsUpdate`](docs/sdks/timeoffrequests/README.md#update) - Update Time Off Request
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
@@ -910,186 +302,35 @@ Some of the endpoints in this SDK support retries.  If you use the SDK without a
 To change the default retry strategy for a single API call, simply provide a retryConfig object to the call:
 ```typescript
 import { Apideck } from "apideck";
-import { RFCDate } from "apideck/types";
 
-const apideck = new Apideck();
+const apideck = new Apideck({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const result = await apideck.companies.companiesAdd({
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+  const result = await apideck.hris.employees.list({
     serviceId: "salesforce",
-    requestBody: {
-      name: "SpaceX",
-      ownerId: "12345",
-      image: "https://www.spacex.com/static/images/share.jpg",
-      description:
-        "Space Exploration Technologies Corp. is an American aerospace manufacturer, space transportation services and communications company headquartered in Hawthorne, California.",
-      vatNumber: "BE0689615164",
-      currency: "USD",
-      status: "Open",
-      fax: "+12129876543",
-      annualRevenue: "+$35m",
-      numberOfEmployees: "500-1000",
-      industry: "Apparel",
-      ownership: "Public",
-      salesTaxNumber: "12456EN",
-      payeeNumber: "78932EN",
-      abnOrTfn: "46 115 614 695",
-      abnBranch: "123",
-      acn: "XXX XXX XXX",
+    filter: {
+      companyId: "1234",
+      email: "elon@tesla.com",
       firstName: "Elon",
+      title: "Manager",
       lastName: "Musk",
-      bankAccounts: [
-        {
-          bankName: "Monzo",
-          accountNumber: "123465",
-          accountName: "SPACEX LLC",
-          accountType: "credit_card",
-          iban: "CH2989144532982975332",
-          bic: "AUDSCHGGXXX",
-          routingNumber: "012345678",
-          bsbNumber: "062-001",
-          branchIdentifier: "001",
-          bankCode: "BNH",
-          currency: "USD",
-        },
-        {
-          bankName: "Monzo",
-          accountNumber: "123465",
-          accountName: "SPACEX LLC",
-          accountType: "credit_card",
-          iban: "CH2989144532982975332",
-          bic: "AUDSCHGGXXX",
-          routingNumber: "012345678",
-          bsbNumber: "062-001",
-          branchIdentifier: "001",
-          bankCode: "BNH",
-          currency: "USD",
-        },
-      ],
-      websites: [
-        {
-          id: "12345",
-          url: "http://example.com",
-          type: "primary",
-        },
-      ],
-      addresses: [
-        {
-          id: "123",
-          type: "primary",
-          string: "25 Spring Street, Blackburn, VIC 3130",
-          name: "HQ US",
-          line1: "Main street",
-          line2: "apt #",
-          line3: "Suite #",
-          line4: "delivery instructions",
-          streetNumber: "25",
-          city: "San Francisco",
-          state: "CA",
-          postalCode: "94104",
-          country: "US",
-          latitude: "40.759211",
-          longitude: "-73.984638",
-          county: "Santa Clara",
-          contactName: "Elon Musk",
-          salutation: "Mr",
-          phoneNumber: "111-111-1111",
-          fax: "122-111-1111",
-          email: "elon@musk.com",
-          website: "https://elonmusk.com",
-          notes: "Address notes or delivery instructions.",
-          rowVersion: "1-12345",
-        },
-      ],
-      socialLinks: [
-        {
-          id: "12345",
-          url: "https://www.twitter.com/apideck",
-          type: "twitter",
-        },
-        {
-          id: "12345",
-          url: "https://www.twitter.com/apideck",
-          type: "twitter",
-        },
-      ],
-      phoneNumbers: [
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-      ],
-      emails: [
-        {
-          id: "123",
-          email: "elon@musk.com",
-          type: "primary",
-        },
-      ],
-      rowType: {
-        id: "12345",
-        name: "Customer Account",
-      },
-      customFields: [
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: 10,
-        },
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: 10,
-        },
-      ],
-      tags: [
-        "New",
-      ],
-      readOnly: false,
-      salutation: "Mr",
-      birthday: new RFCDate("2000-08-12"),
-      passThrough: [
-        {
-          serviceId: "<id>",
-          extendPaths: [
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-          ],
-        },
-      ],
+      managerId: "1234",
+      employmentStatus: "active",
+      employeeNumber: "123456-AB",
+      departmentId: "1234",
     },
+    sort: {
+      by: "created_at",
+      direction: "desc",
+    },
+    passThrough: {
+      "search": "San Francisco",
+    },
+    fields: "id,updated_at",
   }, {
     retries: {
       strategy: "backoff",
@@ -1103,8 +344,10 @@ async function run() {
     },
   });
 
-  // Handle the result
-  console.log(result);
+  for await (const page of result) {
+    // Handle the page
+    console.log(page);
+  }
 }
 
 run();
@@ -1114,7 +357,6 @@ run();
 If you'd like to override the default retry strategy for all operations that support retries, you can provide a retryConfig at SDK initialization:
 ```typescript
 import { Apideck } from "apideck";
-import { RFCDate } from "apideck/types";
 
 const apideck = new Apideck({
   retryConfig: {
@@ -1127,188 +369,39 @@ const apideck = new Apideck({
     },
     retryConnectionErrors: false,
   },
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
 });
 
 async function run() {
-  const result = await apideck.companies.companiesAdd({
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+  const result = await apideck.hris.employees.list({
     serviceId: "salesforce",
-    requestBody: {
-      name: "SpaceX",
-      ownerId: "12345",
-      image: "https://www.spacex.com/static/images/share.jpg",
-      description:
-        "Space Exploration Technologies Corp. is an American aerospace manufacturer, space transportation services and communications company headquartered in Hawthorne, California.",
-      vatNumber: "BE0689615164",
-      currency: "USD",
-      status: "Open",
-      fax: "+12129876543",
-      annualRevenue: "+$35m",
-      numberOfEmployees: "500-1000",
-      industry: "Apparel",
-      ownership: "Public",
-      salesTaxNumber: "12456EN",
-      payeeNumber: "78932EN",
-      abnOrTfn: "46 115 614 695",
-      abnBranch: "123",
-      acn: "XXX XXX XXX",
+    filter: {
+      companyId: "1234",
+      email: "elon@tesla.com",
       firstName: "Elon",
+      title: "Manager",
       lastName: "Musk",
-      bankAccounts: [
-        {
-          bankName: "Monzo",
-          accountNumber: "123465",
-          accountName: "SPACEX LLC",
-          accountType: "credit_card",
-          iban: "CH2989144532982975332",
-          bic: "AUDSCHGGXXX",
-          routingNumber: "012345678",
-          bsbNumber: "062-001",
-          branchIdentifier: "001",
-          bankCode: "BNH",
-          currency: "USD",
-        },
-        {
-          bankName: "Monzo",
-          accountNumber: "123465",
-          accountName: "SPACEX LLC",
-          accountType: "credit_card",
-          iban: "CH2989144532982975332",
-          bic: "AUDSCHGGXXX",
-          routingNumber: "012345678",
-          bsbNumber: "062-001",
-          branchIdentifier: "001",
-          bankCode: "BNH",
-          currency: "USD",
-        },
-      ],
-      websites: [
-        {
-          id: "12345",
-          url: "http://example.com",
-          type: "primary",
-        },
-      ],
-      addresses: [
-        {
-          id: "123",
-          type: "primary",
-          string: "25 Spring Street, Blackburn, VIC 3130",
-          name: "HQ US",
-          line1: "Main street",
-          line2: "apt #",
-          line3: "Suite #",
-          line4: "delivery instructions",
-          streetNumber: "25",
-          city: "San Francisco",
-          state: "CA",
-          postalCode: "94104",
-          country: "US",
-          latitude: "40.759211",
-          longitude: "-73.984638",
-          county: "Santa Clara",
-          contactName: "Elon Musk",
-          salutation: "Mr",
-          phoneNumber: "111-111-1111",
-          fax: "122-111-1111",
-          email: "elon@musk.com",
-          website: "https://elonmusk.com",
-          notes: "Address notes or delivery instructions.",
-          rowVersion: "1-12345",
-        },
-      ],
-      socialLinks: [
-        {
-          id: "12345",
-          url: "https://www.twitter.com/apideck",
-          type: "twitter",
-        },
-        {
-          id: "12345",
-          url: "https://www.twitter.com/apideck",
-          type: "twitter",
-        },
-      ],
-      phoneNumbers: [
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-      ],
-      emails: [
-        {
-          id: "123",
-          email: "elon@musk.com",
-          type: "primary",
-        },
-      ],
-      rowType: {
-        id: "12345",
-        name: "Customer Account",
-      },
-      customFields: [
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: 10,
-        },
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: 10,
-        },
-      ],
-      tags: [
-        "New",
-      ],
-      readOnly: false,
-      salutation: "Mr",
-      birthday: new RFCDate("2000-08-12"),
-      passThrough: [
-        {
-          serviceId: "<id>",
-          extendPaths: [
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-          ],
-        },
-      ],
+      managerId: "1234",
+      employmentStatus: "active",
+      employeeNumber: "123456-AB",
+      departmentId: "1234",
     },
+    sort: {
+      by: "created_at",
+      direction: "desc",
+    },
+    passThrough: {
+      "search": "San Francisco",
+    },
+    fields: "id,updated_at",
   });
 
-  // Handle the result
-  console.log(result);
+  for await (const page of result) {
+    // Handle the page
+    console.log(page);
+  }
 }
 
 run();
@@ -1319,215 +412,66 @@ run();
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-Some methods specify known errors which can be thrown. All the known errors are enumerated in the `models/errors/errors.ts` module. The known errors for a method are documented under the *Errors* tables in SDK docs. For example, the `companiesAdd` method may throw the following errors:
+Some methods specify known errors which can be thrown. All the known errors are enumerated in the `models/errors/errors.ts` module. The known errors for a method are documented under the *Errors* tables in SDK docs. For example, the `list` method may throw the following errors:
 
-| Error Type                                          | Status Code | Content Type     |
-| --------------------------------------------------- | ----------- | ---------------- |
-| errors.CompaniesAddResponseBody                     | 400         | application/json |
-| errors.CompaniesAddCompaniesResponseBody            | 401         | application/json |
-| errors.CompaniesAddCompaniesResponseResponseBody    | 402         | application/json |
-| errors.CompaniesAddCompaniesResponse404ResponseBody | 404         | application/json |
-| errors.CompaniesAddCompaniesResponse422ResponseBody | 422         | application/json |
-| errors.APIError                                     | 4XX, 5XX    | \*/\*            |
+| Error Type                                                  | Status Code | Content Type     |
+| ----------------------------------------------------------- | ----------- | ---------------- |
+| errors.HrisEmployeesAllResponseBody                         | 400         | application/json |
+| errors.HrisEmployeesAllHrisEmployeesResponseBody            | 401         | application/json |
+| errors.HrisEmployeesAllHrisEmployeesResponseResponseBody    | 402         | application/json |
+| errors.HrisEmployeesAllHrisEmployeesResponse404ResponseBody | 404         | application/json |
+| errors.HrisEmployeesAllHrisEmployeesResponse422ResponseBody | 422         | application/json |
+| errors.APIError                                             | 4XX, 5XX    | \*/\*            |
 
 If the method throws an error and it is not captured by the known errors, it will default to throwing a `APIError`.
 
 ```typescript
 import { Apideck } from "apideck";
 import {
-  CompaniesAddCompaniesResponse404ResponseBody,
-  CompaniesAddCompaniesResponse422ResponseBody,
-  CompaniesAddCompaniesResponseBody,
-  CompaniesAddCompaniesResponseResponseBody,
-  CompaniesAddResponseBody,
+  HrisEmployeesAllHrisEmployeesResponse404ResponseBody,
+  HrisEmployeesAllHrisEmployeesResponse422ResponseBody,
+  HrisEmployeesAllHrisEmployeesResponseBody,
+  HrisEmployeesAllHrisEmployeesResponseResponseBody,
+  HrisEmployeesAllResponseBody,
   SDKValidationError,
 } from "apideck/models/errors";
-import { RFCDate } from "apideck/types";
 
-const apideck = new Apideck();
+const apideck = new Apideck({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
   let result;
   try {
-    result = await apideck.companies.companiesAdd({
-      apiKey: process.env["APIDECK_API_KEY"] ?? "",
-    }, {
-      consumerId: "test-consumer",
-      appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+    result = await apideck.hris.employees.list({
       serviceId: "salesforce",
-      requestBody: {
-        name: "SpaceX",
-        ownerId: "12345",
-        image: "https://www.spacex.com/static/images/share.jpg",
-        description:
-          "Space Exploration Technologies Corp. is an American aerospace manufacturer, space transportation services and communications company headquartered in Hawthorne, California.",
-        vatNumber: "BE0689615164",
-        currency: "USD",
-        status: "Open",
-        fax: "+12129876543",
-        annualRevenue: "+$35m",
-        numberOfEmployees: "500-1000",
-        industry: "Apparel",
-        ownership: "Public",
-        salesTaxNumber: "12456EN",
-        payeeNumber: "78932EN",
-        abnOrTfn: "46 115 614 695",
-        abnBranch: "123",
-        acn: "XXX XXX XXX",
+      filter: {
+        companyId: "1234",
+        email: "elon@tesla.com",
         firstName: "Elon",
+        title: "Manager",
         lastName: "Musk",
-        bankAccounts: [
-          {
-            bankName: "Monzo",
-            accountNumber: "123465",
-            accountName: "SPACEX LLC",
-            accountType: "credit_card",
-            iban: "CH2989144532982975332",
-            bic: "AUDSCHGGXXX",
-            routingNumber: "012345678",
-            bsbNumber: "062-001",
-            branchIdentifier: "001",
-            bankCode: "BNH",
-            currency: "USD",
-          },
-          {
-            bankName: "Monzo",
-            accountNumber: "123465",
-            accountName: "SPACEX LLC",
-            accountType: "credit_card",
-            iban: "CH2989144532982975332",
-            bic: "AUDSCHGGXXX",
-            routingNumber: "012345678",
-            bsbNumber: "062-001",
-            branchIdentifier: "001",
-            bankCode: "BNH",
-            currency: "USD",
-          },
-        ],
-        websites: [
-          {
-            id: "12345",
-            url: "http://example.com",
-            type: "primary",
-          },
-        ],
-        addresses: [
-          {
-            id: "123",
-            type: "primary",
-            string: "25 Spring Street, Blackburn, VIC 3130",
-            name: "HQ US",
-            line1: "Main street",
-            line2: "apt #",
-            line3: "Suite #",
-            line4: "delivery instructions",
-            streetNumber: "25",
-            city: "San Francisco",
-            state: "CA",
-            postalCode: "94104",
-            country: "US",
-            latitude: "40.759211",
-            longitude: "-73.984638",
-            county: "Santa Clara",
-            contactName: "Elon Musk",
-            salutation: "Mr",
-            phoneNumber: "111-111-1111",
-            fax: "122-111-1111",
-            email: "elon@musk.com",
-            website: "https://elonmusk.com",
-            notes: "Address notes or delivery instructions.",
-            rowVersion: "1-12345",
-          },
-        ],
-        socialLinks: [
-          {
-            id: "12345",
-            url: "https://www.twitter.com/apideck",
-            type: "twitter",
-          },
-          {
-            id: "12345",
-            url: "https://www.twitter.com/apideck",
-            type: "twitter",
-          },
-        ],
-        phoneNumbers: [
-          {
-            id: "12345",
-            countryCode: "1",
-            areaCode: "323",
-            number: "111-111-1111",
-            extension: "105",
-            type: "primary",
-          },
-          {
-            id: "12345",
-            countryCode: "1",
-            areaCode: "323",
-            number: "111-111-1111",
-            extension: "105",
-            type: "primary",
-          },
-          {
-            id: "12345",
-            countryCode: "1",
-            areaCode: "323",
-            number: "111-111-1111",
-            extension: "105",
-            type: "primary",
-          },
-        ],
-        emails: [
-          {
-            id: "123",
-            email: "elon@musk.com",
-            type: "primary",
-          },
-        ],
-        rowType: {
-          id: "12345",
-          name: "Customer Account",
-        },
-        customFields: [
-          {
-            id: "2389328923893298",
-            name: "employee_level",
-            description: "Employee Level",
-            value: 10,
-          },
-          {
-            id: "2389328923893298",
-            name: "employee_level",
-            description: "Employee Level",
-            value: 10,
-          },
-        ],
-        tags: [
-          "New",
-        ],
-        readOnly: false,
-        salutation: "Mr",
-        birthday: new RFCDate("2000-08-12"),
-        passThrough: [
-          {
-            serviceId: "<id>",
-            extendPaths: [
-              {
-                path: "$.nested.property",
-                value: {
-                  "TaxClassificationRef": {
-                    "value": "EUC-99990201-V1-00020000",
-                  },
-                },
-              },
-            ],
-          },
-        ],
+        managerId: "1234",
+        employmentStatus: "active",
+        employeeNumber: "123456-AB",
+        departmentId: "1234",
       },
+      sort: {
+        by: "created_at",
+        direction: "desc",
+      },
+      passThrough: {
+        "search": "San Francisco",
+      },
+      fields: "id,updated_at",
     });
 
-    // Handle the result
-    console.log(result);
+    for await (const page of result) {
+      // Handle the page
+      console.log(page);
+    }
   } catch (err) {
     switch (true) {
       // The server response does not match the expected SDK schema
@@ -1538,28 +482,30 @@ async function run() {
         console.error(err.rawValue);
         return;
       }
-      case (err instanceof CompaniesAddResponseBody): {
-        // Handle err.data$: CompaniesAddResponseBodyData
+      case (err instanceof HrisEmployeesAllResponseBody): {
+        // Handle err.data$: HrisEmployeesAllResponseBodyData
         console.error(err);
         return;
       }
-      case (err instanceof CompaniesAddCompaniesResponseBody): {
-        // Handle err.data$: CompaniesAddCompaniesResponseBodyData
+      case (err instanceof HrisEmployeesAllHrisEmployeesResponseBody): {
+        // Handle err.data$: HrisEmployeesAllHrisEmployeesResponseBodyData
         console.error(err);
         return;
       }
-      case (err instanceof CompaniesAddCompaniesResponseResponseBody): {
-        // Handle err.data$: CompaniesAddCompaniesResponseResponseBodyData
+      case (err instanceof HrisEmployeesAllHrisEmployeesResponseResponseBody): {
+        // Handle err.data$: HrisEmployeesAllHrisEmployeesResponseResponseBodyData
         console.error(err);
         return;
       }
-      case (err instanceof CompaniesAddCompaniesResponse404ResponseBody): {
-        // Handle err.data$: CompaniesAddCompaniesResponse404ResponseBodyData
+      case (err
+        instanceof HrisEmployeesAllHrisEmployeesResponse404ResponseBody): {
+        // Handle err.data$: HrisEmployeesAllHrisEmployeesResponse404ResponseBodyData
         console.error(err);
         return;
       }
-      case (err instanceof CompaniesAddCompaniesResponse422ResponseBody): {
-        // Handle err.data$: CompaniesAddCompaniesResponse422ResponseBodyData
+      case (err
+        instanceof HrisEmployeesAllHrisEmployeesResponse422ResponseBody): {
+        // Handle err.data$: HrisEmployeesAllHrisEmployeesResponse422ResponseBodyData
         console.error(err);
         return;
       }
@@ -1596,192 +542,42 @@ In some rare cases, the SDK can fail to get a response from the server or even m
 The default server can also be overridden globally by passing a URL to the `serverURL: string` optional parameter when initializing the SDK client instance. For example:
 ```typescript
 import { Apideck } from "apideck";
-import { RFCDate } from "apideck/types";
 
 const apideck = new Apideck({
   serverURL: "https://unify.apideck.com",
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
 });
 
 async function run() {
-  const result = await apideck.companies.companiesAdd({
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+  const result = await apideck.hris.employees.list({
     serviceId: "salesforce",
-    requestBody: {
-      name: "SpaceX",
-      ownerId: "12345",
-      image: "https://www.spacex.com/static/images/share.jpg",
-      description:
-        "Space Exploration Technologies Corp. is an American aerospace manufacturer, space transportation services and communications company headquartered in Hawthorne, California.",
-      vatNumber: "BE0689615164",
-      currency: "USD",
-      status: "Open",
-      fax: "+12129876543",
-      annualRevenue: "+$35m",
-      numberOfEmployees: "500-1000",
-      industry: "Apparel",
-      ownership: "Public",
-      salesTaxNumber: "12456EN",
-      payeeNumber: "78932EN",
-      abnOrTfn: "46 115 614 695",
-      abnBranch: "123",
-      acn: "XXX XXX XXX",
+    filter: {
+      companyId: "1234",
+      email: "elon@tesla.com",
       firstName: "Elon",
+      title: "Manager",
       lastName: "Musk",
-      bankAccounts: [
-        {
-          bankName: "Monzo",
-          accountNumber: "123465",
-          accountName: "SPACEX LLC",
-          accountType: "credit_card",
-          iban: "CH2989144532982975332",
-          bic: "AUDSCHGGXXX",
-          routingNumber: "012345678",
-          bsbNumber: "062-001",
-          branchIdentifier: "001",
-          bankCode: "BNH",
-          currency: "USD",
-        },
-        {
-          bankName: "Monzo",
-          accountNumber: "123465",
-          accountName: "SPACEX LLC",
-          accountType: "credit_card",
-          iban: "CH2989144532982975332",
-          bic: "AUDSCHGGXXX",
-          routingNumber: "012345678",
-          bsbNumber: "062-001",
-          branchIdentifier: "001",
-          bankCode: "BNH",
-          currency: "USD",
-        },
-      ],
-      websites: [
-        {
-          id: "12345",
-          url: "http://example.com",
-          type: "primary",
-        },
-      ],
-      addresses: [
-        {
-          id: "123",
-          type: "primary",
-          string: "25 Spring Street, Blackburn, VIC 3130",
-          name: "HQ US",
-          line1: "Main street",
-          line2: "apt #",
-          line3: "Suite #",
-          line4: "delivery instructions",
-          streetNumber: "25",
-          city: "San Francisco",
-          state: "CA",
-          postalCode: "94104",
-          country: "US",
-          latitude: "40.759211",
-          longitude: "-73.984638",
-          county: "Santa Clara",
-          contactName: "Elon Musk",
-          salutation: "Mr",
-          phoneNumber: "111-111-1111",
-          fax: "122-111-1111",
-          email: "elon@musk.com",
-          website: "https://elonmusk.com",
-          notes: "Address notes or delivery instructions.",
-          rowVersion: "1-12345",
-        },
-      ],
-      socialLinks: [
-        {
-          id: "12345",
-          url: "https://www.twitter.com/apideck",
-          type: "twitter",
-        },
-        {
-          id: "12345",
-          url: "https://www.twitter.com/apideck",
-          type: "twitter",
-        },
-      ],
-      phoneNumbers: [
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-      ],
-      emails: [
-        {
-          id: "123",
-          email: "elon@musk.com",
-          type: "primary",
-        },
-      ],
-      rowType: {
-        id: "12345",
-        name: "Customer Account",
-      },
-      customFields: [
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: 10,
-        },
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: 10,
-        },
-      ],
-      tags: [
-        "New",
-      ],
-      readOnly: false,
-      salutation: "Mr",
-      birthday: new RFCDate("2000-08-12"),
-      passThrough: [
-        {
-          serviceId: "<id>",
-          extendPaths: [
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-          ],
-        },
-      ],
+      managerId: "1234",
+      employmentStatus: "active",
+      employeeNumber: "123456-AB",
+      departmentId: "1234",
     },
+    sort: {
+      by: "created_at",
+      direction: "desc",
+    },
+    passThrough: {
+      "search": "San Francisco",
+    },
+    fields: "id,updated_at",
   });
 
-  // Handle the result
-  console.log(result);
+  for await (const page of result) {
+    // Handle the page
+    console.log(page);
+  }
 }
 
 run();

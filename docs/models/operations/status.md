@@ -1,17 +1,17 @@
 # Status
 
-Status of the attendee
+Indicates the status of the job.
 
 ## Example Usage
 
 ```typescript
 import { Status } from "apideck/models/operations";
 
-let value: Status = "accepted";
+let value: Status = "active";
 ```
 
 ## Values
 
 ```typescript
-"accepted" | "tentative" | "declined"
+"active" | "inactive" | "other"
 ```

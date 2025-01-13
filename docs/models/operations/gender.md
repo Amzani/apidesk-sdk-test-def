@@ -1,17 +1,17 @@
 # Gender
 
-The gender of the contact.
+The gender represents the gender identity of a person.
 
 ## Example Usage
 
 ```typescript
 import { Gender } from "apideck/models/operations";
 
-let value: Gender = "female";
+let value: Gender = "male";
 ```
 
 ## Values
 
 ```typescript
-"male" | "female" | "unisex"
+"male" | "female" | "unisex" | "other" | "not_specified"
 ```
