@@ -7,7 +7,7 @@ The FLSA status for this compensation.
 ```typescript
 import { FlsaStatus } from "apideck/models/operations";
 
-let value: FlsaStatus = "exempt";
+let value: FlsaStatus = "nonexempt";
 ```
 
 ## Values

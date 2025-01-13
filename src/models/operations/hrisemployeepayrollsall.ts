@@ -6,6 +6,7 @@ import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
+import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type HrisEmployeePayrollsAllGlobals = {
@@ -275,9 +276,21 @@ export type HrisEmployeePayrollsAllResponseBody = {
   data: Array<HrisEmployeePayrollsAllData>;
 };
 
-export type HrisEmployeePayrollsAllResponse =
-  | HrisEmployeePayrollsAllResponseBody
-  | HrisEmployeePayrollsAllHrisEmployeePayrollsResponseBody;
+export type HrisEmployeePayrollsAllResponse = {
+  httpMeta: components.HTTPMetadata;
+  /**
+   * EmployeePayrolls
+   */
+  twoHundredApplicationJsonObject?:
+    | HrisEmployeePayrollsAllResponseBody
+    | undefined;
+  /**
+   * Unexpected error
+   */
+  defaultApplicationJsonObject?:
+    | HrisEmployeePayrollsAllHrisEmployeePayrollsResponseBody
+    | undefined;
+};
 
 /** @internal */
 export const HrisEmployeePayrollsAllGlobals$inboundSchema: z.ZodType<
@@ -1235,29 +1248,53 @@ export const HrisEmployeePayrollsAllResponse$inboundSchema: z.ZodType<
   HrisEmployeePayrollsAllResponse,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => HrisEmployeePayrollsAllResponseBody$inboundSchema),
-  z.lazy(() =>
+> = z.object({
+  HttpMeta: components.HTTPMetadata$inboundSchema,
+  "200_application/json_object": z.lazy(() =>
+    HrisEmployeePayrollsAllResponseBody$inboundSchema
+  ).optional(),
+  "default_application/json_object": z.lazy(() =>
     HrisEmployeePayrollsAllHrisEmployeePayrollsResponseBody$inboundSchema
-  ),
-]);
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "HttpMeta": "httpMeta",
+    "200_application/json_object": "twoHundredApplicationJsonObject",
+    "default_application/json_object": "defaultApplicationJsonObject",
+  });
+});
 
 /** @internal */
-export type HrisEmployeePayrollsAllResponse$Outbound =
-  | HrisEmployeePayrollsAllResponseBody$Outbound
-  | HrisEmployeePayrollsAllHrisEmployeePayrollsResponseBody$Outbound;
+export type HrisEmployeePayrollsAllResponse$Outbound = {
+  HttpMeta: components.HTTPMetadata$Outbound;
+  "200_application/json_object"?:
+    | HrisEmployeePayrollsAllResponseBody$Outbound
+    | undefined;
+  "default_application/json_object"?:
+    | HrisEmployeePayrollsAllHrisEmployeePayrollsResponseBody$Outbound
+    | undefined;
+};
 
 /** @internal */
 export const HrisEmployeePayrollsAllResponse$outboundSchema: z.ZodType<
   HrisEmployeePayrollsAllResponse$Outbound,
   z.ZodTypeDef,
   HrisEmployeePayrollsAllResponse
-> = z.union([
-  z.lazy(() => HrisEmployeePayrollsAllResponseBody$outboundSchema),
-  z.lazy(() =>
+> = z.object({
+  httpMeta: components.HTTPMetadata$outboundSchema,
+  twoHundredApplicationJsonObject: z.lazy(() =>
+    HrisEmployeePayrollsAllResponseBody$outboundSchema
+  ).optional(),
+  defaultApplicationJsonObject: z.lazy(() =>
     HrisEmployeePayrollsAllHrisEmployeePayrollsResponseBody$outboundSchema
-  ),
-]);
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    httpMeta: "HttpMeta",
+    twoHundredApplicationJsonObject: "200_application/json_object",
+    defaultApplicationJsonObject: "default_application/json_object",
+  });
+});
 
 /**
  * @internal

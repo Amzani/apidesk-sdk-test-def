@@ -181,7 +181,7 @@ export async function hrisDepartmentsList(
     | ConnectionError
   >(
     M.json(200, operations.HrisDepartmentsAllResponse$inboundSchema, {
-      key: "Result",
+      key: "200_application/json_object",
     }),
     M.jsonErr(400, errors.HrisDepartmentsAllResponseBody$inboundSchema),
     M.jsonErr(
@@ -205,9 +205,9 @@ export async function hrisDepartmentsList(
     ),
     M.fail(["4XX", "5XX"]),
     M.json("default", operations.HrisDepartmentsAllResponse$inboundSchema, {
-      key: "Result",
+      key: "default_application/json_object",
     }),
-  )(response, { extraFields: responseFields });
+  )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return haltIterator(result);
   }

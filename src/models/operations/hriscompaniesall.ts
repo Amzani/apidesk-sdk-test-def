@@ -7,6 +7,7 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
+import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type HrisCompaniesAllGlobals = {
@@ -685,14 +686,18 @@ export type HrisCompaniesAllResponseBody = {
   links?: HrisCompaniesAllLinks | undefined;
 };
 
-export type HrisCompaniesAllResponseResult =
-  | HrisCompaniesAllHrisCompaniesResponseBody
-  | HrisCompaniesAllResponseBody;
-
 export type HrisCompaniesAllResponse = {
-  result:
+  httpMeta: components.HTTPMetadata;
+  /**
+   * Companies
+   */
+  twoHundredApplicationJsonObject?: HrisCompaniesAllResponseBody | undefined;
+  /**
+   * Unexpected error
+   */
+  defaultApplicationJsonObject?:
     | HrisCompaniesAllHrisCompaniesResponseBody
-    | HrisCompaniesAllResponseBody;
+    | undefined;
 };
 
 /** @internal */
@@ -2060,84 +2065,35 @@ export function hrisCompaniesAllResponseBodyFromJSON(
 }
 
 /** @internal */
-export const HrisCompaniesAllResponseResult$inboundSchema: z.ZodType<
-  HrisCompaniesAllResponseResult,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => HrisCompaniesAllHrisCompaniesResponseBody$inboundSchema),
-  z.lazy(() => HrisCompaniesAllResponseBody$inboundSchema),
-]);
-
-/** @internal */
-export type HrisCompaniesAllResponseResult$Outbound =
-  | HrisCompaniesAllHrisCompaniesResponseBody$Outbound
-  | HrisCompaniesAllResponseBody$Outbound;
-
-/** @internal */
-export const HrisCompaniesAllResponseResult$outboundSchema: z.ZodType<
-  HrisCompaniesAllResponseResult$Outbound,
-  z.ZodTypeDef,
-  HrisCompaniesAllResponseResult
-> = z.union([
-  z.lazy(() => HrisCompaniesAllHrisCompaniesResponseBody$outboundSchema),
-  z.lazy(() => HrisCompaniesAllResponseBody$outboundSchema),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace HrisCompaniesAllResponseResult$ {
-  /** @deprecated use `HrisCompaniesAllResponseResult$inboundSchema` instead. */
-  export const inboundSchema = HrisCompaniesAllResponseResult$inboundSchema;
-  /** @deprecated use `HrisCompaniesAllResponseResult$outboundSchema` instead. */
-  export const outboundSchema = HrisCompaniesAllResponseResult$outboundSchema;
-  /** @deprecated use `HrisCompaniesAllResponseResult$Outbound` instead. */
-  export type Outbound = HrisCompaniesAllResponseResult$Outbound;
-}
-
-export function hrisCompaniesAllResponseResultToJSON(
-  hrisCompaniesAllResponseResult: HrisCompaniesAllResponseResult,
-): string {
-  return JSON.stringify(
-    HrisCompaniesAllResponseResult$outboundSchema.parse(
-      hrisCompaniesAllResponseResult,
-    ),
-  );
-}
-
-export function hrisCompaniesAllResponseResultFromJSON(
-  jsonString: string,
-): SafeParseResult<HrisCompaniesAllResponseResult, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => HrisCompaniesAllResponseResult$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'HrisCompaniesAllResponseResult' from JSON`,
-  );
-}
-
-/** @internal */
 export const HrisCompaniesAllResponse$inboundSchema: z.ZodType<
   HrisCompaniesAllResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Result: z.union([
-    z.lazy(() => HrisCompaniesAllHrisCompaniesResponseBody$inboundSchema),
-    z.lazy(() => HrisCompaniesAllResponseBody$inboundSchema),
-  ]),
+  HttpMeta: components.HTTPMetadata$inboundSchema,
+  "200_application/json_object": z.lazy(() =>
+    HrisCompaniesAllResponseBody$inboundSchema
+  ).optional(),
+  "default_application/json_object": z.lazy(() =>
+    HrisCompaniesAllHrisCompaniesResponseBody$inboundSchema
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Result": "result",
+    "HttpMeta": "httpMeta",
+    "200_application/json_object": "twoHundredApplicationJsonObject",
+    "default_application/json_object": "defaultApplicationJsonObject",
   });
 });
 
 /** @internal */
 export type HrisCompaniesAllResponse$Outbound = {
-  Result:
+  HttpMeta: components.HTTPMetadata$Outbound;
+  "200_application/json_object"?:
+    | HrisCompaniesAllResponseBody$Outbound
+    | undefined;
+  "default_application/json_object"?:
     | HrisCompaniesAllHrisCompaniesResponseBody$Outbound
-    | HrisCompaniesAllResponseBody$Outbound;
+    | undefined;
 };
 
 /** @internal */
@@ -2146,13 +2102,18 @@ export const HrisCompaniesAllResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HrisCompaniesAllResponse
 > = z.object({
-  result: z.union([
-    z.lazy(() => HrisCompaniesAllHrisCompaniesResponseBody$outboundSchema),
-    z.lazy(() => HrisCompaniesAllResponseBody$outboundSchema),
-  ]),
+  httpMeta: components.HTTPMetadata$outboundSchema,
+  twoHundredApplicationJsonObject: z.lazy(() =>
+    HrisCompaniesAllResponseBody$outboundSchema
+  ).optional(),
+  defaultApplicationJsonObject: z.lazy(() =>
+    HrisCompaniesAllHrisCompaniesResponseBody$outboundSchema
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
-    result: "Result",
+    httpMeta: "HttpMeta",
+    twoHundredApplicationJsonObject: "200_application/json_object",
+    defaultApplicationJsonObject: "default_application/json_object",
   });
 });
 

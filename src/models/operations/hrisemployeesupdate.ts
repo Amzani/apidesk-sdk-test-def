@@ -8,6 +8,7 @@ import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
+import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type HrisEmployeesUpdateGlobals = {
@@ -1725,9 +1726,19 @@ export type HrisEmployeesUpdateResponseBody = {
   data: HrisEmployeesUpdateUnifiedId;
 };
 
-export type HrisEmployeesUpdateResponse =
-  | HrisEmployeesUpdateResponseBody
-  | HrisEmployeesUpdateHrisEmployeesResponseBody;
+export type HrisEmployeesUpdateResponse = {
+  httpMeta: components.HTTPMetadata;
+  /**
+   * Employees
+   */
+  twoHundredApplicationJsonObject?: HrisEmployeesUpdateResponseBody | undefined;
+  /**
+   * Unexpected error
+   */
+  defaultApplicationJsonObject?:
+    | HrisEmployeesUpdateHrisEmployeesResponseBody
+    | undefined;
+};
 
 /** @internal */
 export const HrisEmployeesUpdateGlobals$inboundSchema: z.ZodType<
@@ -4524,25 +4535,53 @@ export const HrisEmployeesUpdateResponse$inboundSchema: z.ZodType<
   HrisEmployeesUpdateResponse,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => HrisEmployeesUpdateResponseBody$inboundSchema),
-  z.lazy(() => HrisEmployeesUpdateHrisEmployeesResponseBody$inboundSchema),
-]);
+> = z.object({
+  HttpMeta: components.HTTPMetadata$inboundSchema,
+  "200_application/json_object": z.lazy(() =>
+    HrisEmployeesUpdateResponseBody$inboundSchema
+  ).optional(),
+  "default_application/json_object": z.lazy(() =>
+    HrisEmployeesUpdateHrisEmployeesResponseBody$inboundSchema
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "HttpMeta": "httpMeta",
+    "200_application/json_object": "twoHundredApplicationJsonObject",
+    "default_application/json_object": "defaultApplicationJsonObject",
+  });
+});
 
 /** @internal */
-export type HrisEmployeesUpdateResponse$Outbound =
-  | HrisEmployeesUpdateResponseBody$Outbound
-  | HrisEmployeesUpdateHrisEmployeesResponseBody$Outbound;
+export type HrisEmployeesUpdateResponse$Outbound = {
+  HttpMeta: components.HTTPMetadata$Outbound;
+  "200_application/json_object"?:
+    | HrisEmployeesUpdateResponseBody$Outbound
+    | undefined;
+  "default_application/json_object"?:
+    | HrisEmployeesUpdateHrisEmployeesResponseBody$Outbound
+    | undefined;
+};
 
 /** @internal */
 export const HrisEmployeesUpdateResponse$outboundSchema: z.ZodType<
   HrisEmployeesUpdateResponse$Outbound,
   z.ZodTypeDef,
   HrisEmployeesUpdateResponse
-> = z.union([
-  z.lazy(() => HrisEmployeesUpdateResponseBody$outboundSchema),
-  z.lazy(() => HrisEmployeesUpdateHrisEmployeesResponseBody$outboundSchema),
-]);
+> = z.object({
+  httpMeta: components.HTTPMetadata$outboundSchema,
+  twoHundredApplicationJsonObject: z.lazy(() =>
+    HrisEmployeesUpdateResponseBody$outboundSchema
+  ).optional(),
+  defaultApplicationJsonObject: z.lazy(() =>
+    HrisEmployeesUpdateHrisEmployeesResponseBody$outboundSchema
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    httpMeta: "HttpMeta",
+    twoHundredApplicationJsonObject: "200_application/json_object",
+    defaultApplicationJsonObject: "default_application/json_object",
+  });
+});
 
 /**
  * @internal

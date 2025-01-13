@@ -6,7 +6,13 @@
 import { HrisCompaniesAllResponse } from "apideck/models/operations";
 
 let value: HrisCompaniesAllResponse = {
-  result: {
+  httpMeta: {
+    response: new Response("{\"message\": \"hello world\"}", {
+      headers: { "Content-Type": "application/json" },
+    }),
+    request: new Request("https://example.com"),
+  },
+  twoHundredApplicationJsonObject: {
     statusCode: 200,
     status: "OK",
     service: "undefined",
@@ -112,11 +118,27 @@ let value: HrisCompaniesAllResponse = {
         "https://unify.apideck.com/crm/companies?cursor=em9oby1jcm06OnBhZ2U6OjM",
     },
   },
+  defaultApplicationJsonObject: {
+    statusCode: 400,
+    error: "Bad Request",
+    typeName: "RequestHeadersValidationError",
+    message: "Invalid Params",
+    detail: {
+      "missing": [
+        {
+          "x-apideck-consumer-id": "required",
+        },
+      ],
+    },
+    ref: "https://developers.apideck.com/errors#unauthorizederror",
+  },
 };
 ```
 
 ## Fields
 
-| Field                                       | Type                                        | Required                                    | Description                                 |
-| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
-| `result`                                    | *operations.HrisCompaniesAllResponseResult* | :heavy_check_mark:                          | N/A                                         |
+| Field                                                                                                                        | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
+| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `httpMeta`                                                                                                                   | [components.HTTPMetadata](../../models/components/httpmetadata.md)                                                           | :heavy_check_mark:                                                                                                           | N/A                                                                                                                          |
+| `twoHundredApplicationJsonObject`                                                                                            | [operations.HrisCompaniesAllResponseBody](../../models/operations/hriscompaniesallresponsebody.md)                           | :heavy_minus_sign:                                                                                                           | Companies                                                                                                                    |
+| `defaultApplicationJsonObject`                                                                                               | [operations.HrisCompaniesAllHrisCompaniesResponseBody](../../models/operations/hriscompaniesallhriscompaniesresponsebody.md) | :heavy_minus_sign:                                                                                                           | Unexpected error                                                                                                             |

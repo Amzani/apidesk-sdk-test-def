@@ -6,6 +6,7 @@ import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
+import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type HrisTimeOffRequestsDeleteGlobals = {
@@ -107,9 +108,21 @@ export type HrisTimeOffRequestsDeleteResponseBody = {
   data: HrisTimeOffRequestsDeleteUnifiedId;
 };
 
-export type HrisTimeOffRequestsDeleteResponse =
-  | HrisTimeOffRequestsDeleteResponseBody
-  | HrisTimeOffRequestsDeleteHrisTimeOffRequestsResponseBody;
+export type HrisTimeOffRequestsDeleteResponse = {
+  httpMeta: components.HTTPMetadata;
+  /**
+   * TimeOffRequests
+   */
+  twoHundredApplicationJsonObject?:
+    | HrisTimeOffRequestsDeleteResponseBody
+    | undefined;
+  /**
+   * Unexpected error
+   */
+  defaultApplicationJsonObject?:
+    | HrisTimeOffRequestsDeleteHrisTimeOffRequestsResponseBody
+    | undefined;
+};
 
 /** @internal */
 export const HrisTimeOffRequestsDeleteGlobals$inboundSchema: z.ZodType<
@@ -532,29 +545,53 @@ export const HrisTimeOffRequestsDeleteResponse$inboundSchema: z.ZodType<
   HrisTimeOffRequestsDeleteResponse,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => HrisTimeOffRequestsDeleteResponseBody$inboundSchema),
-  z.lazy(() =>
+> = z.object({
+  HttpMeta: components.HTTPMetadata$inboundSchema,
+  "200_application/json_object": z.lazy(() =>
+    HrisTimeOffRequestsDeleteResponseBody$inboundSchema
+  ).optional(),
+  "default_application/json_object": z.lazy(() =>
     HrisTimeOffRequestsDeleteHrisTimeOffRequestsResponseBody$inboundSchema
-  ),
-]);
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "HttpMeta": "httpMeta",
+    "200_application/json_object": "twoHundredApplicationJsonObject",
+    "default_application/json_object": "defaultApplicationJsonObject",
+  });
+});
 
 /** @internal */
-export type HrisTimeOffRequestsDeleteResponse$Outbound =
-  | HrisTimeOffRequestsDeleteResponseBody$Outbound
-  | HrisTimeOffRequestsDeleteHrisTimeOffRequestsResponseBody$Outbound;
+export type HrisTimeOffRequestsDeleteResponse$Outbound = {
+  HttpMeta: components.HTTPMetadata$Outbound;
+  "200_application/json_object"?:
+    | HrisTimeOffRequestsDeleteResponseBody$Outbound
+    | undefined;
+  "default_application/json_object"?:
+    | HrisTimeOffRequestsDeleteHrisTimeOffRequestsResponseBody$Outbound
+    | undefined;
+};
 
 /** @internal */
 export const HrisTimeOffRequestsDeleteResponse$outboundSchema: z.ZodType<
   HrisTimeOffRequestsDeleteResponse$Outbound,
   z.ZodTypeDef,
   HrisTimeOffRequestsDeleteResponse
-> = z.union([
-  z.lazy(() => HrisTimeOffRequestsDeleteResponseBody$outboundSchema),
-  z.lazy(() =>
+> = z.object({
+  httpMeta: components.HTTPMetadata$outboundSchema,
+  twoHundredApplicationJsonObject: z.lazy(() =>
+    HrisTimeOffRequestsDeleteResponseBody$outboundSchema
+  ).optional(),
+  defaultApplicationJsonObject: z.lazy(() =>
     HrisTimeOffRequestsDeleteHrisTimeOffRequestsResponseBody$outboundSchema
-  ),
-]);
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    httpMeta: "HttpMeta",
+    twoHundredApplicationJsonObject: "200_application/json_object",
+    defaultApplicationJsonObject: "default_application/json_object",
+  });
+});
 
 /**
  * @internal

@@ -178,7 +178,9 @@ let value: HrisEmployeesOneData = {
       id: "2389328923893298",
       name: "employee_level",
       description: "Employee Level",
-      value: {},
+      value: [
+        "<value>",
+      ],
     },
   ],
   socialLinks: [

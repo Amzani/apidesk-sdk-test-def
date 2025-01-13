@@ -1,56 +1,71 @@
 # HrisDepartmentsOneResponse
 
-
-## Supported Types
-
-### `operations.HrisDepartmentsOneResponseBody`
+## Example Usage
 
 ```typescript
-const value: operations.HrisDepartmentsOneResponseBody = {
-  statusCode: 200,
-  status: "OK",
-  service: "workday",
-  resource: "Departments",
-  operation: "one",
-  data: {
-    id: "12345",
-    parentId: "22345",
-    name: "R&D",
-    code: "2",
-    description: "R&D",
-    updatedBy: "12345",
-    createdBy: "12345",
-    updatedAt: new Date("2020-09-30T07:43:32.000Z"),
-    createdAt: new Date("2020-09-30T07:43:32.000Z"),
-    passThrough: [
-      {
-        serviceId: "<id>",
-        extendPaths: [
-          {
-            path: "$.nested.property",
-            value: {
-              "TaxClassificationRef": {
-                "value": "EUC-99990201-V1-00020000",
+import { HrisDepartmentsOneResponse } from "apideck/models/operations";
+
+let value: HrisDepartmentsOneResponse = {
+  httpMeta: {
+    response: new Response("{\"message\": \"hello world\"}", {
+      headers: { "Content-Type": "application/json" },
+    }),
+    request: new Request("https://example.com"),
+  },
+  twoHundredApplicationJsonObject: {
+    statusCode: 200,
+    status: "OK",
+    service: "workday",
+    resource: "Departments",
+    operation: "one",
+    data: {
+      id: "12345",
+      parentId: "22345",
+      name: "R&D",
+      code: "2",
+      description: "R&D",
+      updatedBy: "12345",
+      createdBy: "12345",
+      updatedAt: new Date("2020-09-30T07:43:32.000Z"),
+      createdAt: new Date("2020-09-30T07:43:32.000Z"),
+      passThrough: [
+        {
+          serviceId: "<id>",
+          extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
               },
             },
-          },
-        ],
-      },
-    ],
+          ],
+        },
+      ],
+    },
+  },
+  defaultApplicationJsonObject: {
+    statusCode: 400,
+    error: "Bad Request",
+    typeName: "RequestHeadersValidationError",
+    message: "Invalid Params",
+    detail: {
+      "missing": [
+        {
+          "x-apideck-consumer-id": "required",
+        },
+      ],
+    },
+    ref: "https://developers.apideck.com/errors#unauthorizederror",
   },
 };
 ```
 
-### `operations.HrisDepartmentsOneHrisDepartmentsResponseBody`
+## Fields
 
-```typescript
-const value: operations.HrisDepartmentsOneHrisDepartmentsResponseBody = {
-  statusCode: 400,
-  error: "Bad Request",
-  typeName: "RequestHeadersValidationError",
-  message: "Invalid Params",
-  detail: "Missing Header: x-apideck-consumer-id",
-  ref: "https://developers.apideck.com/errors#unauthorizederror",
-};
-```
-
+| Field                                                                                                                                | Type                                                                                                                                 | Required                                                                                                                             | Description                                                                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `httpMeta`                                                                                                                           | [components.HTTPMetadata](../../models/components/httpmetadata.md)                                                                   | :heavy_check_mark:                                                                                                                   | N/A                                                                                                                                  |
+| `twoHundredApplicationJsonObject`                                                                                                    | [operations.HrisDepartmentsOneResponseBody](../../models/operations/hrisdepartmentsoneresponsebody.md)                               | :heavy_minus_sign:                                                                                                                   | Departments                                                                                                                          |
+| `defaultApplicationJsonObject`                                                                                                       | [operations.HrisDepartmentsOneHrisDepartmentsResponseBody](../../models/operations/hrisdepartmentsonehrisdepartmentsresponsebody.md) | :heavy_minus_sign:                                                                                                                   | Unexpected error                                                                                                                     |

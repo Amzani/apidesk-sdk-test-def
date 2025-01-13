@@ -7,7 +7,7 @@ The type of employment relationship the employee has with the organization.
 ```typescript
 import { HrisEmployeeSchedulesAllEmploymentType } from "apideck/models/operations";
 
-let value: HrisEmployeeSchedulesAllEmploymentType = "freelance";
+let value: HrisEmployeeSchedulesAllEmploymentType = "internship";
 ```
 
 ## Values

@@ -166,7 +166,9 @@ export async function hrisDepartmentsUpdate(
     | RequestTimeoutError
     | ConnectionError
   >(
-    M.json(200, operations.HrisDepartmentsUpdateResponse$inboundSchema),
+    M.json(200, operations.HrisDepartmentsUpdateResponse$inboundSchema, {
+      key: "200_application/json_object",
+    }),
     M.jsonErr(400, errors.HrisDepartmentsUpdateResponseBody$inboundSchema),
     M.jsonErr(
       401,
@@ -188,8 +190,10 @@ export async function hrisDepartmentsUpdate(
         .HrisDepartmentsUpdateHrisDepartmentsResponse422ResponseBody$inboundSchema,
     ),
     M.fail(["4XX", "5XX"]),
-    M.json("default", operations.HrisDepartmentsUpdateResponse$inboundSchema),
-  )(response, { extraFields: responseFields });
+    M.json("default", operations.HrisDepartmentsUpdateResponse$inboundSchema, {
+      key: "default_application/json_object",
+    }),
+  )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return result;
   }

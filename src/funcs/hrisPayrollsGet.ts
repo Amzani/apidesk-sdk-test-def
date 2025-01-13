@@ -165,7 +165,9 @@ export async function hrisPayrollsGet(
     | RequestTimeoutError
     | ConnectionError
   >(
-    M.json(200, operations.HrisPayrollsOneResponse$inboundSchema),
+    M.json(200, operations.HrisPayrollsOneResponse$inboundSchema, {
+      key: "200_application/json_object",
+    }),
     M.jsonErr(400, errors.HrisPayrollsOneResponseBody$inboundSchema),
     M.jsonErr(
       401,
@@ -184,8 +186,10 @@ export async function hrisPayrollsGet(
       errors.HrisPayrollsOneHrisPayrollsResponse422ResponseBody$inboundSchema,
     ),
     M.fail(["4XX", "5XX"]),
-    M.json("default", operations.HrisPayrollsOneResponse$inboundSchema),
-  )(response, { extraFields: responseFields });
+    M.json("default", operations.HrisPayrollsOneResponse$inboundSchema, {
+      key: "default_application/json_object",
+    }),
+  )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return result;
   }

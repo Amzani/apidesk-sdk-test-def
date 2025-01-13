@@ -8,6 +8,7 @@ import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
+import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type HrisEmployeeSchedulesAllGlobals = {
@@ -1853,9 +1854,21 @@ export type HrisEmployeeSchedulesAllResponseBody = {
   data: HrisEmployeeSchedulesAllData;
 };
 
-export type HrisEmployeeSchedulesAllResponse =
-  | HrisEmployeeSchedulesAllResponseBody
-  | HrisEmployeeSchedulesAllHrisEmployeeSchedulesResponseBody;
+export type HrisEmployeeSchedulesAllResponse = {
+  httpMeta: components.HTTPMetadata;
+  /**
+   * EmployeeSchedules
+   */
+  twoHundredApplicationJsonObject?:
+    | HrisEmployeeSchedulesAllResponseBody
+    | undefined;
+  /**
+   * Unexpected error
+   */
+  defaultApplicationJsonObject?:
+    | HrisEmployeeSchedulesAllHrisEmployeeSchedulesResponseBody
+    | undefined;
+};
 
 /** @internal */
 export const HrisEmployeeSchedulesAllGlobals$inboundSchema: z.ZodType<
@@ -5291,29 +5304,53 @@ export const HrisEmployeeSchedulesAllResponse$inboundSchema: z.ZodType<
   HrisEmployeeSchedulesAllResponse,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => HrisEmployeeSchedulesAllResponseBody$inboundSchema),
-  z.lazy(() =>
+> = z.object({
+  HttpMeta: components.HTTPMetadata$inboundSchema,
+  "200_application/json_object": z.lazy(() =>
+    HrisEmployeeSchedulesAllResponseBody$inboundSchema
+  ).optional(),
+  "default_application/json_object": z.lazy(() =>
     HrisEmployeeSchedulesAllHrisEmployeeSchedulesResponseBody$inboundSchema
-  ),
-]);
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "HttpMeta": "httpMeta",
+    "200_application/json_object": "twoHundredApplicationJsonObject",
+    "default_application/json_object": "defaultApplicationJsonObject",
+  });
+});
 
 /** @internal */
-export type HrisEmployeeSchedulesAllResponse$Outbound =
-  | HrisEmployeeSchedulesAllResponseBody$Outbound
-  | HrisEmployeeSchedulesAllHrisEmployeeSchedulesResponseBody$Outbound;
+export type HrisEmployeeSchedulesAllResponse$Outbound = {
+  HttpMeta: components.HTTPMetadata$Outbound;
+  "200_application/json_object"?:
+    | HrisEmployeeSchedulesAllResponseBody$Outbound
+    | undefined;
+  "default_application/json_object"?:
+    | HrisEmployeeSchedulesAllHrisEmployeeSchedulesResponseBody$Outbound
+    | undefined;
+};
 
 /** @internal */
 export const HrisEmployeeSchedulesAllResponse$outboundSchema: z.ZodType<
   HrisEmployeeSchedulesAllResponse$Outbound,
   z.ZodTypeDef,
   HrisEmployeeSchedulesAllResponse
-> = z.union([
-  z.lazy(() => HrisEmployeeSchedulesAllResponseBody$outboundSchema),
-  z.lazy(() =>
+> = z.object({
+  httpMeta: components.HTTPMetadata$outboundSchema,
+  twoHundredApplicationJsonObject: z.lazy(() =>
+    HrisEmployeeSchedulesAllResponseBody$outboundSchema
+  ).optional(),
+  defaultApplicationJsonObject: z.lazy(() =>
     HrisEmployeeSchedulesAllHrisEmployeeSchedulesResponseBody$outboundSchema
-  ),
-]);
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    httpMeta: "HttpMeta",
+    twoHundredApplicationJsonObject: "200_application/json_object",
+    defaultApplicationJsonObject: "default_application/json_object",
+  });
+});
 
 /**
  * @internal

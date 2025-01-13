@@ -183,7 +183,7 @@ export async function hrisTimeOffRequestsList(
     | ConnectionError
   >(
     M.json(200, operations.HrisTimeOffRequestsAllResponse$inboundSchema, {
-      key: "Result",
+      key: "200_application/json_object",
     }),
     M.jsonErr(400, errors.HrisTimeOffRequestsAllResponseBody$inboundSchema),
     M.jsonErr(
@@ -208,9 +208,9 @@ export async function hrisTimeOffRequestsList(
     ),
     M.fail(["4XX", "5XX"]),
     M.json("default", operations.HrisTimeOffRequestsAllResponse$inboundSchema, {
-      key: "Result",
+      key: "default_application/json_object",
     }),
-  )(response, { extraFields: responseFields });
+  )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return haltIterator(result);
   }

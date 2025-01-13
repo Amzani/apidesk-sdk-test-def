@@ -7,7 +7,7 @@ The work schedule of the employee.
 ```typescript
 import { EmploymentSubType } from "apideck/models/operations";
 
-let value: EmploymentSubType = "not_specified";
+let value: EmploymentSubType = "hourly";
 ```
 
 ## Values

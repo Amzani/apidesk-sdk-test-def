@@ -7,7 +7,7 @@ The work schedule of the employee.
 ```typescript
 import { HrisEmployeeSchedulesAllEmploymentSubType } from "apideck/models/operations";
 
-let value: HrisEmployeeSchedulesAllEmploymentSubType = "not_specified";
+let value: HrisEmployeeSchedulesAllEmploymentSubType = "full_time";
 ```
 
 ## Values

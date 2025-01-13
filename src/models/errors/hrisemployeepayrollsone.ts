@@ -6,6 +6,7 @@ import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
+import * as components from "../components/index.js";
 import { SDKValidationError } from "./sdkvalidationerror.js";
 
 /**
@@ -44,6 +45,7 @@ export type HrisEmployeePayrollsOneHrisEmployeePayrollsResponse422ResponseBodyDa
      * Link to documentation of error type
      */
     ref?: string | undefined;
+    httpMeta: components.HTTPMetadata;
   };
 
 /**
@@ -72,6 +74,7 @@ export class HrisEmployeePayrollsOneHrisEmployeePayrollsResponse422ResponseBody
    * Link to documentation of error type
    */
   ref?: string | undefined;
+  httpMeta: components.HTTPMetadata;
 
   /** The original data that was passed to this error instance. */
   data$: HrisEmployeePayrollsOneHrisEmployeePayrollsResponse422ResponseBodyData;
@@ -88,6 +91,7 @@ export class HrisEmployeePayrollsOneHrisEmployeePayrollsResponse422ResponseBody
     if (err.typeName != null) this.typeName = err.typeName;
     if (err.detail != null) this.detail = err.detail;
     if (err.ref != null) this.ref = err.ref;
+    this.httpMeta = err.httpMeta;
 
     this.name =
       "HrisEmployeePayrollsOneHrisEmployeePayrollsResponse422ResponseBody";
@@ -130,6 +134,7 @@ export type HrisEmployeePayrollsOneHrisEmployeePayrollsResponse404ResponseBodyDa
      * Link to documentation of error type
      */
     ref?: string | undefined;
+    httpMeta: components.HTTPMetadata;
   };
 
 /**
@@ -158,6 +163,7 @@ export class HrisEmployeePayrollsOneHrisEmployeePayrollsResponse404ResponseBody
    * Link to documentation of error type
    */
   ref?: string | undefined;
+  httpMeta: components.HTTPMetadata;
 
   /** The original data that was passed to this error instance. */
   data$: HrisEmployeePayrollsOneHrisEmployeePayrollsResponse404ResponseBodyData;
@@ -174,6 +180,7 @@ export class HrisEmployeePayrollsOneHrisEmployeePayrollsResponse404ResponseBody
     if (err.typeName != null) this.typeName = err.typeName;
     if (err.detail != null) this.detail = err.detail;
     if (err.ref != null) this.ref = err.ref;
+    this.httpMeta = err.httpMeta;
 
     this.name =
       "HrisEmployeePayrollsOneHrisEmployeePayrollsResponse404ResponseBody";
@@ -209,6 +216,7 @@ export type HrisEmployeePayrollsOneHrisEmployeePayrollsResponseResponseBodyData 
      * Link to documentation of error type
      */
     ref?: string | undefined;
+    httpMeta: components.HTTPMetadata;
   };
 
 /**
@@ -237,6 +245,7 @@ export class HrisEmployeePayrollsOneHrisEmployeePayrollsResponseResponseBody
    * Link to documentation of error type
    */
   ref?: string | undefined;
+  httpMeta: components.HTTPMetadata;
 
   /** The original data that was passed to this error instance. */
   data$: HrisEmployeePayrollsOneHrisEmployeePayrollsResponseResponseBodyData;
@@ -253,6 +262,7 @@ export class HrisEmployeePayrollsOneHrisEmployeePayrollsResponseResponseBody
     if (err.typeName != null) this.typeName = err.typeName;
     if (err.detail != null) this.detail = err.detail;
     if (err.ref != null) this.ref = err.ref;
+    this.httpMeta = err.httpMeta;
 
     this.name =
       "HrisEmployeePayrollsOneHrisEmployeePayrollsResponseResponseBody";
@@ -294,6 +304,7 @@ export type HrisEmployeePayrollsOneHrisEmployeePayrollsResponseBodyData = {
    * Link to documentation of error type
    */
   ref?: string | undefined;
+  httpMeta: components.HTTPMetadata;
 };
 
 /**
@@ -322,6 +333,7 @@ export class HrisEmployeePayrollsOneHrisEmployeePayrollsResponseBody
    * Link to documentation of error type
    */
   ref?: string | undefined;
+  httpMeta: components.HTTPMetadata;
 
   /** The original data that was passed to this error instance. */
   data$: HrisEmployeePayrollsOneHrisEmployeePayrollsResponseBodyData;
@@ -338,6 +350,7 @@ export class HrisEmployeePayrollsOneHrisEmployeePayrollsResponseBody
     if (err.typeName != null) this.typeName = err.typeName;
     if (err.detail != null) this.detail = err.detail;
     if (err.ref != null) this.ref = err.ref;
+    this.httpMeta = err.httpMeta;
 
     this.name = "HrisEmployeePayrollsOneHrisEmployeePayrollsResponseBody";
   }
@@ -376,6 +389,7 @@ export type HrisEmployeePayrollsOneResponseBodyData = {
    * Link to documentation of error type
    */
   ref?: string | undefined;
+  httpMeta: components.HTTPMetadata;
 };
 
 /**
@@ -402,6 +416,7 @@ export class HrisEmployeePayrollsOneResponseBody extends Error {
    * Link to documentation of error type
    */
   ref?: string | undefined;
+  httpMeta: components.HTTPMetadata;
 
   /** The original data that was passed to this error instance. */
   data$: HrisEmployeePayrollsOneResponseBodyData;
@@ -416,6 +431,7 @@ export class HrisEmployeePayrollsOneResponseBody extends Error {
     if (err.typeName != null) this.typeName = err.typeName;
     if (err.detail != null) this.detail = err.detail;
     if (err.ref != null) this.ref = err.ref;
+    this.httpMeta = err.httpMeta;
 
     this.name = "HrisEmployeePayrollsOneResponseBody";
   }
@@ -496,11 +512,13 @@ export const HrisEmployeePayrollsOneHrisEmployeePayrollsResponse422ResponseBody$
     message: z.string().optional(),
     detail: z.union([z.string(), z.record(z.any())]).optional(),
     ref: z.string().optional(),
+    HttpMeta: components.HTTPMetadata$inboundSchema,
   })
     .transform((v) => {
       const remapped = remap$(v, {
         "status_code": "statusCode",
         "type_name": "typeName",
+        "HttpMeta": "httpMeta",
       });
 
       return new HrisEmployeePayrollsOneHrisEmployeePayrollsResponse422ResponseBody(
@@ -517,6 +535,7 @@ export type HrisEmployeePayrollsOneHrisEmployeePayrollsResponse422ResponseBody$O
     message?: string | undefined;
     detail?: string | { [k: string]: any } | undefined;
     ref?: string | undefined;
+    HttpMeta: components.HTTPMetadata$Outbound;
   };
 
 /** @internal */
@@ -537,10 +556,12 @@ export const HrisEmployeePayrollsOneHrisEmployeePayrollsResponse422ResponseBody$
         message: z.string().optional(),
         detail: z.union([z.string(), z.record(z.any())]).optional(),
         ref: z.string().optional(),
+        httpMeta: components.HTTPMetadata$outboundSchema,
       }).transform((v) => {
         return remap$(v, {
           statusCode: "status_code",
           typeName: "type_name",
+          httpMeta: "HttpMeta",
         });
       }),
     );
@@ -636,11 +657,13 @@ export const HrisEmployeePayrollsOneHrisEmployeePayrollsResponse404ResponseBody$
     message: z.string().optional(),
     detail: z.union([z.string(), z.record(z.any())]).optional(),
     ref: z.string().optional(),
+    HttpMeta: components.HTTPMetadata$inboundSchema,
   })
     .transform((v) => {
       const remapped = remap$(v, {
         "status_code": "statusCode",
         "type_name": "typeName",
+        "HttpMeta": "httpMeta",
       });
 
       return new HrisEmployeePayrollsOneHrisEmployeePayrollsResponse404ResponseBody(
@@ -657,6 +680,7 @@ export type HrisEmployeePayrollsOneHrisEmployeePayrollsResponse404ResponseBody$O
     message?: string | undefined;
     detail?: string | { [k: string]: any } | undefined;
     ref?: string | undefined;
+    HttpMeta: components.HTTPMetadata$Outbound;
   };
 
 /** @internal */
@@ -677,10 +701,12 @@ export const HrisEmployeePayrollsOneHrisEmployeePayrollsResponse404ResponseBody$
         message: z.string().optional(),
         detail: z.union([z.string(), z.record(z.any())]).optional(),
         ref: z.string().optional(),
+        httpMeta: components.HTTPMetadata$outboundSchema,
       }).transform((v) => {
         return remap$(v, {
           statusCode: "status_code",
           typeName: "type_name",
+          httpMeta: "HttpMeta",
         });
       }),
     );
@@ -714,11 +740,13 @@ export const HrisEmployeePayrollsOneHrisEmployeePayrollsResponseResponseBody$inb
     message: z.string().optional(),
     detail: z.string().optional(),
     ref: z.string().optional(),
+    HttpMeta: components.HTTPMetadata$inboundSchema,
   })
     .transform((v) => {
       const remapped = remap$(v, {
         "status_code": "statusCode",
         "type_name": "typeName",
+        "HttpMeta": "httpMeta",
       });
 
       return new HrisEmployeePayrollsOneHrisEmployeePayrollsResponseResponseBody(
@@ -735,6 +763,7 @@ export type HrisEmployeePayrollsOneHrisEmployeePayrollsResponseResponseBody$Outb
     message?: string | undefined;
     detail?: string | undefined;
     ref?: string | undefined;
+    HttpMeta: components.HTTPMetadata$Outbound;
   };
 
 /** @internal */
@@ -755,10 +784,12 @@ export const HrisEmployeePayrollsOneHrisEmployeePayrollsResponseResponseBody$out
         message: z.string().optional(),
         detail: z.string().optional(),
         ref: z.string().optional(),
+        httpMeta: components.HTTPMetadata$outboundSchema,
       }).transform((v) => {
         return remap$(v, {
           statusCode: "status_code",
           typeName: "type_name",
+          httpMeta: "HttpMeta",
         });
       }),
     );
@@ -856,11 +887,13 @@ export const HrisEmployeePayrollsOneHrisEmployeePayrollsResponseBody$inboundSche
     message: z.string().optional(),
     detail: z.union([z.string(), z.record(z.any())]).optional(),
     ref: z.string().optional(),
+    HttpMeta: components.HTTPMetadata$inboundSchema,
   })
     .transform((v) => {
       const remapped = remap$(v, {
         "status_code": "statusCode",
         "type_name": "typeName",
+        "HttpMeta": "httpMeta",
       });
 
       return new HrisEmployeePayrollsOneHrisEmployeePayrollsResponseBody(
@@ -876,6 +909,7 @@ export type HrisEmployeePayrollsOneHrisEmployeePayrollsResponseBody$Outbound = {
   message?: string | undefined;
   detail?: string | { [k: string]: any } | undefined;
   ref?: string | undefined;
+  HttpMeta: components.HTTPMetadata$Outbound;
 };
 
 /** @internal */
@@ -894,10 +928,12 @@ export const HrisEmployeePayrollsOneHrisEmployeePayrollsResponseBody$outboundSch
         message: z.string().optional(),
         detail: z.union([z.string(), z.record(z.any())]).optional(),
         ref: z.string().optional(),
+        httpMeta: components.HTTPMetadata$outboundSchema,
       }).transform((v) => {
         return remap$(v, {
           statusCode: "status_code",
           typeName: "type_name",
+          httpMeta: "HttpMeta",
         });
       }),
     );
@@ -982,11 +1018,13 @@ export const HrisEmployeePayrollsOneResponseBody$inboundSchema: z.ZodType<
   message: z.string().optional(),
   detail: z.union([z.string(), z.record(z.any())]).optional(),
   ref: z.string().optional(),
+  HttpMeta: components.HTTPMetadata$inboundSchema,
 })
   .transform((v) => {
     const remapped = remap$(v, {
       "status_code": "statusCode",
       "type_name": "typeName",
+      "HttpMeta": "httpMeta",
     });
 
     return new HrisEmployeePayrollsOneResponseBody(remapped);
@@ -1000,6 +1038,7 @@ export type HrisEmployeePayrollsOneResponseBody$Outbound = {
   message?: string | undefined;
   detail?: string | { [k: string]: any } | undefined;
   ref?: string | undefined;
+  HttpMeta: components.HTTPMetadata$Outbound;
 };
 
 /** @internal */
@@ -1017,10 +1056,12 @@ export const HrisEmployeePayrollsOneResponseBody$outboundSchema: z.ZodType<
       message: z.string().optional(),
       detail: z.union([z.string(), z.record(z.any())]).optional(),
       ref: z.string().optional(),
+      httpMeta: components.HTTPMetadata$outboundSchema,
     }).transform((v) => {
       return remap$(v, {
         statusCode: "status_code",
         typeName: "type_name",
+        httpMeta: "HttpMeta",
       });
     }),
   );

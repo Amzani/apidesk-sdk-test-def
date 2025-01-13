@@ -158,7 +158,9 @@ export async function hrisCompaniesCreate(
     | RequestTimeoutError
     | ConnectionError
   >(
-    M.json(201, operations.HrisCompaniesAddResponse$inboundSchema),
+    M.json(201, operations.HrisCompaniesAddResponse$inboundSchema, {
+      key: "201_application/json_object",
+    }),
     M.jsonErr(400, errors.HrisCompaniesAddResponseBody$inboundSchema),
     M.jsonErr(
       401,
@@ -177,8 +179,10 @@ export async function hrisCompaniesCreate(
       errors.HrisCompaniesAddHrisCompaniesResponse422ResponseBody$inboundSchema,
     ),
     M.fail(["4XX", "5XX"]),
-    M.json("default", operations.HrisCompaniesAddResponse$inboundSchema),
-  )(response, { extraFields: responseFields });
+    M.json("default", operations.HrisCompaniesAddResponse$inboundSchema, {
+      key: "default_application/json_object",
+    }),
+  )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return result;
   }

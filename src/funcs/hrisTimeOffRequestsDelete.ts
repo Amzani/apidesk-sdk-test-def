@@ -171,7 +171,9 @@ export async function hrisTimeOffRequestsDelete(
     | RequestTimeoutError
     | ConnectionError
   >(
-    M.json(200, operations.HrisTimeOffRequestsDeleteResponse$inboundSchema),
+    M.json(200, operations.HrisTimeOffRequestsDeleteResponse$inboundSchema, {
+      key: "200_application/json_object",
+    }),
     M.jsonErr(400, errors.HrisTimeOffRequestsDeleteResponseBody$inboundSchema),
     M.jsonErr(
       401,
@@ -197,8 +199,9 @@ export async function hrisTimeOffRequestsDelete(
     M.json(
       "default",
       operations.HrisTimeOffRequestsDeleteResponse$inboundSchema,
+      { key: "default_application/json_object" },
     ),
-  )(response, { extraFields: responseFields });
+  )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return result;
   }

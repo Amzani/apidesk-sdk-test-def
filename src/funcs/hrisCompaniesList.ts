@@ -181,7 +181,7 @@ export async function hrisCompaniesList(
     | ConnectionError
   >(
     M.json(200, operations.HrisCompaniesAllResponse$inboundSchema, {
-      key: "Result",
+      key: "200_application/json_object",
     }),
     M.jsonErr(400, errors.HrisCompaniesAllResponseBody$inboundSchema),
     M.jsonErr(
@@ -202,9 +202,9 @@ export async function hrisCompaniesList(
     ),
     M.fail(["4XX", "5XX"]),
     M.json("default", operations.HrisCompaniesAllResponse$inboundSchema, {
-      key: "Result",
+      key: "default_application/json_object",
     }),
-  )(response, { extraFields: responseFields });
+  )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return haltIterator(result);
   }
