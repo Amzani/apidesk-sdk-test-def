@@ -3,9 +3,9 @@ speakeasyVersion: latest
 sources:
     CRM API:
         inputs:
-            - location: ../speakeasy-spec-def.yml
+            - location: ../spec-crm-api.enhanced.refs.json
         registry:
-            location: registry.speakeasyapi.dev/apideck-k2o/apideck/crm-api
+            location: registry.speakeasyapi.dev/apideck-k2o/apideck/crm-api-def
 targets:
     apideck:
         target: typescript

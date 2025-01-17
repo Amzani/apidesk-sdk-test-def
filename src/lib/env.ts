@@ -5,29 +5,19 @@
 import { dlv } from "./dlv.js";
 
 import * as z from "zod";
-import { SDKOptions } from "./config.js";
 
 export interface Env {
   APIDECK_API_KEY?: string | undefined;
-
-  /**
-   * Sets the consumerId parameter for all supported operations
-   */
+  APIDECK_APPLICATION_ID?: string | undefined;
   APIDECK_CONSUMER_ID?: string | undefined;
-
-  /**
-   * Sets the appId parameter for all supported operations
-   */
-  APIDECK_APP_ID?: string | undefined;
 
   APIDECK_DEBUG?: boolean | undefined;
 }
 
 export const envSchema: z.ZodType<Env, z.ZodTypeDef, unknown> = z.object({
   APIDECK_API_KEY: z.string().optional(),
-
+  APIDECK_APPLICATION_ID: z.string().optional(),
   APIDECK_CONSUMER_ID: z.string().optional(),
-  APIDECK_APP_ID: z.string().optional(),
 
   APIDECK_DEBUG: z.coerce.boolean().optional(),
 });
@@ -52,22 +42,4 @@ export function env(): Env {
  */
 export function resetEnv() {
   envMemo = undefined;
-}
-
-/**
- * Populates global parameters with environment variables.
- */
-export function fillGlobals(options: SDKOptions): SDKOptions {
-  const clone = { ...options };
-
-  const envVars = env();
-
-  if (typeof envVars.APIDECK_CONSUMER_ID !== "undefined") {
-    clone.consumerId ??= envVars.APIDECK_CONSUMER_ID;
-  }
-  if (typeof envVars.APIDECK_APP_ID !== "undefined") {
-    clone.appId ??= envVars.APIDECK_APP_ID;
-  }
-
-  return clone;
 }

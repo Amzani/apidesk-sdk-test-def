@@ -13,3 +13,5 @@ let value: Security = {};
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
 | `apiKey`           | *string*           | :heavy_minus_sign: | N/A                |
+| `applicationId`    | *string*           | :heavy_minus_sign: | N/A                |
+| `consumerId`       | *string*           | :heavy_minus_sign: | N/A                |
