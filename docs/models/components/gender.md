@@ -1,6 +1,6 @@
 # Gender
 
-Specifies the gender of the contact, which can be used for personalized communication and marketing strategies. Acceptable values typically include 'male', 'female', 'non-binary', or 'other'. This field is optional and should be used in accordance with privacy regulations and the contact's preferences.
+The gender of the contact, which can be used for personalization and demographic analysis. This optional field allows for more customized communication strategies and insights into the contact base.
 
 ## Example Usage
 

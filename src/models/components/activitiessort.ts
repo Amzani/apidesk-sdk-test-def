@@ -9,26 +9,26 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * The field on which to sort the Activities
+ * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
  */
 export const ActivitiesSortBy = {
   CreatedAt: "created_at",
   UpdatedAt: "updated_at",
 } as const;
 /**
- * The field on which to sort the Activities
+ * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
  */
 export type ActivitiesSortBy = ClosedEnum<typeof ActivitiesSortBy>;
 
 /**
- * The direction in which to sort the results
+ * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
  */
 export const ActivitiesSortDirection = {
   Asc: "asc",
   Desc: "desc",
 } as const;
 /**
- * The direction in which to sort the results
+ * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
  */
 export type ActivitiesSortDirection = ClosedEnum<
   typeof ActivitiesSortDirection
@@ -36,11 +36,11 @@ export type ActivitiesSortDirection = ClosedEnum<
 
 export type ActivitiesSort = {
   /**
-   * The field on which to sort the Activities
+   * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
    */
   by?: ActivitiesSortBy | undefined;
   /**
-   * The direction in which to sort the results
+   * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
    */
   direction?: ActivitiesSortDirection | undefined;
 };

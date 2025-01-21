@@ -9,8 +9,6 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type Security = {
   apiKey?: string | undefined;
-  applicationId?: string | undefined;
-  consumerId?: string | undefined;
 };
 
 /** @internal */
@@ -20,15 +18,11 @@ export const Security$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   apiKey: z.string().optional(),
-  applicationId: z.string().optional(),
-  consumerId: z.string().optional(),
 });
 
 /** @internal */
 export type Security$Outbound = {
   apiKey?: string | undefined;
-  applicationId?: string | undefined;
-  consumerId?: string | undefined;
 };
 
 /** @internal */
@@ -38,8 +32,6 @@ export const Security$outboundSchema: z.ZodType<
   Security
 > = z.object({
   apiKey: z.string().optional(),
-  applicationId: z.string().optional(),
-  consumerId: z.string().optional(),
 });
 
 /**

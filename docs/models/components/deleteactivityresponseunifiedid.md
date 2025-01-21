@@ -1,0 +1,19 @@
+# DeleteActivityResponseUnifiedId
+
+This object contains the unique identifier of the activity that was deleted. It serves as confirmation that the specified activity has been successfully removed from the CRM system. The presence of this object in the response indicates a successful delete operation.
+
+## Example Usage
+
+```typescript
+import { DeleteActivityResponseUnifiedId } from "apideck/models/components";
+
+let value: DeleteActivityResponseUnifiedId = {
+  id: "12345",
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                                                                     | Type                                                                                                                                                                                                                      | Required                                                                                                                                                                                                                  | Description                                                                                                                                                                                                               | Example                                                                                                                                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                                                                        | The unique identifier of the activity that was deleted. This string value confirms the specific activity that has been removed from the CRM system, ensuring that developers can verify the correct resource was deleted. | 12345                                                                                                                                                                                                                     |

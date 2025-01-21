@@ -10,20 +10,23 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type ActivitiesFilter = {
   /**
-   * Company ID to filter on
+   * The 'filter.company_id' property is used to filter activities by a specific company ID. This allows you to narrow down the results to activities associated with a particular company.
    */
   companyId?: string | undefined;
   /**
-   * Owner ID to filter on
+   * The 'filter.owner_id' property is used to filter activities by a specific owner ID, enabling you to view activities managed by a particular owner.
    */
   ownerId?: string | undefined;
   /**
-   * Primary contact ID to filter on
+   * Filter activities by the primary contact's unique identifier. This allows you to narrow down the results to activities associated with a specific contact.
    */
   contactId?: string | undefined;
+  /**
+   * Retrieve activities that have been updated since a specific date and time. This is useful for incremental data synchronization. The value should be in ISO 8601 format.
+   */
   updatedSince?: Date | undefined;
   /**
-   * Type to filter on
+   * Filter activities by their type, such as 'call', 'email', or 'meeting'. This helps in categorizing and retrieving specific types of interactions.
    */
   type?: string | undefined;
 };

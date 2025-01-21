@@ -1,0 +1,23 @@
+# UpdateLeadRequestExtendPaths
+
+## Example Usage
+
+```typescript
+import { UpdateLeadRequestExtendPaths } from "apideck/models/components";
+
+let value: UpdateLeadRequestExtendPaths = {
+  path: "$.nested.property",
+  value: {
+    "TaxClassificationRef": {
+      "value": "EUC-99990201-V1-00020000",
+    },
+  },
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                                                                  | Type                                                                                                                                                                                                                   | Required                                                                                                                                                                                                               | Description                                                                                                                                                                                                            | Example                                                                                                                                                                                                                |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `path`                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                               | :heavy_check_mark:                                                                                                                                                                                                     | A JSONPath string that specifies the exact location within the lead data where the value should be applied. This is crucial for ensuring that updates are made to the correct data fields, maintaining data integrity. | $.nested.property                                                                                                                                                                                                      |
+| `value`                                                                                                                                                                                                                | *any*                                                                                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                                                                     | The value to be set at the specified JSONPath, which can be of any data type. This flexibility allows developers to update lead data with a wide range of values, accommodating various data types and structures.     | {<br/>"TaxClassificationRef": {<br/>"value": "EUC-99990201-V1-00020000"<br/>}<br/>}                                                                                                                                    |

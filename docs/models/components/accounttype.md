@@ -1,6 +1,6 @@
 # AccountType
 
-Specifies the category of the bank account, such as 'savings', 'checking', or 'business'. This information is important for determining the nature of transactions that can be performed and may affect transaction limits and fees. Understanding the account type helps in aligning the company's financial operations with its banking capabilities.
+Indicates the type of bank account, such as checking, savings, or business. This classification helps in managing the company's financial accounts appropriately within the CRM. The account type should be specified as recognized by the bank.
 
 ## Example Usage
 

@@ -10,31 +10,31 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type ContactsFilter = {
   /**
-   * Name of the contact to filter on
+   * Filter companies by their name. This parameter allows you to narrow down the list of companies to those whose names match the specified string. Useful for searching specific companies within the CRM.
    */
   name?: string | undefined;
   /**
-   * First name of the contact to filter on
+   * Filter contacts by their first name. This parameter allows you to narrow down the contact list to those whose first name matches the specified value. Useful for searching specific individuals or groups with the same first name.
    */
   firstName?: string | undefined;
   /**
-   * Last name of the contact to filter on
+   * Filter contacts by their last name. This parameter helps in retrieving contacts whose last name matches the given value, facilitating targeted searches within the contact database.
    */
   lastName?: string | undefined;
   /**
-   * Email of the contact to filter on
+   * Filter contacts by their email address. Use this parameter to find contacts with a specific email, which is particularly useful for identifying unique contacts or verifying email-based records.
    */
   email?: string | undefined;
   /**
-   * Phone number of the contact to filter on
+   * Filter contacts by their phone number. This parameter is ideal for locating contacts with a specific phone number, aiding in direct communication or verification processes.
    */
   phoneNumber?: string | undefined;
   /**
-   * Unique identifier for the associated company of the contact to filter on
+   * The 'filter.company_id' property is used to filter activities by a specific company ID. This allows you to narrow down the results to activities associated with a particular company.
    */
   companyId?: string | undefined;
   /**
-   * Unique identifier for the owner of the contact to filter on
+   * The 'filter.owner_id' property is used to filter activities by a specific owner ID, enabling you to view activities managed by a particular owner.
    */
   ownerId?: string | undefined;
 };

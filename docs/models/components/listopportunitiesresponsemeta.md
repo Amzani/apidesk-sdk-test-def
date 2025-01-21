@@ -1,0 +1,25 @@
+# ListOpportunitiesResponseMeta
+
+Contains metadata about the response, including pagination details and cursors for navigating through pages of results. This object helps in understanding the context of the data returned and managing large datasets efficiently.
+
+## Example Usage
+
+```typescript
+import { ListOpportunitiesResponseMeta } from "apideck/models/components";
+
+let value: ListOpportunitiesResponseMeta = {
+  itemsOnPage: 50,
+  cursors: {
+    previous: "em9oby1jcm06OnBhZ2U6OjE=",
+    current: "em9oby1jcm06OnBhZ2U6OjI=",
+    next: "em9oby1jcm06OnBhZ2U6OjM=",
+  },
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                                                                | Type                                                                                                                                                                                                                 | Required                                                                                                                                                                                                             | Description                                                                                                                                                                                                          | Example                                                                                                                                                                                                              |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `itemsOnPage`                                                                                                                                                                                                        | *number*                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                   | Indicates the total number of opportunity records included in the current page of the response. This integer value helps in assessing the volume of data retrieved per request and is useful for pagination control. | 50                                                                                                                                                                                                                   |
+| `cursors`                                                                                                                                                                                                            | [components.ListOpportunitiesResponseCursors](../../models/components/listopportunitiesresponsecursors.md)                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                   | Holds the cursors used for paginating through the list of opportunities. This object includes pointers to navigate to different pages, facilitating seamless data retrieval across multiple requests.                |                                                                                                                                                                                                                      |

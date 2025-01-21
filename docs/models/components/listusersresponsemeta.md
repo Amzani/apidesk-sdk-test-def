@@ -1,0 +1,25 @@
+# ListUsersResponseMeta
+
+An object containing metadata about the response, such as pagination details or request identifiers. This information helps in understanding the context of the response and managing subsequent API calls effectively.
+
+## Example Usage
+
+```typescript
+import { ListUsersResponseMeta } from "apideck/models/components";
+
+let value: ListUsersResponseMeta = {
+  itemsOnPage: 50,
+  cursors: {
+    previous: "em9oby1jcm06OnBhZ2U6OjE=",
+    current: "em9oby1jcm06OnBhZ2U6OjI=",
+    next: "em9oby1jcm06OnBhZ2U6OjM=",
+  },
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                                                                     | Type                                                                                                                                                                                                                      | Required                                                                                                                                                                                                                  | Description                                                                                                                                                                                                               | Example                                                                                                                                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `itemsOnPage`                                                                                                                                                                                                             | *number*                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                        | An integer indicating the number of user records returned in the current page of the response. This helps in understanding the volume of data retrieved and is useful for implementing pagination in client applications. | 50                                                                                                                                                                                                                        |
+| `cursors`                                                                                                                                                                                                                 | [components.ListUsersResponseCursors](../../models/components/listusersresponsecursors.md)                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                        | An object containing cursor information used for navigating through paginated API responses. It includes pointers to the previous and next pages, facilitating efficient data retrieval across multiple requests.         |                                                                                                                                                                                                                           |

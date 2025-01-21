@@ -1,34 +1,36 @@
 # Activities
-(*activities*)
+(*crm.activities*)
 
 ## Overview
 
 ### Available Operations
 
-* [activitiesAll](#activitiesall) - Retrieve all CRM activities.
-* [activitiesAdd](#activitiesadd) - Add a new activity to the CRM system.
-* [activitiesOne](#activitiesone) - Retrieve a specific CRM activity by ID.
-* [activitiesUpdate](#activitiesupdate) - Update an existing activity record in the CRM system.
-* [activitiesDelete](#activitiesdelete) - Delete a specific CRM activity by ID.
+* [list](#list) - Retrieve all CRM activities with customizable query options.
+* [create](#create) - Add a new activity to the CRM system.
+* [get](#get) - Retrieve a specific CRM activity by its ID.
+* [update](#update) - Update an existing activity record in the CRM.
+* [delete](#delete) - Delete a specific CRM activity by its ID.
 
-## activitiesAll
+## list
 
-The 'activitiesAll' operation is a GET request to the '/crm/activities' endpoint, designed to retrieve a comprehensive list of CRM activities. This operation supports various query parameters to customize the response, including 'raw' for debugging purposes, 'cursor' for pagination, 'limit' to control the number of results (ranging from 1 to 200, defaulting to 20), and 'fields' to specify which fields to include in the response. Additionally, it allows filtering and sorting of results through the 'filter' and 'sort' parameters, respectively. The request must include the 'x-apideck-consumer-id' and 'x-apideck-app-id' headers to identify the consumer and application. Optionally, the 'x-apideck-service-id' header can be used when multiple integrations are active. The 'pass_through' parameter enables the inclusion of additional unmapped query parameters. The response will include a list of activities, with pagination supported via cursors found in the response metadata. This operation is crucial for accessing and managing CRM activities efficiently, providing flexibility through its extensive parameter support.
+The `activitiesAll` operation allows developers to retrieve a comprehensive list of CRM activities using a GET request to the `/crm/activities` endpoint. This operation is essential for accessing activity data across various CRM integrations, enabling users to manage and analyze customer interactions effectively. Key parameters include `x-apideck-consumer-id` and `x-apideck-app-id`, which are mandatory headers for identifying the consumer and application. Optional query parameters such as `cursor`, `limit`, `filter`, and `sort` provide flexibility in navigating and organizing the data. The `fields` parameter allows for selective data retrieval, enhancing performance by returning only specified fields. The response is a JSON object containing the requested activities, facilitating seamless integration into applications and workflows. This operation supports debugging with the `raw` parameter and allows additional query customization through `pass_through`. The response includes pagination details for efficient data handling.
 
 ### Example Usage
 
 ```typescript
 import { Apideck } from "apideck";
 
-const apideck = new Apideck();
+const apideck = new Apideck({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const result = await apideck.activities.activitiesAll({
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+  const result = await apideck.crm.activities.list({
+    raw: false,
     serviceId: "salesforce",
+    limit: 20,
     filter: {
       updatedSince: new Date("2020-09-30T07:43:32.000Z"),
     },
@@ -42,8 +44,10 @@ async function run() {
     fields: "id,updated_at",
   });
 
-  // Handle the result
-  console.log(result);
+  for await (const page of result) {
+    // Handle the page
+    console.log(page);
+  }
 }
 
 run();
@@ -55,19 +59,21 @@ The standalone function version of this method:
 
 ```typescript
 import { ApideckCore } from "apideck/core.js";
-import { activitiesActivitiesAll } from "apideck/funcs/activitiesActivitiesAll.js";
+import { crmActivitiesList } from "apideck/funcs/crmActivitiesList.js";
 
 // Use `ApideckCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const apideck = new ApideckCore();
+const apideck = new ApideckCore({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const res = await activitiesActivitiesAll(apideck, {
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+  const res = await crmActivitiesList(apideck, {
+    raw: false,
     serviceId: "salesforce",
+    limit: 20,
     filter: {
       updatedSince: new Date("2020-09-30T07:43:32.000Z"),
     },
@@ -87,8 +93,10 @@ async function run() {
 
   const { value: result } = res;
 
-  // Handle the result
-  console.log(result);
+  for await (const page of result) {
+    // Handle the page
+    console.log(page);
+  }
 }
 
 run();
@@ -98,15 +106,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.ActivitiesAllRequest](../../models/operations/activitiesallrequest.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.ActivitiesAllSecurity](../../models/operations/activitiesallsecurity.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.CrmActivitiesAllRequest](../../models/operations/crmactivitiesallrequest.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.ActivitiesAllResponse](../../models/operations/activitiesallresponse.md)\>**
+**Promise\<[operations.CrmActivitiesAllResponse](../../models/operations/crmactivitiesallresponse.md)\>**
 
 ### Errors
 
@@ -119,33 +126,34 @@ run();
 | errors.UnprocessableEntityResponse | 422                                | application/json                   |
 | errors.APIError                    | 4XX, 5XX                           | \*/\*                              |
 
-## activitiesAdd
+## create
 
-The `activitiesAdd` operation allows API consumers to add new activities to the CRM system by sending a POST request to the `/crm/activities` endpoint. This operation is essential for integrating and managing customer relationship activities within the CRM platform. 
+The `activitiesAdd` operation allows developers to create a new activity within the CRM system by sending a POST request to the `/crm/activities` endpoint. This operation is essential for integrating and managing customer interactions and tasks within a unified CRM platform. 
 
 Key Parameters:
-- `raw` (query): Optional parameter to include the raw response, primarily used for debugging purposes.
-- `x-apideck-consumer-id` (header): Required parameter that specifies the ID of the consumer from which data is being retrieved or pushed.
-- `x-apideck-app-id` (header): Required parameter that identifies the Unify application being used.
-- `x-apideck-service-id` (header): Optional parameter to specify the service ID to be called, such as 'pipedrive'. This is necessary when a consumer has multiple integrations activated for a Unified API.
+- `x-apideck-consumer-id` (header, required): Specifies the consumer ID for data retrieval or submission.
+- `x-apideck-app-id` (header, required): Identifies the Unify application making the request.
+- `x-apideck-service-id` (header, optional): Indicates the specific service to call, necessary when multiple integrations are active.
+- `raw` (query, optional): Determines if the raw response should be included, mainly for debugging.
 
-The request body must contain the details of the activity to be added. Upon successful creation, the API returns a `201 Created` response, indicating that the activity has been successfully added to the CRM system. This operation does not support filtering or sorting of activities during the creation process. It is crucial to ensure that all required headers are correctly set to avoid authentication errors or misrouting of requests.
+Upon successful creation, the operation returns a `201` status code along with a JSON object containing the unique identifier of the newly created activity. This response confirms the successful addition of the activity to the CRM system.
 
 ### Example Usage
 
 ```typescript
 import { Apideck } from "apideck";
 
-const apideck = new Apideck();
+const apideck = new Apideck({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const result = await apideck.activities.activitiesAdd({
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+  const result = await apideck.crm.activities.create({
+    raw: false,
     serviceId: "salesforce",
-    activityCreateRequest: {
+    createActivityRequest: {
       activityDatetime: "2021-05-01T12:00:00.000Z",
       durationSeconds: 1800,
       userId: "12345",
@@ -217,21 +225,16 @@ async function run() {
           id: "2389328923893298",
           name: "employee_level",
           description: "Employee Level",
-          value: "Uses Salesforce and Marketo",
+          value: {},
+        },
+        {
+          id: "2389328923893298",
+          name: "employee_level",
+          description: "Employee Level",
+          value: true,
         },
       ],
       attendees: [
-        {
-          name: "Elon Musk",
-          firstName: "Elon",
-          middleName: "D.",
-          lastName: "Musk",
-          prefix: "Mr.",
-          suffix: "PhD",
-          emailAddress: "elon@musk.com",
-          isOrganizer: true,
-          status: "accepted",
-        },
         {
           name: "Elon Musk",
           firstName: "Elon",
@@ -256,11 +259,6 @@ async function run() {
                 },
               },
             },
-          ],
-        },
-        {
-          serviceId: "<id>",
-          extendPaths: [
             {
               path: "$.nested.property",
               value: {
@@ -269,19 +267,6 @@ async function run() {
                 },
               },
             },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-          ],
-        },
-        {
-          serviceId: "<id>",
-          extendPaths: [
             {
               path: "$.nested.property",
               value: {
@@ -309,20 +294,21 @@ The standalone function version of this method:
 
 ```typescript
 import { ApideckCore } from "apideck/core.js";
-import { activitiesActivitiesAdd } from "apideck/funcs/activitiesActivitiesAdd.js";
+import { crmActivitiesCreate } from "apideck/funcs/crmActivitiesCreate.js";
 
 // Use `ApideckCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const apideck = new ApideckCore();
+const apideck = new ApideckCore({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const res = await activitiesActivitiesAdd(apideck, {
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+  const res = await crmActivitiesCreate(apideck, {
+    raw: false,
     serviceId: "salesforce",
-    activityCreateRequest: {
+    createActivityRequest: {
       activityDatetime: "2021-05-01T12:00:00.000Z",
       durationSeconds: 1800,
       userId: "12345",
@@ -394,21 +380,16 @@ async function run() {
           id: "2389328923893298",
           name: "employee_level",
           description: "Employee Level",
-          value: "Uses Salesforce and Marketo",
+          value: {},
+        },
+        {
+          id: "2389328923893298",
+          name: "employee_level",
+          description: "Employee Level",
+          value: true,
         },
       ],
       attendees: [
-        {
-          name: "Elon Musk",
-          firstName: "Elon",
-          middleName: "D.",
-          lastName: "Musk",
-          prefix: "Mr.",
-          suffix: "PhD",
-          emailAddress: "elon@musk.com",
-          isOrganizer: true,
-          status: "accepted",
-        },
         {
           name: "Elon Musk",
           firstName: "Elon",
@@ -433,11 +414,6 @@ async function run() {
                 },
               },
             },
-          ],
-        },
-        {
-          serviceId: "<id>",
-          extendPaths: [
             {
               path: "$.nested.property",
               value: {
@@ -446,19 +422,6 @@ async function run() {
                 },
               },
             },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-          ],
-        },
-        {
-          serviceId: "<id>",
-          extendPaths: [
             {
               path: "$.nested.property",
               value: {
@@ -490,15 +453,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.ActivitiesAddRequest](../../models/operations/activitiesaddrequest.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.ActivitiesAddSecurity](../../models/operations/activitiesaddsecurity.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.CrmActivitiesAddRequest](../../models/operations/crmactivitiesaddrequest.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.ActivitiesAddResponse](../../models/operations/activitiesaddresponse.md)\>**
+**Promise\<[operations.CrmActivitiesAddResponse](../../models/operations/crmactivitiesaddresponse.md)\>**
 
 ### Errors
 
@@ -511,25 +473,36 @@ run();
 | errors.UnprocessableEntityResponse | 422                                | application/json                   |
 | errors.APIError                    | 4XX, 5XX                           | \*/\*                              |
 
-## activitiesOne
+## get
 
-The 'activitiesOne' operation allows API consumers to retrieve detailed information about a specific CRM activity using its unique ID. This GET request requires the 'id' parameter in the path to specify the activity record to be fetched. Additionally, the request must include headers such as 'x-apideck-consumer-id' and 'x-apideck-app-id' to authenticate and identify the consumer and application making the request. Optionally, the 'x-apideck-service-id' header can be provided if multiple integrations are activated, specifying which service to query. The operation supports query parameters like 'raw' for debugging purposes and 'fields' to filter the response data by specifying which fields to include. The response will return a 200 status code upon successful retrieval of the activity details. This operation is essential for accessing specific CRM activity data, enabling users to integrate and utilize this information within their applications effectively. No request body is required for this operation.
+The 'activitiesOne' operation allows developers to fetch detailed information about a specific CRM activity using its unique ID. This operation is essential for accessing individual activity records within a CRM system, enabling users to view or process specific activity data as needed. 
+
+Key Parameters:
+- **id** (path): The unique identifier of the activity record to retrieve. This parameter is mandatory.
+- **x-apideck-consumer-id** (header): Required to specify the consumer ID for data retrieval.
+- **x-apideck-app-id** (header): The ID of the Unify application making the request, also required.
+- **x-apideck-service-id** (header): Optional parameter to specify the service ID when multiple integrations are active.
+- **raw** (query): Optional parameter to include the raw response, useful for debugging.
+- **fields** (query): Allows specifying which fields to include in the response, using a comma-separated string for selective data retrieval.
+
+Response Behavior: The operation returns a JSON object representing the CRM activity, including all requested fields. This enables developers to integrate or display specific activity details within their applications efficiently.
 
 ### Example Usage
 
 ```typescript
 import { Apideck } from "apideck";
 
-const apideck = new Apideck();
+const apideck = new Apideck({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const result = await apideck.activities.activitiesOne({
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
+  const result = await apideck.crm.activities.get({
     id: "<id>",
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
     serviceId: "salesforce",
+    raw: false,
     fields: "id,updated_at",
   });
 
@@ -546,20 +519,21 @@ The standalone function version of this method:
 
 ```typescript
 import { ApideckCore } from "apideck/core.js";
-import { activitiesActivitiesOne } from "apideck/funcs/activitiesActivitiesOne.js";
+import { crmActivitiesGet } from "apideck/funcs/crmActivitiesGet.js";
 
 // Use `ApideckCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const apideck = new ApideckCore();
+const apideck = new ApideckCore({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const res = await activitiesActivitiesOne(apideck, {
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
+  const res = await crmActivitiesGet(apideck, {
     id: "<id>",
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
     serviceId: "salesforce",
+    raw: false,
     fields: "id,updated_at",
   });
 
@@ -580,15 +554,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.ActivitiesOneRequest](../../models/operations/activitiesonerequest.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.ActivitiesOneSecurity](../../models/operations/activitiesonesecurity.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.CrmActivitiesOneRequest](../../models/operations/crmactivitiesonerequest.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.ActivitiesOneResponse](../../models/operations/activitiesoneresponse.md)\>**
+**Promise\<[operations.CrmActivitiesOneResponse](../../models/operations/crmactivitiesoneresponse.md)\>**
 
 ### Errors
 
@@ -601,26 +574,31 @@ run();
 | errors.UnprocessableEntityResponse | 422                                | application/json                   |
 | errors.APIError                    | 4XX, 5XX                           | \*/\*                              |
 
-## activitiesUpdate
+## update
 
-The `activitiesUpdate` operation allows you to modify an existing activity record within the CRM system using a PATCH request. This operation requires the unique identifier (`id`) of the activity to be updated, which must be included in the path parameter. Additionally, the request must include the `x-apideck-consumer-id` and `x-apideck-app-id` headers to authenticate the consumer and application making the request. Optionally, the `x-apideck-service-id` header can be provided if the consumer has multiple integrations activated, specifying which service to target (e.g., Pipedrive). The `raw` query parameter can be used to include the raw response for debugging purposes. The request body should contain the fields to be updated in JSON format. Upon successful execution, the operation returns a 200 status code, indicating that the activity record has been successfully updated. This operation is crucial for maintaining up-to-date and accurate activity records in the CRM, ensuring that all changes are reflected in real-time across integrated services. Note that this operation does not support filtering or sorting of activities; it is solely intended for updating specific records identified by their ID.
+The `activitiesUpdate` operation allows developers to modify an existing activity record within the CRM system. This operation is crucial for maintaining up-to-date information about activities, ensuring that any changes or updates are accurately reflected in the CRM.
+
+To perform this operation, the `id` parameter is required in the path to specify which activity record is being updated. Additionally, the request must include headers such as `x-apideck-consumer-id` and `x-apideck-app-id` to authenticate and identify the application making the request. The optional `x-apideck-service-id` header can be used if multiple integrations are active, specifying which service to target.
+
+The operation supports a `raw` query parameter for debugging purposes, allowing the inclusion of raw responses. Upon successful execution, the operation returns a status code of 200, indicating that the activity record has been updated. The response includes a JSON object representing the updated resource, ensuring developers can confirm the changes made.
 
 ### Example Usage
 
 ```typescript
 import { Apideck } from "apideck";
 
-const apideck = new Apideck();
+const apideck = new Apideck({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const result = await apideck.activities.activitiesUpdate({
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
+  const result = await apideck.crm.activities.update({
     id: "<id>",
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
     serviceId: "salesforce",
-    activityUpdateRequest: {
+    raw: false,
+    updateActivityRequest: {
       activityDatetime: "2021-05-01T12:00:00.000Z",
       durationSeconds: 1800,
       userId: "12345",
@@ -692,25 +670,25 @@ async function run() {
           id: "2389328923893298",
           name: "employee_level",
           description: "Employee Level",
+          value: {},
+        },
+        {
+          id: "2389328923893298",
+          name: "employee_level",
+          description: "Employee Level",
+          value: true,
+        },
+        {
+          id: "2389328923893298",
+          name: "employee_level",
+          description: "Employee Level",
           value: [
-            "<value>",
-            "<value>",
-            "<value>",
+            {},
+            {},
           ],
         },
       ],
       attendees: [
-        {
-          name: "Elon Musk",
-          firstName: "Elon",
-          middleName: "D.",
-          lastName: "Musk",
-          prefix: "Mr.",
-          suffix: "PhD",
-          emailAddress: "elon@musk.com",
-          isOrganizer: true,
-          status: "accepted",
-        },
         {
           name: "Elon Musk",
           firstName: "Elon",
@@ -748,6 +726,56 @@ async function run() {
             },
           ],
         },
+        {
+          serviceId: "<id>",
+          extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+          ],
+        },
+        {
+          serviceId: "<id>",
+          extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+          ],
+        },
       ],
     },
   });
@@ -765,21 +793,22 @@ The standalone function version of this method:
 
 ```typescript
 import { ApideckCore } from "apideck/core.js";
-import { activitiesActivitiesUpdate } from "apideck/funcs/activitiesActivitiesUpdate.js";
+import { crmActivitiesUpdate } from "apideck/funcs/crmActivitiesUpdate.js";
 
 // Use `ApideckCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const apideck = new ApideckCore();
+const apideck = new ApideckCore({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const res = await activitiesActivitiesUpdate(apideck, {
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
+  const res = await crmActivitiesUpdate(apideck, {
     id: "<id>",
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
     serviceId: "salesforce",
-    activityUpdateRequest: {
+    raw: false,
+    updateActivityRequest: {
       activityDatetime: "2021-05-01T12:00:00.000Z",
       durationSeconds: 1800,
       userId: "12345",
@@ -851,25 +880,25 @@ async function run() {
           id: "2389328923893298",
           name: "employee_level",
           description: "Employee Level",
+          value: {},
+        },
+        {
+          id: "2389328923893298",
+          name: "employee_level",
+          description: "Employee Level",
+          value: true,
+        },
+        {
+          id: "2389328923893298",
+          name: "employee_level",
+          description: "Employee Level",
           value: [
-            "<value>",
-            "<value>",
-            "<value>",
+            {},
+            {},
           ],
         },
       ],
       attendees: [
-        {
-          name: "Elon Musk",
-          firstName: "Elon",
-          middleName: "D.",
-          lastName: "Musk",
-          prefix: "Mr.",
-          suffix: "PhD",
-          emailAddress: "elon@musk.com",
-          isOrganizer: true,
-          status: "accepted",
-        },
         {
           name: "Elon Musk",
           firstName: "Elon",
@@ -907,6 +936,56 @@ async function run() {
             },
           ],
         },
+        {
+          serviceId: "<id>",
+          extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+          ],
+        },
+        {
+          serviceId: "<id>",
+          extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+          ],
+        },
       ],
     },
   });
@@ -928,15 +1007,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.ActivitiesUpdateRequest](../../models/operations/activitiesupdaterequest.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.ActivitiesUpdateSecurity](../../models/operations/activitiesupdatesecurity.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.CrmActivitiesUpdateRequest](../../models/operations/crmactivitiesupdaterequest.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.ActivitiesUpdateResponse](../../models/operations/activitiesupdateresponse.md)\>**
+**Promise\<[operations.CrmActivitiesUpdateResponse](../../models/operations/crmactivitiesupdateresponse.md)\>**
 
 ### Errors
 
@@ -949,25 +1027,36 @@ run();
 | errors.UnprocessableEntityResponse | 422                                | application/json                   |
 | errors.APIError                    | 4XX, 5XX                           | \*/\*                              |
 
-## activitiesDelete
+## delete
 
-The `activitiesDelete` operation allows API consumers to remove a specific activity from the CRM system by providing its unique ID. This DELETE request requires the `id` parameter in the path, which specifies the activity record to be deleted. Additionally, the request must include the `x-apideck-consumer-id` and `x-apideck-app-id` headers to authenticate the consumer and identify the Unify application, respectively. Optionally, the `x-apideck-service-id` header can be provided if the consumer has multiple integrations activated, specifying which service to target (e.g., Pipedrive). The `raw` query parameter can be used to include the raw response, primarily for debugging purposes. The operation does not support filtering or sorting, as it targets a single resource by ID. Upon successful deletion, a 200 status code is returned, indicating the activity has been successfully removed from the CRM.
+The `activitiesDelete` operation allows developers to remove a specific activity from the CRM system by providing its unique ID. This operation is crucial for maintaining accurate and up-to-date records within the CRM. 
+
+### Key Parameters:
+- **id (path parameter)**: The unique identifier of the activity to be deleted. This is a required parameter.
+- **x-apideck-consumer-id (header)**: The ID of the consumer from which data is being managed. This is a required parameter.
+- **x-apideck-app-id (header)**: The ID of the Unify application making the request. This is a required parameter.
+- **x-apideck-service-id (header)**: Optional parameter to specify the service ID when multiple integrations are active.
+- **raw (query parameter)**: Optional parameter to include the raw response, useful for debugging.
+
+### Response Behavior:
+Upon successful deletion, the operation returns a status code of 200, indicating that the activity has been successfully removed from the CRM system. No content is returned in the response body, aligning with standard practices for delete operations.
 
 ### Example Usage
 
 ```typescript
 import { Apideck } from "apideck";
 
-const apideck = new Apideck();
+const apideck = new Apideck({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const result = await apideck.activities.activitiesDelete({
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
+  const result = await apideck.crm.activities.delete({
     id: "<id>",
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
     serviceId: "salesforce",
+    raw: false,
   });
 
   // Handle the result
@@ -983,20 +1072,21 @@ The standalone function version of this method:
 
 ```typescript
 import { ApideckCore } from "apideck/core.js";
-import { activitiesActivitiesDelete } from "apideck/funcs/activitiesActivitiesDelete.js";
+import { crmActivitiesDelete } from "apideck/funcs/crmActivitiesDelete.js";
 
 // Use `ApideckCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const apideck = new ApideckCore();
+const apideck = new ApideckCore({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const res = await activitiesActivitiesDelete(apideck, {
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
+  const res = await crmActivitiesDelete(apideck, {
     id: "<id>",
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
     serviceId: "salesforce",
+    raw: false,
   });
 
   if (!res.ok) {
@@ -1016,15 +1106,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.ActivitiesDeleteRequest](../../models/operations/activitiesdeleterequest.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.ActivitiesDeleteSecurity](../../models/operations/activitiesdeletesecurity.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.CrmActivitiesDeleteRequest](../../models/operations/crmactivitiesdeleterequest.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.ActivitiesDeleteResponse](../../models/operations/activitiesdeleteresponse.md)\>**
+**Promise\<[operations.CrmActivitiesDeleteResponse](../../models/operations/crmactivitiesdeleteresponse.md)\>**
 
 ### Errors
 

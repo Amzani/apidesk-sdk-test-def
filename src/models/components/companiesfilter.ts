@@ -9,7 +9,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CompaniesFilter = {
   /**
-   * Name of the company to filter on
+   * Filter companies by their name. This parameter allows you to narrow down the list of companies to those whose names match the specified string. Useful for searching specific companies within the CRM.
    */
   name?: string | undefined;
 };

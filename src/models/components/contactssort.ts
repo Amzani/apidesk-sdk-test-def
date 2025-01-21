@@ -9,7 +9,7 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * The field on which to sort the Contacts
+ * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
  */
 export const ContactsSortBy = {
   CreatedAt: "created_at",
@@ -20,29 +20,29 @@ export const ContactsSortBy = {
   Email: "email",
 } as const;
 /**
- * The field on which to sort the Contacts
+ * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
  */
 export type ContactsSortBy = ClosedEnum<typeof ContactsSortBy>;
 
 /**
- * The direction in which to sort the results
+ * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
  */
 export const ContactsSortDirection = {
   Asc: "asc",
   Desc: "desc",
 } as const;
 /**
- * The direction in which to sort the results
+ * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
  */
 export type ContactsSortDirection = ClosedEnum<typeof ContactsSortDirection>;
 
 export type ContactsSort = {
   /**
-   * The field on which to sort the Contacts
+   * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
    */
   by?: ContactsSortBy | undefined;
   /**
-   * The direction in which to sort the results
+   * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
    */
   direction?: ContactsSortDirection | undefined;
 };

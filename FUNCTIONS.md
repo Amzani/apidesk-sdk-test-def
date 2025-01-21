@@ -20,22 +20,23 @@ specific category of applications.
 
 ```typescript
 import { ApideckCore } from "apideck/core.js";
-import { companiesCompaniesAdd } from "apideck/funcs/companiesCompaniesAdd.js";
+import { crmCompaniesCreate } from "apideck/funcs/crmCompaniesCreate.js";
 import { SDKValidationError } from "apideck/models/errors/sdkvalidationerror.js";
 import { RFCDate } from "apideck/types";
 
 // Use `ApideckCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const apideck = new ApideckCore();
+const apideck = new ApideckCore({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const res = await companiesCompaniesAdd(apideck, {
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+  const res = await crmCompaniesCreate(apideck, {
+    raw: false,
     serviceId: "salesforce",
-    companyCreateRequest: {
+    createCompanyRequest: {
       name: "SpaceX",
       ownerId: "12345",
       image: "https://www.spacex.com/static/images/share.jpg",
@@ -89,8 +90,39 @@ async function run() {
           url: "http://example.com",
           type: "primary",
         },
+        {
+          id: "12345",
+          url: "http://example.com",
+          type: "primary",
+        },
       ],
       addresses: [
+        {
+          id: "123",
+          type: "primary",
+          string: "25 Spring Street, Blackburn, VIC 3130",
+          name: "HQ US",
+          line1: "Main street",
+          line2: "apt #",
+          line3: "Suite #",
+          line4: "delivery instructions",
+          streetNumber: "25",
+          city: "San Francisco",
+          state: "CA",
+          postalCode: "94104",
+          country: "US",
+          latitude: "40.759211",
+          longitude: "-73.984638",
+          county: "Santa Clara",
+          contactName: "Elon Musk",
+          salutation: "Mr",
+          phoneNumber: "111-111-1111",
+          fax: "122-111-1111",
+          email: "elon@musk.com",
+          website: "https://elonmusk.com",
+          notes: "Address notes or delivery instructions.",
+          rowVersion: "1-12345",
+        },
         {
           id: "123",
           type: "primary",
@@ -124,29 +156,8 @@ async function run() {
           url: "https://www.twitter.com/apideck",
           type: "twitter",
         },
-        {
-          id: "12345",
-          url: "https://www.twitter.com/apideck",
-          type: "twitter",
-        },
       ],
       phoneNumbers: [
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
         {
           id: "12345",
           countryCode: "1",
@@ -162,6 +173,16 @@ async function run() {
           email: "elon@musk.com",
           type: "primary",
         },
+        {
+          id: "123",
+          email: "elon@musk.com",
+          type: "primary",
+        },
+        {
+          id: "123",
+          email: "elon@musk.com",
+          type: "primary",
+        },
       ],
       rowType: {
         id: "12345",
@@ -172,13 +193,19 @@ async function run() {
           id: "2389328923893298",
           name: "employee_level",
           description: "Employee Level",
-          value: 10,
+          value: "Uses Salesforce and Marketo",
         },
         {
           id: "2389328923893298",
           name: "employee_level",
           description: "Employee Level",
           value: 10,
+        },
+        {
+          id: "2389328923893298",
+          name: "employee_level",
+          description: "Employee Level",
+          value: "Uses Salesforce and Marketo",
         },
       ],
       tags: [
@@ -191,6 +218,72 @@ async function run() {
         {
           serviceId: "<id>",
           extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+          ],
+        },
+        {
+          serviceId: "<id>",
+          extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+          ],
+        },
+        {
+          serviceId: "<id>",
+          extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
             {
               path: "$.nested.property",
               value: {

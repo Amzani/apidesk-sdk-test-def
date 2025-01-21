@@ -10,31 +10,31 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type OpportunitiesFilter = {
   /**
-   * Title of the opportunity to filter on
+   * Filter opportunities by their title. This allows you to narrow down results to opportunities that match a specific title or keyword.
    */
   title?: string | undefined;
   /**
-   * Status to filter on
+   * Filter opportunities based on their current status. Useful for retrieving opportunities that are open, closed, or in progress.
    */
   status?: string | undefined;
   /**
-   * Monetary amount to filter on
+   * Filter opportunities by their monetary amount. This helps in focusing on opportunities within a specific budget range.
    */
   monetaryAmount?: number | undefined;
   /**
-   * Win probability to filter on
+   * Filter opportunities by their win probability percentage. This is useful for identifying opportunities with a higher likelihood of success.
    */
   winProbability?: number | undefined;
   /**
-   * Company ID to filter on
+   * The 'filter.company_id' property is used to filter activities by a specific company ID. This allows you to narrow down the results to activities associated with a particular company.
    */
   companyId?: string | undefined;
   /**
-   * Owner ID to filter on
+   * The 'filter.owner_id' property is used to filter activities by a specific owner ID, enabling you to view activities managed by a particular owner.
    */
   ownerId?: string | undefined;
   /**
-   * Primary contact ID to filter on
+   * Filter opportunities by the primary contact's ID. This allows you to find opportunities associated with a specific contact person.
    */
   primaryContactId?: string | undefined;
 };

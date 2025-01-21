@@ -236,18 +236,8 @@ export function resolveGlobalSecurity(
     [
       {
         fieldName: "Authorization",
-        type: "apiKey:header",
+        type: "http:bearer",
         value: security?.apiKey ?? env().APIDECK_API_KEY,
-      },
-      {
-        fieldName: "x-apideck-app-id",
-        type: "apiKey:header",
-        value: security?.applicationId ?? env().APIDECK_APPLICATION_ID,
-      },
-      {
-        fieldName: "x-apideck-consumer-id",
-        type: "apiKey:header",
-        value: security?.consumerId ?? env().APIDECK_CONSUMER_ID,
       },
     ],
   );

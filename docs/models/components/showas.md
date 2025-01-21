@@ -1,6 +1,6 @@
 # ShowAs
 
-Defines the status or visibility of the activity in calendar views, such as 'busy', 'free', or 'tentative'. This property helps in managing time effectively by indicating how the activity should be displayed to users and integrated services. It is essential for scheduling and availability management, ensuring that overlapping activities are handled appropriately.
+Defines the display status of the activity, such as 'busy', 'free', or other custom states. This property helps in managing visibility and scheduling within the CRM. Accepts any string that represents a valid display status.
 
 ## Example Usage
 

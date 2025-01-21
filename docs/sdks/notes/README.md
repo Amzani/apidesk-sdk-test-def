@@ -1,141 +1,148 @@
 # Notes
-(*notes*)
+(*crm.notes*)
 
 ## Overview
 
 ### Available Operations
 
-* [notesAll](#notesall) - Retrieve all CRM notes with optional filtering and field selection.
-* [notesAdd](#notesadd) - Add a new note to the CRM system.
-* [notesOne](#notesone) - Retrieve a specific note by ID from the CRM system.
-* [notesUpdate](#notesupdate) - Update an existing CRM note by ID.
-* [notesDelete](#notesdelete) - Delete a specific note from the CRM system.
+* [list](#list) - Retrieve all CRM notes efficiently.
+* [create](#create) - Add a new note to the CRM system.
+* [get](#get) - Retrieve a specific note by its ID from the CRM system.
+* [update](#update) - Update an existing note in the CRM system.
+* [delete](#delete) - Delete a specific note from the CRM system.
 
-## notesAll
+## list
 
-The 'notesAll' operation allows API consumers to retrieve a comprehensive list of notes from the CRM system. This GET request to the '/crm/notes' endpoint supports various query parameters to customize the response. Key parameters include 'raw' for debugging purposes, 'cursor' for pagination, and 'limit' to control the number of results returned, with a default of 20 and a maximum of 200. The 'fields' parameter enables users to specify which fields to include in the response, supporting nested properties through dot notation. Required headers include 'x-apideck-consumer-id' and 'x-apideck-app-id', ensuring proper identification of the consumer and application. An optional 'x-apideck-service-id' header can be used when multiple integrations are active. The operation returns a 200 response code upon success, delivering the requested notes data. This operation is essential for accessing and managing CRM notes efficiently, with flexibility in data retrieval and integration support.
-
-### Example Usage
-
-```typescript
-import { Apideck } from "apideck";
-
-const apideck = new Apideck();
-
-async function run() {
-  const result = await apideck.notes.notesAll({
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
-    serviceId: "salesforce",
-    passThrough: {
-      "search": "San Francisco",
-    },
-    fields: "id,updated_at",
-  });
-
-  // Handle the result
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { ApideckCore } from "apideck/core.js";
-import { notesNotesAll } from "apideck/funcs/notesNotesAll.js";
-
-// Use `ApideckCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const apideck = new ApideckCore();
-
-async function run() {
-  const res = await notesNotesAll(apideck, {
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
-    serviceId: "salesforce",
-    passThrough: {
-      "search": "San Francisco",
-    },
-    fields: "id,updated_at",
-  });
-
-  if (!res.ok) {
-    throw res.error;
-  }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.NotesAllRequest](../../models/operations/notesallrequest.md)                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.NotesAllSecurity](../../models/operations/notesallsecurity.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.NotesAllResponse](../../models/operations/notesallresponse.md)\>**
-
-### Errors
-
-| Error Type                         | Status Code                        | Content Type                       |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| errors.BadRequestResponse          | 400                                | application/json                   |
-| errors.UnauthorizedResponse        | 401                                | application/json                   |
-| errors.PaymentRequiredResponse     | 402                                | application/json                   |
-| errors.NotFoundResponse            | 404                                | application/json                   |
-| errors.UnprocessableEntityResponse | 422                                | application/json                   |
-| errors.APIError                    | 4XX, 5XX                           | \*/\*                              |
-
-## notesAdd
-
-The 'notesAdd' operation allows API consumers to add a new note to the CRM system by sending a POST request to the '/crm/notes' endpoint. This operation is essential for users who need to programmatically create notes associated with CRM records. 
+The `notesAll` operation allows developers to retrieve a comprehensive list of notes from the CRM system. This GET request is essential for accessing detailed note information, which can be used for analysis, reporting, or integration with other systems. 
 
 Key Parameters:
-- 'raw' (query): Optional parameter to include the raw response, primarily used for debugging purposes.
-- 'x-apideck-consumer-id' (header): Required parameter that specifies the ID of the consumer from which data is being retrieved or pushed.
-- 'x-apideck-app-id' (header): Required parameter indicating the ID of the Unify application being used.
-- 'x-apideck-service-id' (header): Optional parameter to specify the service ID (e.g., pipedrive) when multiple integrations are active for a Unified API.
+- `x-apideck-consumer-id` (header, required): Identifies the consumer from whom data is being retrieved.
+- `x-apideck-app-id` (header, required): Specifies the Unify application ID.
+- `x-apideck-service-id` (header, optional): Indicates the specific service ID to call, useful when multiple integrations are active.
+- `cursor` (query, optional): Used for pagination to specify the starting point for the next set of results.
+- `limit` (query, optional): Defines the number of results to return, with a default of 20 and a maximum of 200.
+- `fields` (query, optional): Allows selection of specific fields to include in the response, enhancing efficiency by reducing payload size.
 
-Request Body: The request must include a body containing the note details to be added.
-
-Response: A successful operation returns a 201 status code, indicating that the note has been successfully created.
-
-This operation does not support filtering or sorting of notes during creation. It is crucial for maintaining accurate and up-to-date records within the CRM system, facilitating better customer relationship management.
+Response Behavior:
+The operation returns a JSON object containing the requested notes. The response includes metadata for pagination, such as cursors for navigating through pages of results. This operation is crucial for developers needing to access and manipulate CRM note data programmatically.
 
 ### Example Usage
 
 ```typescript
 import { Apideck } from "apideck";
 
-const apideck = new Apideck();
+const apideck = new Apideck({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const result = await apideck.notes.notesAdd({
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+  const result = await apideck.crm.notes.list({
+    raw: false,
     serviceId: "salesforce",
-    noteCreateRequest: {
+    limit: 20,
+    passThrough: {
+      "search": "San Francisco",
+    },
+    fields: "id,updated_at",
+  });
+
+  for await (const page of result) {
+    // Handle the page
+    console.log(page);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ApideckCore } from "apideck/core.js";
+import { crmNotesList } from "apideck/funcs/crmNotesList.js";
+
+// Use `ApideckCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const apideck = new ApideckCore({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
+
+async function run() {
+  const res = await crmNotesList(apideck, {
+    raw: false,
+    serviceId: "salesforce",
+    limit: 20,
+    passThrough: {
+      "search": "San Francisco",
+    },
+    fields: "id,updated_at",
+  });
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
+
+  for await (const page of result) {
+    // Handle the page
+    console.log(page);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.CrmNotesAllRequest](../../models/operations/crmnotesallrequest.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.CrmNotesAllResponse](../../models/operations/crmnotesallresponse.md)\>**
+
+### Errors
+
+| Error Type                         | Status Code                        | Content Type                       |
+| ---------------------------------- | ---------------------------------- | ---------------------------------- |
+| errors.BadRequestResponse          | 400                                | application/json                   |
+| errors.UnauthorizedResponse        | 401                                | application/json                   |
+| errors.PaymentRequiredResponse     | 402                                | application/json                   |
+| errors.NotFoundResponse            | 404                                | application/json                   |
+| errors.UnprocessableEntityResponse | 422                                | application/json                   |
+| errors.APIError                    | 4XX, 5XX                           | \*/\*                              |
+
+## create
+
+The `notesAdd` operation allows developers to add a new note to the CRM system using a POST request to the `/crm/notes` endpoint. This operation is essential for maintaining detailed records and annotations related to CRM entries. Key parameters include `x-apideck-consumer-id` and `x-apideck-app-id`, which are required headers to identify the consumer and application, respectively. The `x-apideck-service-id` header is optional and used when multiple integrations are active. The operation supports a `raw` query parameter for debugging purposes. Upon successful creation, the API responds with a 201 status code and includes the unique identifier of the newly created note in the response, confirming the addition to the CRM system.
+
+### Example Usage
+
+```typescript
+import { Apideck } from "apideck";
+
+const apideck = new Apideck({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
+
+async function run() {
+  const result = await apideck.crm.notes.create({
+    raw: false,
+    serviceId: "salesforce",
+    createNoteRequest: {
       title: "Meeting Notes",
       content: "Office hours are 9AM-6PM",
       ownerId: "12345",
@@ -145,6 +152,27 @@ async function run() {
       leadId: "12345",
       active: true,
       passThrough: [
+        {
+          serviceId: "<id>",
+          extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+          ],
+        },
         {
           serviceId: "<id>",
           extendPaths: [
@@ -183,20 +211,21 @@ The standalone function version of this method:
 
 ```typescript
 import { ApideckCore } from "apideck/core.js";
-import { notesNotesAdd } from "apideck/funcs/notesNotesAdd.js";
+import { crmNotesCreate } from "apideck/funcs/crmNotesCreate.js";
 
 // Use `ApideckCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const apideck = new ApideckCore();
+const apideck = new ApideckCore({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const res = await notesNotesAdd(apideck, {
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+  const res = await crmNotesCreate(apideck, {
+    raw: false,
     serviceId: "salesforce",
-    noteCreateRequest: {
+    createNoteRequest: {
       title: "Meeting Notes",
       content: "Office hours are 9AM-6PM",
       ownerId: "12345",
@@ -206,6 +235,27 @@ async function run() {
       leadId: "12345",
       active: true,
       passThrough: [
+        {
+          serviceId: "<id>",
+          extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+          ],
+        },
         {
           serviceId: "<id>",
           extendPaths: [
@@ -248,15 +298,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.NotesAddRequest](../../models/operations/notesaddrequest.md)                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.NotesAddSecurity](../../models/operations/notesaddsecurity.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.CrmNotesAddRequest](../../models/operations/crmnotesaddrequest.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.NotesAddResponse](../../models/operations/notesaddresponse.md)\>**
+**Promise\<[operations.CrmNotesAddResponse](../../models/operations/crmnotesaddresponse.md)\>**
 
 ### Errors
 
@@ -269,25 +318,37 @@ run();
 | errors.UnprocessableEntityResponse | 422                                | application/json                   |
 | errors.APIError                    | 4XX, 5XX                           | \*/\*                              |
 
-## notesOne
+## get
 
-The 'notesOne' operation allows API consumers to retrieve a specific note from the CRM system using its unique identifier. This GET request requires the 'id' parameter in the path to specify the note to be retrieved. Additionally, the request must include the 'x-apideck-consumer-id' and 'x-apideck-app-id' headers to authenticate the consumer and identify the application making the request. Optionally, the 'x-apideck-service-id' header can be provided if the consumer has multiple integrations activated, specifying which service to call. The 'raw' query parameter can be used to include the raw response for debugging purposes. The 'fields' query parameter allows users to specify which fields to include in the response, supporting nested properties through dot notation. The operation returns a 200 status code upon successful retrieval of the note, with the response containing the requested fields or all available fields if none are specified. This operation does not support filtering or sorting beyond the specified fields.
+The 'notesOne' operation allows developers to retrieve a specific note from the CRM system using its unique identifier. This operation is essential for accessing detailed information about a particular note, which can be used for further processing or display in applications. 
+
+Key Parameters:
+- **id** (path): The unique identifier of the note to retrieve. This parameter is required.
+- **x-apideck-consumer-id** (header): The ID of the consumer from which data is being retrieved. This is a mandatory header.
+- **x-apideck-app-id** (header): The ID of the Unify application making the request. This is also required.
+- **x-apideck-service-id** (header): Optional header to specify the service ID when multiple integrations are active.
+- **raw** (query): Optional parameter to include the raw response, useful for debugging.
+- **fields** (query): Optional parameter to specify which fields to include in the response, using a comma-separated string.
+
+Response Behavior:
+This operation returns a JSON object representing the note, including all available fields unless specified otherwise by the 'fields' parameter. The response will include a status code of 200 upon successful retrieval.
 
 ### Example Usage
 
 ```typescript
 import { Apideck } from "apideck";
 
-const apideck = new Apideck();
+const apideck = new Apideck({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const result = await apideck.notes.notesOne({
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
+  const result = await apideck.crm.notes.get({
     id: "<id>",
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
     serviceId: "salesforce",
+    raw: false,
     fields: "id,updated_at",
   });
 
@@ -304,20 +365,21 @@ The standalone function version of this method:
 
 ```typescript
 import { ApideckCore } from "apideck/core.js";
-import { notesNotesOne } from "apideck/funcs/notesNotesOne.js";
+import { crmNotesGet } from "apideck/funcs/crmNotesGet.js";
 
 // Use `ApideckCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const apideck = new ApideckCore();
+const apideck = new ApideckCore({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const res = await notesNotesOne(apideck, {
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
+  const res = await crmNotesGet(apideck, {
     id: "<id>",
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
     serviceId: "salesforce",
+    raw: false,
     fields: "id,updated_at",
   });
 
@@ -338,15 +400,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.NotesOneRequest](../../models/operations/notesonerequest.md)                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.NotesOneSecurity](../../models/operations/notesonesecurity.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.CrmNotesOneRequest](../../models/operations/crmnotesonerequest.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.NotesOneResponse](../../models/operations/notesoneresponse.md)\>**
+**Promise\<[operations.CrmNotesOneResponse](../../models/operations/crmnotesoneresponse.md)\>**
 
 ### Errors
 
@@ -359,26 +420,36 @@ run();
 | errors.UnprocessableEntityResponse | 422                                | application/json                   |
 | errors.APIError                    | 4XX, 5XX                           | \*/\*                              |
 
-## notesUpdate
+## update
 
-The 'notesUpdate' operation allows API consumers to modify an existing note in the CRM system by specifying the note's unique identifier in the path parameter. This operation uses the HTTP PATCH method, enabling partial updates to the note's content. Key parameters include the 'id' path parameter, which is mandatory and identifies the specific note to be updated. Additionally, the 'x-apideck-consumer-id' and 'x-apideck-app-id' headers are required to authenticate the request and specify the application context. The 'x-apideck-service-id' header is optional and should be used when multiple integrations are active, to specify the target service. The 'raw' query parameter can be included to receive a raw response, useful for debugging. The request body must contain the fields to be updated, formatted in JSON. Upon successful update, a 200 status code is returned, indicating the note has been modified. This operation does not support filtering or sorting, and it is crucial to ensure that the note ID exists before attempting an update to avoid errors.
+The `notesUpdate` operation allows developers to modify an existing note within the CRM system using a PATCH request to the `/crm/notes/{id}` endpoint. This operation is crucial for maintaining up-to-date information in CRM records. 
+
+Key Parameters:
+- `id` (path): The unique identifier of the note to be updated. This is a required parameter.
+- `x-apideck-consumer-id` (header): Specifies the consumer ID for data retrieval or submission. This is mandatory.
+- `x-apideck-app-id` (header): Identifies your Unify application. This is a required parameter.
+- `x-apideck-service-id` (header): Optional parameter to specify the service ID when multiple integrations are active.
+- `raw` (query): Optional parameter to include the raw response, useful for debugging.
+
+Upon successful update, the operation returns a 200 status code along with a JSON object representing the updated note, including its unique identifier. This ensures developers can confirm the update and retrieve the latest note data efficiently.
 
 ### Example Usage
 
 ```typescript
 import { Apideck } from "apideck";
 
-const apideck = new Apideck();
+const apideck = new Apideck({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const result = await apideck.notes.notesUpdate({
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
+  const result = await apideck.crm.notes.update({
     id: "<id>",
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
     serviceId: "salesforce",
-    noteUpdateRequest: {
+    raw: false,
+    updateNoteRequest: {
       title: "Meeting Notes",
       content: "Office hours are 9AM-6PM",
       ownerId: "12345",
@@ -399,11 +470,56 @@ async function run() {
                 },
               },
             },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
           ],
         },
         {
           serviceId: "<id>",
           extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+          ],
+        },
+        {
+          serviceId: "<id>",
+          extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
             {
               path: "$.nested.property",
               value: {
@@ -431,21 +547,22 @@ The standalone function version of this method:
 
 ```typescript
 import { ApideckCore } from "apideck/core.js";
-import { notesNotesUpdate } from "apideck/funcs/notesNotesUpdate.js";
+import { crmNotesUpdate } from "apideck/funcs/crmNotesUpdate.js";
 
 // Use `ApideckCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const apideck = new ApideckCore();
+const apideck = new ApideckCore({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const res = await notesNotesUpdate(apideck, {
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
+  const res = await crmNotesUpdate(apideck, {
     id: "<id>",
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
     serviceId: "salesforce",
-    noteUpdateRequest: {
+    raw: false,
+    updateNoteRequest: {
       title: "Meeting Notes",
       content: "Office hours are 9AM-6PM",
       ownerId: "12345",
@@ -466,11 +583,56 @@ async function run() {
                 },
               },
             },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
           ],
         },
         {
           serviceId: "<id>",
           extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+          ],
+        },
+        {
+          serviceId: "<id>",
+          extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
             {
               path: "$.nested.property",
               value: {
@@ -502,15 +664,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.NotesUpdateRequest](../../models/operations/notesupdaterequest.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.NotesUpdateSecurity](../../models/operations/notesupdatesecurity.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.CrmNotesUpdateRequest](../../models/operations/crmnotesupdaterequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.NotesUpdateResponse](../../models/operations/notesupdateresponse.md)\>**
+**Promise\<[operations.CrmNotesUpdateResponse](../../models/operations/crmnotesupdateresponse.md)\>**
 
 ### Errors
 
@@ -523,25 +684,35 @@ run();
 | errors.UnprocessableEntityResponse | 422                                | application/json                   |
 | errors.APIError                    | 4XX, 5XX                           | \*/\*                              |
 
-## notesDelete
+## delete
 
-The `notesDelete` operation allows API consumers to remove a specific note from the CRM system by providing the unique identifier of the note in the path parameter. This DELETE request requires the `id` parameter, which specifies the note to be deleted. Additionally, the request must include the `x-apideck-consumer-id` and `x-apideck-app-id` headers to authenticate the consumer and identify the Unify application, respectively. Optionally, the `x-apideck-service-id` header can be provided if the consumer has multiple integrations activated, specifying which service to target. The `raw` query parameter can be used to include a raw response, primarily for debugging purposes. The operation does not support filtering or sorting, as it targets a single resource. Upon successful deletion, a 200 status code is returned, indicating the note has been successfully removed. This operation is crucial for maintaining up-to-date and relevant data within the CRM by allowing the removal of obsolete or incorrect notes.
+The `notesDelete` operation allows developers to remove a specific note from the CRM system using its unique identifier. This operation is crucial for maintaining up-to-date and relevant data within the CRM by enabling the deletion of outdated or incorrect notes. 
+
+Key Parameters:
+- `id` (path parameter, required): The unique identifier of the note to be deleted.
+- `x-apideck-consumer-id` (header, required): Identifies the consumer from which data is being managed.
+- `x-apideck-app-id` (header, required): The ID of the Unify application making the request.
+- `x-apideck-service-id` (header, optional): Specifies the service ID when multiple integrations are active.
+- `raw` (query parameter, optional): If set, includes the raw response, useful for debugging.
+
+Response Behavior: Upon successful deletion, the operation returns a status code of 200, indicating that the note has been successfully removed from the CRM system. No content is returned in the response body.
 
 ### Example Usage
 
 ```typescript
 import { Apideck } from "apideck";
 
-const apideck = new Apideck();
+const apideck = new Apideck({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const result = await apideck.notes.notesDelete({
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
+  const result = await apideck.crm.notes.delete({
     id: "<id>",
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
     serviceId: "salesforce",
+    raw: false,
   });
 
   // Handle the result
@@ -557,20 +728,21 @@ The standalone function version of this method:
 
 ```typescript
 import { ApideckCore } from "apideck/core.js";
-import { notesNotesDelete } from "apideck/funcs/notesNotesDelete.js";
+import { crmNotesDelete } from "apideck/funcs/crmNotesDelete.js";
 
 // Use `ApideckCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const apideck = new ApideckCore();
+const apideck = new ApideckCore({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const res = await notesNotesDelete(apideck, {
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
+  const res = await crmNotesDelete(apideck, {
     id: "<id>",
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
     serviceId: "salesforce",
+    raw: false,
   });
 
   if (!res.ok) {
@@ -590,15 +762,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.NotesDeleteRequest](../../models/operations/notesdeleterequest.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.NotesDeleteSecurity](../../models/operations/notesdeletesecurity.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.CrmNotesDeleteRequest](../../models/operations/crmnotesdeleterequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.NotesDeleteResponse](../../models/operations/notesdeleteresponse.md)\>**
+**Promise\<[operations.CrmNotesDeleteResponse](../../models/operations/crmnotesdeleteresponse.md)\>**
 
 ### Errors
 

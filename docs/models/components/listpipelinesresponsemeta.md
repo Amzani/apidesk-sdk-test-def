@@ -1,0 +1,25 @@
+# ListPipelinesResponseMeta
+
+An object containing metadata about the response, such as pagination details and other relevant information. This metadata helps in understanding the context of the data returned and managing subsequent API requests efficiently.
+
+## Example Usage
+
+```typescript
+import { ListPipelinesResponseMeta } from "apideck/models/components";
+
+let value: ListPipelinesResponseMeta = {
+  itemsOnPage: 50,
+  cursors: {
+    previous: "em9oby1jcm06OnBhZ2U6OjE=",
+    current: "em9oby1jcm06OnBhZ2U6OjI=",
+    next: "em9oby1jcm06OnBhZ2U6OjM=",
+  },
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                                                                         | Type                                                                                                                                                                                                                          | Required                                                                                                                                                                                                                      | Description                                                                                                                                                                                                                   | Example                                                                                                                                                                                                                       |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `itemsOnPage`                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                            | The number of pipeline items included in the current page of the response data. This integer value aids in understanding the volume of data retrieved and is useful for implementing pagination logic in client applications. | 50                                                                                                                                                                                                                            |
+| `cursors`                                                                                                                                                                                                                     | [components.ListPipelinesResponseCursors](../../models/components/listpipelinesresponsecursors.md)                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                            | An object containing cursors that facilitate navigation through paginated API results. This includes cursors for moving to previous, current, or next pages, enabling efficient data retrieval in large datasets.             |                                                                                                                                                                                                                               |

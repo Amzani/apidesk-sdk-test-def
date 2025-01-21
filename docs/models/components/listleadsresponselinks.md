@@ -1,0 +1,25 @@
+# ListLeadsResponseLinks
+
+An object containing URLs that facilitate navigation between different pages of the API response. This includes links to the current, previous, and next pages, aiding in the management of paginated data retrieval.
+
+## Example Usage
+
+```typescript
+import { ListLeadsResponseLinks } from "apideck/models/components";
+
+let value: ListLeadsResponseLinks = {
+  previous:
+    "https://unify.apideck.com/crm/companies?cursor=em9oby1jcm06OnBhZ2U6OjE%3D",
+  current: "https://unify.apideck.com/crm/companies",
+  next:
+    "https://unify.apideck.com/crm/companies?cursor=em9oby1jcm06OnBhZ2U6OjM",
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                             | Type                                                                                                                                                                              | Required                                                                                                                                                                          | Description                                                                                                                                                                       | Example                                                                                                                                                                           |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `previous`                                                                                                                                                                        | *string*                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                | A URL string that directs to the previous page of results in the paginated API response. This link is essential for developers who need to navigate backward through the dataset. | https://unify.apideck.com/crm/companies?cursor=em9oby1jcm06OnBhZ2U6OjE%3D                                                                                                         |
+| `current`                                                                                                                                                                         | *string*                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                | A URL string pointing to the current page of results in the API response. This link helps developers confirm their current position within the paginated dataset.                 | https://unify.apideck.com/crm/companies                                                                                                                                           |
+| `next`                                                                                                                                                                            | *string*                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                | A URL string that leads to the next page of results in the paginated API response. This link is crucial for developers to continue fetching subsequent data pages efficiently.    | https://unify.apideck.com/crm/companies?cursor=em9oby1jcm06OnBhZ2U6OjM                                                                                                            |

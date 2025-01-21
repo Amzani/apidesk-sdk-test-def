@@ -1,6 +1,6 @@
 # Currency
 
-Specifies the currency in which the company's financial transactions are conducted, adhering to the ISO 4217 standard. This field is important for financial consistency and reporting, especially for companies operating in multiple countries. It ensures that monetary values are accurately represented and understood across different regions.
+Specifies the currency in which financial transactions are conducted for the company. This should be a valid ISO 4217 currency code, such as 'USD' for United States Dollar or 'EUR' for Euro. It helps in standardizing financial data across the CRM system.
 
 ## Example Usage
 

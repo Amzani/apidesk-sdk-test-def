@@ -9,7 +9,7 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * The field on which to sort the Companies
+ * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
  */
 export const By = {
   CreatedAt: "created_at",
@@ -17,29 +17,29 @@ export const By = {
   Name: "name",
 } as const;
 /**
- * The field on which to sort the Companies
+ * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
  */
 export type By = ClosedEnum<typeof By>;
 
 /**
- * The direction in which to sort the results
+ * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
  */
 export const Direction = {
   Asc: "asc",
   Desc: "desc",
 } as const;
 /**
- * The direction in which to sort the results
+ * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
  */
 export type Direction = ClosedEnum<typeof Direction>;
 
 export type CompaniesSort = {
   /**
-   * The field on which to sort the Companies
+   * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
    */
   by?: By | undefined;
   /**
-   * The direction in which to sort the results
+   * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
    */
   direction?: Direction | undefined;
 };

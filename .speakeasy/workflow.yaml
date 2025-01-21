@@ -3,16 +3,16 @@ speakeasyVersion: latest
 sources:
     CRM API:
         inputs:
-            - location: ../spec-crm-api.enhanced.refs.json
+            - location: ../../unify/speakeasy-spec.yml
         registry:
-            location: registry.speakeasyapi.dev/apideck-k2o/apideck/crm-api-def
+            location: registry.speakeasyapi.dev/apideck-k2o/apideck/crm-api-enhanced
 targets:
     apideck:
         target: typescript
         source: CRM API
         codeSamples:
             registry:
-                location: registry.speakeasyapi.dev/apideck-k2o/apideck/crm-api-typescript-code-samples
+                location: registry.speakeasyapi.dev/apideck-k2o/apideck/crm-enhanced-typescript-code-samples
             labelOverride:
                 fixedValue: Typescript (SDK)
             blocking: false

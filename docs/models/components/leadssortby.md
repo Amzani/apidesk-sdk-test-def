@@ -1,6 +1,6 @@
 # LeadsSortBy
 
-The field on which to sort the Leads
+Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
 
 ## Example Usage
 

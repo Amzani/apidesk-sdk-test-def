@@ -1,6 +1,6 @@
 # Type
 
-The classification or category of the contact, such as 'customer', 'supplier', or 'partner'. This optional field helps in segmenting contacts for targeted communication and reporting. Understanding the type of contact can influence how interactions are prioritized and managed within the CRM system.
+Specifies the category or role of the contact within the CRM, such as 'customer', 'vendor', or 'lead'. This optional field helps in organizing and filtering contacts based on their relationship to the business. Ensure the type aligns with predefined categories used in the CRM for consistency.
 
 ## Example Usage
 

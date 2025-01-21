@@ -17,271 +17,7 @@ Developer-friendly & type-safe Typescript SDK specifically catered to leverage *
 <!-- Start Summary [summary] -->
 ## Summary
 
-CRM API: Welcome to the CRM API.
-
-You can use this API to access all CRM API endpoints.
-
-## Base URL
-
-The base URL for all API requests is `https://unify.apideck.com`
-
-## Headers
-
-Custom headers that are expected as part of the request. Note that [RFC7230](https://tools.ietf.org/html/rfc7230) states header names are case insensitive.
-
-| Name                  | Type    | Required | Description                                                                                                                                                    |
-| --------------------- | ------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| x-apideck-consumer-id | String  | Yes      | The id of the customer stored inside Apideck Vault. This can be a user id, account id, device id or whatever entity that can have integration within your app. |
-| x-apideck-service-id  | String  | No       | Describe the service you want to call (e.g., pipedrive). Only needed when a customer has activated multiple integrations for the same Unified API.             |
-| x-apideck-raw         | Boolean | No       | Include raw response. Mostly used for debugging purposes.                                                                                                      |
-| x-apideck-app-id      | String  | Yes      | The application id of your Unify application. Available at https://app.apideck.com/unify/api-keys.                                                             |
-| Authorization         | String  | Yes      | Bearer API KEY                                                                                                                                                 |
-
-## Authorization
-
-You can interact with the API through the authorization methods below.
-
-<!-- ReDoc-Inject: <security-definitions> -->
-
-## Pagination
-
-All API resources have support for bulk retrieval via list APIs.  Apideck uses cursor-based pagination via the optional `cursor` and `limit` parameters.
-
-To fetch the first page of results, call the list API without a `cursor` parameter. Afterwards you can fetch subsequent pages by providing a cursor parameter. You will find the next cursor in the response body in `meta.cursors.next`. If `meta.cursors.next` is `null` you're at the end of the list.
-
-In the REST API you can also use the `links` from the response for added convenience. Simply call the URL in `links.next` to get the next page of results.
-
-### Query Parameters
-
-| Name   | Type   | Required | Description                                                                                                        |
-| ------ | ------ | -------- | ------------------------------------------------------------------------------------------------------------------ |
-| cursor | String | No       | Cursor to start from. You can find cursors for next & previous pages in the meta.cursors property of the response. |
-| limit  | Number | No       | Number of results to return. Minimum 1, Maximum 200, Default 20                                                    |
-
-### Response Body
-
-| Name                  | Type   | Description                                                        |
-| --------------------- | ------ | ------------------------------------------------------------------ |
-| meta.cursors.previous | String | Cursor to navigate to the previous page of results through the API |
-| meta.cursors.current  | String | Cursor to navigate to the current page of results through the API  |
-| meta.cursors.next     | String | Cursor to navigate to the next page of results through the API     |
-| meta.items_on_page    | Number | Number of items returned in the data property of the response      |
-| links.previous        | String | Link to navigate to the previous page of results through the API   |
-| links.current         | String | Link to navigate to the current page of results through the API    |
-| links.next            | String | Link to navigate to the next page of results through the API       |
-
-⚠️ `meta.cursors.previous`/`links.previous` is not available for all connectors.
-
-## SDKs and API Clients
-
-We currently offer a [Node.js](https://developers.apideck.com/sdks/node), [PHP](https://developers.apideck.com/sdks/php), [Python](https://developers.apideck.com/sdks/python) and [.NET](https://developers.apideck.com/sdks/dot-net) SDK.
-Need another SDK? [Request the SDK of your choice](https://requests.apideck.io/request).
-
-## Debugging
-
-Because of the nature of the abstraction we do in Apideck Unify we still provide the option to the receive raw requests and responses being handled underlying. By including the raw flag `?raw=true` in your requests you can still receive the full request. Please note that this increases the response size and can introduce extra latency.
-
-## Errors
-
-The API returns standard HTTP response codes to indicate success or failure of the API requests. For errors, we also return a customized error message inside the JSON response. You can see the returned HTTP status codes below.
-
-| Code | Title                | Description                                                                                                                                                                                              |
-| ---- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 200  | OK                   | The request message has been successfully processed, and it has produced a response. The response message varies, depending on the request method and the requested data.                                |
-| 201  | Created              | The request has been fulfilled and has resulted in one or more new resources being created.                                                                                                              |
-| 204  | No Content           | The server has successfully fulfilled the request and that there is no additional content to send in the response payload body.                                                                          |
-| 400  | Bad Request          | The receiving server cannot understand the request because of malformed syntax. Do not repeat the request without first modifying it; check the request for errors, fix them and then retry the request. |
-| 401  | Unauthorized         | The request has not been applied because it lacks valid authentication credentials for the target resource.                                                                                              |
-| 402  | Payment Required     | Subscription data is incomplete or out of date. You'll need to provide payment details to continue.                                                                                                      |
-| 403  | Forbidden            | You do not have the appropriate user rights to access the request. Do not repeat the request.                                                                                                            |
-| 404  | Not Found            | The origin server did not find a current representation for the target resource or is not willing to disclose that one exists.                                                                           |
-| 409  | Conflict             | The request could not be completed due to a conflict with the current state of the target resource.                                                                                                      |
-| 422  | Unprocessable Entity | The server understands the content type of the request entity, and the syntax of the request entity is correct but was unable to process the contained instructions.                                     |
-| 429  | Too Many Requests    | You sent too many requests in a given amount of time ("rate limit"). Try again later                                                                                                                     |
-| 5xx  | Server Errors        | Something went wrong with the Unify API. These errors are logged on our side. You can contact our team to resolve the issue.                                                                             |
-
-### Handling errors
-
-The Unify API and SDKs can produce errors for many reasons, such as a failed requests due to misconfigured integrations, invalid parameters, authentication errors, and network unavailability.
-
-### Error Types
-
-#### RequestValidationError
-
-Request is not valid for the current endpoint. The response body will include details on the validation error. Check the spelling and types of your attributes, and ensure you are not passing data that is outside of the specification.
-
-#### UnsupportedFiltersError
-
-Filters in the request are valid, but not supported by the connector. Remove the unsupported filter(s) to get a successful response.
-
-#### UnsupportedSortFieldError
-
-Sort field (`sort[by]`) in the request is valid, but not supported by the connector. Replace or remove the sort field to get a successful response.
-
-#### InvalidCursorError
-
-Pagination cursor in the request is not valid for the current connector. Make sure to use a cursor returned from the API, for the same connector.
-
-#### ConnectorExecutionError
-
-A Unified API request made via one of our downstream connectors returned an unexpected error. The `status_code` returned is proxied through to error response along with their original response via the error detail.
-
-#### UnauthorizedError
-
-We were unable to authorize the request as made. This can happen for a number of reasons, from missing header params to passing an incorrect authorization token. Verify your Api Key is being set correctly in the authorization header. ie: `Authorization: 'Bearer sk_live_***'`
-
-#### ConnectorCredentialsError
-
-A request using a given connector has not been authorized. Ensure the connector you are trying to use has been configured correctly and been authorized for use.
-
-#### ConnectorDisabledError
-
-A request has been made to a connector that has since been disabled. This may be temporary - You can contact our team to resolve the issue.
-
-#### ConnectorRateLimitError
-
-You sent too many request to a connector. These rate limits vary from connector to connector. You will need to try again later.
-
-#### RequestLimitError
-
-You have reached the number of requests included in your Free Tier Subscription. You will not be able to make further requests until you upgrade your subscription. Please reach out to sales@apideck.com to continue making requests.
-
-#### EntityNotFoundError
-
-You've made a request for a resource or route that does not exist. Verify your path parameters or any identifiers used to fetch this resource.
-
-#### OAuthCredentialsNotFoundError
-
-When adding a connector integration that implements OAuth, both a `client_id` and `client_secret` must be provided before any authorizations can be performed. Verify the integration has been configured properly before continuing.
-
-#### IntegrationNotFoundError
-
-The requested connector integration could not be found associated to your `application_id`. Verify your `application_id` is correct, and that this connector has been added and configured for your application.
-
-#### ConnectionNotFoundError
-
-A valid connection could not be found associated to your `application_id`. Something _may_ have interrupted the authorization flow. You may need to start the connector authorization process again.
-
-#### ConnectionSettingsError
-
-The connector has required settings that were not supplied. Verify `connection.settings` contains all required settings for the connector to be callable.
-
-#### ConnectorNotFoundError
-
-A request was made for an unknown connector. Verify your `service_id` is spelled correctly, and that this connector is enabled for your provided `unified_api`.
-
-#### OAuthRedirectUriError
-
-A request was made either in a connector authorization flow, or attempting to revoke connector access without a valid `redirect_uri`. This is the url the user should be returned to on completion of process.
-
-#### OAuthInvalidStateError
-
-The state param is required and is used to ensure the outgoing authorization state has not been altered before the user is redirected back. It also contains required params needed to identify the connector being used. If this has been altered, the authorization will not succeed.
-
-#### OAuthCodeExchangeError
-
-When attempting to exchange the authorization code for an `access_token` during an OAuth flow, an error occurred. This may be temporary. You can reattempt authorization or contact our team to resolve the issue.
-
-#### OAuthConnectorError
-
-It seems something went wrong on the connector side. It's possible this connector is in `beta` or still under development. We've been notified and are working to fix this issue.
-
-#### MappingError
-
-There was an error attempting to retrieve the mapping for a given attribute. We've been notified and are working to fix this issue.
-
-#### ConnectorMappingNotFoundError
-
-It seems the implementation for this connector is incomplete. It's possible this connector is in `beta` or still under development. We've been notified and are working to fix this issue.
-
-#### ConnectorResponseMappingNotFoundError
-
-We were unable to retrieve the response mapping for this connector. It's possible this connector is in `beta` or still under development. We've been notified and are working to fix this issue.
-
-#### ConnectorOperationMappingNotFoundError
-
-Connector mapping has not been implemented for the requested operation. It's possible this connector is in `beta` or still under development. We've been notified and are working to fix this issue.
-
-#### ConnectorWorkflowMappingError
-
-The composite api calls required for this operation have not been mapped entirely. It's possible this connector is in `beta` or still under development. We've been notified and are working to fix this issue.
-
-#### ConnectorOperationUnsupportedError
-
-You're attempting a call that is not supported by the connector. It's likely this operation is supported by another connector, but we're unable to implement for this one.
-
-#### PaginationNotSupportedError
-
-Pagination is not yet supported for this connector, try removing limit and/or cursor from the query. It's possible this connector is in `beta` or still under development. We've been notified and are working to fix this issue.
-
-## API Design
-
-### API Styles and data formats
-
-#### REST API
-
-The API is organized around [REST](https://restfulapi.net/), providing simple and predictable URIs to access and modify objects. Requests support standard HTTP methods like GET, PUT, POST, and DELETE and standard status codes. JSON is returned by all API responses, including errors. In all API requests, you must set the content-type HTTP header to application/json. All API requests must be made over HTTPS. Calls made over HTTP will fail.
-
-##### Available HTTP methods
-
-The Apideck API uses HTTP verbs to understand if you want to read (GET), delete (DELETE) or create (POST) an object. When your web application cannot do a POST or DELETE, we provide the ability to set the method through the query parameter \_method.
-
-```
-POST /messages
-GET /messages
-GET /messages/{messageId}
-PATCH /messages/{messageId}
-DELETE /messages/{messageId}
-```
-
-Response bodies are always UTF-8 encoded JSON objects, unless explicitly documented otherwise. For some endpoints and use cases we divert from REST to provide a better developer experience.
-
-### Schema
-
-All API requests and response bodies adhere to a common JSON format representing individual items, collections of items, links to related items and additional meta data.
-
-### Meta
-
-Meta data can be represented as a top level member named “meta”. Any information may be provided in the meta data. It’s most common use is to return the total number of records when requesting a collection of resources.
-
-### Request IDs
-
-Each API request has an associated request identifier. You can find this value in the response headers, under Request-Id. You can also find request identifiers in the URLs of individual request logs in your Dashboard. If you need to contact us about a specific request, providing the request identifier will ensure the fastest possible resolution.
-
-### Fixed field types
-
-#### Dates
-
-The dates returned by the API are all represented in UTC (ISO8601 format).
-
-This example `2019-11-14T00:55:31.820Z` is defined by the ISO 8601 standard. The T in the middle separates the year-month-day portion from the hour-minute-second portion. The Z on the end means UTC, that is, an offset-from-UTC of zero hours-minutes-seconds. The Z is pronounced "Zulu" per military/aviation tradition.
-
-The ISO 8601 standard is more modern. The formats are wisely designed to be easy to parse by machine as well as easy to read by humans across cultures.
-
-#### Prices and Currencies
-
-All prices returned by the API are represented as integer amounts in a currency’s smallest unit. For example, $5 USD would be returned as 500 (i.e, 500 cents).
-
-For zero-decimal currencies, amounts will still be provided as an integer but without the need to divide by 100. For example, an amount of ¥5 (JPY) would be returned as 5.
-
-All currency codes conform to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
-
-## Support
-
-If you have problems or need help with your case, you can always reach out to our Support.
-
-## Static IP
-
-Some of the APIs you want to use can require a static IP. Apideck's static IP feature allows you to use Apideck with a fixed IP avoiding the need for you to set up your own infrastructure. This feature is currently available to all Apideck customers.
-To use this feature, the API Vendor will need to whitelist the associated static IP addresses.
-The provided static IP addresses are fixed to their specified region and shared by all customers who use this feature.
-
-- EU Central 1: **18.197.244.247**, **18.156.9.3**, **3.65.139.215**
-- Other: upcoming
-
-  More info about our data security can be found at [https://compliance.apideck.com/](https://compliance.apideck.com/)
-
-
+Apideck: The Apideck OpenAPI Spec: SDK Optimized
 
 For more information about the API: [Apideck Developer Docs](https://developers.apideck.com)
 <!-- End Summary [summary] -->
@@ -290,26 +26,18 @@ For more information about the API: [Apideck Developer Docs](https://developers.
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
 * [apideck](#apideck)
-  * [Base URL](#base-url)
-  * [Headers](#headers)
-  * [Authorization](#authorization)
-  * [SDKs and API Clients](#sdks-and-api-clients)
-  * [Debugging](#debugging)
-  * [Errors](#errors)
-  * [API Design](#api-design)
-  * [Support](#support)
-  * [Static IP](#static-ip)
   * [SDK Installation](#sdk-installation)
   * [Requirements](#requirements)
   * [SDK Example Usage](#sdk-example-usage)
   * [Authentication](#authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
   * [Standalone functions](#standalone-functions)
+  * [Pagination](#pagination)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
   * [Server Selection](#server-selection)
   * [Custom HTTP Client](#custom-http-client)
-  * [Debugging](#debugging-1)
+  * [Debugging](#debugging)
 * [Development](#development)
   * [Maturity](#maturity)
   * [Contributions](#contributions)
@@ -368,16 +96,17 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 import { Apideck } from "apideck";
 import { RFCDate } from "apideck/types";
 
-const apideck = new Apideck();
+const apideck = new Apideck({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const result = await apideck.companies.companiesAdd({
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+  const result = await apideck.crm.companies.create({
+    raw: false,
     serviceId: "salesforce",
-    companyCreateRequest: {
+    createCompanyRequest: {
       name: "SpaceX",
       ownerId: "12345",
       image: "https://www.spacex.com/static/images/share.jpg",
@@ -432,8 +161,39 @@ async function run() {
           url: "http://example.com",
           type: "primary",
         },
+        {
+          id: "12345",
+          url: "http://example.com",
+          type: "primary",
+        },
       ],
       addresses: [
+        {
+          id: "123",
+          type: "primary",
+          string: "25 Spring Street, Blackburn, VIC 3130",
+          name: "HQ US",
+          line1: "Main street",
+          line2: "apt #",
+          line3: "Suite #",
+          line4: "delivery instructions",
+          streetNumber: "25",
+          city: "San Francisco",
+          state: "CA",
+          postalCode: "94104",
+          country: "US",
+          latitude: "40.759211",
+          longitude: "-73.984638",
+          county: "Santa Clara",
+          contactName: "Elon Musk",
+          salutation: "Mr",
+          phoneNumber: "111-111-1111",
+          fax: "122-111-1111",
+          email: "elon@musk.com",
+          website: "https://elonmusk.com",
+          notes: "Address notes or delivery instructions.",
+          rowVersion: "1-12345",
+        },
         {
           id: "123",
           type: "primary",
@@ -467,29 +227,8 @@ async function run() {
           url: "https://www.twitter.com/apideck",
           type: "twitter",
         },
-        {
-          id: "12345",
-          url: "https://www.twitter.com/apideck",
-          type: "twitter",
-        },
       ],
       phoneNumbers: [
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
         {
           id: "12345",
           countryCode: "1",
@@ -505,6 +244,16 @@ async function run() {
           email: "elon@musk.com",
           type: "primary",
         },
+        {
+          id: "123",
+          email: "elon@musk.com",
+          type: "primary",
+        },
+        {
+          id: "123",
+          email: "elon@musk.com",
+          type: "primary",
+        },
       ],
       rowType: {
         id: "12345",
@@ -515,13 +264,19 @@ async function run() {
           id: "2389328923893298",
           name: "employee_level",
           description: "Employee Level",
-          value: 10,
+          value: "Uses Salesforce and Marketo",
         },
         {
           id: "2389328923893298",
           name: "employee_level",
           description: "Employee Level",
           value: 10,
+        },
+        {
+          id: "2389328923893298",
+          name: "employee_level",
+          description: "Employee Level",
+          value: "Uses Salesforce and Marketo",
         },
       ],
       tags: [
@@ -534,6 +289,72 @@ async function run() {
         {
           serviceId: "<id>",
           extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+          ],
+        },
+        {
+          serviceId: "<id>",
+          extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+          ],
+        },
+        {
+          serviceId: "<id>",
+          extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
             {
               path: "$.nested.property",
               value: {
@@ -562,34 +383,28 @@ run();
 
 ### Per-Client Security Schemes
 
-This SDK supports the following security schemes globally:
+This SDK supports the following security scheme globally:
 
-| Name            | Type   | Scheme  | Environment Variable     |
-| --------------- | ------ | ------- | ------------------------ |
-| `apiKey`        | apiKey | API key | `APIDECK_API_KEY`        |
-| `applicationId` | apiKey | API key | `APIDECK_APPLICATION_ID` |
-| `consumerId`    | apiKey | API key | `APIDECK_CONSUMER_ID`    |
+| Name     | Type | Scheme      | Environment Variable |
+| -------- | ---- | ----------- | -------------------- |
+| `apiKey` | http | HTTP Bearer | `APIDECK_API_KEY`    |
 
-You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
-
-
-### Per-Operation Security Schemes
-
-Some operations in this SDK require the security scheme to be specified at the request level. For example:
+To authenticate with the API the `apiKey` parameter must be set when initializing the SDK client instance. For example:
 ```typescript
 import { Apideck } from "apideck";
 import { RFCDate } from "apideck/types";
 
-const apideck = new Apideck();
+const apideck = new Apideck({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const result = await apideck.companies.companiesAdd({
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+  const result = await apideck.crm.companies.create({
+    raw: false,
     serviceId: "salesforce",
-    companyCreateRequest: {
+    createCompanyRequest: {
       name: "SpaceX",
       ownerId: "12345",
       image: "https://www.spacex.com/static/images/share.jpg",
@@ -644,8 +459,39 @@ async function run() {
           url: "http://example.com",
           type: "primary",
         },
+        {
+          id: "12345",
+          url: "http://example.com",
+          type: "primary",
+        },
       ],
       addresses: [
+        {
+          id: "123",
+          type: "primary",
+          string: "25 Spring Street, Blackburn, VIC 3130",
+          name: "HQ US",
+          line1: "Main street",
+          line2: "apt #",
+          line3: "Suite #",
+          line4: "delivery instructions",
+          streetNumber: "25",
+          city: "San Francisco",
+          state: "CA",
+          postalCode: "94104",
+          country: "US",
+          latitude: "40.759211",
+          longitude: "-73.984638",
+          county: "Santa Clara",
+          contactName: "Elon Musk",
+          salutation: "Mr",
+          phoneNumber: "111-111-1111",
+          fax: "122-111-1111",
+          email: "elon@musk.com",
+          website: "https://elonmusk.com",
+          notes: "Address notes or delivery instructions.",
+          rowVersion: "1-12345",
+        },
         {
           id: "123",
           type: "primary",
@@ -679,29 +525,8 @@ async function run() {
           url: "https://www.twitter.com/apideck",
           type: "twitter",
         },
-        {
-          id: "12345",
-          url: "https://www.twitter.com/apideck",
-          type: "twitter",
-        },
       ],
       phoneNumbers: [
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
         {
           id: "12345",
           countryCode: "1",
@@ -717,6 +542,16 @@ async function run() {
           email: "elon@musk.com",
           type: "primary",
         },
+        {
+          id: "123",
+          email: "elon@musk.com",
+          type: "primary",
+        },
+        {
+          id: "123",
+          email: "elon@musk.com",
+          type: "primary",
+        },
       ],
       rowType: {
         id: "12345",
@@ -727,13 +562,19 @@ async function run() {
           id: "2389328923893298",
           name: "employee_level",
           description: "Employee Level",
-          value: 10,
+          value: "Uses Salesforce and Marketo",
         },
         {
           id: "2389328923893298",
           name: "employee_level",
           description: "Employee Level",
           value: 10,
+        },
+        {
+          id: "2389328923893298",
+          name: "employee_level",
+          description: "Employee Level",
+          value: "Uses Salesforce and Marketo",
         },
       ],
       tags: [
@@ -746,6 +587,72 @@ async function run() {
         {
           serviceId: "<id>",
           extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+          ],
+        },
+        {
+          serviceId: "<id>",
+          extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+          ],
+        },
+        {
+          serviceId: "<id>",
+          extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
             {
               path: "$.nested.property",
               value: {
@@ -775,70 +682,69 @@ run();
 <details open>
 <summary>Available methods</summary>
 
-### [activities](docs/sdks/activities/README.md)
 
-* [activitiesAll](docs/sdks/activities/README.md#activitiesall) - Retrieve all CRM activities.
-* [activitiesAdd](docs/sdks/activities/README.md#activitiesadd) - Add a new activity to the CRM system.
-* [activitiesOne](docs/sdks/activities/README.md#activitiesone) - Retrieve a specific CRM activity by ID.
-* [activitiesUpdate](docs/sdks/activities/README.md#activitiesupdate) - Update an existing activity record in the CRM system.
-* [activitiesDelete](docs/sdks/activities/README.md#activitiesdelete) - Delete a specific CRM activity by ID.
+### [crm](docs/sdks/crm/README.md)
 
 
-### [companies](docs/sdks/companies/README.md)
+#### [crm.activities](docs/sdks/activities/README.md)
 
-* [companiesAdd](docs/sdks/companies/README.md#companiesadd) - Add a new company to the CRM system.
-* [companiesAll](docs/sdks/companies/README.md#companiesall) - Retrieve a list of companies from the CRM.
-* [companiesOne](docs/sdks/companies/README.md#companiesone) - Retrieve detailed information about a specific company.
-* [companiesUpdate](docs/sdks/companies/README.md#companiesupdate) - Update a company's information in the CRM.
-* [companiesDelete](docs/sdks/companies/README.md#companiesdelete) - Delete a company record from the CRM.
+* [list](docs/sdks/activities/README.md#list) - Retrieve all CRM activities with customizable query options.
+* [create](docs/sdks/activities/README.md#create) - Add a new activity to the CRM system.
+* [get](docs/sdks/activities/README.md#get) - Retrieve a specific CRM activity by its ID.
+* [update](docs/sdks/activities/README.md#update) - Update an existing activity record in the CRM.
+* [delete](docs/sdks/activities/README.md#delete) - Delete a specific CRM activity by its ID.
 
-### [contacts](docs/sdks/contacts/README.md)
+#### [crm.companies](docs/sdks/companies/README.md)
 
-* [contactsAll](docs/sdks/contacts/README.md#contactsall) - Retrieve all contacts from the CRM system.
-* [contactsAdd](docs/sdks/contacts/README.md#contactsadd) - Add a new contact to the CRM system.
-* [contactsOne](docs/sdks/contacts/README.md#contactsone) - Retrieve a specific contact's details from the CRM.
-* [contactsUpdate](docs/sdks/contacts/README.md#contactsupdate) - Update a contact record in the CRM system.
-* [contactsDelete](docs/sdks/contacts/README.md#contactsdelete) - Delete a contact from the CRM system.
+* [create](docs/sdks/companies/README.md#create) - Add a new company to the CRM system.
+* [list](docs/sdks/companies/README.md#list) - Retrieve a list of companies from the CRM.
+* [get](docs/sdks/companies/README.md#get) - Retrieve detailed information about a specific company from the CRM.
+* [update](docs/sdks/companies/README.md#update) - Update company details in the CRM system.
+* [delete](docs/sdks/companies/README.md#delete) - Delete a company record from the CRM system.
 
-### [leads](docs/sdks/leads/README.md)
+#### [crm.contacts](docs/sdks/contacts/README.md)
 
-* [leadsAll](docs/sdks/leads/README.md#leadsall) - Retrieve a list of leads from the CRM system.
-* [leadsAdd](docs/sdks/leads/README.md#leadsadd) - Add a new lead to the CRM system.
-* [leadsOne](docs/sdks/leads/README.md#leadsone) - Retrieve a specific lead's details from the CRM.
-* [leadsUpdate](docs/sdks/leads/README.md#leadsupdate) - Update a lead record in the CRM system.
-* [leadsDelete](docs/sdks/leads/README.md#leadsdelete) - Delete a lead record from the CRM system.
+* [list](docs/sdks/contacts/README.md#list) - Retrieve all contacts from the CRM system.
+* [create](docs/sdks/contacts/README.md#create) - Add a new contact to the CRM system.
+* [get](docs/sdks/contacts/README.md#get) - Retrieve a specific contact by ID from the CRM system.
+* [update](docs/sdks/contacts/README.md#update) - Update an existing contact in the CRM system.
+* [delete](docs/sdks/contacts/README.md#delete) - Delete a contact from the CRM system.
 
-### [notes](docs/sdks/notes/README.md)
+#### [crm.leads](docs/sdks/leads/README.md)
 
-* [notesAll](docs/sdks/notes/README.md#notesall) - Retrieve all CRM notes with optional filtering and field selection.
-* [notesAdd](docs/sdks/notes/README.md#notesadd) - Add a new note to the CRM system.
-* [notesOne](docs/sdks/notes/README.md#notesone) - Retrieve a specific note by ID from the CRM system.
-* [notesUpdate](docs/sdks/notes/README.md#notesupdate) - Update an existing CRM note by ID.
-* [notesDelete](docs/sdks/notes/README.md#notesdelete) - Delete a specific note from the CRM system.
+* [list](docs/sdks/leads/README.md#list) - Retrieve a list of leads from the CRM system.
+* [create](docs/sdks/leads/README.md#create) - Add a new lead to the CRM system.
+* [get](docs/sdks/leads/README.md#get) - Retrieve a specific lead by ID from the CRM system.
+* [update](docs/sdks/leads/README.md#update) - Update an existing lead record in the CRM system.
+* [delete](docs/sdks/leads/README.md#delete) - Delete a lead from the CRM system.
 
-### [opportunities](docs/sdks/opportunities/README.md)
+#### [crm.notes](docs/sdks/notes/README.md)
 
-* [opportunitiesAll](docs/sdks/opportunities/README.md#opportunitiesall) - Retrieve all CRM opportunities.
-* [opportunitiesAdd](docs/sdks/opportunities/README.md#opportunitiesadd) - Add a new opportunity to the CRM system.
-* [opportunitiesOne](docs/sdks/opportunities/README.md#opportunitiesone) - Retrieve a specific CRM opportunity by ID.
-* [opportunitiesUpdate](docs/sdks/opportunities/README.md#opportunitiesupdate) - Update an existing opportunity in the CRM.
-* [opportunitiesDelete](docs/sdks/opportunities/README.md#opportunitiesdelete) - Delete an opportunity record from the CRM.
+* [list](docs/sdks/notes/README.md#list) - Retrieve all CRM notes efficiently.
+* [create](docs/sdks/notes/README.md#create) - Add a new note to the CRM system.
+* [get](docs/sdks/notes/README.md#get) - Retrieve a specific note by its ID from the CRM system.
+* [update](docs/sdks/notes/README.md#update) - Update an existing note in the CRM system.
+* [delete](docs/sdks/notes/README.md#delete) - Delete a specific note from the CRM system.
 
-### [pipelines](docs/sdks/pipelines/README.md)
+#### [crm.opportunities](docs/sdks/opportunities/README.md)
 
-* [pipelinesAll](docs/sdks/pipelines/README.md#pipelinesall) - Retrieve all CRM pipelines.
-* [pipelinesAdd](docs/sdks/pipelines/README.md#pipelinesadd) - Add a new pipeline to the CRM system.
-* [pipelinesOne](docs/sdks/pipelines/README.md#pipelinesone) - Retrieve a specific CRM pipeline by its ID.
-* [pipelinesUpdate](docs/sdks/pipelines/README.md#pipelinesupdate) - Update an existing CRM pipeline.
-* [pipelinesDelete](docs/sdks/pipelines/README.md#pipelinesdelete) - Delete a specific CRM pipeline by ID.
+* [list](docs/sdks/opportunities/README.md#list) - Retrieve a list of CRM opportunities.
+* [create](docs/sdks/opportunities/README.md#create) - Add a new opportunity to the CRM system.
+* [get](docs/sdks/opportunities/README.md#get) - Retrieve a specific CRM opportunity by its ID.
+* [update](docs/sdks/opportunities/README.md#update) - Update an existing opportunity in the CRM system.
+* [delete](docs/sdks/opportunities/README.md#delete) - Delete an existing opportunity record in the CRM.
 
-### [users](docs/sdks/users/README.md)
+#### [crm.pipelines](docs/sdks/pipelines/README.md)
 
-* [usersAll](docs/sdks/users/README.md#usersall) - Retrieve a list of users from the CRM system.
-* [usersAdd](docs/sdks/users/README.md#usersadd) - Add a new user to the CRM system.
-* [usersOne](docs/sdks/users/README.md#usersone) - Retrieve a specific user's details from the CRM system.
-* [usersUpdate](docs/sdks/users/README.md#usersupdate) - Update user details in the CRM system.
-* [usersDelete](docs/sdks/users/README.md#usersdelete) - Delete a user from the CRM system.
+* [list](docs/sdks/pipelines/README.md#list) - Retrieve all CRM pipelines.
+
+#### [crm.users](docs/sdks/users/README.md)
+
+* [list](docs/sdks/users/README.md#list) - Retrieve a list of users from the CRM system.
+* [create](docs/sdks/users/README.md#create) - Add a new user to the CRM system.
+* [get](docs/sdks/users/README.md#get) - Retrieve a specific user's details from the CRM system.
+* [update](docs/sdks/users/README.md#update) - Update user details in the CRM system.
+* [delete](docs/sdks/users/README.md#delete) - Delete a user from the CRM system.
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -858,49 +764,95 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 <summary>Available standalone functions</summary>
 
-- [`activitiesActivitiesAdd`](docs/sdks/activities/README.md#activitiesadd) - Add a new activity to the CRM system.
-- [`activitiesActivitiesAll`](docs/sdks/activities/README.md#activitiesall) - Retrieve all CRM activities.
-- [`activitiesActivitiesDelete`](docs/sdks/activities/README.md#activitiesdelete) - Delete a specific CRM activity by ID.
-- [`activitiesActivitiesOne`](docs/sdks/activities/README.md#activitiesone) - Retrieve a specific CRM activity by ID.
-- [`activitiesActivitiesUpdate`](docs/sdks/activities/README.md#activitiesupdate) - Update an existing activity record in the CRM system.
-- [`companiesCompaniesAdd`](docs/sdks/companies/README.md#companiesadd) - Add a new company to the CRM system.
-- [`companiesCompaniesAll`](docs/sdks/companies/README.md#companiesall) - Retrieve a list of companies from the CRM.
-- [`companiesCompaniesDelete`](docs/sdks/companies/README.md#companiesdelete) - Delete a company record from the CRM.
-- [`companiesCompaniesOne`](docs/sdks/companies/README.md#companiesone) - Retrieve detailed information about a specific company.
-- [`companiesCompaniesUpdate`](docs/sdks/companies/README.md#companiesupdate) - Update a company's information in the CRM.
-- [`contactsContactsAdd`](docs/sdks/contacts/README.md#contactsadd) - Add a new contact to the CRM system.
-- [`contactsContactsAll`](docs/sdks/contacts/README.md#contactsall) - Retrieve all contacts from the CRM system.
-- [`contactsContactsDelete`](docs/sdks/contacts/README.md#contactsdelete) - Delete a contact from the CRM system.
-- [`contactsContactsOne`](docs/sdks/contacts/README.md#contactsone) - Retrieve a specific contact's details from the CRM.
-- [`contactsContactsUpdate`](docs/sdks/contacts/README.md#contactsupdate) - Update a contact record in the CRM system.
-- [`leadsLeadsAdd`](docs/sdks/leads/README.md#leadsadd) - Add a new lead to the CRM system.
-- [`leadsLeadsAll`](docs/sdks/leads/README.md#leadsall) - Retrieve a list of leads from the CRM system.
-- [`leadsLeadsDelete`](docs/sdks/leads/README.md#leadsdelete) - Delete a lead record from the CRM system.
-- [`leadsLeadsOne`](docs/sdks/leads/README.md#leadsone) - Retrieve a specific lead's details from the CRM.
-- [`leadsLeadsUpdate`](docs/sdks/leads/README.md#leadsupdate) - Update a lead record in the CRM system.
-- [`notesNotesAdd`](docs/sdks/notes/README.md#notesadd) - Add a new note to the CRM system.
-- [`notesNotesAll`](docs/sdks/notes/README.md#notesall) - Retrieve all CRM notes with optional filtering and field selection.
-- [`notesNotesDelete`](docs/sdks/notes/README.md#notesdelete) - Delete a specific note from the CRM system.
-- [`notesNotesOne`](docs/sdks/notes/README.md#notesone) - Retrieve a specific note by ID from the CRM system.
-- [`notesNotesUpdate`](docs/sdks/notes/README.md#notesupdate) - Update an existing CRM note by ID.
-- [`opportunitiesOpportunitiesAdd`](docs/sdks/opportunities/README.md#opportunitiesadd) - Add a new opportunity to the CRM system.
-- [`opportunitiesOpportunitiesAll`](docs/sdks/opportunities/README.md#opportunitiesall) - Retrieve all CRM opportunities.
-- [`opportunitiesOpportunitiesDelete`](docs/sdks/opportunities/README.md#opportunitiesdelete) - Delete an opportunity record from the CRM.
-- [`opportunitiesOpportunitiesOne`](docs/sdks/opportunities/README.md#opportunitiesone) - Retrieve a specific CRM opportunity by ID.
-- [`opportunitiesOpportunitiesUpdate`](docs/sdks/opportunities/README.md#opportunitiesupdate) - Update an existing opportunity in the CRM.
-- [`pipelinesPipelinesAdd`](docs/sdks/pipelines/README.md#pipelinesadd) - Add a new pipeline to the CRM system.
-- [`pipelinesPipelinesAll`](docs/sdks/pipelines/README.md#pipelinesall) - Retrieve all CRM pipelines.
-- [`pipelinesPipelinesDelete`](docs/sdks/pipelines/README.md#pipelinesdelete) - Delete a specific CRM pipeline by ID.
-- [`pipelinesPipelinesOne`](docs/sdks/pipelines/README.md#pipelinesone) - Retrieve a specific CRM pipeline by its ID.
-- [`pipelinesPipelinesUpdate`](docs/sdks/pipelines/README.md#pipelinesupdate) - Update an existing CRM pipeline.
-- [`usersUsersAdd`](docs/sdks/users/README.md#usersadd) - Add a new user to the CRM system.
-- [`usersUsersAll`](docs/sdks/users/README.md#usersall) - Retrieve a list of users from the CRM system.
-- [`usersUsersDelete`](docs/sdks/users/README.md#usersdelete) - Delete a user from the CRM system.
-- [`usersUsersOne`](docs/sdks/users/README.md#usersone) - Retrieve a specific user's details from the CRM system.
-- [`usersUsersUpdate`](docs/sdks/users/README.md#usersupdate) - Update user details in the CRM system.
+- [`crmActivitiesCreate`](docs/sdks/activities/README.md#create) - Add a new activity to the CRM system.
+- [`crmActivitiesDelete`](docs/sdks/activities/README.md#delete) - Delete a specific CRM activity by its ID.
+- [`crmActivitiesGet`](docs/sdks/activities/README.md#get) - Retrieve a specific CRM activity by its ID.
+- [`crmActivitiesList`](docs/sdks/activities/README.md#list) - Retrieve all CRM activities with customizable query options.
+- [`crmActivitiesUpdate`](docs/sdks/activities/README.md#update) - Update an existing activity record in the CRM.
+- [`crmCompaniesCreate`](docs/sdks/companies/README.md#create) - Add a new company to the CRM system.
+- [`crmCompaniesDelete`](docs/sdks/companies/README.md#delete) - Delete a company record from the CRM system.
+- [`crmCompaniesGet`](docs/sdks/companies/README.md#get) - Retrieve detailed information about a specific company from the CRM.
+- [`crmCompaniesList`](docs/sdks/companies/README.md#list) - Retrieve a list of companies from the CRM.
+- [`crmCompaniesUpdate`](docs/sdks/companies/README.md#update) - Update company details in the CRM system.
+- [`crmContactsCreate`](docs/sdks/contacts/README.md#create) - Add a new contact to the CRM system.
+- [`crmContactsDelete`](docs/sdks/contacts/README.md#delete) - Delete a contact from the CRM system.
+- [`crmContactsGet`](docs/sdks/contacts/README.md#get) - Retrieve a specific contact by ID from the CRM system.
+- [`crmContactsList`](docs/sdks/contacts/README.md#list) - Retrieve all contacts from the CRM system.
+- [`crmContactsUpdate`](docs/sdks/contacts/README.md#update) - Update an existing contact in the CRM system.
+- [`crmLeadsCreate`](docs/sdks/leads/README.md#create) - Add a new lead to the CRM system.
+- [`crmLeadsDelete`](docs/sdks/leads/README.md#delete) - Delete a lead from the CRM system.
+- [`crmLeadsGet`](docs/sdks/leads/README.md#get) - Retrieve a specific lead by ID from the CRM system.
+- [`crmLeadsList`](docs/sdks/leads/README.md#list) - Retrieve a list of leads from the CRM system.
+- [`crmLeadsUpdate`](docs/sdks/leads/README.md#update) - Update an existing lead record in the CRM system.
+- [`crmNotesCreate`](docs/sdks/notes/README.md#create) - Add a new note to the CRM system.
+- [`crmNotesDelete`](docs/sdks/notes/README.md#delete) - Delete a specific note from the CRM system.
+- [`crmNotesGet`](docs/sdks/notes/README.md#get) - Retrieve a specific note by its ID from the CRM system.
+- [`crmNotesList`](docs/sdks/notes/README.md#list) - Retrieve all CRM notes efficiently.
+- [`crmNotesUpdate`](docs/sdks/notes/README.md#update) - Update an existing note in the CRM system.
+- [`crmOpportunitiesCreate`](docs/sdks/opportunities/README.md#create) - Add a new opportunity to the CRM system.
+- [`crmOpportunitiesDelete`](docs/sdks/opportunities/README.md#delete) - Delete an existing opportunity record in the CRM.
+- [`crmOpportunitiesGet`](docs/sdks/opportunities/README.md#get) - Retrieve a specific CRM opportunity by its ID.
+- [`crmOpportunitiesList`](docs/sdks/opportunities/README.md#list) - Retrieve a list of CRM opportunities.
+- [`crmOpportunitiesUpdate`](docs/sdks/opportunities/README.md#update) - Update an existing opportunity in the CRM system.
+- [`crmPipelinesList`](docs/sdks/pipelines/README.md#list) - Retrieve all CRM pipelines.
+- [`crmUsersCreate`](docs/sdks/users/README.md#create) - Add a new user to the CRM system.
+- [`crmUsersDelete`](docs/sdks/users/README.md#delete) - Delete a user from the CRM system.
+- [`crmUsersGet`](docs/sdks/users/README.md#get) - Retrieve a specific user's details from the CRM system.
+- [`crmUsersList`](docs/sdks/users/README.md#list) - Retrieve a list of users from the CRM system.
+- [`crmUsersUpdate`](docs/sdks/users/README.md#update) - Update user details in the CRM system.
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
+
+<!-- Start Pagination [pagination] -->
+## Pagination
+
+Some of the endpoints in this SDK support pagination. To use pagination, you
+make your SDK calls as usual, but the returned response object will also be an
+async iterable that can be consumed using the [`for await...of`][for-await-of]
+syntax.
+
+[for-await-of]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of
+
+Here's an example of one such pagination call:
+
+```typescript
+import { Apideck } from "apideck";
+
+const apideck = new Apideck({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
+
+async function run() {
+  const result = await apideck.crm.companies.list({
+    raw: false,
+    serviceId: "salesforce",
+    limit: 20,
+    filter: {
+      name: "SpaceX",
+    },
+    sort: {
+      by: "created_at",
+      direction: "desc",
+    },
+    passThrough: {
+      "search": "San Francisco",
+    },
+    fields: "id,updated_at",
+  });
+
+  for await (const page of result) {
+    // Handle the page
+    console.log(page);
+  }
+}
+
+run();
+
+```
+<!-- End Pagination [pagination] -->
 
 <!-- Start Retries [retries] -->
 ## Retries
@@ -912,16 +864,17 @@ To change the default retry strategy for a single API call, simply provide a ret
 import { Apideck } from "apideck";
 import { RFCDate } from "apideck/types";
 
-const apideck = new Apideck();
+const apideck = new Apideck({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
-  const result = await apideck.companies.companiesAdd({
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+  const result = await apideck.crm.companies.create({
+    raw: false,
     serviceId: "salesforce",
-    companyCreateRequest: {
+    createCompanyRequest: {
       name: "SpaceX",
       ownerId: "12345",
       image: "https://www.spacex.com/static/images/share.jpg",
@@ -976,8 +929,39 @@ async function run() {
           url: "http://example.com",
           type: "primary",
         },
+        {
+          id: "12345",
+          url: "http://example.com",
+          type: "primary",
+        },
       ],
       addresses: [
+        {
+          id: "123",
+          type: "primary",
+          string: "25 Spring Street, Blackburn, VIC 3130",
+          name: "HQ US",
+          line1: "Main street",
+          line2: "apt #",
+          line3: "Suite #",
+          line4: "delivery instructions",
+          streetNumber: "25",
+          city: "San Francisco",
+          state: "CA",
+          postalCode: "94104",
+          country: "US",
+          latitude: "40.759211",
+          longitude: "-73.984638",
+          county: "Santa Clara",
+          contactName: "Elon Musk",
+          salutation: "Mr",
+          phoneNumber: "111-111-1111",
+          fax: "122-111-1111",
+          email: "elon@musk.com",
+          website: "https://elonmusk.com",
+          notes: "Address notes or delivery instructions.",
+          rowVersion: "1-12345",
+        },
         {
           id: "123",
           type: "primary",
@@ -1011,29 +995,8 @@ async function run() {
           url: "https://www.twitter.com/apideck",
           type: "twitter",
         },
-        {
-          id: "12345",
-          url: "https://www.twitter.com/apideck",
-          type: "twitter",
-        },
       ],
       phoneNumbers: [
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
         {
           id: "12345",
           countryCode: "1",
@@ -1049,6 +1012,16 @@ async function run() {
           email: "elon@musk.com",
           type: "primary",
         },
+        {
+          id: "123",
+          email: "elon@musk.com",
+          type: "primary",
+        },
+        {
+          id: "123",
+          email: "elon@musk.com",
+          type: "primary",
+        },
       ],
       rowType: {
         id: "12345",
@@ -1059,13 +1032,19 @@ async function run() {
           id: "2389328923893298",
           name: "employee_level",
           description: "Employee Level",
-          value: 10,
+          value: "Uses Salesforce and Marketo",
         },
         {
           id: "2389328923893298",
           name: "employee_level",
           description: "Employee Level",
           value: 10,
+        },
+        {
+          id: "2389328923893298",
+          name: "employee_level",
+          description: "Employee Level",
+          value: "Uses Salesforce and Marketo",
         },
       ],
       tags: [
@@ -1078,6 +1057,72 @@ async function run() {
         {
           serviceId: "<id>",
           extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+          ],
+        },
+        {
+          serviceId: "<id>",
+          extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+          ],
+        },
+        {
+          serviceId: "<id>",
+          extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
             {
               path: "$.nested.property",
               value: {
@@ -1127,16 +1172,16 @@ const apideck = new Apideck({
     },
     retryConnectionErrors: false,
   },
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
 });
 
 async function run() {
-  const result = await apideck.companies.companiesAdd({
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+  const result = await apideck.crm.companies.create({
+    raw: false,
     serviceId: "salesforce",
-    companyCreateRequest: {
+    createCompanyRequest: {
       name: "SpaceX",
       ownerId: "12345",
       image: "https://www.spacex.com/static/images/share.jpg",
@@ -1191,8 +1236,39 @@ async function run() {
           url: "http://example.com",
           type: "primary",
         },
+        {
+          id: "12345",
+          url: "http://example.com",
+          type: "primary",
+        },
       ],
       addresses: [
+        {
+          id: "123",
+          type: "primary",
+          string: "25 Spring Street, Blackburn, VIC 3130",
+          name: "HQ US",
+          line1: "Main street",
+          line2: "apt #",
+          line3: "Suite #",
+          line4: "delivery instructions",
+          streetNumber: "25",
+          city: "San Francisco",
+          state: "CA",
+          postalCode: "94104",
+          country: "US",
+          latitude: "40.759211",
+          longitude: "-73.984638",
+          county: "Santa Clara",
+          contactName: "Elon Musk",
+          salutation: "Mr",
+          phoneNumber: "111-111-1111",
+          fax: "122-111-1111",
+          email: "elon@musk.com",
+          website: "https://elonmusk.com",
+          notes: "Address notes or delivery instructions.",
+          rowVersion: "1-12345",
+        },
         {
           id: "123",
           type: "primary",
@@ -1226,29 +1302,8 @@ async function run() {
           url: "https://www.twitter.com/apideck",
           type: "twitter",
         },
-        {
-          id: "12345",
-          url: "https://www.twitter.com/apideck",
-          type: "twitter",
-        },
       ],
       phoneNumbers: [
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
         {
           id: "12345",
           countryCode: "1",
@@ -1264,6 +1319,16 @@ async function run() {
           email: "elon@musk.com",
           type: "primary",
         },
+        {
+          id: "123",
+          email: "elon@musk.com",
+          type: "primary",
+        },
+        {
+          id: "123",
+          email: "elon@musk.com",
+          type: "primary",
+        },
       ],
       rowType: {
         id: "12345",
@@ -1274,13 +1339,19 @@ async function run() {
           id: "2389328923893298",
           name: "employee_level",
           description: "Employee Level",
-          value: 10,
+          value: "Uses Salesforce and Marketo",
         },
         {
           id: "2389328923893298",
           name: "employee_level",
           description: "Employee Level",
           value: 10,
+        },
+        {
+          id: "2389328923893298",
+          name: "employee_level",
+          description: "Employee Level",
+          value: "Uses Salesforce and Marketo",
         },
       ],
       tags: [
@@ -1293,6 +1364,72 @@ async function run() {
         {
           serviceId: "<id>",
           extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+          ],
+        },
+        {
+          serviceId: "<id>",
+          extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+          ],
+        },
+        {
+          serviceId: "<id>",
+          extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
             {
               path: "$.nested.property",
               value: {
@@ -1319,7 +1456,7 @@ run();
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-Some methods specify known errors which can be thrown. All the known errors are enumerated in the `models/errors/errors.ts` module. The known errors for a method are documented under the *Errors* tables in SDK docs. For example, the `companiesAdd` method may throw the following errors:
+Some methods specify known errors which can be thrown. All the known errors are enumerated in the `models/errors/errors.ts` module. The known errors for a method are documented under the *Errors* tables in SDK docs. For example, the `create` method may throw the following errors:
 
 | Error Type                         | Status Code | Content Type     |
 | ---------------------------------- | ----------- | ---------------- |
@@ -1344,18 +1481,19 @@ import {
 } from "apideck/models/errors";
 import { RFCDate } from "apideck/types";
 
-const apideck = new Apideck();
+const apideck = new Apideck({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
 
 async function run() {
   let result;
   try {
-    result = await apideck.companies.companiesAdd({
-      apiKey: process.env["APIDECK_API_KEY"] ?? "",
-    }, {
-      consumerId: "test-consumer",
-      appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+    result = await apideck.crm.companies.create({
+      raw: false,
       serviceId: "salesforce",
-      companyCreateRequest: {
+      createCompanyRequest: {
         name: "SpaceX",
         ownerId: "12345",
         image: "https://www.spacex.com/static/images/share.jpg",
@@ -1410,8 +1548,39 @@ async function run() {
             url: "http://example.com",
             type: "primary",
           },
+          {
+            id: "12345",
+            url: "http://example.com",
+            type: "primary",
+          },
         ],
         addresses: [
+          {
+            id: "123",
+            type: "primary",
+            string: "25 Spring Street, Blackburn, VIC 3130",
+            name: "HQ US",
+            line1: "Main street",
+            line2: "apt #",
+            line3: "Suite #",
+            line4: "delivery instructions",
+            streetNumber: "25",
+            city: "San Francisco",
+            state: "CA",
+            postalCode: "94104",
+            country: "US",
+            latitude: "40.759211",
+            longitude: "-73.984638",
+            county: "Santa Clara",
+            contactName: "Elon Musk",
+            salutation: "Mr",
+            phoneNumber: "111-111-1111",
+            fax: "122-111-1111",
+            email: "elon@musk.com",
+            website: "https://elonmusk.com",
+            notes: "Address notes or delivery instructions.",
+            rowVersion: "1-12345",
+          },
           {
             id: "123",
             type: "primary",
@@ -1445,29 +1614,8 @@ async function run() {
             url: "https://www.twitter.com/apideck",
             type: "twitter",
           },
-          {
-            id: "12345",
-            url: "https://www.twitter.com/apideck",
-            type: "twitter",
-          },
         ],
         phoneNumbers: [
-          {
-            id: "12345",
-            countryCode: "1",
-            areaCode: "323",
-            number: "111-111-1111",
-            extension: "105",
-            type: "primary",
-          },
-          {
-            id: "12345",
-            countryCode: "1",
-            areaCode: "323",
-            number: "111-111-1111",
-            extension: "105",
-            type: "primary",
-          },
           {
             id: "12345",
             countryCode: "1",
@@ -1483,6 +1631,16 @@ async function run() {
             email: "elon@musk.com",
             type: "primary",
           },
+          {
+            id: "123",
+            email: "elon@musk.com",
+            type: "primary",
+          },
+          {
+            id: "123",
+            email: "elon@musk.com",
+            type: "primary",
+          },
         ],
         rowType: {
           id: "12345",
@@ -1493,13 +1651,19 @@ async function run() {
             id: "2389328923893298",
             name: "employee_level",
             description: "Employee Level",
-            value: 10,
+            value: "Uses Salesforce and Marketo",
           },
           {
             id: "2389328923893298",
             name: "employee_level",
             description: "Employee Level",
             value: 10,
+          },
+          {
+            id: "2389328923893298",
+            name: "employee_level",
+            description: "Employee Level",
+            value: "Uses Salesforce and Marketo",
           },
         ],
         tags: [
@@ -1512,6 +1676,72 @@ async function run() {
           {
             serviceId: "<id>",
             extendPaths: [
+              {
+                path: "$.nested.property",
+                value: {
+                  "TaxClassificationRef": {
+                    "value": "EUC-99990201-V1-00020000",
+                  },
+                },
+              },
+              {
+                path: "$.nested.property",
+                value: {
+                  "TaxClassificationRef": {
+                    "value": "EUC-99990201-V1-00020000",
+                  },
+                },
+              },
+              {
+                path: "$.nested.property",
+                value: {
+                  "TaxClassificationRef": {
+                    "value": "EUC-99990201-V1-00020000",
+                  },
+                },
+              },
+            ],
+          },
+          {
+            serviceId: "<id>",
+            extendPaths: [
+              {
+                path: "$.nested.property",
+                value: {
+                  "TaxClassificationRef": {
+                    "value": "EUC-99990201-V1-00020000",
+                  },
+                },
+              },
+              {
+                path: "$.nested.property",
+                value: {
+                  "TaxClassificationRef": {
+                    "value": "EUC-99990201-V1-00020000",
+                  },
+                },
+              },
+            ],
+          },
+          {
+            serviceId: "<id>",
+            extendPaths: [
+              {
+                path: "$.nested.property",
+                value: {
+                  "TaxClassificationRef": {
+                    "value": "EUC-99990201-V1-00020000",
+                  },
+                },
+              },
+              {
+                path: "$.nested.property",
+                value: {
+                  "TaxClassificationRef": {
+                    "value": "EUC-99990201-V1-00020000",
+                  },
+                },
+              },
               {
                 path: "$.nested.property",
                 value: {
@@ -1600,16 +1830,16 @@ import { RFCDate } from "apideck/types";
 
 const apideck = new Apideck({
   serverURL: "https://unify.apideck.com",
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
 });
 
 async function run() {
-  const result = await apideck.companies.companiesAdd({
-    apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  }, {
-    consumerId: "test-consumer",
-    appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+  const result = await apideck.crm.companies.create({
+    raw: false,
     serviceId: "salesforce",
-    companyCreateRequest: {
+    createCompanyRequest: {
       name: "SpaceX",
       ownerId: "12345",
       image: "https://www.spacex.com/static/images/share.jpg",
@@ -1664,8 +1894,39 @@ async function run() {
           url: "http://example.com",
           type: "primary",
         },
+        {
+          id: "12345",
+          url: "http://example.com",
+          type: "primary",
+        },
       ],
       addresses: [
+        {
+          id: "123",
+          type: "primary",
+          string: "25 Spring Street, Blackburn, VIC 3130",
+          name: "HQ US",
+          line1: "Main street",
+          line2: "apt #",
+          line3: "Suite #",
+          line4: "delivery instructions",
+          streetNumber: "25",
+          city: "San Francisco",
+          state: "CA",
+          postalCode: "94104",
+          country: "US",
+          latitude: "40.759211",
+          longitude: "-73.984638",
+          county: "Santa Clara",
+          contactName: "Elon Musk",
+          salutation: "Mr",
+          phoneNumber: "111-111-1111",
+          fax: "122-111-1111",
+          email: "elon@musk.com",
+          website: "https://elonmusk.com",
+          notes: "Address notes or delivery instructions.",
+          rowVersion: "1-12345",
+        },
         {
           id: "123",
           type: "primary",
@@ -1699,29 +1960,8 @@ async function run() {
           url: "https://www.twitter.com/apideck",
           type: "twitter",
         },
-        {
-          id: "12345",
-          url: "https://www.twitter.com/apideck",
-          type: "twitter",
-        },
       ],
       phoneNumbers: [
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
         {
           id: "12345",
           countryCode: "1",
@@ -1737,6 +1977,16 @@ async function run() {
           email: "elon@musk.com",
           type: "primary",
         },
+        {
+          id: "123",
+          email: "elon@musk.com",
+          type: "primary",
+        },
+        {
+          id: "123",
+          email: "elon@musk.com",
+          type: "primary",
+        },
       ],
       rowType: {
         id: "12345",
@@ -1747,13 +1997,19 @@ async function run() {
           id: "2389328923893298",
           name: "employee_level",
           description: "Employee Level",
-          value: 10,
+          value: "Uses Salesforce and Marketo",
         },
         {
           id: "2389328923893298",
           name: "employee_level",
           description: "Employee Level",
           value: 10,
+        },
+        {
+          id: "2389328923893298",
+          name: "employee_level",
+          description: "Employee Level",
+          value: "Uses Salesforce and Marketo",
         },
       ],
       tags: [
@@ -1766,6 +2022,72 @@ async function run() {
         {
           serviceId: "<id>",
           extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+          ],
+        },
+        {
+          serviceId: "<id>",
+          extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+          ],
+        },
+        {
+          serviceId: "<id>",
+          extendPaths: [
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
+            {
+              path: "$.nested.property",
+              value: {
+                "TaxClassificationRef": {
+                  "value": "EUC-99990201-V1-00020000",
+                },
+              },
+            },
             {
               path: "$.nested.property",
               value: {

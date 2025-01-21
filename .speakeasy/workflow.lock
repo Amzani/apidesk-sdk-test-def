@@ -1,36 +1,36 @@
-speakeasyVersion: 1.468.2
+speakeasyVersion: 1.469.12
 sources:
     CRM API:
-        sourceNamespace: crm-api-def
-        sourceRevisionDigest: sha256:1593c10e1966c17a68ad8e3857240349574f9689703d5cec8c84c384a5b348f4
-        sourceBlobDigest: sha256:08bc1889ced940acdaee0fa1f3c17a3cbd9a00f112eb5f9d2762e39794b222c9
+        sourceNamespace: crm-api-enhanced
+        sourceRevisionDigest: sha256:0b5f0817c56210658497971b68ccfb0e5d8e8c16741514c336bed390f21a3cfe
+        sourceBlobDigest: sha256:3cbec4cf3d3f965729d2161bb6c352328075b55b8534136a46afda5bcb964bb6
         tags:
             - latest
             - 10.8.2
 targets:
     apideck:
         source: CRM API
-        sourceNamespace: crm-api-def
-        sourceRevisionDigest: sha256:1593c10e1966c17a68ad8e3857240349574f9689703d5cec8c84c384a5b348f4
-        sourceBlobDigest: sha256:08bc1889ced940acdaee0fa1f3c17a3cbd9a00f112eb5f9d2762e39794b222c9
-        codeSamplesNamespace: crm-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:13db85a4f4aa79f8acb26bb90c74a22ec156baa278b700018293a06035c90fe4
+        sourceNamespace: crm-api-enhanced
+        sourceRevisionDigest: sha256:0b5f0817c56210658497971b68ccfb0e5d8e8c16741514c336bed390f21a3cfe
+        sourceBlobDigest: sha256:3cbec4cf3d3f965729d2161bb6c352328075b55b8534136a46afda5bcb964bb6
+        codeSamplesNamespace: crm-enhanced-typescript-code-samples
+        codeSamplesRevisionDigest: sha256:d376e9608f6c1359ce036fa9dd3c0bf4fa100cab1ace97c4af1d166e179e0539
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
     sources:
         CRM API:
             inputs:
-                - location: ../spec-crm-api.enhanced.refs.json
+                - location: ../../unify/speakeasy-spec.yml
             registry:
-                location: registry.speakeasyapi.dev/apideck-k2o/apideck/crm-api-def
+                location: registry.speakeasyapi.dev/apideck-k2o/apideck/crm-api-enhanced
     targets:
         apideck:
             target: typescript
             source: CRM API
             codeSamples:
                 registry:
-                    location: registry.speakeasyapi.dev/apideck-k2o/apideck/crm-api-typescript-code-samples
+                    location: registry.speakeasyapi.dev/apideck-k2o/apideck/crm-enhanced-typescript-code-samples
                 labelOverride:
                     fixedValue: Typescript (SDK)
                 blocking: false

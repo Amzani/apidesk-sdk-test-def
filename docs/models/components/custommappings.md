@@ -1,6 +1,6 @@
 # CustomMappings
 
-An object containing custom field mappings specific to the company's CRM configuration. This allows for the integration of additional, non-standard data fields that are unique to the company's operational needs. Useful for tailoring the CRM to better fit specific business processes or data requirements.
+An object containing any custom mappings configured for the company resource. These mappings allow for additional, user-defined fields or data structures that extend the standard company data model, providing flexibility for specific business needs.
 
 ## Example Usage
 
