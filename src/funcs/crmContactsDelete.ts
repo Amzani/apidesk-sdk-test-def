@@ -24,19 +24,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Delete a contact from the CRM system.
+ * Deletes a contact from the CRM system using the specified contact ID.
  *
  * @remarks
- * The `contactsDelete` operation allows developers to remove a specific contact from the CRM system by providing the contact's unique identifier. This operation is crucial for maintaining an up-to-date and accurate contact list within the CRM.
- *
- * Key Parameters:
- * - `id` (path): The unique identifier of the contact to be deleted. This parameter is required.
- * - `x-apideck-consumer-id` (header): The ID of the consumer from which data is being managed. This is a required parameter.
- * - `x-apideck-app-id` (header): The ID of the Unify application in use. This is also required.
- * - `x-apideck-service-id` (header): Optional parameter to specify the service ID when multiple integrations are active.
- * - `raw` (query): Optional parameter to include raw response data, useful for debugging.
- *
- * Upon successful deletion, the operation returns a status code of 200, indicating that the contact has been successfully removed from the system. This operation does not return a response body, focusing solely on the status code to confirm the deletion action.
+ * The contactsDelete operation allows you to remove a contact from your CRM system by specifying the contact's unique ID in the endpoint path. This operation is crucial for maintaining an up-to-date and accurate contact list by removing obsolete or incorrect entries. To execute this operation, you must provide the contact ID as a path parameter, and include the x-apideck-consumer-id and x-apideck-app-id headers for authentication and authorization purposes. Optionally, you can specify the x-apideck-service-id header if targeting a specific service integration. The operation does not require a request body and, upon successful deletion, returns a status code of 200, indicating the contact was successfully removed. This operation is essential for managing contact data efficiently within your CRM.
  */
 export async function crmContactsDelete(
   client: ApideckCore,
@@ -87,12 +78,12 @@ export async function crmContactsDelete(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

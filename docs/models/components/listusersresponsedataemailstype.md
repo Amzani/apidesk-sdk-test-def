@@ -1,6 +1,6 @@
 # ListUsersResponseDataEmailsType
 
-Specifies the type of email address, such as 'work', 'personal', or 'other'. This optional field helps categorize the email for better context and usage within applications.
+Specifies the type of email address, such as 'work' or 'personal'. This helps categorize the email for better organization and context within the CRM system. The value is optional and can be used to filter or sort email addresses based on their type.
 
 ## Example Usage
 

@@ -1,6 +1,6 @@
 # ListContactsResponseDataAddressesType
 
-Specifies the category or purpose of the address, such as 'home', 'work', or 'billing'. This string helps in identifying the context in which the address is used, aiding in filtering and organizing addresses based on their type.
+Specifies the category or purpose of the address, such as 'home', 'work', or 'billing'. This helps in organizing and differentiating addresses based on their usage context within the CRM system.
 
 ## Example Usage
 

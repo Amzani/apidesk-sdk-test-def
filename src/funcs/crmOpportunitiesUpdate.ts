@@ -27,16 +27,7 @@ import { Result } from "../types/fp.js";
  * Update an existing opportunity in the CRM system.
  *
  * @remarks
- * The `opportunitiesUpdate` operation allows developers to modify an existing opportunity record within the CRM system. This operation is crucial for maintaining up-to-date information on sales opportunities, enabling businesses to track and manage their sales pipeline effectively.
- *
- * Key Parameters:
- * - `id` (path): The unique identifier of the opportunity record to be updated. This parameter is mandatory.
- * - `x-apideck-consumer-id` (header): Required to specify the consumer ID for data retrieval or submission.
- * - `x-apideck-app-id` (header): Identifies the Unify application in use.
- * - `x-apideck-service-id` (header): Optional parameter to specify the service ID when multiple integrations are active.
- * - `raw` (query): Optional parameter to include raw response data, useful for debugging.
- *
- * Upon successful execution, the operation returns a status code of 200, along with a JSON object representing the updated opportunity resource. This response includes the unique identifier of the updated resource, confirming the successful modification of the opportunity record. The operation ensures that the CRM data remains current and reflective of the latest sales activities.
+ * The opportunitiesUpdate operation allows you to modify an existing opportunity record in the CRM by sending a PATCH request to the /crm/opportunities/{id} endpoint. This operation is crucial for keeping opportunity data up-to-date, ensuring accurate tracking and management of sales processes. The request requires the opportunity ID in the path and authentication headers, including x-apideck-consumer-id and x-apideck-app-id. Optionally, specify x-apideck-service-id to target a specific service integration. The raw query parameter can be used to receive raw data for debugging. A successful update returns a 200 status code and the updated opportunity details in a JSON object.
  */
 export async function crmOpportunitiesUpdate(
   client: ApideckCore,
@@ -91,12 +82,12 @@ export async function crmOpportunitiesUpdate(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

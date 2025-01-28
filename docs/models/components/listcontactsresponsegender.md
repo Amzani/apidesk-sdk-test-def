@@ -1,6 +1,6 @@
 # ListContactsResponseGender
 
-The gender of the contact, typically represented as 'male', 'female', or other gender identities. This information can be used for personalized communication and analytics.
+The gender of the contact, which can be used for demographic analysis or personalized communication. This field may include values like 'male', 'female', or other gender identities as applicable.
 
 ## Example Usage
 

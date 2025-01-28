@@ -10,31 +10,31 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type ContactsFilter = {
   /**
-   * Filter companies by their name. This parameter allows you to narrow down the list of companies to those whose names match the specified string. Useful for searching specific companies within the CRM.
+   * Specifies the full name of the contact to filter the results. This property is used to narrow down the search to contacts matching the exact name provided.
    */
   name?: string | undefined;
   /**
-   * Filter contacts by their first name. This parameter allows you to narrow down the contact list to those whose first name matches the specified value. Useful for searching specific individuals or groups with the same first name.
+   * Filters contacts based on their first name. This property helps in retrieving contacts whose first name matches the specified value.
    */
   firstName?: string | undefined;
   /**
-   * Filter contacts by their last name. This parameter helps in retrieving contacts whose last name matches the given value, facilitating targeted searches within the contact database.
+   * Filters contacts by their last name, allowing for a more targeted search of contacts whose last name matches the given value.
    */
   lastName?: string | undefined;
   /**
-   * Filter contacts by their email address. Use this parameter to find contacts with a specific email, which is particularly useful for identifying unique contacts or verifying email-based records.
+   * Filter contacts by their email address. This parameter allows you to narrow down the contact list to those with a specific email, facilitating targeted data retrieval.
    */
   email?: string | undefined;
   /**
-   * Filter contacts by their phone number. This parameter is ideal for locating contacts with a specific phone number, aiding in direct communication or verification processes.
+   * Filter contacts by their phone number. Use this parameter to retrieve contacts associated with a specific phone number, aiding in precise contact management.
    */
   phoneNumber?: string | undefined;
   /**
-   * The 'filter.company_id' property is used to filter activities by a specific company ID. This allows you to narrow down the results to activities associated with a particular company.
+   * Filter contacts by the unique identifier of their associated company. This helps in fetching contacts linked to a particular company, useful for company-specific data operations.
    */
   companyId?: string | undefined;
   /**
-   * The 'filter.owner_id' property is used to filter activities by a specific owner ID, enabling you to view activities managed by a particular owner.
+   * Filter contacts by the unique identifier of their owner. This parameter is useful for retrieving contacts managed by a specific owner, supporting owner-based data organization.
    */
   ownerId?: string | undefined;
 };

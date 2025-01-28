@@ -10,31 +10,31 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type OpportunitiesFilter = {
   /**
-   * Filter opportunities by their title. This allows you to narrow down results to opportunities that match a specific title or keyword.
+   * Filters CRM opportunities by their title, allowing searches for specific titles or keywords. This is useful for locating opportunities with particular names or themes.
    */
   title?: string | undefined;
   /**
-   * Filter opportunities based on their current status. Useful for retrieving opportunities that are open, closed, or in progress.
+   * Filters opportunities based on their current status, aiding in retrieving those at a specific stage in the sales process. Useful for tracking progress and managing sales pipelines.
    */
   status?: string | undefined;
   /**
-   * Filter opportunities by their monetary amount. This helps in focusing on opportunities within a specific budget range.
+   * Filters opportunities by their monetary value, helping identify those that meet a specific financial threshold. This is beneficial for prioritizing high-value opportunities.
    */
   monetaryAmount?: number | undefined;
   /**
-   * Filter opportunities by their win probability percentage. This is useful for identifying opportunities with a higher likelihood of success.
+   * Filter opportunities based on their win probability. Specify a numerical value representing the likelihood of winning a particular opportunity, helping to narrow down results to those with a specific chance of success. Useful for focusing on high-probability opportunities.
    */
   winProbability?: number | undefined;
   /**
-   * The 'filter.company_id' property is used to filter activities by a specific company ID. This allows you to narrow down the results to activities associated with a particular company.
+   * Filter opportunities by the associated company ID. Retrieve opportunities linked to a specific company, identified by its unique ID within the CRM system. Essential for company-specific opportunity tracking.
    */
   companyId?: string | undefined;
   /**
-   * The 'filter.owner_id' property is used to filter activities by a specific owner ID, enabling you to view activities managed by a particular owner.
+   * Filter opportunities by the owner's ID. Retrieve opportunities managed by a specific owner, identified by their unique ID in the CRM. Useful for tracking performance of individual sales representatives.
    */
   ownerId?: string | undefined;
   /**
-   * Filter opportunities by the primary contact's ID. This allows you to find opportunities associated with a specific contact person.
+   * Filter opportunities by the primary contact's ID. Find opportunities associated with a specific primary contact, identified by their unique ID. Helps in managing relationships with key contacts.
    */
   primaryContactId?: string | undefined;
 };

@@ -8,204 +8,14 @@ import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import {
+  Currency,
+  Currency$inboundSchema,
+  Currency$outboundSchema,
+} from "./currency.js";
 
 /**
- * Indicates the currency type for the monetary amount, following the ISO 4217 standard (e.g., 'USD' for US Dollars). This ensures that the monetary value is correctly interpreted in the context of international transactions.
- */
-export const ListLeadsResponseCurrency = {
-  UnknownCurrency: "UNKNOWN_CURRENCY",
-  Aed: "AED",
-  Afn: "AFN",
-  All: "ALL",
-  Amd: "AMD",
-  Ang: "ANG",
-  Aoa: "AOA",
-  Ars: "ARS",
-  Aud: "AUD",
-  Awg: "AWG",
-  Azn: "AZN",
-  Bam: "BAM",
-  Bbd: "BBD",
-  Bdt: "BDT",
-  Bgn: "BGN",
-  Bhd: "BHD",
-  Bif: "BIF",
-  Bmd: "BMD",
-  Bnd: "BND",
-  Bob: "BOB",
-  Bov: "BOV",
-  Brl: "BRL",
-  Bsd: "BSD",
-  Btn: "BTN",
-  Bwp: "BWP",
-  Byr: "BYR",
-  Bzd: "BZD",
-  Cad: "CAD",
-  Cdf: "CDF",
-  Che: "CHE",
-  Chf: "CHF",
-  Chw: "CHW",
-  Clf: "CLF",
-  Clp: "CLP",
-  Cny: "CNY",
-  Cop: "COP",
-  Cou: "COU",
-  Crc: "CRC",
-  Cuc: "CUC",
-  Cup: "CUP",
-  Cve: "CVE",
-  Czk: "CZK",
-  Djf: "DJF",
-  Dkk: "DKK",
-  Dop: "DOP",
-  Dzd: "DZD",
-  Egp: "EGP",
-  Ern: "ERN",
-  Etb: "ETB",
-  Eur: "EUR",
-  Fjd: "FJD",
-  Fkp: "FKP",
-  Gbp: "GBP",
-  Gel: "GEL",
-  Ghs: "GHS",
-  Gip: "GIP",
-  Gmd: "GMD",
-  Gnf: "GNF",
-  Gtq: "GTQ",
-  Gyd: "GYD",
-  Hkd: "HKD",
-  Hnl: "HNL",
-  Hrk: "HRK",
-  Htg: "HTG",
-  Huf: "HUF",
-  Idr: "IDR",
-  Ils: "ILS",
-  Inr: "INR",
-  Iqd: "IQD",
-  Irr: "IRR",
-  Isk: "ISK",
-  Jmd: "JMD",
-  Jod: "JOD",
-  Jpy: "JPY",
-  Kes: "KES",
-  Kgs: "KGS",
-  Khr: "KHR",
-  Kmf: "KMF",
-  Kpw: "KPW",
-  Krw: "KRW",
-  Kwd: "KWD",
-  Kyd: "KYD",
-  Kzt: "KZT",
-  Lak: "LAK",
-  Lbp: "LBP",
-  Lkr: "LKR",
-  Lrd: "LRD",
-  Lsl: "LSL",
-  Ltl: "LTL",
-  Lvl: "LVL",
-  Lyd: "LYD",
-  Mad: "MAD",
-  Mdl: "MDL",
-  Mga: "MGA",
-  Mkd: "MKD",
-  Mmk: "MMK",
-  Mnt: "MNT",
-  Mop: "MOP",
-  Mro: "MRO",
-  Mur: "MUR",
-  Mvr: "MVR",
-  Mwk: "MWK",
-  Mxn: "MXN",
-  Mxv: "MXV",
-  Myr: "MYR",
-  Mzn: "MZN",
-  Nad: "NAD",
-  Ngn: "NGN",
-  Nio: "NIO",
-  Nok: "NOK",
-  Npr: "NPR",
-  Nzd: "NZD",
-  Omr: "OMR",
-  Pab: "PAB",
-  Pen: "PEN",
-  Pgk: "PGK",
-  Php: "PHP",
-  Pkr: "PKR",
-  Pln: "PLN",
-  Pyg: "PYG",
-  Qar: "QAR",
-  Ron: "RON",
-  Rsd: "RSD",
-  Rub: "RUB",
-  Rwf: "RWF",
-  Sar: "SAR",
-  Sbd: "SBD",
-  Scr: "SCR",
-  Sdg: "SDG",
-  Sek: "SEK",
-  Sgd: "SGD",
-  Shp: "SHP",
-  Sll: "SLL",
-  Sos: "SOS",
-  Srd: "SRD",
-  Ssp: "SSP",
-  Std: "STD",
-  Svc: "SVC",
-  Syp: "SYP",
-  Szl: "SZL",
-  Thb: "THB",
-  Tjs: "TJS",
-  Tmt: "TMT",
-  Tnd: "TND",
-  Top: "TOP",
-  Trc: "TRC",
-  Try: "TRY",
-  Ttd: "TTD",
-  Twd: "TWD",
-  Tzs: "TZS",
-  Uah: "UAH",
-  Ugx: "UGX",
-  Usd: "USD",
-  Usn: "USN",
-  Uss: "USS",
-  Uyi: "UYI",
-  Uyu: "UYU",
-  Uzs: "UZS",
-  Vef: "VEF",
-  Vnd: "VND",
-  Vuv: "VUV",
-  Wst: "WST",
-  Xaf: "XAF",
-  Xag: "XAG",
-  Xau: "XAU",
-  Xba: "XBA",
-  Xbb: "XBB",
-  Xbc: "XBC",
-  Xbd: "XBD",
-  Xcd: "XCD",
-  Xdr: "XDR",
-  Xof: "XOF",
-  Xpd: "XPD",
-  Xpf: "XPF",
-  Xpt: "XPT",
-  Xts: "XTS",
-  Xxx: "XXX",
-  Yer: "YER",
-  Zar: "ZAR",
-  Zmk: "ZMK",
-  Zmw: "ZMW",
-  Btc: "BTC",
-  Eth: "ETH",
-} as const;
-/**
- * Indicates the currency type for the monetary amount, following the ISO 4217 standard (e.g., 'USD' for US Dollars). This ensures that the monetary value is correctly interpreted in the context of international transactions.
- */
-export type ListLeadsResponseCurrency = ClosedEnum<
-  typeof ListLeadsResponseCurrency
->;
-
-/**
- * Specifies the category or nature of the website, such as 'personal', 'business', or 'portfolio'. This string helps in classifying the website's purpose or role in relation to the lead, aiding in better organization and filtering of website data.
+ * Specifies the category or role of the website in relation to the lead, such as 'personal', 'business', or 'portfolio'. This information helps in categorizing and filtering leads based on their associated websites.
  */
 export const ListLeadsResponseType = {
   Primary: "primary",
@@ -215,27 +25,27 @@ export const ListLeadsResponseType = {
   Other: "other",
 } as const;
 /**
- * Specifies the category or nature of the website, such as 'personal', 'business', or 'portfolio'. This string helps in classifying the website's purpose or role in relation to the lead, aiding in better organization and filtering of website data.
+ * Specifies the category or role of the website in relation to the lead, such as 'personal', 'business', or 'portfolio'. This information helps in categorizing and filtering leads based on their associated websites.
  */
 export type ListLeadsResponseType = ClosedEnum<typeof ListLeadsResponseType>;
 
 export type ListLeadsResponseWebsites = {
   /**
-   * A unique identifier assigned to each website entry associated with a lead. This string value is used to distinctly recognize and reference individual websites within the CRM system, facilitating easy management and retrieval of website-related data.
+   * A unique identifier assigned to each website associated with a lead. This ID is used to distinguish between different websites and is crucial for operations that involve updating or referencing specific website data within the CRM system.
    */
   id?: string | null | undefined;
   /**
-   * The full URL of the website associated with the lead. This string must be a valid web address and is crucial for linking to the lead's online presence or resources. It is a required field, ensuring that every website entry has a corresponding URL.
+   * The full URL of the website linked to the lead. This field is mandatory and provides the direct web address, which can be used for accessing the website or for integration purposes within CRM applications.
    */
   url: string;
   /**
-   * Specifies the category or nature of the website, such as 'personal', 'business', or 'portfolio'. This string helps in classifying the website's purpose or role in relation to the lead, aiding in better organization and filtering of website data.
+   * Specifies the category or role of the website in relation to the lead, such as 'personal', 'business', or 'portfolio'. This information helps in categorizing and filtering leads based on their associated websites.
    */
   type?: ListLeadsResponseType | null | undefined;
 };
 
 /**
- * Specifies the category of the address, such as 'home', 'work', or 'billing'. This helps in identifying the purpose of the address within the lead's contact information. The value is expected to be a string that matches predefined address types used in the CRM.
+ * Specifies the category of the address, such as 'home', 'work', or 'billing'. This helps in identifying the purpose of the address within the lead's contact information. It is a string value that provides context for how the address is used in CRM operations.
  */
 export const ListLeadsResponseDataType = {
   Primary: "primary",
@@ -247,7 +57,7 @@ export const ListLeadsResponseDataType = {
   Other: "other",
 } as const;
 /**
- * Specifies the category of the address, such as 'home', 'work', or 'billing'. This helps in identifying the purpose of the address within the lead's contact information. The value is expected to be a string that matches predefined address types used in the CRM.
+ * Specifies the category of the address, such as 'home', 'work', or 'billing'. This helps in identifying the purpose of the address within the lead's contact information. It is a string value that provides context for how the address is used in CRM operations.
  */
 export type ListLeadsResponseDataType = ClosedEnum<
   typeof ListLeadsResponseDataType
@@ -255,120 +65,120 @@ export type ListLeadsResponseDataType = ClosedEnum<
 
 export type ListLeadsResponseAddresses = {
   /**
-   * A unique identifier for each address entry linked to a lead. This string is used to uniquely identify and manage individual addresses within the CRM, ensuring precise tracking and manipulation of address data.
+   * A unique identifier for each address associated with a lead. This ID is essential for distinguishing between multiple addresses and is used in operations that require precise address management within the CRM system.
    */
   id?: string | null | undefined;
   /**
-   * Specifies the category of the address, such as 'home', 'work', or 'billing'. This helps in identifying the purpose of the address within the lead's contact information. The value is expected to be a string that matches predefined address types used in the CRM.
+   * Specifies the category of the address, such as 'home', 'work', or 'billing'. This helps in identifying the purpose of the address within the lead's contact information. It is a string value that provides context for how the address is used in CRM operations.
    */
   type?: ListLeadsResponseDataType | null | undefined;
   /**
-   * Contains the full address as a single string, which may include street, city, state, and postal code. This format is used when the API does not provide structured address components, allowing for flexible address representation. It is useful for display purposes or when integrating with systems that require a single address field.
+   * Contains the full address as a single string. This is particularly useful when the API does not provide the address in a structured format, allowing developers to handle address data in a flexible manner. It is a string that represents the complete address details.
    */
   string?: string | null | undefined;
   /**
-   * Represents the name associated with the address, such as the name of a business or a contact person. This field is useful for identifying the address in contexts where multiple addresses are associated with a lead. The value is a string that provides additional context to the address information.
+   * Represents the name associated with the address, which could be a business name or a location identifier. This helps in distinguishing between different addresses linked to the same lead. It is a string value that adds context to the address information.
    */
   name?: string | null | undefined;
   /**
-   * The first line of the address, typically including the street number, street name, and any apartment or suite number. This field is part of the structured address data and is crucial for accurate geolocation and mail delivery. It is expected to be a string that clearly identifies the primary location details.
+   * The first line of the address, typically including the street number, street name, and any suite or apartment numbers. This field is crucial for identifying the primary location details of the address. It is a string that forms part of the structured address data.
    */
   line1?: string | null | undefined;
   /**
-   * The second line of the address, often used for additional location details such as building name, floor, or unit number. This field complements 'line1' and provides further specificity to the address. It is a string that helps in ensuring complete address information is captured.
+   * The second line of the address, often used for additional location details such as floor numbers or building names. This field complements 'line1' to provide a complete address. It is a string that supports detailed address specification.
    */
   line2?: string | null | undefined;
   /**
-   * This property contains the third line of the address, which may include additional location details such as a suite or apartment number. It is returned as a string and is optional, meaning it may not be present if not applicable to the address. This field helps in providing a more precise address for leads.
+   * This field contains the third line of the address, which may include additional location details such as a suite or apartment number. It is optional and can be left blank if not applicable. This information helps in providing a more precise address for CRM leads.
    */
   line3?: string | null | undefined;
   /**
-   * This property holds the fourth line of the address, often used for further address details or special delivery instructions. It is an optional string field, which may be empty if not needed. Including this field ensures comprehensive address information for each lead.
+   * This field contains the fourth line of the address, used for any extra address information that doesn't fit in the previous lines. It is optional and typically used for complex addresses. This helps in ensuring complete address details for CRM leads.
    */
   line4?: string | null | undefined;
   /**
-   * The street number component of the address, indicating the specific location on a street. This is an optional string field that may be absent if the street number is not applicable or available. It is crucial for pinpointing the exact address of a lead.
+   * The street number component of the address, representing the specific number assigned to a building or location on a street. This is a crucial part of the address for identifying the exact location of a CRM lead.
    */
   streetNumber?: string | null | undefined;
   /**
-   * This property specifies the city name where the lead is located. It is returned as a string and is optional, meaning it may not be present if the city information is not available. The city name is essential for geographical identification of the lead's address.
+   * The name of the city where the lead is located. This field is part of the address details and helps in categorizing leads based on their geographical location. It is optional but important for regional analysis.
    */
   city?: string | null | undefined;
   /**
-   * This property indicates the state or region name associated with the lead's address. It is an optional string field, which may be absent if the state information is not provided. The state name helps in further categorizing the geographical location of the lead.
+   * The name of the state or province where the lead is located. This field is part of the address details and is useful for organizing leads by state or region. It is optional but enhances the geographical context of the lead's address.
    */
   state?: string | null | undefined;
   /**
-   * The postal code or ZIP code associated with the lead's address. This string value helps in identifying the specific area or region within a city or town, facilitating accurate location-based services and correspondence. It is optional and may not be present for all leads.
+   * The postal code associated with the lead's address. This string value represents the ZIP code or equivalent postal code used for mail delivery in the lead's location. It is part of the address details returned in the response, aiding in geographic identification and sorting of leads.
    */
   postalCode?: string | null | undefined;
   /**
-   * The country code of the lead's address, formatted according to the ISO 3166-1 alpha-2 standard. This two-letter string provides a standardized way to identify the country, ensuring consistency across international data exchanges. It is optional and may not be present for all leads.
+   * The country code of the lead's address, formatted according to the ISO 3166-1 alpha-2 standard. This two-letter string identifies the country where the lead is located, providing essential information for international leads and facilitating country-specific operations.
    */
   country?: string | null | undefined;
   /**
-   * The latitude coordinate of the lead's address, represented as a string. This value indicates the north-south position on the Earth's surface, which can be used for mapping and geolocation services. It is optional and may not be present for all leads.
+   * The latitude coordinate of the lead's address, expressed as a string. This value indicates the north-south position of the address on the Earth's surface, useful for mapping and location-based services within the CRM system.
    */
   latitude?: string | null | undefined;
   /**
-   * The longitude coordinate of the lead's address, represented as a string. This value indicates the east-west position on the Earth's surface, useful for mapping and geolocation services. It is optional and may not be present for all leads.
+   * The longitude coordinate of the lead's address, expressed as a string. This value indicates the east-west position of the address on the Earth's surface, complementing the latitude for precise geolocation and mapping functionalities.
    */
   longitude?: string | null | undefined;
   /**
-   * The county or equivalent sublocality of the lead's address, provided as a string. This field helps in identifying smaller administrative regions within a state or province, which can be important for regional analysis and services. It is optional and may not be present for all leads.
+   * The county or equivalent sublocality of the lead's address. This string provides additional geographic detail, often used for regional analysis and segmentation of leads within the CRM system.
    */
   county?: string | null | undefined;
   /**
-   * The full name of the contact person associated with the address. This is typically used to identify the primary individual at the location and is returned as a string. It helps in personalizing communication and ensuring accurate delivery of information.
+   * The full name of the contact person associated with the address. This field helps identify the primary individual to communicate with at this location. It is typically formatted as a string containing first and last names.
    */
   contactName?: string | null | undefined;
   /**
-   * The salutation or title used for the contact person at the address, such as 'Mr.', 'Ms.', or 'Dr.'. This string value is used to address the contact person formally in communications and documents.
+   * The salutation or title used for the contact person at the address, such as 'Mr.', 'Ms.', or 'Dr.'. This field provides a formal greeting context for communications and is formatted as a string.
    */
   salutation?: string | null | undefined;
   /**
-   * The primary phone number associated with the address, formatted as a string. This number is used for direct communication with the contact person or organization at the specified address.
+   * The primary phone number associated with the address, used for direct communication. This field is formatted as a string and may include country and area codes to ensure proper dialing.
    */
   phoneNumber?: string | null | undefined;
   /**
-   * The fax number linked to the address, provided as a string. This is used for sending documents via fax to the contact person or organization at the address, although it may be less commonly used in modern communications.
+   * The fax number linked to the address, allowing for document transmission via fax. This field is formatted as a string and should include any necessary prefixes for international dialing.
    */
   fax?: string | null | undefined;
   /**
-   * The email address associated with the contact at the address, formatted as a string. This is used for electronic communication and is essential for sending and receiving emails related to the lead.
+   * The email address associated with the address, used for electronic communications. This field is formatted as a string and should follow standard email address conventions, such as 'example@domain.com'.
    */
   email?: string | null | undefined;
   /**
-   * The website URL associated with the lead's address. This field may contain a full web address (e.g., 'https://www.example.com') and is useful for accessing the lead's online presence directly from the CRM data.
+   * The URL of the website associated with the address. This field provides a direct link to the online presence of the lead's address, facilitating quick access to additional information. It is typically formatted as a standard web address (e.g., 'https://www.example.com').
    */
   website?: string | null | undefined;
   /**
-   * Additional notes related to the lead's address. This field can include any extra information or comments that provide context or details about the address, aiding in better understanding or follow-up actions.
+   * Additional notes or comments related to the address. This field allows for the inclusion of any extra information that might be relevant to the address, such as delivery instructions or historical context. It is a free-text field, enabling flexible data entry.
    */
   notes?: string | null | undefined;
   /**
-   * A versioning string used to track changes to the lead's address data. This binary value is updated with each modification to prevent data conflicts and ensure data integrity during updates.
+   * A version control string used to track changes to the address object. This binary value is updated with each modification to help prevent data conflicts during concurrent updates. It ensures data integrity by allowing systems to detect and manage updates effectively.
    */
   rowVersion?: string | null | undefined;
 };
 
 export type ListLeadsResponseSocialLinks = {
   /**
-   * A unique identifier for each social link entry within the array. This ID is used to distinguish between different social media profiles linked to the lead, facilitating precise data management and updates.
+   * A unique identifier for each social link entry. This ID is used to distinguish between different social media profiles within the array, ensuring that each link can be individually referenced and managed.
    */
   id?: string | null | undefined;
   /**
-   * The URL of the social media profile associated with the lead, such as https://www.twitter.com/apideck. This string should be a valid URL format and is crucial for linking to the lead's social presence directly from the CRM.
+   * The URL of the social media profile associated with the lead. This string should be a valid web address, such as 'https://www.twitter.com/apideck'. It allows integration systems to directly access the lead's social media presence, facilitating social engagement and data enrichment.
    */
   url: string;
   /**
-   * Specifies the type of social media platform, such as 'twitter' or 'linkedin'. This string helps categorize the social link, allowing developers to tailor integrations based on the platform type.
+   * The type of social media platform linked to the lead, such as 'twitter'. This string helps categorize the social link, enabling systems to handle different platforms appropriately and tailor interactions based on the platform type.
    */
   type?: string | null | undefined;
 };
 
 /**
- * The classification of the phone number, such as 'mobile', 'home', or 'work'. This optional field helps in identifying the context in which the phone number is used and is returned as a string.
+ * The type of phone number, such as 'mobile', 'home', or 'work', represented as a string. This categorization helps in understanding the context of the phone number usage and prioritizing communication methods.
  */
 export const ListLeadsResponseDataPhoneNumbersType = {
   Primary: "primary",
@@ -384,7 +194,7 @@ export const ListLeadsResponseDataPhoneNumbersType = {
   Other: "other",
 } as const;
 /**
- * The classification of the phone number, such as 'mobile', 'home', or 'work'. This optional field helps in identifying the context in which the phone number is used and is returned as a string.
+ * The type of phone number, such as 'mobile', 'home', or 'work', represented as a string. This categorization helps in understanding the context of the phone number usage and prioritizing communication methods.
  */
 export type ListLeadsResponseDataPhoneNumbersType = ClosedEnum<
   typeof ListLeadsResponseDataPhoneNumbersType
@@ -392,33 +202,33 @@ export type ListLeadsResponseDataPhoneNumbersType = ClosedEnum<
 
 export type ListLeadsResponsePhoneNumbers = {
   /**
-   * A unique identifier for each phone number entry within the lead's contact information. This string is used to distinguish between different phone numbers associated with the same lead.
+   * A unique identifier for each phone number entry within the lead's contact information. This string ensures that each phone number can be distinctly referenced and managed within the CRM system, supporting precise data operations and updates.
    */
   id?: string | null | undefined;
   /**
-   * The international dialing code associated with the lead's phone number, such as '+1' for the United States. This string helps in formatting and making international calls to the lead.
+   * The international dialing code associated with the lead's phone number, such as '+1' for the United States. This string is crucial for ensuring that phone numbers are correctly formatted and dialed internationally, facilitating global communication efforts.
    */
   countryCode?: string | null | undefined;
   /**
-   * The area code of the phone number, e.g. 323
+   * The area code of the phone number, represented as a string, such as '323'. This field helps in identifying the geographical region associated with the phone number, aiding in regional segmentation and analysis of leads.
    */
   areaCode?: string | null | undefined;
   /**
-   * The complete phone number associated with the lead, excluding the area code. This is a required field and is always returned as a string. It is essential for contacting the lead directly.
+   * The main phone number associated with the lead, formatted as a string. This is a required field and serves as a primary contact method for the lead, essential for communication and follow-up.
    */
   number: string;
   /**
-   * The extension number for the lead's phone, if applicable. This is an optional field and is returned as a string. It is used for directing calls within organizations that use extensions.
+   * The extension number for the phone, if applicable, provided as a string. This field is useful for directing calls to specific departments or individuals within an organization, enhancing direct communication.
    */
   extension?: string | null | undefined;
   /**
-   * The classification of the phone number, such as 'mobile', 'home', or 'work'. This optional field helps in identifying the context in which the phone number is used and is returned as a string.
+   * The type of phone number, such as 'mobile', 'home', or 'work', represented as a string. This categorization helps in understanding the context of the phone number usage and prioritizing communication methods.
    */
   type?: ListLeadsResponseDataPhoneNumbersType | null | undefined;
 };
 
 /**
- * Specifies the type of email address, such as 'work', 'personal', or 'other'. This helps categorize the email addresses for better organization and retrieval. The value is optional and can be a predefined string.
+ * Specifies the type of email address, such as 'work', 'personal', or 'other'. This helps categorize the email for better organization and retrieval within the CRM system.
  */
 export const ListLeadsResponseDataEmailsType = {
   Primary: "primary",
@@ -429,7 +239,7 @@ export const ListLeadsResponseDataEmailsType = {
   Other: "other",
 } as const;
 /**
- * Specifies the type of email address, such as 'work', 'personal', or 'other'. This helps categorize the email addresses for better organization and retrieval. The value is optional and can be a predefined string.
+ * Specifies the type of email address, such as 'work', 'personal', or 'other'. This helps categorize the email for better organization and retrieval within the CRM system.
  */
 export type ListLeadsResponseDataEmailsType = ClosedEnum<
   typeof ListLeadsResponseDataEmailsType
@@ -437,15 +247,15 @@ export type ListLeadsResponseDataEmailsType = ClosedEnum<
 
 export type ListLeadsResponseEmails = {
   /**
-   * A unique identifier assigned to each email address associated with a lead. This identifier is used to distinguish between different email entries within the CRM system. It is typically a non-empty string when an email is present.
+   * A unique identifier assigned to each email address associated with a lead. This ID is used to distinguish between different email entries within the lead's contact information.
    */
   id?: string | null | undefined;
   /**
-   * The email address of the lead, formatted as a standard email string (e.g., example@domain.com). This field is mandatory and is used for communication and identification purposes within the CRM.
+   * The email address of the lead, formatted as a standard email string (e.g., example@domain.com). This field is essential for communication and is required for each lead entry.
    */
   email: string | null;
   /**
-   * Specifies the type of email address, such as 'work', 'personal', or 'other'. This helps categorize the email addresses for better organization and retrieval. The value is optional and can be a predefined string.
+   * Specifies the type of email address, such as 'work', 'personal', or 'other'. This helps categorize the email for better organization and retrieval within the CRM system.
    */
   type?: ListLeadsResponseDataEmailsType | null | undefined;
 };
@@ -455,7 +265,7 @@ export type ListLeadsResponseValue6 = {};
 export type ListLeadsResponseValue4 = {};
 
 /**
- * The actual value assigned to the custom field for a particular lead. This can vary in format depending on the field's intended use, such as a date, number, or text.
+ * The actual value assigned to the custom field for a lead. This can vary in type and content, depending on the custom field's definition, and is crucial for personalized data management in CRM applications.
  */
 export type ListLeadsResponseValue =
   | ListLeadsResponseValue4
@@ -467,19 +277,19 @@ export type ListLeadsResponseValue =
 
 export type ListLeadsResponseCustomFields = {
   /**
-   * A unique identifier for each custom field associated with a lead. This identifier helps in managing and referencing custom fields within the CRM system. It is a required string value for each custom field entry.
+   * A unique identifier for each custom field entry associated with a lead. This ID ensures that each custom field can be individually referenced and managed within the CRM system.
    */
   id: string | null;
   /**
-   * The name of the custom field as defined in the CRM system. This string value helps identify the specific custom field associated with a lead, allowing for tailored data management and retrieval.
+   * The name of the custom field associated with a lead. This string value helps identify the specific custom attribute within the lead's data, allowing for tailored data handling and integration into CRM systems.
    */
   name?: string | null | undefined;
   /**
-   * A detailed description of the custom field, providing additional context or usage information. This string helps users understand the purpose and application of the custom field within the lead data.
+   * A detailed description of the custom field, providing additional context or information about its purpose and usage within the lead's data. This helps developers understand the significance of the custom field in the CRM system.
    */
   description?: string | null | undefined;
   /**
-   * The actual value assigned to the custom field for a particular lead. This can vary in format depending on the field's intended use, such as a date, number, or text.
+   * The actual value assigned to the custom field for a lead. This can vary in type and content, depending on the custom field's definition, and is crucial for personalized data management in CRM applications.
    */
   value?:
     | ListLeadsResponseValue4
@@ -493,205 +303,202 @@ export type ListLeadsResponseCustomFields = {
 };
 
 /**
- * Contains any custom mappings configured for the lead resource. This object may include key-value pairs that map custom fields to standard fields, allowing for tailored data representation. Useful for integrations that require specific field alignments.
+ * Contains custom mappings configured for the lead resource, providing additional context or data transformations specific to the service integration. This object helps in aligning the lead data with custom fields or structures defined in the CRM system.
  */
 export type ListLeadsResponseCustomMappings = {};
 
 export type ListLeadsResponseExtendPaths = {
   /**
-   * This property specifies the JSONPath string that indicates where in the data structure the value should be applied. It is a required field within each object in the extend_paths array, ensuring that modifications are accurately targeted within the data.
+   * This property specifies the JSONPath string where a value should be applied within the data structure. It is required for defining the exact location in the JSON object where modifications are intended, ensuring accurate data updates.
    */
   path: string;
   /**
-   * This property represents the value to be set at the specified JSONPath within the data structure. It can be of any data type, allowing for flexible modifications to the data as required by the integration or workflow.
+   * This property represents the value to be set at the specified JSONPath. It can be of any data type, allowing flexibility in the kind of data that can be inserted or updated within the API response structure.
    */
   value?: any | undefined;
 };
 
 export type ListLeadsResponsePassThrough = {
   /**
-   * A string identifier for the specific service to which the pass_through data should be applied. This ensures that custom data is correctly routed and processed by the intended service.
+   * A unique identifier for the service to which the pass_through data should be applied, ensuring that the custom data is directed to the correct service integration.
    */
   serviceId: string;
   /**
-   * This property contains an optional identifier for a specific workflow operation within the CRM system. It is used to apply the pass-through logic to a particular operation, especially useful when a single API call triggers multiple downstream requests. The value is expected to be a string that uniquely identifies the operation.
+   * This property contains an optional identifier for a specific workflow operation. It is particularly useful in scenarios where multiple downstream requests are made, allowing developers to track and apply the pass-through operation to the correct workflow. The value should be a string that uniquely identifies the operation within the context of the API call.
    */
   operationId?: string | undefined;
   /**
-   * This property is a flexible object designed to allow direct extension with any additional properties. It serves as a container for custom data that may be needed for specific integrations or workflows, providing a way to include extra information without altering the core API structure.
+   * This property is a flexible object designed to allow direct extension with any additional properties. It serves as a container for custom data that can be passed through the API call, enabling developers to include extra information that may be necessary for specific integrations or workflows.
    */
   extendObject?: { [k: string]: any } | undefined;
   /**
-   * This property is an array of objects, each representing a structured modification to the data using specified paths. It allows developers to define precise changes to the data structure, facilitating complex data transformations and integrations.
+   * This property is an array of objects, each representing a structured data modification. It allows developers to specify paths and values for modifying data within the API response, facilitating precise and targeted data handling.
    */
   extendPaths?: Array<ListLeadsResponseExtendPaths> | undefined;
 };
 
 export type ListLeadsResponseData = {
   /**
-   * A unique string identifier assigned to each lead within the CRM. This ID is used to uniquely distinguish each lead from others in the system and is essential for operations that require specific lead identification, such as updates or deletions.
+   * A unique identifier assigned to each lead within the CRM system. This ID is used to distinguish and reference individual leads, allowing for precise data management and retrieval operations.
    */
   id?: string | undefined;
   /**
-   * The full name of the lead as recorded in the CRM. This string is crucial for identifying the lead in user interfaces and reports, and it is always provided for each lead entry to ensure clarity in lead identification.
+   * The full name of the lead, which is essential for identification and communication purposes. This field is required and helps in personalizing interactions and maintaining accurate records within the CRM.
    */
   name: string;
   /**
-   * The name of the company with which the lead is associated. This string provides context about the lead's business affiliations and is essential for understanding the lead's professional background and potential business opportunities.
+   * The name of the company that the lead is associated with, providing context about the lead's business environment. This information is crucial for understanding the lead's professional background and potential business opportunities.
    */
   companyName: string | null;
   /**
-   * The unique identifier of the user or entity that owns or manages the lead within the CRM. This ID helps in assigning responsibility and tracking lead management activities, and it is particularly useful in systems with multiple users managing leads.
+   * The identifier of the user or entity that owns or manages the lead within the CRM system. This field helps in assigning responsibility and tracking the lead's progress through the sales pipeline.
    */
   ownerId?: string | null | undefined;
   /**
-   * The name of the lead's owner, typically a sales representative or account manager responsible for managing the lead. This is returned as a string and helps identify who is handling the lead within the CRM system.
+   * The name of the owner of the lead. This field contains the full name of the individual responsible for managing the lead within the CRM system. It helps in identifying the point of contact for any follow-up actions or communications related to the lead.
    */
   ownerName?: string | null | undefined;
   /**
-   * A unique identifier for the company associated with the lead. This string value links the lead to its respective company record in the CRM, facilitating organization and retrieval of company-specific lead data.
+   * The company the lead is associated with. This string represents the unique identifier of the company linked to the lead, facilitating the association of lead data with specific business entities within the CRM.
    */
   companyId?: string | null | undefined;
   /**
-   * The unique identifier assigned to the lead within the CRM system. This string is crucial for tracking and referencing the lead across various operations and integrations.
+   * The identifier of the lead. This unique string serves as the primary key for the lead record, allowing for precise retrieval and management of lead information within the CRM system.
    */
   leadId?: string | null | undefined;
   /**
-   * Indicates the origin of the lead, such as a marketing campaign, referral, or direct inquiry. This string helps categorize leads based on their source, aiding in analysis and strategy development.
+   * The source of the lead. This field indicates the origin of the lead, such as a marketing campaign, referral, or direct inquiry, providing insights into lead generation channels and effectiveness.
    */
   leadSource?: string | null | undefined;
   /**
-   * The first name of the lead, provided as a string. This is used for personalizing communications and managing lead records within the CRM.
+   * The first name of the lead. This string contains the given name of the lead, used for personalization in communications and record-keeping within the CRM system.
    */
   firstName?: string | null | undefined;
   /**
-   * The last name of the lead as recorded in the CRM system. This field may be empty if the lead's last name is not provided. It is used to identify and differentiate individual leads within the system.
+   * The last name of the lead. This field contains the surname of the individual lead, which is used for identification and personalization within CRM systems. It is a string value that may be used in conjunction with other personal details to uniquely identify a lead.
    */
   lastName?: string | null | undefined;
   /**
-   * A brief overview or summary of the lead, which may include notes or additional context about the lead's interests or interactions. This field is optional and can be customized to suit the needs of the CRM user.
+   * A brief overview or summary of the lead, providing context or additional information about the individual or organization. This string field can include notes or comments that help in understanding the lead's background or interests, aiding in more personalized communication and follow-up.
    */
   description?: string | null | undefined;
   /**
-   * The prefix or title used before the lead's name, such as Mr., Ms., or Dr. This field helps in addressing the lead appropriately in communications and is optional.
+   * The prefix or title of the lead, such as Mr., Ms., Dr., etc. This string field is used to address the lead appropriately in communications and can be important for maintaining professionalism and respect in interactions.
    */
   prefix?: string | null | undefined;
   /**
-   * The professional job title of the lead, such as 'Software Engineer' or 'Marketing Manager'. This information is useful for understanding the lead's role and potential needs or interests.
+   * The job title or position held by the lead within their organization. This string value provides insight into the lead's role and responsibilities, which can be crucial for tailoring sales pitches or marketing strategies to their specific needs and authority level.
    */
   title?: string | null | undefined;
   /**
-   * The language preference of the lead, represented by a two-letter ISO 639-1 code, such as 'EN' for English. This helps in tailoring communications and content to the lead's preferred language.
+   * The language code representing the lead's preferred language for communication, formatted according to ISO 639-1 standards (e.g., 'EN' for English). This string field helps in ensuring that communications are conducted in the lead's preferred language, enhancing engagement and understanding.
    */
   language?: string | null | undefined;
   /**
-   * Represents the current status of the lead, such as 'new', 'contacted', or 'qualified'. This helps in understanding the lead's position in the sales pipeline. The value is a string that indicates the lead's progress or state within the CRM system.
+   * The current status of the lead within the CRM system. This field indicates the lead's progress or state in the sales pipeline, such as 'new', 'contacted', or 'qualified'. Understanding the status helps in managing and prioritizing leads effectively.
    */
   status?: string | null | undefined;
   /**
-   * The total monetary value associated with the lead, expressed as a numeric value. This figure is crucial for assessing the potential revenue from the lead and is typically used in financial forecasting and analysis.
+   * The total monetary value associated with the lead, represented as a numeric value. This amount reflects the potential revenue that could be generated if the lead is successfully converted into a customer. It is crucial for financial forecasting and prioritizing high-value leads.
    */
   monetaryAmount?: number | null | undefined;
+  currency?: Currency | null | undefined;
   /**
-   * Indicates the currency type for the monetary amount, following the ISO 4217 standard (e.g., 'USD' for US Dollars). This ensures that the monetary value is correctly interpreted in the context of international transactions.
-   */
-  currency?: ListLeadsResponseCurrency | null | undefined;
-  /**
-   * The fax number associated with the lead, formatted as a string. This contact detail is part of the lead's profile and can be used for sending documents via fax.
+   * The fax number associated with the lead, formatted as a string. This contact detail can be used for sending documents or communications via fax, which may be relevant for certain business transactions or industries.
    */
   fax?: string | null | undefined;
   /**
-   * An array of website URLs related to the lead, providing additional online resources or contact points. Each entry in the array is a string representing a full URL, which can be used for further engagement or information gathering.
+   * A list of website URLs related to the lead, provided as an array of strings. These websites may include the lead's company site, personal blog, or other relevant online profiles, offering additional context and information about the lead.
    */
   websites?: Array<ListLeadsResponseWebsites> | undefined;
   /**
-   * An array containing address objects related to the lead. Each object within the array holds detailed information about a specific address, allowing for comprehensive storage and retrieval of multiple addresses associated with a single lead.
+   * An array containing address objects related to the lead. Each object within the array holds detailed information about a specific address, facilitating comprehensive location data management for leads.
    */
   addresses?: Array<ListLeadsResponseAddresses> | undefined;
   /**
-   * An array of social media links associated with the lead. Each entry in the array represents a different social media profile, allowing for comprehensive tracking of the lead's online presence.
+   * An array containing social media links associated with the lead. Each entry in the array represents a different social media profile, providing a comprehensive view of the lead's online presence. This structure supports multiple platforms and profiles.
    */
   socialLinks?: Array<ListLeadsResponseSocialLinks> | undefined;
   /**
-   * An array containing the lead's phone numbers, each represented as an object. This array can include multiple phone numbers, providing comprehensive contact options for the lead.
+   * An array containing the phone numbers associated with the lead. Each entry in the array represents a distinct phone number object, providing multiple contact options for the lead. This structure supports comprehensive communication strategies by listing all available phone contacts.
    */
   phoneNumbers?: Array<ListLeadsResponsePhoneNumbers> | undefined;
   /**
-   * A list of email addresses associated with the lead. This array can contain multiple email strings, each representing a different email contact for the lead. It is useful for sending communications and updates to the lead.
+   * An array of email addresses associated with the lead. This collection allows for multiple contact points via email, facilitating diverse communication strategies and ensuring messages reach the lead through preferred channels.
    */
   emails?: Array<ListLeadsResponseEmails> | undefined;
   /**
-   * An array of custom fields that provide additional, user-defined information about the lead. Each entry in the array corresponds to a specific custom field, allowing for flexible data storage and retrieval.
+   * An array of custom fields that provide additional, user-defined information about the lead. These fields allow for flexible data storage beyond standard attributes, accommodating specific business needs.
    */
   customFields?: Array<ListLeadsResponseCustomFields> | undefined;
   /**
-   * An array of tags associated with the lead, used for categorization or filtering purposes. Each tag is a string that represents a specific label or keyword relevant to the lead.
+   * An array of tags associated with the lead, used for categorization or labeling purposes. These tags help in organizing and filtering leads within the CRM system, enhancing data retrieval and management.
    */
   tags?: Array<string> | null | undefined;
   /**
-   * Contains any custom mappings configured for the lead resource. This object may include key-value pairs that map custom fields to standard fields, allowing for tailored data representation. Useful for integrations that require specific field alignments.
+   * Contains custom mappings configured for the lead resource, providing additional context or data transformations specific to the service integration. This object helps in aligning the lead data with custom fields or structures defined in the CRM system.
    */
   customMappings?: ListLeadsResponseCustomMappings | null | undefined;
   /**
-   * The timestamp indicating when the lead was last updated, formatted in ISO 8601. This helps track changes and synchronize data updates across systems.
+   * The timestamp indicating when the lead was last updated, formatted in ISO 8601. This helps track changes and ensure the lead data is current within the CRM system.
    */
   updatedAt?: string | null | undefined;
   /**
-   * The timestamp indicating when the lead was initially created, formatted in ISO 8601. This is essential for understanding the lead's lifecycle and history within the CRM.
+   * The timestamp indicating when the lead was initially created, formatted in ISO 8601. This provides a historical reference for when the lead entered the CRM system.
    */
   createdAt?: string | null | undefined;
   /**
-   * An array that holds service-specific custom data or modifications. This allows for the inclusion of additional, non-standard information when interacting with the CRM, facilitating more flexible data handling.
+   * An array that allows the inclusion of service-specific custom data or modifications when creating or updating lead resources. This feature supports the transmission of additional parameters that may not be standard across all CRM systems.
    */
   passThrough?: Array<ListLeadsResponsePassThrough> | undefined;
 };
 
 /**
- * This object contains cursor information used for paginating through the lead data. It includes specific cursors for navigating to previous or next pages, allowing developers to efficiently traverse large sets of lead data without missing any entries. The cursors are crucial for implementing seamless data navigation in applications.
+ * An object containing cursors used for pagination, allowing developers to navigate through different pages of lead data. It includes specific cursors for moving to previous or next pages, facilitating seamless data retrieval in paginated responses.
  */
 export type ListLeadsResponseCursors = {
   /**
-   * A string cursor that allows navigation to the previous page of lead results. This is particularly useful for applications that need to implement backward navigation through paginated data, ensuring users can easily access earlier data entries. It is part of the pagination mechanism that enhances user experience by providing flexible data access.
+   * A string cursor that enables navigation to the previous page of results in the paginated response. This is useful for developers who need to traverse back through the data set to review or reprocess earlier leads.
    */
   previous?: string | null | undefined;
   /**
-   * A string cursor representing the current page of lead results in the pagination sequence. This cursor is used to maintain the current position within the dataset, ensuring that subsequent requests can continue from the correct point. It is essential for tracking progress through the data and avoiding duplication or data loss.
+   * A string cursor that identifies the current page of results in the paginated response. This helps maintain the context of the current data view, ensuring developers can track their position within the dataset as they navigate through pages.
    */
   current?: string | null | undefined;
   /**
-   * A string representing the cursor used to fetch the next set of results in a paginated response. This is particularly useful for navigating through large datasets efficiently, ensuring that developers can continue retrieving data seamlessly from the API.
+   * This property contains the cursor string used to fetch the next set of results in a paginated response. It is typically a token or identifier that the API uses to continue retrieving data from where the last request left off. This is particularly useful for navigating large datasets efficiently without overloading the response with too much data at once.
    */
   next?: string | null | undefined;
 };
 
 /**
- * This object contains metadata about the response, providing additional context and information about the data returned. It includes details such as pagination cursors and the number of items on the current page, which are essential for navigating through large datasets efficiently. The metadata helps in understanding the scope and limits of the current response.
+ * This object contains metadata about the response, providing additional context and information about the data returned. It includes details such as pagination cursors and the number of items on the current page, helping developers manage and navigate through large sets of data efficiently.
  */
 export type ListLeadsResponseMeta = {
   /**
-   * An integer representing the total number of lead items included in the current page of the response. This helps developers understand how many leads are being processed at a time, especially when dealing with paginated data. It is useful for iterating over results and managing data loads.
+   * An integer representing the total number of lead items included in the current page of the response. This helps developers understand the volume of data returned and manage pagination effectively when dealing with large datasets.
    */
   itemsOnPage?: number | undefined;
   /**
-   * This object contains cursor information used for paginating through the lead data. It includes specific cursors for navigating to previous or next pages, allowing developers to efficiently traverse large sets of lead data without missing any entries. The cursors are crucial for implementing seamless data navigation in applications.
+   * An object containing cursors used for pagination, allowing developers to navigate through different pages of lead data. It includes specific cursors for moving to previous or next pages, facilitating seamless data retrieval in paginated responses.
    */
   cursors?: ListLeadsResponseCursors | undefined;
 };
 
 /**
- * An object containing URLs that facilitate navigation between different pages of the API response. This includes links to the current, previous, and next pages, aiding in the management of paginated data retrieval.
+ * This object contains navigational links that help in traversing through paginated API responses. It typically includes URLs or endpoints that direct to the previous, current, or next pages of data, facilitating easy navigation and data retrieval in a structured manner.
  */
 export type ListLeadsResponseLinks = {
   /**
-   * A URL string that directs to the previous page of results in the paginated API response. This link is essential for developers who need to navigate backward through the dataset.
+   * This property provides the URL or endpoint link to access the previous page of results in a paginated API response. It is useful for users who need to review or reprocess data from earlier pages without having to manually adjust query parameters.
    */
   previous?: string | null | undefined;
   /**
-   * A URL string pointing to the current page of results in the API response. This link helps developers confirm their current position within the paginated dataset.
+   * This property contains the URL or endpoint link that represents the current page of results in the API response. It serves as a reference point for the current dataset being viewed or processed, ensuring users can easily identify their current position within the paginated data.
    */
   current?: string | undefined;
   /**
-   * A URL string that leads to the next page of results in the paginated API response. This link is crucial for developers to continue fetching subsequent data pages efficiently.
+   * This property provides the URL or endpoint link to access the next page of results in a paginated API response. It is essential for users who wish to continue browsing through subsequent pages of data seamlessly, without having to manually construct the next query.
    */
   next?: string | null | undefined;
 };
@@ -705,55 +512,34 @@ export type ListLeadsResponse = {
    */
   statusCode: number;
   /**
-   * A textual representation of the HTTP response status, such as 'OK' for a successful request or 'Not Found' for a failed one. This string provides a human-readable explanation of the status code, aiding in understanding the outcome of the API call.
+   * A textual representation of the HTTP response status, such as 'OK' for a successful request or 'Not Found' for an error. This string provides a human-readable explanation of the status code, aiding in understanding the outcome of the API call.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider from which the lead data is fetched. This string uniquely identifies the service within the Apideck ecosystem, ensuring that the data is sourced from the correct provider, especially when multiple integrations are in use.
+   * The unique identifier for the service provider within the Apideck ecosystem. This string helps in identifying which third-party service the leads data is being fetched from, ensuring proper integration and data mapping.
    */
   service: string;
   /**
-   * The name of the Unified API resource being accessed, in this case, 'leads'. This string indicates the type of data returned by the API, helping developers understand the context and structure of the response data.
+   * The name of the unified API resource being accessed, in this case, 'leads'. This string indicates the type of data being retrieved, which is crucial for developers to understand the context of the response and how to handle the data appropriately.
    */
   resource: string;
   /**
-   * The specific operation performed by the API, identified as 'leadsAll' for this request. This string helps track the action executed, useful for logging and auditing purposes within client applications.
+   * The specific operation performed by the API, identified as 'leadsAll' in this context. This string helps developers understand the action taken by the API, which is fetching all leads, and is useful for logging and tracking API usage.
    */
   operation: string;
   /**
-   * An array containing the list of lead objects retrieved from the CRM. Each object within the array represents a single lead and includes detailed information such as the lead's ID, name, company name, and owner. This array is the primary container for the lead data returned by the API, facilitating easy iteration and manipulation of lead records.
+   * An array containing the list of leads retrieved from the CRM system. Each element in the array represents a single lead with detailed information such as name, company, and owner. This array is the primary container for the lead data returned by the 'leadsAll' operation, facilitating easy iteration and processing.
    */
   data: Array<ListLeadsResponseData>;
   /**
-   * This object contains metadata about the response, providing additional context and information about the data returned. It includes details such as pagination cursors and the number of items on the current page, which are essential for navigating through large datasets efficiently. The metadata helps in understanding the scope and limits of the current response.
+   * This object contains metadata about the response, providing additional context and information about the data returned. It includes details such as pagination cursors and the number of items on the current page, helping developers manage and navigate through large sets of data efficiently.
    */
   meta?: ListLeadsResponseMeta | undefined;
   /**
-   * An object containing URLs that facilitate navigation between different pages of the API response. This includes links to the current, previous, and next pages, aiding in the management of paginated data retrieval.
+   * This object contains navigational links that help in traversing through paginated API responses. It typically includes URLs or endpoints that direct to the previous, current, or next pages of data, facilitating easy navigation and data retrieval in a structured manner.
    */
   links?: ListLeadsResponseLinks | undefined;
 };
-
-/** @internal */
-export const ListLeadsResponseCurrency$inboundSchema: z.ZodNativeEnum<
-  typeof ListLeadsResponseCurrency
-> = z.nativeEnum(ListLeadsResponseCurrency);
-
-/** @internal */
-export const ListLeadsResponseCurrency$outboundSchema: z.ZodNativeEnum<
-  typeof ListLeadsResponseCurrency
-> = ListLeadsResponseCurrency$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListLeadsResponseCurrency$ {
-  /** @deprecated use `ListLeadsResponseCurrency$inboundSchema` instead. */
-  export const inboundSchema = ListLeadsResponseCurrency$inboundSchema;
-  /** @deprecated use `ListLeadsResponseCurrency$outboundSchema` instead. */
-  export const outboundSchema = ListLeadsResponseCurrency$outboundSchema;
-}
 
 /** @internal */
 export const ListLeadsResponseType$inboundSchema: z.ZodNativeEnum<
@@ -1715,7 +1501,7 @@ export const ListLeadsResponseData$inboundSchema: z.ZodType<
   language: z.nullable(z.string()).optional(),
   status: z.nullable(z.string()).optional(),
   monetary_amount: z.nullable(z.number()).optional(),
-  currency: z.nullable(ListLeadsResponseCurrency$inboundSchema).optional(),
+  currency: z.nullable(Currency$inboundSchema).optional(),
   fax: z.nullable(z.string()).optional(),
   websites: z.array(z.lazy(() => ListLeadsResponseWebsites$inboundSchema))
     .optional(),
@@ -1817,7 +1603,7 @@ export const ListLeadsResponseData$outboundSchema: z.ZodType<
   language: z.nullable(z.string()).optional(),
   status: z.nullable(z.string()).optional(),
   monetaryAmount: z.nullable(z.number()).optional(),
-  currency: z.nullable(ListLeadsResponseCurrency$outboundSchema).optional(),
+  currency: z.nullable(Currency$outboundSchema).optional(),
   fax: z.nullable(z.string()).optional(),
   websites: z.array(z.lazy(() => ListLeadsResponseWebsites$outboundSchema))
     .optional(),

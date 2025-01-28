@@ -29,10 +29,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve a specific contact by ID from the CRM system.
+ * Retrieve a specific contact's details from the CRM.
  *
  * @remarks
- * The 'contactsOne' operation allows developers to fetch detailed information about a specific contact from the CRM system using the contact's unique ID. This operation is essential for accessing individual contact records for viewing or processing purposes. Key parameters include the 'id' path parameter, which specifies the contact to retrieve, and several header parameters such as 'x-apideck-consumer-id' and 'x-apideck-app-id' that authenticate and identify the request. Optional query parameters like 'fields' and 'filter' enable customization of the response data. The operation returns a JSON object containing the contact's details, facilitating integration with other systems or applications.
+ * The 'contactsOne' operation allows you to fetch detailed information about a specific contact from the CRM system using their unique ID. This GET request requires the contact ID to be specified in the path parameter, ensuring you access the correct record. Additionally, headers such as 'x-apideck-consumer-id' and 'x-apideck-app-id' are mandatory for authentication and authorization purposes. Optional query parameters like 'fields' and 'raw' enable customization of the response, allowing you to select specific fields or receive raw data for debugging. The response is typically a JSON object containing the contact's details, facilitating seamless integration into your application.
  */
 export async function crmContactsGet(
   client: ApideckCore,
@@ -89,12 +89,12 @@ export async function crmContactsGet(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

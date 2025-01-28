@@ -1,6 +1,6 @@
 # CreateCompanyRequestEmailsType
 
-Defines the nature of the email address, such as 'personal', 'work', or 'support'. This classification aids in understanding the context and intended use of each email address. It is optional and can be omitted if not applicable.
+Defines the type of email address, such as 'work', 'personal', or 'support'. This categorization helps in organizing and managing email communications related to the company. It is optional and can be specified to provide additional context.
 
 ## Example Usage
 

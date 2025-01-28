@@ -1,6 +1,6 @@
 # ShowAs
 
-Defines the display status of the activity, such as 'busy', 'free', or other custom states. This property helps in managing visibility and scheduling within the CRM. Accepts any string that represents a valid display status.
+Defines how the activity should be displayed in the CRM interface, such as its status or visual representation. This property allows customization of the activity's appearance to better fit user preferences or organizational standards.
 
 ## Example Usage
 

@@ -1,17 +1,17 @@
 lockVersion: 2.0.0
 id: 8238423c-5f65-470e-b680-91edfd45a6e4
 management:
-  docChecksum: 3bbabb80b7c75530761f2646fa280a0f
-  docVersion: 10.8.2
-  speakeasyVersion: 1.469.12
-  generationVersion: 2.493.34
-  releaseVersion: 0.4.0
-  configChecksum: c0e382cb655e47d500d5c94497118ee5
+  docChecksum: df32b54527d79e7a0ab6cf35238083d4
+  docVersion: 10.11.0
+  speakeasyVersion: 1.477.0
+  generationVersion: 2.497.0
+  releaseVersion: 0.6.0
+  configChecksum: e985828d5af7ffc43b2f40743021e37e
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.11
-    core: 3.18.17
+    core: 3.18.18
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.0
@@ -24,7 +24,6 @@ features:
     globalServerURLs: 2.82.4
     globals: 2.82.2
     groups: 2.81.2
-    hiddenGlobals: 0.1.0
     inputOutputModels: 2.82.0
     nameOverrides: 2.81.2
     nullables: 0.1.0
@@ -49,17 +48,66 @@ generatedFiles:
   - docs/models/components/activitiessort.md
   - docs/models/components/activitiessortby.md
   - docs/models/components/activitiessortdirection.md
+  - docs/models/components/activity.md
+  - docs/models/components/activitycustomfields.md
+  - docs/models/components/activitycustommappings.md
+  - docs/models/components/activityextendpaths.md
+  - docs/models/components/activitylocationaddress.md
+  - docs/models/components/activitylocationaddresstype.md
+  - docs/models/components/activitypassthrough.md
+  - docs/models/components/activityshowas.md
+  - docs/models/components/activitystatus.md
+  - docs/models/components/activitytype.md
+  - docs/models/components/activityvalue.md
+  - docs/models/components/activityvalue4.md
+  - docs/models/components/activityvalue6.md
   - docs/models/components/addresses.md
   - docs/models/components/attendees.md
   - docs/models/components/bankaccounts.md
   - docs/models/components/by.md
   - docs/models/components/companiesfilter.md
   - docs/models/components/companiessort.md
+  - docs/models/components/company.md
+  - docs/models/components/companyaccounttype.md
+  - docs/models/components/companyaddresses.md
+  - docs/models/components/companyaddressestype.md
+  - docs/models/components/companybankaccounts.md
+  - docs/models/components/companycompanyrowtype.md
+  - docs/models/components/companycustomfields.md
+  - docs/models/components/companyemails.md
+  - docs/models/components/companyemailstype.md
+  - docs/models/components/companyextendpaths.md
+  - docs/models/components/companypassthrough.md
+  - docs/models/components/companyphonenumbers.md
+  - docs/models/components/companyphonenumberstype.md
   - docs/models/components/companyrowtype.md
+  - docs/models/components/companysociallinks.md
+  - docs/models/components/companytype.md
+  - docs/models/components/companyvalue.md
+  - docs/models/components/companywebsites.md
+  - docs/models/components/contact.md
+  - docs/models/components/contactaddresses.md
+  - docs/models/components/contactaddressestype.md
+  - docs/models/components/contactcustomfields.md
+  - docs/models/components/contactcustommappings.md
+  - docs/models/components/contactemails.md
+  - docs/models/components/contactemailstype.md
+  - docs/models/components/contactextendpaths.md
+  - docs/models/components/contactgender.md
+  - docs/models/components/contactpassthrough.md
+  - docs/models/components/contactphonenumbers.md
+  - docs/models/components/contactphonenumberstype.md
   - docs/models/components/contactsfilter.md
+  - docs/models/components/contactsociallinks.md
   - docs/models/components/contactssort.md
   - docs/models/components/contactssortby.md
   - docs/models/components/contactssortdirection.md
+  - docs/models/components/contacttype.md
+  - docs/models/components/contactvalue.md
+  - docs/models/components/contactvalue4.md
+  - docs/models/components/contactvalue6.md
+  - docs/models/components/contactwebsites.md
+  - docs/models/components/contactwebsitestype.md
   - docs/models/components/createactivityrequest.md
   - docs/models/components/createactivityrequestattendees.md
   - docs/models/components/createactivityrequestcustomfields.md
@@ -73,7 +121,6 @@ generatedFiles:
   - docs/models/components/createactivityresponse.md
   - docs/models/components/createactivityresponseunifiedid.md
   - docs/models/components/createcompanyrequest.md
-  - docs/models/components/createcompanyrequestcurrency.md
   - docs/models/components/createcompanyrequestemailstype.md
   - docs/models/components/createcompanyrequestphonenumberstype.md
   - docs/models/components/createcompanyrequesttype.md
@@ -100,7 +147,6 @@ generatedFiles:
   - docs/models/components/createleadrequest.md
   - docs/models/components/createleadrequestaddresses.md
   - docs/models/components/createleadrequestaddressestype.md
-  - docs/models/components/createleadrequestcurrency.md
   - docs/models/components/createleadrequestcustomfields.md
   - docs/models/components/createleadrequestemails.md
   - docs/models/components/createleadrequestemailstype.md
@@ -122,7 +168,6 @@ generatedFiles:
   - docs/models/components/createnoteresponse.md
   - docs/models/components/createnoteresponseunifiedid.md
   - docs/models/components/createopportunityrequest.md
-  - docs/models/components/createopportunityrequestcurrency.md
   - docs/models/components/createopportunityrequestcustomfields.md
   - docs/models/components/createopportunityrequestextendpaths.md
   - docs/models/components/createopportunityrequestpassthrough.md
@@ -168,115 +213,37 @@ generatedFiles:
   - docs/models/components/four.md
   - docs/models/components/gender.md
   - docs/models/components/getactivityresponse.md
-  - docs/models/components/getactivityresponseattendees.md
-  - docs/models/components/getactivityresponsecustomfields.md
-  - docs/models/components/getactivityresponsecustommappings.md
-  - docs/models/components/getactivityresponsedata.md
-  - docs/models/components/getactivityresponsedatatype.md
-  - docs/models/components/getactivityresponseextendpaths.md
-  - docs/models/components/getactivityresponselocationaddress.md
-  - docs/models/components/getactivityresponsepassthrough.md
-  - docs/models/components/getactivityresponseshowas.md
-  - docs/models/components/getactivityresponsestatus.md
-  - docs/models/components/getactivityresponsetype.md
-  - docs/models/components/getactivityresponsevalue.md
-  - docs/models/components/getactivityresponsevalue4.md
-  - docs/models/components/getactivityresponsevalue6.md
   - docs/models/components/getcompanyresponse.md
-  - docs/models/components/getcompanyresponseaccounttype.md
-  - docs/models/components/getcompanyresponseaddresses.md
-  - docs/models/components/getcompanyresponsebankaccounts.md
-  - docs/models/components/getcompanyresponsecompanyrowtype.md
-  - docs/models/components/getcompanyresponsecurrency.md
-  - docs/models/components/getcompanyresponsecustomfields.md
-  - docs/models/components/getcompanyresponsecustommappings.md
-  - docs/models/components/getcompanyresponsedata.md
-  - docs/models/components/getcompanyresponsedatacurrency.md
-  - docs/models/components/getcompanyresponsedataemailstype.md
-  - docs/models/components/getcompanyresponsedataphonenumberstype.md
-  - docs/models/components/getcompanyresponsedatatype.md
-  - docs/models/components/getcompanyresponseemails.md
-  - docs/models/components/getcompanyresponseextendpaths.md
-  - docs/models/components/getcompanyresponsepassthrough.md
-  - docs/models/components/getcompanyresponsephonenumbers.md
-  - docs/models/components/getcompanyresponsesociallinks.md
-  - docs/models/components/getcompanyresponsetype.md
-  - docs/models/components/getcompanyresponsevalue.md
-  - docs/models/components/getcompanyresponsevalue4.md
-  - docs/models/components/getcompanyresponsevalue6.md
-  - docs/models/components/getcompanyresponsewebsites.md
   - docs/models/components/getcontactresponse.md
-  - docs/models/components/getcontactresponseaddresses.md
-  - docs/models/components/getcontactresponsecustomfields.md
-  - docs/models/components/getcontactresponsecustommappings.md
-  - docs/models/components/getcontactresponsedata.md
-  - docs/models/components/getcontactresponsedataaddressestype.md
-  - docs/models/components/getcontactresponsedataemailstype.md
-  - docs/models/components/getcontactresponsedataphonenumberstype.md
-  - docs/models/components/getcontactresponsedatatype.md
-  - docs/models/components/getcontactresponseemails.md
-  - docs/models/components/getcontactresponseextendpaths.md
-  - docs/models/components/getcontactresponsegender.md
-  - docs/models/components/getcontactresponsepassthrough.md
-  - docs/models/components/getcontactresponsephonenumbers.md
-  - docs/models/components/getcontactresponsesociallinks.md
-  - docs/models/components/getcontactresponsetype.md
-  - docs/models/components/getcontactresponsevalue.md
-  - docs/models/components/getcontactresponsevalue4.md
-  - docs/models/components/getcontactresponsevalue6.md
-  - docs/models/components/getcontactresponsewebsites.md
   - docs/models/components/getleadresponse.md
-  - docs/models/components/getleadresponseaddresses.md
-  - docs/models/components/getleadresponsecurrency.md
-  - docs/models/components/getleadresponsecustomfields.md
-  - docs/models/components/getleadresponsecustommappings.md
-  - docs/models/components/getleadresponsedata.md
-  - docs/models/components/getleadresponsedataemailstype.md
-  - docs/models/components/getleadresponsedataphonenumberstype.md
-  - docs/models/components/getleadresponsedatatype.md
-  - docs/models/components/getleadresponseemails.md
-  - docs/models/components/getleadresponseextendpaths.md
-  - docs/models/components/getleadresponsepassthrough.md
-  - docs/models/components/getleadresponsephonenumbers.md
-  - docs/models/components/getleadresponsesociallinks.md
-  - docs/models/components/getleadresponsetype.md
-  - docs/models/components/getleadresponsevalue.md
-  - docs/models/components/getleadresponsevalue4.md
-  - docs/models/components/getleadresponsevalue6.md
-  - docs/models/components/getleadresponsewebsites.md
   - docs/models/components/getnoteresponse.md
-  - docs/models/components/getnoteresponsecustommappings.md
-  - docs/models/components/getnoteresponsedata.md
-  - docs/models/components/getnoteresponseextendpaths.md
-  - docs/models/components/getnoteresponsepassthrough.md
   - docs/models/components/getopportunityresponse.md
-  - docs/models/components/getopportunityresponsecurrency.md
-  - docs/models/components/getopportunityresponsecustomfields.md
-  - docs/models/components/getopportunityresponsecustommappings.md
-  - docs/models/components/getopportunityresponsedata.md
-  - docs/models/components/getopportunityresponseextendpaths.md
-  - docs/models/components/getopportunityresponsepassthrough.md
-  - docs/models/components/getopportunityresponsevalue.md
-  - docs/models/components/getopportunityresponsevalue4.md
-  - docs/models/components/getopportunityresponsevalue6.md
   - docs/models/components/getuserresponse.md
-  - docs/models/components/getuserresponseaddresses.md
-  - docs/models/components/getuserresponsecustommappings.md
-  - docs/models/components/getuserresponsedata.md
-  - docs/models/components/getuserresponsedataemailstype.md
-  - docs/models/components/getuserresponsedatatype.md
-  - docs/models/components/getuserresponseemails.md
-  - docs/models/components/getuserresponseextendpaths.md
-  - docs/models/components/getuserresponsepassthrough.md
-  - docs/models/components/getuserresponsephonenumbers.md
-  - docs/models/components/getuserresponsetype.md
   - docs/models/components/httpmetadata.md
+  - docs/models/components/lead.md
+  - docs/models/components/leadaddresses.md
+  - docs/models/components/leadaddressestype.md
+  - docs/models/components/leadcustomfields.md
+  - docs/models/components/leadcustommappings.md
+  - docs/models/components/leademails.md
+  - docs/models/components/leademailstype.md
+  - docs/models/components/leadextendpaths.md
+  - docs/models/components/leadpassthrough.md
+  - docs/models/components/leadphonenumbers.md
+  - docs/models/components/leadphonenumberstype.md
   - docs/models/components/leadsfilter.md
+  - docs/models/components/leadsociallinks.md
   - docs/models/components/leadssort.md
   - docs/models/components/leadssortby.md
   - docs/models/components/leadssortdirection.md
+  - docs/models/components/leadtype.md
+  - docs/models/components/leadvalue.md
+  - docs/models/components/leadvalue4.md
+  - docs/models/components/leadvalue6.md
+  - docs/models/components/leadwebsites.md
   - docs/models/components/links.md
   - docs/models/components/listactivitiesresponse.md
+  - docs/models/components/listactivitiesresponseattendees.md
   - docs/models/components/listactivitiesresponsecursors.md
   - docs/models/components/listactivitiesresponsecustomfields.md
   - docs/models/components/listactivitiesresponsecustommappings.md
@@ -298,12 +265,11 @@ generatedFiles:
   - docs/models/components/listcompaniesresponseaddresses.md
   - docs/models/components/listcompaniesresponsebankaccounts.md
   - docs/models/components/listcompaniesresponsecompanyrowtype.md
-  - docs/models/components/listcompaniesresponsecurrency.md
   - docs/models/components/listcompaniesresponsecustomfields.md
-  - docs/models/components/listcompaniesresponsedatacurrency.md
+  - docs/models/components/listcompaniesresponsecustommappings.md
   - docs/models/components/listcompaniesresponsedataemailstype.md
-  - docs/models/components/listcompaniesresponsedataphonenumberstype.md
   - docs/models/components/listcompaniesresponsedatatype.md
+  - docs/models/components/listcompaniesresponsedatawebsitestype.md
   - docs/models/components/listcompaniesresponseemails.md
   - docs/models/components/listcompaniesresponseextendpaths.md
   - docs/models/components/listcompaniesresponsepassthrough.md
@@ -339,7 +305,6 @@ generatedFiles:
   - docs/models/components/listcontactsresponsewebsites.md
   - docs/models/components/listleadsresponse.md
   - docs/models/components/listleadsresponseaddresses.md
-  - docs/models/components/listleadsresponsecurrency.md
   - docs/models/components/listleadsresponsecursors.md
   - docs/models/components/listleadsresponsecustomfields.md
   - docs/models/components/listleadsresponsecustommappings.md
@@ -368,7 +333,6 @@ generatedFiles:
   - docs/models/components/listnotesresponsemeta.md
   - docs/models/components/listnotesresponsepassthrough.md
   - docs/models/components/listopportunitiesresponse.md
-  - docs/models/components/listopportunitiesresponsecurrency.md
   - docs/models/components/listopportunitiesresponsecursors.md
   - docs/models/components/listopportunitiesresponsecustomfields.md
   - docs/models/components/listopportunitiesresponsecustommappings.md
@@ -381,7 +345,6 @@ generatedFiles:
   - docs/models/components/listopportunitiesresponsevalue4.md
   - docs/models/components/listopportunitiesresponsevalue6.md
   - docs/models/components/listpipelinesresponse.md
-  - docs/models/components/listpipelinesresponsecurrency.md
   - docs/models/components/listpipelinesresponsecursors.md
   - docs/models/components/listpipelinesresponsedata.md
   - docs/models/components/listpipelinesresponseextendpaths.md
@@ -404,10 +367,22 @@ generatedFiles:
   - docs/models/components/listusersresponsetype.md
   - docs/models/components/locationaddress.md
   - docs/models/components/meta.md
+  - docs/models/components/note.md
+  - docs/models/components/notecustommappings.md
+  - docs/models/components/noteextendpaths.md
+  - docs/models/components/notepassthrough.md
   - docs/models/components/opportunitiesfilter.md
   - docs/models/components/opportunitiessort.md
   - docs/models/components/opportunitiessortby.md
   - docs/models/components/opportunitiessortdirection.md
+  - docs/models/components/opportunity.md
+  - docs/models/components/opportunitycustomfields.md
+  - docs/models/components/opportunitycustommappings.md
+  - docs/models/components/opportunityextendpaths.md
+  - docs/models/components/opportunitypassthrough.md
+  - docs/models/components/opportunityvalue.md
+  - docs/models/components/opportunityvalue4.md
+  - docs/models/components/opportunityvalue6.md
   - docs/models/components/passthrough.md
   - docs/models/components/phonenumbers.md
   - docs/models/components/security.md
@@ -439,9 +414,7 @@ generatedFiles:
   - docs/models/components/updatecompanyrequestaddresses.md
   - docs/models/components/updatecompanyrequestaddressestype.md
   - docs/models/components/updatecompanyrequestbankaccounts.md
-  - docs/models/components/updatecompanyrequestbankaccountscurrency.md
   - docs/models/components/updatecompanyrequestcompanyrowtype.md
-  - docs/models/components/updatecompanyrequestcurrency.md
   - docs/models/components/updatecompanyrequestcustomfields.md
   - docs/models/components/updatecompanyrequestemails.md
   - docs/models/components/updatecompanyrequestemailstype.md
@@ -452,6 +425,8 @@ generatedFiles:
   - docs/models/components/updatecompanyrequestsociallinks.md
   - docs/models/components/updatecompanyrequesttype.md
   - docs/models/components/updatecompanyrequestvalue.md
+  - docs/models/components/updatecompanyrequestvalue4.md
+  - docs/models/components/updatecompanyrequestvalue6.md
   - docs/models/components/updatecompanyrequestwebsites.md
   - docs/models/components/updatecompanyresponse.md
   - docs/models/components/updatecompanyresponseunifiedid.md
@@ -478,7 +453,6 @@ generatedFiles:
   - docs/models/components/updateleadrequest.md
   - docs/models/components/updateleadrequestaddresses.md
   - docs/models/components/updateleadrequestaddressestype.md
-  - docs/models/components/updateleadrequestcurrency.md
   - docs/models/components/updateleadrequestcustomfields.md
   - docs/models/components/updateleadrequestemails.md
   - docs/models/components/updateleadrequestemailstype.md
@@ -500,7 +474,6 @@ generatedFiles:
   - docs/models/components/updatenoteresponse.md
   - docs/models/components/updatenoteresponseunifiedid.md
   - docs/models/components/updateopportunityrequest.md
-  - docs/models/components/updateopportunityrequestcurrency.md
   - docs/models/components/updateopportunityrequestcustomfields.md
   - docs/models/components/updateopportunityrequestextendpaths.md
   - docs/models/components/updateopportunityrequestpassthrough.md
@@ -520,6 +493,16 @@ generatedFiles:
   - docs/models/components/updateuserrequesttype.md
   - docs/models/components/updateuserresponse.md
   - docs/models/components/updateuserresponseunifiedid.md
+  - docs/models/components/user.md
+  - docs/models/components/useraddresses.md
+  - docs/models/components/usercustommappings.md
+  - docs/models/components/useremails.md
+  - docs/models/components/useremailstype.md
+  - docs/models/components/userextendpaths.md
+  - docs/models/components/userpassthrough.md
+  - docs/models/components/userphonenumbers.md
+  - docs/models/components/userphonenumberstype.md
+  - docs/models/components/usertype.md
   - docs/models/components/value.md
   - docs/models/components/value4.md
   - docs/models/components/value6.md
@@ -713,8 +696,11 @@ generatedFiles:
   - src/lib/url.ts
   - src/models/components/activitiesfilter.ts
   - src/models/components/activitiessort.ts
+  - src/models/components/activity.ts
   - src/models/components/companiesfilter.ts
   - src/models/components/companiessort.ts
+  - src/models/components/company.ts
+  - src/models/components/contact.ts
   - src/models/components/contactsfilter.ts
   - src/models/components/contactssort.ts
   - src/models/components/createactivityrequest.ts
@@ -731,6 +717,7 @@ generatedFiles:
   - src/models/components/createopportunityresponse.ts
   - src/models/components/createuserrequest.ts
   - src/models/components/createuserresponse.ts
+  - src/models/components/currency.ts
   - src/models/components/deleteactivityresponse.ts
   - src/models/components/deletecompanyresponse.ts
   - src/models/components/deletecontactresponse.ts
@@ -747,6 +734,7 @@ generatedFiles:
   - src/models/components/getuserresponse.ts
   - src/models/components/httpmetadata.ts
   - src/models/components/index.ts
+  - src/models/components/lead.ts
   - src/models/components/leadsfilter.ts
   - src/models/components/leadssort.ts
   - src/models/components/listactivitiesresponse.ts
@@ -757,8 +745,10 @@ generatedFiles:
   - src/models/components/listopportunitiesresponse.ts
   - src/models/components/listpipelinesresponse.ts
   - src/models/components/listusersresponse.ts
+  - src/models/components/note.ts
   - src/models/components/opportunitiesfilter.ts
   - src/models/components/opportunitiessort.ts
+  - src/models/components/opportunity.ts
   - src/models/components/security.ts
   - src/models/components/unexpectederrorresponse.ts
   - src/models/components/updateactivityrequest.ts
@@ -775,6 +765,7 @@ generatedFiles:
   - src/models/components/updateopportunityresponse.ts
   - src/models/components/updateuserrequest.ts
   - src/models/components/updateuserresponse.ts
+  - src/models/components/user.ts
   - src/models/errors/apierror.ts
   - src/models/errors/badrequestresponse.ts
   - src/models/errors/httpclienterrors.ts

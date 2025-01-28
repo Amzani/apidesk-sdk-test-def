@@ -9,11 +9,11 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This object contains the unique identifier of the activity that was deleted. It serves as confirmation that the specified activity has been successfully removed from the CRM system. The presence of this object in the response indicates a successful delete operation.
+ * This object contains details about the activity that was deleted, including its unique identifier. It serves as a confirmation that the specified activity has been successfully removed from the CRM system. The presence of this object in the response indicates a successful deletion operation.
  */
 export type DeleteActivityResponseUnifiedId = {
   /**
-   * The unique identifier of the activity that was deleted. This string value confirms the specific activity that has been removed from the CRM system, ensuring that developers can verify the correct resource was deleted.
+   * The unique identifier of the activity that was deleted. This ID confirms which specific activity record has been removed from the CRM, ensuring that developers can verify the correct deletion of the intended resource.
    */
   id: string;
 };
@@ -23,27 +23,27 @@ export type DeleteActivityResponseUnifiedId = {
  */
 export type DeleteActivityResponse = {
   /**
-   * The HTTP response status code returned by the server, indicating the result of the delete operation. A status code of 200 signifies that the activity was successfully deleted from the CRM system. This integer value is crucial for error handling and confirming successful operations.
+   * The HTTP response status code returned by the server, indicating the result of the delete operation. A status code of 200 signifies that the activity was successfully deleted from the CRM system. This code helps developers confirm the success or failure of the operation.
    */
   statusCode: number;
   /**
-   * A textual representation of the HTTP response status, such as 'OK' for a successful operation. This string provides a human-readable confirmation of the operation's outcome, complementing the status code.
+   * A textual representation of the HTTP response status, providing a human-readable summary of the operation's outcome. This status complements the status code by offering a more descriptive explanation of the result, such as 'OK' for a successful deletion.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider involved in the operation. This string identifies which service facilitated the delete action, especially useful in environments with multiple integrations.
+   * The Apideck ID of the service provider involved in the operation, identifying which service integration was used to perform the delete action. This ID is crucial for tracking and managing interactions across different service providers within the Apideck ecosystem.
    */
   service: string;
   /**
-   * The name of the Unified API resource that was targeted by the delete operation. This string helps developers understand which specific resource type was affected, ensuring clarity in multi-resource environments.
+   * The name of the unified API resource that was targeted by the delete operation, indicating the type of entity that was removed. This helps developers understand the context of the operation within the broader API framework.
    */
   resource: string;
   /**
-   * The specific operation performed, in this case, 'delete'. This string confirms the type of action executed, providing context within logs and audit trails for the CRM system.
+   * The specific operation performed, in this case, 'delete', indicating that the activity record was removed from the CRM. This property confirms the action taken and is useful for logging and auditing purposes.
    */
   operation: string;
   /**
-   * This object contains the unique identifier of the activity that was deleted. It serves as confirmation that the specified activity has been successfully removed from the CRM system. The presence of this object in the response indicates a successful delete operation.
+   * This object contains details about the activity that was deleted, including its unique identifier. It serves as a confirmation that the specified activity has been successfully removed from the CRM system. The presence of this object in the response indicates a successful deletion operation.
    */
   data: DeleteActivityResponseUnifiedId;
 };

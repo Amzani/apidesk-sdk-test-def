@@ -9,11 +9,11 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This object contains details about the newly created note in the CRM system. It includes essential information such as the unique identifier of the note, confirming its successful addition. The structure is typically a JSON object encapsulating various attributes of the note.
+ * This object contains the details of the note that was successfully created in the CRM system. It includes essential information such as the unique identifier of the newly added note, which can be used for future reference or operations related to this note. The structure of this object is crucial for understanding the outcome of the notesAdd operation.
  */
 export type CreateNoteResponseUnifiedId = {
   /**
-   * The unique identifier assigned to the note that was just created in the CRM system. This ID is a string and serves as a reference to access or manage the note in future operations. It confirms the successful creation of the note and is crucial for any subsequent API interactions involving this specific note.
+   * The unique identifier assigned to the note that was just created in the CRM system. This ID is essential for retrieving, updating, or deleting the note in future operations. It serves as a reference point for any subsequent interactions with this specific note.
    */
   id: string;
 };
@@ -23,27 +23,27 @@ export type CreateNoteResponseUnifiedId = {
  */
 export type CreateNoteResponse = {
   /**
-   * The HTTP response status code indicating the result of the POST request to add a new note. A successful operation will return a 201 status code, confirming that the note has been successfully created in the CRM system. This integer value helps developers understand the outcome of their API call.
+   * The HTTP response status code returned by the API. This integer value indicates the result of the notesAdd operation, with a successful creation typically returning a 201 status code. It helps developers understand the outcome of their request.
    */
   statusCode: number;
   /**
-   * A textual representation of the HTTP response status, such as 'Created' for a successful note addition. This string provides a human-readable confirmation of the operation's result, complementing the numeric status code.
+   * A textual representation of the HTTP response status. This string provides a human-readable status message corresponding to the status_code, such as 'Created' for a successful note addition. It aids in quickly assessing the result of the operation.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider used for this operation. This string identifies which service provider was involved in processing the note addition, crucial for environments with multiple integrations.
+   * The Apideck ID of the service provider involved in the operation. This string identifies which service integration was used to add the note, helping developers track and manage service-specific interactions within the CRM.
    */
   service: string;
   /**
-   * The name of the unified API resource, in this case, 'notes', indicating the type of resource that was affected by the operation. This string helps developers understand the context of the API call within the broader CRM system.
+   * The name of the unified API resource that was affected by the operation. This string indicates the type of resource, such as 'note', that was created or modified, providing context about the operation's target within the CRM system.
    */
   resource: string;
   /**
-   * The specific operation performed, such as 'notesAdd', indicating that a new note was added to the CRM. This string provides clarity on the action taken by the API call, useful for logging and debugging purposes.
+   * The specific operation performed by the API. This string describes the action taken, such as 'add', to inform developers about the nature of the request processed by the CRM system.
    */
   operation: string;
   /**
-   * This object contains details about the newly created note in the CRM system. It includes essential information such as the unique identifier of the note, confirming its successful addition. The structure is typically a JSON object encapsulating various attributes of the note.
+   * This object contains the details of the note that was successfully created in the CRM system. It includes essential information such as the unique identifier of the newly added note, which can be used for future reference or operations related to this note. The structure of this object is crucial for understanding the outcome of the notesAdd operation.
    */
   data: CreateNoteResponseUnifiedId;
 };

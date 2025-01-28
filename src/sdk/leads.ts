@@ -14,19 +14,10 @@ import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class Leads extends ClientSDK {
   /**
-   * Retrieve a list of leads from the CRM system.
+   * Retrieve all CRM leads with optional filtering and sorting.
    *
    * @remarks
-   * The `leadsAll` operation allows developers to fetch a comprehensive list of leads from the CRM system using a GET request to the `/crm/leads` endpoint. This operation is crucial for accessing lead data, enabling integration with other systems or applications.
-   *
-   * Key parameters include:
-   * - `x-apideck-consumer-id` (header, required): Identifies the consumer accessing the data.
-   * - `x-apideck-app-id` (header, required): Specifies the Unify application ID.
-   * - `x-apideck-service-id` (header, optional): Indicates the service ID when multiple integrations are active.
-   * - `limit` (query, optional): Controls the number of results returned, with a default of 20 and a maximum of 200.
-   * - `fields` (query, optional): Allows selection of specific fields to include in the response, using a comma-separated string.
-   *
-   * The response returns a JSON object containing the requested lead data, facilitating easy integration and data manipulation. This operation supports pagination through the `cursor` parameter, ensuring efficient data retrieval for large datasets.
+   * The 'leadsAll' operation fetches a list of CRM leads from the specified service integration. This GET request allows developers to retrieve comprehensive lead data, which can be filtered, sorted, and paginated according to specific needs. Key parameters include 'raw' for debugging, 'cursor' for pagination, 'limit' to control the number of results, and 'fields' to specify which data fields to include in the response. Authentication is required via 'x-apideck-consumer-id' and 'x-apideck-app-id' headers. The response is a JSON object containing lead details, facilitating efficient data handling and integration into CRM systems.
    */
   async list(
     request: operations.CrmLeadsAllRequest,
@@ -43,15 +34,7 @@ export class Leads extends ClientSDK {
    * Add a new lead to the CRM system.
    *
    * @remarks
-   * The `leadsAdd` operation allows developers to add a new lead to the CRM system using a POST request to the `/crm/leads` endpoint. This operation is essential for integrating lead management capabilities into applications, enabling the creation of new lead records in the CRM.
-   *
-   * Key Parameters:
-   * - `x-apideck-consumer-id` (header, required): Specifies the consumer ID for data interaction.
-   * - `x-apideck-app-id` (header, required): Identifies the Unify application making the request.
-   * - `x-apideck-service-id` (header, optional): Indicates the specific service to call, necessary when multiple integrations are active.
-   * - `raw` (query, optional): Determines if the raw response should be included, useful for debugging.
-   *
-   * Upon successful creation, the operation returns a 201 status code along with a JSON object containing the unique identifier of the newly created lead. This response confirms the lead's addition to the CRM system, facilitating further processing or integration steps.
+   * The leadsAdd operation allows you to add a new lead to your CRM system by sending a POST request to the /crm/leads endpoint. This operation is essential for capturing potential customer information and expanding your sales pipeline. The request must include a valid x-apideck-consumer-id and x-apideck-app-id in the headers for authentication. Optionally, specify the x-apideck-service-id if targeting a specific service integration. The raw query parameter can be set to true to receive raw data for debugging purposes. Upon successful creation, the API returns a 201 status code along with the ID of the newly created lead in a JSON object. This operation is crucial for maintaining an up-to-date and comprehensive lead database.
    */
   async create(
     request: operations.CrmLeadsAddRequest,
@@ -65,21 +48,10 @@ export class Leads extends ClientSDK {
   }
 
   /**
-   * Retrieve a specific lead by ID from the CRM system.
+   * Retrieve detailed information about a specific lead in the CRM.
    *
    * @remarks
-   * The `leadsOne` operation allows developers to retrieve detailed information about a specific lead from the CRM system using its unique ID. This operation is essential for accessing individual lead data for review or processing purposes.
-   *
-   * Key Parameters:
-   * - `id` (path): The unique identifier of the lead you wish to retrieve. This parameter is mandatory.
-   * - `x-apideck-consumer-id` (header): Required to specify the consumer ID from which data is being accessed.
-   * - `x-apideck-app-id` (header): Required to identify your Unify application.
-   * - `x-apideck-service-id` (header): Optional parameter to specify the service ID when multiple integrations are active.
-   * - `raw` (query): Optional parameter to include the raw response, useful for debugging.
-   * - `fields` (query): Optional parameter to specify which fields to include in the response, using a comma-separated string for selective data retrieval.
-   *
-   * Response Behavior:
-   * The operation returns a JSON object representing the lead, including all requested fields. If the `fields` parameter is used, only the specified fields will be included in the response. This operation is performed using the HTTP GET method and responds with a status code of 200 upon successful retrieval.
+   * The 'leadsOne' operation allows developers to fetch comprehensive details of a specific lead by its unique ID from the CRM system. This GET request requires the lead's ID as a path parameter and mandates the inclusion of 'x-apideck-consumer-id' and 'x-apideck-app-id' in the headers for authentication and authorization. Optionally, specify 'x-apideck-service-id' to target a specific service integration if multiple are active. Use the 'raw' query parameter to receive unprocessed data for debugging, and 'fields' to customize the response by selecting specific data fields. The response is a JSON object containing the lead's details, facilitating efficient data retrieval and integration into applications.
    */
   async get(
     request: operations.CrmLeadsOneRequest,
@@ -93,19 +65,10 @@ export class Leads extends ClientSDK {
   }
 
   /**
-   * Update an existing lead record in the CRM system.
+   * Updates an existing lead record in the CRM system.
    *
    * @remarks
-   * The `leadsUpdate` operation allows developers to modify an existing lead's information within the CRM system using a PATCH request. This operation is crucial for keeping lead data current and accurate, which is essential for effective customer relationship management.
-   *
-   * Key Parameters:
-   * - `id` (path): The unique identifier of the lead record to be updated. This is a required parameter.
-   * - `x-apideck-consumer-id` (header): Specifies the consumer ID from which data is being accessed or modified. This is a required parameter.
-   * - `x-apideck-app-id` (header): The ID of the Unify application making the request. This is a required parameter.
-   * - `x-apideck-service-id` (header): Optional parameter to specify the service ID when multiple integrations are active.
-   * - `raw` (query): Optional parameter to include the raw response, useful for debugging.
-   *
-   * Upon successful execution, the operation returns a status code of 200, indicating that the lead record has been successfully updated. The response includes a JSON object representing the updated lead resource, ensuring developers can verify the changes made to the lead's data. This operation is vital for maintaining up-to-date lead information, which supports better decision-making and customer interactions.
+   * The leadsUpdate operation allows you to modify an existing lead's information in the CRM by sending a PATCH request to the /crm/leads/{id} endpoint. This operation is crucial for keeping lead data current and accurate, which is essential for effective customer relationship management. You must provide the lead's unique ID in the path parameter to specify which record to update. Additionally, the request requires headers for authentication, including x-apideck-consumer-id and x-apideck-app-id. Optionally, you can specify x-apideck-service-id if targeting a specific service integration. The request body should contain the fields you wish to update. Upon successful update, the API returns a 200 status code along with the updated lead data in JSON format, confirming the changes made.
    */
   async update(
     request: operations.CrmLeadsUpdateRequest,
@@ -119,20 +82,10 @@ export class Leads extends ClientSDK {
   }
 
   /**
-   * Delete a lead from the CRM system.
+   * Deletes a lead record from the CRM system using its unique ID.
    *
    * @remarks
-   * The `leadsDelete` operation allows developers to remove a lead from the CRM system by specifying the lead's unique identifier in the endpoint path. This operation is crucial for maintaining an up-to-date and accurate database by removing obsolete or incorrect lead entries.
-   *
-   * Key Parameters:
-   * - `id` (path): The unique identifier of the lead to be deleted. This parameter is mandatory.
-   * - `x-apideck-consumer-id` (header): Required to specify the consumer ID from which data is being managed.
-   * - `x-apideck-app-id` (header): Required to identify the Unify application making the request.
-   * - `x-apideck-service-id` (header): Optional parameter to specify the service ID when multiple integrations are active.
-   * - `raw` (query): Optional parameter to include a raw response, useful for debugging.
-   *
-   * Response Behavior:
-   * Upon successful deletion, the operation returns a status code of 200, indicating that the lead has been successfully removed from the system. No content is returned in the response body, confirming the deletion action was completed without errors.
+   * The leadsDelete operation allows you to remove a specific lead from your CRM system by providing the lead's unique ID in the endpoint path. This operation is crucial for maintaining an up-to-date and accurate database by removing outdated or irrelevant lead information. To execute this operation, you must include the 'x-apideck-consumer-id' and 'x-apideck-app-id' headers for authentication and authorization purposes. Optionally, you can specify the 'x-apideck-service-id' if targeting a specific service integration. The operation does not require a request body and will return a status code of 200 upon successful deletion, indicating that the lead has been successfully removed from the system. This operation is essential for data management and ensuring the CRM reflects current business needs.
    */
   async delete(
     request: operations.CrmLeadsDeleteRequest,

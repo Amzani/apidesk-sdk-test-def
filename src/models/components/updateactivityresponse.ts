@@ -9,11 +9,11 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This object contains the details of the activity record that was updated. It includes all relevant information about the activity, ensuring that developers can verify the changes made. The structure of this object aligns with the CRM's activity schema, providing a comprehensive view of the updated resource.
+ * This object contains the updated details of the activity record in the CRM. It encapsulates all the fields that were modified during the PATCH request, providing a comprehensive view of the current state of the activity. This ensures that developers can verify the changes made to the activity record.
  */
 export type UpdateActivityResponseUnifiedId = {
   /**
-   * The unique identifier of the activity record that was updated. This string value confirms the specific resource that has been modified, allowing developers to reference or further manipulate this particular activity within the CRM system. It is essential for tracking and auditing purposes.
+   * The unique identifier of the activity record that was updated. This ID is crucial for confirming the specific resource that has been modified, allowing developers to track and reference the updated activity within the CRM system.
    */
   id: string;
 };
@@ -23,27 +23,27 @@ export type UpdateActivityResponseUnifiedId = {
  */
 export type UpdateActivityResponse = {
   /**
-   * The HTTP response status code indicating the result of the update operation. A value of 200 signifies that the activity record was successfully updated. This integer value helps developers quickly assess the outcome of their API request.
+   * The HTTP response status code returned by the server, indicating the result of the PATCH request. A status code of 200 signifies that the activity record was successfully updated. This code is essential for error handling and understanding the outcome of the operation.
    */
   statusCode: number;
   /**
-   * A textual representation of the HTTP response status, such as 'OK' for a successful update. This string provides a human-readable confirmation of the operation's result, complementing the status code.
+   * A textual representation of the HTTP response status, such as 'OK' for a successful request. This provides a human-readable confirmation of the operation's result, complementing the numeric status code.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider that processed the update request. This string identifies which service within the Apideck ecosystem handled the operation, useful for tracking and debugging purposes.
+   * The unique Apideck identifier for the service provider associated with the updated activity. This ID helps in identifying which service integration was used in the operation, ensuring accurate tracking and management of service-specific activities.
    */
   service: string;
   /**
-   * The name of the unified API resource that was updated, such as 'activity'. This string helps developers understand which type of resource was affected by the operation, ensuring clarity in multi-resource environments.
+   * The name of the Unified API resource that was affected by the operation, in this case, an activity. This helps developers understand which type of resource was updated, facilitating better integration and data handling.
    */
   resource: string;
   /**
-   * The specific operation performed, in this case, 'update'. This string confirms the type of action executed on the resource, providing context within the broader API interaction.
+   * The specific operation performed on the resource, typically 'update' for this PATCH request. This indicates the action taken on the activity record, providing clarity on the nature of the modification made.
    */
   operation: string;
   /**
-   * This object contains the details of the activity record that was updated. It includes all relevant information about the activity, ensuring that developers can verify the changes made. The structure of this object aligns with the CRM's activity schema, providing a comprehensive view of the updated resource.
+   * This object contains the updated details of the activity record in the CRM. It encapsulates all the fields that were modified during the PATCH request, providing a comprehensive view of the current state of the activity. This ensures that developers can verify the changes made to the activity record.
    */
   data: UpdateActivityResponseUnifiedId;
 };

@@ -1,6 +1,6 @@
 # ListLeadsResponseDataType
 
-Specifies the category of the address, such as 'home', 'work', or 'billing'. This helps in identifying the purpose of the address within the lead's contact information. The value is expected to be a string that matches predefined address types used in the CRM.
+Specifies the category of the address, such as 'home', 'work', or 'billing'. This helps in identifying the purpose of the address within the lead's contact information. It is a string value that provides context for how the address is used in CRM operations.
 
 ## Example Usage
 

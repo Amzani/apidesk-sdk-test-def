@@ -1,6 +1,6 @@
 # UpdateContactRequestValue
 
-The value assigned to the custom field for the contact. This property is optional and can be any string that represents the data you wish to store in the custom field. It allows for flexible data entry tailored to specific needs of the contact.
+The value assigned to the custom field for the contact. This optional field is used to store specific data related to the custom field, which can be utilized for personalized contact management.
 
 
 ## Supported Types

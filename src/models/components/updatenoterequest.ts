@@ -10,69 +10,69 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type UpdateNoteRequestExtendPaths = {
   /**
-   * A JSONPath string that specifies the exact location within the note's data structure where the update should be applied. This path must be a valid JSONPath expression and is required for each entry in the extend_paths array to ensure precise data modification.
+   * A JSONPath string that specifies the exact location within the note where the value should be applied. This path must be a valid JSONPath expression, ensuring that the update is accurately targeted to the intended part of the note's data structure.
    */
   path: string;
   /**
-   * The value to be set at the specified JSONPath within the note's data. This can be of any data type, allowing for flexible updates to the note's content. It is required for each path specified in the extend_paths array to complete the data modification process.
+   * The value to be set at the specified JSONPath location within the note. This can be of any data type, allowing for flexible updates to the note's content, whether it's a string, number, object, or array.
    */
   value?: any | undefined;
 };
 
 export type UpdateNoteRequestPassThrough = {
   /**
-   * The identifier for the specific service to which the pass_through data should be applied. This is mandatory when using the pass_through property to ensure the data is directed to the correct service integration.
+   * This property identifies the specific service to which the pass_through data should be applied. It is required to ensure that the custom data is correctly routed and processed by the intended service. Must be a valid string representing a service ID.
    */
   serviceId: string;
   /**
-   * An optional identifier for a specific workflow operation within the Unify platform. This property is used to associate the pass-through data with a particular operation, especially when multiple downstream requests are involved. It should be a unique string if used, but is not mandatory for all requests.
+   * An optional identifier for a specific workflow operation that this pass-through should apply to. This is particularly useful in scenarios where multiple downstream requests are made in a single Unify call, allowing for precise operation targeting. The value should be a valid string that uniquely identifies the operation within the workflow.
    */
   operationId?: string | undefined;
   /**
-   * A flexible object that allows for the direct extension of properties within the note. This property can include any key-value pairs needed to enhance or modify the note's data structure. It is optional and should be used when additional customization is required.
+   * A flexible object that allows for the direct extension of properties. This can be used to add custom fields or additional data to the note being updated, providing a way to include extra information that may not be covered by predefined fields. The object can contain any key-value pairs as needed.
    */
   extendObject?: { [k: string]: any } | undefined;
   /**
-   * An array of objects designed for structured data modifications using specified paths. Each object within the array should define a path and a corresponding value to update the note's data precisely. This property is optional and is useful for targeted updates.
+   * An array of objects designed for structured data modifications using specified paths. Each object in the array should define a path and a value, enabling precise updates to nested data structures within the note. This is useful for making targeted changes without altering the entire note object.
    */
   extendPaths?: Array<UpdateNoteRequestExtendPaths> | undefined;
 };
 
 export type UpdateNoteRequest = {
   /**
-   * The title of the note, used to provide a brief summary or headline for the note's content. This field is optional and can be any string value that effectively summarizes the note's main idea or purpose. It helps users quickly identify the note within the CRM system.
+   * The title of the note. This field allows you to specify a brief, descriptive heading for the note, helping users quickly identify its content or purpose. It is optional and can be left blank if a title is not necessary for your use case.
    */
   title?: string | null | undefined;
   /**
-   * The main body of the note, containing detailed information or commentary. This field is optional and should be a string that clearly conveys the intended message or information. It is essential for capturing the full context and details of the note.
+   * The content of the note. This property holds the main body text of the note, where detailed information or comments are stored. It is optional, allowing flexibility in how much detail you wish to include in the note update.
    */
   content?: string | null | undefined;
   /**
-   * The unique identifier of the user who owns the note. This optional field should be a valid user ID within the CRM system, linking the note to its creator or responsible party. It helps in tracking note ownership and accountability.
+   * The user that owns the note. This property is used to associate the note with a specific user in the CRM, ensuring that ownership and responsibility are clearly defined. It is optional and should be a valid user identifier if provided.
    */
   ownerId?: string | null | undefined;
   /**
-   * The unique identifier of the contact associated with the note. This optional field should be a valid contact ID, establishing a relationship between the note and a specific contact within the CRM. It aids in organizing notes by related contacts.
+   * The contact that is related to the note. Use this property to link the note to a specific contact within the CRM, facilitating easy reference and context. It is optional and should be a valid contact identifier if included.
    */
   contactId?: string | null | undefined;
   /**
-   * The unique identifier of the company related to the note. This optional field should be a valid company ID, linking the note to a specific company within the CRM. It is useful for associating notes with relevant business entities.
+   * The company that is related to the note. This field allows you to associate the note with a particular company, providing context and relevance within the CRM. It is optional and should be a valid company identifier if specified.
    */
   companyId?: string | null | undefined;
   /**
-   * The unique identifier of the opportunity associated with this note. This field allows you to link the note to a specific opportunity within the CRM, facilitating better organization and retrieval of related information. Ensure the ID corresponds to an existing opportunity record in the system.
+   * This property specifies the unique identifier of the opportunity associated with the note. It allows the note to be linked to a specific opportunity within the CRM, providing context and relevance to the note's content. If provided, it must be a valid string that corresponds to an existing opportunity ID.
    */
   opportunityId?: string | null | undefined;
   /**
-   * The unique identifier of the lead associated with this note. Use this field to connect the note to a particular lead, enhancing the traceability and context of interactions within the CRM. The ID should match an existing lead record.
+   * This property specifies the unique identifier of the lead associated with the note. It enables the note to be connected to a particular lead, offering additional context and relevance. If included, it should be a valid string that matches an existing lead ID.
    */
   leadId?: string | null | undefined;
   /**
-   * Indicates whether the note is currently active. Set this to true if the note is active and should be considered in active records, or false if it should be archived or inactive. This helps in filtering notes based on their status.
+   * Indicates whether the note is currently active. This boolean flag helps manage the note's visibility and status within the CRM. When set to true, the note is considered active and visible; when false, it may be archived or hidden.
    */
   active?: boolean | null | undefined;
   /**
-   * An array that allows the inclusion of service-specific custom data or modifications when updating the note. This property is useful for passing additional structured data that may be required by specific services integrated with the CRM.
+   * The pass_through property is used to send custom data or modifications specific to a service when updating a note. This allows for flexibility and customization in handling service-specific requirements or data structures. It should be an array containing valid pass_through objects.
    */
   passThrough?: Array<UpdateNoteRequestPassThrough> | undefined;
 };

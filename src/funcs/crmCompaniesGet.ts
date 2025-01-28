@@ -27,18 +27,7 @@ import { Result } from "../types/fp.js";
  * Retrieve detailed information about a specific company from the CRM.
  *
  * @remarks
- * The `companiesOne` operation allows developers to fetch detailed information about a specific company from the CRM system using its unique identifier. This operation is crucial for applications that need to display or process company data based on user interactions or business logic.
- *
- * ### Key Parameters:
- * - **id (path parameter)**: The unique identifier of the company record you wish to retrieve. This parameter is mandatory.
- * - **x-apideck-consumer-id (header)**: Required to specify the consumer ID for data retrieval.
- * - **x-apideck-app-id (header)**: Required to identify your Unify application.
- * - **x-apideck-service-id (header)**: Optional; specify if multiple integrations are active.
- * - **fields (query parameter)**: Optional; allows specifying which fields to include in the response, using a comma-separated string.
- * - **raw (query parameter)**: Optional; include raw response for debugging purposes.
- *
- * ### Response Behavior:
- * The operation returns a JSON object representing the company resource, including all or specified fields based on the `fields` parameter. The response will include a status code of 200 upon successful retrieval.
+ * The 'companiesOne' operation allows developers to fetch detailed information about a specific company using its unique ID from the CRM system. This GET request requires the 'id' parameter in the path to identify the company record. Additionally, headers such as 'x-apideck-consumer-id' and 'x-apideck-app-id' are mandatory for authentication and authorization purposes. Optional query parameters include 'raw' for obtaining raw data and 'fields' for specifying which fields to include in the response. The response is typically a JSON object containing the company's details, making it essential for applications that need to display or process company data efficiently.
  */
 export async function crmCompaniesGet(
   client: ApideckCore,
@@ -90,12 +79,12 @@ export async function crmCompaniesGet(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

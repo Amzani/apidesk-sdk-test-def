@@ -9,7 +9,7 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
+ * Specifies the field by which to sort the list of contacts. This parameter allows users to organize the returned contact data based on specific attributes, enhancing data retrieval efficiency.
  */
 export const ContactsSortBy = {
   CreatedAt: "created_at",
@@ -20,29 +20,29 @@ export const ContactsSortBy = {
   Email: "email",
 } as const;
 /**
- * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
+ * Specifies the field by which to sort the list of contacts. This parameter allows users to organize the returned contact data based on specific attributes, enhancing data retrieval efficiency.
  */
 export type ContactsSortBy = ClosedEnum<typeof ContactsSortBy>;
 
 /**
- * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
+ * Determines the order of sorting for the contact list. Users can choose between ascending or descending order to better manage the display of contact information.
  */
 export const ContactsSortDirection = {
   Asc: "asc",
   Desc: "desc",
 } as const;
 /**
- * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
+ * Determines the order of sorting for the contact list. Users can choose between ascending or descending order to better manage the display of contact information.
  */
 export type ContactsSortDirection = ClosedEnum<typeof ContactsSortDirection>;
 
 export type ContactsSort = {
   /**
-   * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
+   * Specifies the field by which to sort the list of contacts. This parameter allows users to organize the returned contact data based on specific attributes, enhancing data retrieval efficiency.
    */
   by?: ContactsSortBy | undefined;
   /**
-   * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
+   * Determines the order of sorting for the contact list. Users can choose between ascending or descending order to better manage the display of contact information.
    */
   direction?: ContactsSortDirection | undefined;
 };

@@ -1,6 +1,6 @@
 # ListContactsResponseDataType
 
-Specifies the type of website, such as personal, business, or social media, associated with the contact. This string helps categorize the websites, enabling applications to display or process them according to their type.
+Specifies the type of website, such as personal, business, or social media. This categorization helps in understanding the nature of the website linked to the contact.
 
 ## Example Usage
 

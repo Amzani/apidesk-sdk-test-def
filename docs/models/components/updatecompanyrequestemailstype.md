@@ -1,6 +1,6 @@
 # UpdateCompanyRequestEmailsType
 
-Defines the nature of the email address, such as 'work', 'personal', or 'support'. This classification helps in organizing and managing email communications based on their intended use. It is optional and should be a valid string indicating the email type.
+Defines the role or category of the email address, such as 'primary', 'secondary', or 'billing'. This helps in organizing and prioritizing email communications with the company. It is optional and should be a string that reflects the email's purpose.
 
 ## Example Usage
 

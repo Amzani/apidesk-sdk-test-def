@@ -24,18 +24,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Add a new user to the CRM system.
+ * Adds a new user to the CRM system.
  *
  * @remarks
- * The `usersAdd` operation allows developers to add a new user to the CRM system by sending a POST request to the `/crm/users` endpoint. This operation is essential for integrating user management capabilities into applications that interact with the CRM.
- *
- * Key Parameters:
- * - `x-apideck-consumer-id` (header, required): Identifies the consumer from which data is being pushed or retrieved.
- * - `x-apideck-app-id` (header, required): Specifies the ID of the Unify application making the request.
- * - `x-apideck-service-id` (header, optional): Indicates the specific service to call, necessary when multiple integrations are active.
- * - `raw` (query, optional): Determines if the raw response should be included, useful for debugging.
- *
- * Upon successful creation, the operation returns a 201 status code along with a JSON object containing the unique identifier of the newly created user. This response confirms the successful addition of the user to the CRM system.
+ * The 'usersAdd' operation allows you to add a new user to your CRM system by sending a POST request to the /crm/users endpoint. This operation is essential for expanding your user base within the CRM, enabling better management and interaction with customer data. Key parameters include 'x-apideck-consumer-id' and 'x-apideck-app-id', which are required for authentication and routing the request to the correct application context. Optionally, 'raw' can be set to true to receive raw data for debugging purposes. Upon successful creation, the operation returns a 201 status code along with the ID of the newly created user in a JSON object.
  */
 export async function crmUsersCreate(
   client: ApideckCore,
@@ -80,12 +72,12 @@ export async function crmUsersCreate(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

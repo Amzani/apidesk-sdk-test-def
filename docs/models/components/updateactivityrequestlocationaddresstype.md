@@ -1,6 +1,6 @@
 # UpdateActivityRequestLocationAddressType
 
-Indicates the category or nature of the address, such as 'business' or 'residential'. This helps in classifying the address type for better organization and retrieval within the CRM system.
+Indicates the type of address, such as 'billing' or 'shipping'. This optional field helps categorize the address within the CRM, ensuring that the correct address type is used for the activity.
 
 ## Example Usage
 

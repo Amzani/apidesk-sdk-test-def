@@ -9,11 +9,11 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This object contains the updated contact resource details, including its unique identifier. It confirms the successful modification of the contact's information within the CRM system. The structure of this object aligns with the contact resource schema, ensuring consistency in data representation.
+ * This object contains the updated contact details after a successful PATCH request. It includes all the fields that were modified, ensuring that the contact information is current and accurate. The object serves as the main container for the updated resource data.
  */
 export type UpdateContactResponseUnifiedId = {
   /**
-   * The unique identifier of the contact that was updated. This string value serves as a confirmation that the specific contact resource has been successfully modified. It is crucial for tracking and referencing the updated contact within the CRM system.
+   * The unique identifier of the contact that was updated. This ID is crucial for referencing the specific contact record that has been modified in the CRM system. It confirms the successful update of the contact's information.
    */
   id: string;
 };
@@ -23,27 +23,27 @@ export type UpdateContactResponseUnifiedId = {
  */
 export type UpdateContactResponse = {
   /**
-   * The HTTP response status code indicating the result of the `contactsUpdate` operation. This integer value reflects whether the update was successful (e.g., 200 for success) or if there were errors (e.g., 4xx for client errors). It is crucial for determining the outcome of the API request.
+   * The HTTP response status code returned by the API. This integer value indicates the result of the PATCH operation, with a 200 status code signifying a successful update of the contact details. It helps in determining the outcome of the request programmatically.
    */
   statusCode: number;
   /**
-   * A string representation of the HTTP response status, such as 'OK' for a successful update. This provides a human-readable status that complements the numeric status code, helping developers quickly understand the result of the operation.
+   * A string representing the HTTP response status message. This provides a textual description of the status code, such as 'OK' for a successful update, aiding in understanding the result of the operation at a glance.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider that processed the `contactsUpdate` request. This string identifies which service within the Apideck ecosystem handled the update, useful for tracking and logging purposes.
+   * The Apideck ID of the service provider involved in the operation. This string identifies which service integration was used to update the contact, ensuring clarity in multi-service environments.
    */
   service: string;
   /**
-   * The name of the Unified API resource that was updated, in this case, a contact. This string helps developers confirm the type of resource affected by the operation, ensuring the correct entity was modified.
+   * The name of the unified API resource that was affected by the operation. This string indicates that the contact resource within the CRM was updated, providing context about the type of data modified.
    */
   resource: string;
   /**
-   * The specific operation performed, which in this context is 'update'. This string indicates the action taken on the resource, confirming that the contact details were modified as intended.
+   * A string that specifies the operation performed, in this case, 'update'. It confirms that the contact information was successfully modified, aligning with the PATCH request's intent.
    */
   operation: string;
   /**
-   * This object contains the updated contact resource details, including its unique identifier. It confirms the successful modification of the contact's information within the CRM system. The structure of this object aligns with the contact resource schema, ensuring consistency in data representation.
+   * This object contains the updated contact details after a successful PATCH request. It includes all the fields that were modified, ensuring that the contact information is current and accurate. The object serves as the main container for the updated resource data.
    */
   data: UpdateContactResponseUnifiedId;
 };

@@ -10,23 +10,23 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type LeadsFilter = {
   /**
-   * Filter companies by their name. This parameter allows you to narrow down the list of companies to those whose names match the specified string. Useful for searching specific companies within the CRM.
+   * Filters leads by their full name, allowing retrieval of specific lead records. Useful for narrowing down results to leads with a particular name.
    */
   name?: string | undefined;
   /**
-   * Filter contacts by their first name. This parameter allows you to narrow down the contact list to those whose first name matches the specified value. Useful for searching specific individuals or groups with the same first name.
+   * Filters leads by their first name, helping to locate specific individuals within the CRM data. Ideal for searches where the first name is known.
    */
   firstName?: string | undefined;
   /**
-   * Filter contacts by their last name. This parameter helps in retrieving contacts whose last name matches the given value, facilitating targeted searches within the contact database.
+   * Filters leads by their last name, aiding in the identification of specific leads. Useful when the last name is a key identifier.
    */
   lastName?: string | undefined;
   /**
-   * Filter contacts by their email address. Use this parameter to find contacts with a specific email, which is particularly useful for identifying unique contacts or verifying email-based records.
+   * Filter leads based on their email address. This parameter allows you to narrow down the results to leads with a specific email, facilitating targeted data retrieval.
    */
   email?: string | undefined;
   /**
-   * Filter contacts by their phone number. This parameter is ideal for locating contacts with a specific phone number, aiding in direct communication or verification processes.
+   * Filter leads by their phone number. Use this parameter to retrieve leads associated with a particular phone number, enabling precise data filtering.
    */
   phoneNumber?: string | undefined;
 };

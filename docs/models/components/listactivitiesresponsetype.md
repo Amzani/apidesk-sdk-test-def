@@ -1,6 +1,6 @@
 # ListActivitiesResponseType
 
-The type of activity being recorded, represented as a string. This field is mandatory and indicates the nature of the activity, such as a call, meeting, or task, providing essential context for understanding the activity's purpose within the CRM.
+The category or nature of the activity, indicating what type of action or event it represents within the CRM. This property is crucial for understanding the context and purpose of the activity, and it is required for processing and categorizing activities. The format is a string, and it may correspond to predefined activity types within the CRM system.
 
 ## Example Usage
 

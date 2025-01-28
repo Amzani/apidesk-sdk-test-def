@@ -1,6 +1,6 @@
 # ListContactsResponseDataPhoneNumbersType
 
-Indicates the category of the phone number, such as 'mobile', 'home', or 'work'. This helps in identifying the context in which the phone number is used, aiding in better contact management and communication strategies.
+Specifies the category of the phone number, such as 'mobile', 'home', or 'work'. This helps in identifying the context in which the phone number is used within the contact's details.
 
 ## Example Usage
 

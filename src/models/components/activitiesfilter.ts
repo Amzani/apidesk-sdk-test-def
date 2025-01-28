@@ -10,23 +10,23 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type ActivitiesFilter = {
   /**
-   * The 'filter.company_id' property is used to filter activities by a specific company ID. This allows you to narrow down the results to activities associated with a particular company.
+   * Filters activities by the specified company ID, allowing retrieval of activities associated with a particular company. Useful for narrowing down results to a specific business entity.
    */
   companyId?: string | undefined;
   /**
-   * The 'filter.owner_id' property is used to filter activities by a specific owner ID, enabling you to view activities managed by a particular owner.
+   * Filters activities by the specified owner ID, enabling the retrieval of activities managed by a particular owner. This is helpful for tracking activities assigned to specific team members.
    */
   ownerId?: string | undefined;
   /**
-   * Filter activities by the primary contact's unique identifier. This allows you to narrow down the results to activities associated with a specific contact.
+   * Filters activities by the primary contact ID, focusing the results on activities linked to a specific contact. Ideal for isolating interactions with particular individuals.
    */
   contactId?: string | undefined;
   /**
-   * Retrieve activities that have been updated since a specific date and time. This is useful for incremental data synchronization. The value should be in ISO 8601 format.
+   * Filter activities that have been updated since a specific date. This parameter helps in retrieving only the activities that have changed after the given timestamp, optimizing data synchronization processes.
    */
   updatedSince?: Date | undefined;
   /**
-   * Filter activities by their type, such as 'call', 'email', or 'meeting'. This helps in categorizing and retrieving specific types of interactions.
+   * Specify the type of activities to filter on. This allows for narrowing down the results to specific activity types, aiding in targeted data retrieval.
    */
   type?: string | undefined;
 };

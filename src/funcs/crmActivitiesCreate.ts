@@ -24,18 +24,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Add a new activity to the CRM system.
+ * Adds a new activity to the CRM system.
  *
  * @remarks
- * The `activitiesAdd` operation allows developers to create a new activity within the CRM system by sending a POST request to the `/crm/activities` endpoint. This operation is essential for integrating and managing customer interactions and tasks within a unified CRM platform.
- *
- * Key Parameters:
- * - `x-apideck-consumer-id` (header, required): Specifies the consumer ID for data retrieval or submission.
- * - `x-apideck-app-id` (header, required): Identifies the Unify application making the request.
- * - `x-apideck-service-id` (header, optional): Indicates the specific service to call, necessary when multiple integrations are active.
- * - `raw` (query, optional): Determines if the raw response should be included, mainly for debugging.
- *
- * Upon successful creation, the operation returns a `201` status code along with a JSON object containing the unique identifier of the newly created activity. This response confirms the successful addition of the activity to the CRM system.
+ * The activitiesAdd operation allows developers to add a new activity to the CRM system by sending a POST request to the /crm/activities endpoint. This operation is crucial for maintaining up-to-date records of interactions and engagements within the CRM. The request must include a valid x-apideck-consumer-id and x-apideck-app-id in the headers for authentication and authorization. Optionally, the x-apideck-service-id can be specified to target a specific service integration. The 'raw' query parameter can be set to true to receive the raw data response, useful for debugging. Upon successful creation, the API returns a 201 status code along with the ID of the newly created activity, encapsulated in a JSON object.
  */
 export async function crmActivitiesCreate(
   client: ApideckCore,
@@ -82,12 +74,12 @@ export async function crmActivitiesCreate(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

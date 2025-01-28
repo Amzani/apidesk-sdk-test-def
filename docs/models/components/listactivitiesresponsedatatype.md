@@ -1,6 +1,6 @@
 # ListActivitiesResponseDataType
 
-Indicates the category or classification of the address, such as 'home', 'work', or 'billing'. This helps in organizing and filtering addresses based on their intended use within CRM activities.
+Specifies the category or classification of the address, such as 'home', 'work', or 'billing'. This helps in organizing and filtering addresses based on their intended use within the CRM activities. The value is expected to be a string that describes the address type.
 
 ## Example Usage
 

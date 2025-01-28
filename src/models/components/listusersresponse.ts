@@ -10,7 +10,7 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Indicates the type of address, such as 'home', 'work', or 'billing'. This helps categorize the address for better organization and retrieval in applications that manage multiple address types for users.
+ * The type of address, such as 'home', 'work', or 'billing'. This string helps categorize the address for better organization and retrieval within the CRM system. Understanding the address type is essential for applications that need to differentiate between various address uses.
  */
 export const ListUsersResponseType = {
   Primary: "primary",
@@ -22,111 +22,111 @@ export const ListUsersResponseType = {
   Other: "other",
 } as const;
 /**
- * Indicates the type of address, such as 'home', 'work', or 'billing'. This helps categorize the address for better organization and retrieval in applications that manage multiple address types for users.
+ * The type of address, such as 'home', 'work', or 'billing'. This string helps categorize the address for better organization and retrieval within the CRM system. Understanding the address type is essential for applications that need to differentiate between various address uses.
  */
 export type ListUsersResponseType = ClosedEnum<typeof ListUsersResponseType>;
 
 export type ListUsersResponseAddresses = {
   /**
-   * A unique identifier for each address associated with the user. This ID is used to distinguish between different addresses and is crucial for operations that involve updating or deleting specific addresses.
+   * A unique identifier for each address associated with the user. This string serves as a primary key to distinguish between different addresses in the user's address list. It is crucial for operations that require specific address identification.
    */
   id?: string | null | undefined;
   /**
-   * Indicates the type of address, such as 'home', 'work', or 'billing'. This helps categorize the address for better organization and retrieval in applications that manage multiple address types for users.
+   * The type of address, such as 'home', 'work', or 'billing'. This string helps categorize the address for better organization and retrieval within the CRM system. Understanding the address type is essential for applications that need to differentiate between various address uses.
    */
   type?: ListUsersResponseType | null | undefined;
   /**
-   * The full address as a single string, which may include street, city, state, and postal code. This format is useful for APIs that do not provide structured address components, allowing for straightforward display and storage.
+   * The full address in a single string format. This field is used when the API does not provide structured address data, offering a complete address in one line. It is useful for applications that require a straightforward display of address information.
    */
   string?: string | null | undefined;
   /**
-   * The name associated with the address entry, such as 'Home' or 'Office'. This helps in identifying the purpose or type of address within the user's profile. It is returned as a string and is optional, meaning it may not be present for all addresses.
+   * The name associated with the address entry, typically representing the recipient or the entity at the location. This field helps identify the address within the CRM system and is useful for distinguishing between multiple addresses linked to a user. It is a non-mandatory field and can be left blank if not applicable.
    */
   name?: string | null | undefined;
   /**
-   * The primary line of the address, typically including the street number, street name, and any apartment or suite number. This is a crucial part of the address used for mailing and identification purposes, returned as a string.
+   * The primary line of the address, usually containing the street number, street name, and any apartment or suite number. This field is essential for accurately locating the address and is often the first line used in mailing labels and address forms. It is optional but recommended for clarity in address identification.
    */
   line1?: string | null | undefined;
   /**
-   * The secondary line of the address, often used for additional information such as building name or floor number. This field is optional and may not be present for all addresses, returned as a string.
+   * An additional line for the address, often used for supplementary information such as building names or additional directions. This field provides extra space for details that do not fit in the primary address line, enhancing the precision of the address. It is optional and can be omitted if not needed.
    */
   line2?: string | null | undefined;
   /**
-   * An additional line for the address, which can be used for further details like landmarks or specific instructions. This field is optional and is returned as a string, providing flexibility for complex addresses.
+   * A third line available for further address details, which can include secondary information like landmarks or specific delivery instructions. This field allows for comprehensive address descriptions, ensuring all necessary details are captured. It is optional and should be used as needed to complete the address.
    */
   line3?: string | null | undefined;
   /**
-   * A fourth line for the address, allowing for extra information that doesn't fit in the previous lines. This is optional and returned as a string, useful for comprehensive address details.
+   * A fourth line for additional address information, useful for capturing any remaining details that do not fit in the previous lines. This field ensures that all aspects of an address can be documented, providing flexibility in address formatting. It is optional and can be left empty if not required.
    */
   line4?: string | null | undefined;
   /**
-   * The street number component of the user's address, typically representing the numeric part of the address. This is used to identify the specific location on a street and is returned as a string. It is optional and may be empty if not provided in the CRM.
+   * The street number component of the user's address. This field contains the numeric part of the address, typically representing the building or house number. It is used to identify the specific location within a street for the user in the CRM system.
    */
   streetNumber?: string | null | undefined;
   /**
-   * The name of the city associated with the user's address. This string value helps in identifying the geographical location of the user within a country. It is optional and may be omitted if not available in the CRM data.
+   * The city name where the user resides. This field provides the name of the city as part of the user's address, helping to locate the user geographically within the CRM system.
    */
   city?: string | null | undefined;
   /**
-   * The state or region name where the user resides, provided as a string. This information is useful for regional segmentation and analysis of user data. It is optional and may not be present if the CRM does not store this detail.
+   * The state or region name associated with the user's address. This field specifies the state or administrative region, aiding in the geographical categorization of the user within the CRM system.
    */
   state?: string | null | undefined;
   /**
-   * The postal code or ZIP code for the user's address, formatted as a string. This code is crucial for mail delivery and location-based services. It is optional and may be absent if not recorded in the CRM.
+   * The postal code or ZIP code for the user's address. This field contains the code used for mail delivery purposes, helping to pinpoint the user's location more precisely within the CRM system.
    */
   postalCode?: string | null | undefined;
   /**
-   * The country code for the user's address, following the ISO 3166-1 alpha-2 standard. This two-letter code identifies the user's country and is essential for internationalization and localization processes. It is optional and may not be included if the CRM lacks this information.
+   * The country code of the user's address, formatted according to ISO 3166-1 alpha-2 standards. This field identifies the country in which the user resides, providing a standardized way to reference the user's national location within the CRM system.
    */
   country?: string | null | undefined;
   /**
-   * The latitude coordinate of the address, represented as a string. This value is used to pinpoint the geographical location of the user's address on a map. It is optional and may not be present if the address does not include geographical data.
+   * The latitude coordinate of the address, represented as a string. This value is part of the geographical data that helps pinpoint the exact location of a user's address in the CRM system. Useful for mapping and location-based services.
    */
   latitude?: string | null | undefined;
   /**
-   * The longitude coordinate of the address, represented as a string. This value helps in identifying the exact geographical location of the user's address. It is optional and may be omitted if the address lacks geographical information.
+   * The longitude coordinate of the address, represented as a string. This value complements the latitude to provide precise geographical positioning of a user's address within the CRM system. Essential for applications requiring location tracking or mapping.
    */
   longitude?: string | null | undefined;
   /**
-   * The county or sublocality associated with the address, provided as a string. This field helps in further categorizing the address within a larger geographical area, such as a state or region. It is optional and may not be included if the address does not specify a county.
+   * The county or sublocality associated with the address, stored as a string. This field provides additional geographical context, helping to identify the administrative region of the user's address in the CRM system. Useful for regional analysis and reporting.
    */
   county?: string | null | undefined;
   /**
-   * The full name of the contact person associated with the address, given as a string. This information is useful for identifying the primary individual at the address for communication purposes. It is optional and may be absent if no contact person is specified.
+   * The name of the contact person associated with the address, stored as a string. This information is crucial for identifying the primary individual at the location, facilitating communication and personalized interactions within the CRM system.
    */
   contactName?: string | null | undefined;
   /**
-   * The salutation or title of the contact person at the address, such as 'Mr.', 'Ms.', or 'Dr.', provided as a string. This field is used to address the contact person respectfully in communications. It is optional and may not be present if no salutation is specified.
+   * The salutation or title of the contact person at the address, such as 'Mr.', 'Ms.', or 'Dr.', stored as a string. This field helps in maintaining formal communication and personalization in interactions with the contact person.
    */
   salutation?: string | null | undefined;
   /**
-   * The phone number associated with the user's address. This is typically formatted as a string of digits, possibly including country and area codes, and is used for contact purposes. It is optional and may not be present for all users.
+   * The phone number associated with the user's address. This string should be formatted according to international dialing standards, including country code if applicable. It is used to contact the user directly via telephone and is part of the user's contact information in the CRM system.
    */
   phoneNumber?: string | null | undefined;
   /**
-   * The fax number linked to the user's address, provided as a string. This may include country and area codes and is used for sending documents via fax. It is optional and may not be available for all users.
+   * The fax number linked to the user's address. This string represents the fax contact information, which may be used for sending documents via fax machines. It is included as part of the user's contact details in the CRM system.
    */
   fax?: string | null | undefined;
   /**
-   * The email address associated with the user's address, formatted as a standard email string (e.g., user@example.com). This is used for electronic communication and is optional, meaning it might not be present for every user.
+   * The email address associated with the user's address. This string should be a valid email format and is used for electronic communication with the user. It forms a crucial part of the user's contact information within the CRM system.
    */
   email?: string | null | undefined;
   /**
-   * The website URL related to the user's address, provided as a string. This URL can be used to access the user's or organization's online presence and is optional, so it may not be included for all users.
+   * The website URL related to the user's address. This string should be a valid URL format and provides a link to the user's or their organization's online presence. It is part of the user's contact information in the CRM system.
    */
   website?: string | null | undefined;
   /**
-   * Additional notes regarding the user's address, stored as a string. These notes can include any extra information relevant to the address and are optional, meaning they might not be present for every user.
+   * Additional notes related to the user's address. This string can contain any supplementary information or comments about the address that may be useful for CRM users. It provides context or special instructions related to the user's address.
    */
   notes?: string | null | undefined;
   /**
-   * This property contains a versioning string that represents the current state of the user's address data. It is used to detect changes and prevent data conflicts by ensuring that updates are only applied to the latest version of the data. The value is automatically incremented with each update to the address, allowing for efficient synchronization and conflict resolution in applications that manage user data.
+   * The 'row_version' property contains a string that represents a binary value used for concurrency control. It is crucial for detecting updates to a user object and preventing data conflicts by ensuring that changes are only applied to the latest version of the data. This value is automatically incremented with each update to the user object, helping maintain data integrity in the CRM system.
    */
   rowVersion?: string | null | undefined;
 };
 
 /**
- * Specifies the type of phone number, such as 'mobile', 'home', or 'work'. This string field helps categorize the phone number for better organization and understanding of the user's contact methods.
+ * Specifies the type of phone number, such as 'mobile', 'home', or 'work'. This optional field helps categorize the phone number, allowing applications to handle different types of contact numbers appropriately. Understanding the type can be crucial for context-specific communication strategies.
  */
 export const ListUsersResponseDataType = {
   Primary: "primary",
@@ -142,7 +142,7 @@ export const ListUsersResponseDataType = {
   Other: "other",
 } as const;
 /**
- * Specifies the type of phone number, such as 'mobile', 'home', or 'work'. This string field helps categorize the phone number for better organization and understanding of the user's contact methods.
+ * Specifies the type of phone number, such as 'mobile', 'home', or 'work'. This optional field helps categorize the phone number, allowing applications to handle different types of contact numbers appropriately. Understanding the type can be crucial for context-specific communication strategies.
  */
 export type ListUsersResponseDataType = ClosedEnum<
   typeof ListUsersResponseDataType
@@ -150,33 +150,33 @@ export type ListUsersResponseDataType = ClosedEnum<
 
 export type ListUsersResponsePhoneNumbers = {
   /**
-   * A unique identifier for each phone number associated with the user. This ID is used to distinguish between different phone numbers in the system and is essential for operations that require specific phone number references.
+   * A unique identifier for each phone number entry within the user's phone numbers array. This ID is used to distinguish between different phone numbers associated with the same user.
    */
   id?: string | null | undefined;
   /**
-   * The international dialing code for the phone number, represented as a string (e.g., '+1' for the United States). This code is crucial for making international calls and is part of the complete phone number format.
+   * The international dialing code associated with the user's phone number, formatted as a string (e.g., '+1' for the United States). This code is essential for making international calls and is part of the complete phone number format.
    */
   countryCode?: string | null | undefined;
   /**
-   * The regional area code for the phone number, provided as a string (e.g., '323' for Los Angeles). This code helps in identifying the specific geographic region of the phone number within a country.
+   * The regional area code for the user's phone number, formatted as a string (e.g., '323' for Los Angeles). This code helps identify the specific geographic region of the phone number within a country.
    */
   areaCode?: string | null | undefined;
   /**
-   * The primary contact phone number associated with the user. This is a mandatory field and is expected to be in a standard international format, such as '+1234567890'. It is crucial for communication purposes and is often used in user profiles and contact lists.
+   * Contains the user's phone number in a standard format, such as E.164, which is essential for making calls or sending messages. This field is crucial for identifying the primary contact number of the user within the CRM system. It is a required field, ensuring that every user entry includes a valid phone number.
    */
   number: string;
   /**
-   * An optional extension number for the user's phone, typically used in corporate environments to direct calls within a larger phone system. This field is a string and may contain numeric characters, allowing for additional routing within an organization.
+   * Represents the extension number associated with the user's phone number, if applicable. This field is optional and is used in scenarios where direct dialing to a specific department or individual is needed within an organization. It enhances the phone number by providing additional routing information.
    */
   extension?: string | null | undefined;
   /**
-   * Specifies the type of phone number, such as 'mobile', 'home', or 'work'. This string field helps categorize the phone number for better organization and understanding of the user's contact methods.
+   * Specifies the type of phone number, such as 'mobile', 'home', or 'work'. This optional field helps categorize the phone number, allowing applications to handle different types of contact numbers appropriately. Understanding the type can be crucial for context-specific communication strategies.
    */
   type?: ListUsersResponseDataType | null | undefined;
 };
 
 /**
- * Specifies the type of email address, such as 'work', 'personal', or 'other'. This optional field helps categorize the email for better context and usage within applications.
+ * Specifies the type of email address, such as 'work' or 'personal'. This helps categorize the email for better organization and context within the CRM system. The value is optional and can be used to filter or sort email addresses based on their type.
  */
 export const ListUsersResponseDataEmailsType = {
   Primary: "primary",
@@ -187,7 +187,7 @@ export const ListUsersResponseDataEmailsType = {
   Other: "other",
 } as const;
 /**
- * Specifies the type of email address, such as 'work', 'personal', or 'other'. This optional field helps categorize the email for better context and usage within applications.
+ * Specifies the type of email address, such as 'work' or 'personal'. This helps categorize the email for better organization and context within the CRM system. The value is optional and can be used to filter or sort email addresses based on their type.
  */
 export type ListUsersResponseDataEmailsType = ClosedEnum<
   typeof ListUsersResponseDataEmailsType
@@ -195,95 +195,95 @@ export type ListUsersResponseDataEmailsType = ClosedEnum<
 
 export type ListUsersResponseEmails = {
   /**
-   * A unique identifier for each email address within the user's email list. This string is used to distinguish between different email entries, facilitating management and updates of email records.
+   * A unique identifier for each email address associated with the user, used to distinguish between multiple email entries. This optional field is crucial for operations that require precise identification and management of email addresses within the CRM system.
    */
   id?: string | null | undefined;
   /**
-   * The primary email address associated with the user account. This is a required field and is always returned as a valid email string, ensuring that applications can reliably use it for communication or identification purposes.
+   * The primary email address associated with the user. This field is crucial for user identification and communication within the CRM system. It is expected to be in a standard email format (e.g., user@example.com).
    */
   email: string | null;
   /**
-   * Specifies the type of email address, such as 'work', 'personal', or 'other'. This optional field helps categorize the email for better context and usage within applications.
+   * Specifies the type of email address, such as 'work' or 'personal'. This helps categorize the email for better organization and context within the CRM system. The value is optional and can be used to filter or sort email addresses based on their type.
    */
   type?: ListUsersResponseDataEmailsType | null | undefined;
 };
 
 /**
- * Contains any custom mappings configured for the user resource. This object is included when custom mappings are set up, providing additional context or integration-specific data that may be necessary for certain applications.
+ * Contains any custom mappings configured for the user resource. This object provides additional, user-specific data that may not be part of the standard schema, allowing for extended customization and integration flexibility.
  */
 export type ListUsersResponseCustomMappings = {};
 
 export type ListUsersResponseExtendPaths = {
   /**
-   * A JSONPath string that specifies the exact location within the JSON structure where the value should be applied. This allows for precise targeting of data fields within the response, ensuring that the correct data is modified or accessed.
+   * Specifies the JSONPath string where the value should be applied within the user data. This path allows precise targeting of data fields for updates or retrieval, ensuring that the correct data is manipulated or accessed in the CRM system.
    */
   path: string;
   /**
-   * The value to be set at the specified JSONPath. This can be of any data type, allowing flexibility in the kind of data that can be inserted or updated at the targeted path within the JSON structure.
+   * Represents the value to be set at the specified JSONPath. This value can be of any data type, allowing flexibility in the kind of data that can be inserted or updated within the user records.
    */
   value?: any | undefined;
 };
 
 export type ListUsersResponsePassThrough = {
   /**
-   * A string identifier that specifies the service to which the pass_through data should be applied. This is crucial when dealing with multiple integrations, ensuring that the correct service processes the additional data. It is always required to direct the pass_through data accurately.
+   * A string identifier for the specific service to which the pass_through data should be applied. This ensures that the custom data is directed to the correct service within the CRM system.
    */
   serviceId: string;
   /**
-   * An optional string identifier for a specific workflow operation that the pass_through data should target. This is particularly useful in scenarios where a single API call triggers multiple downstream requests, allowing precise control over which operation receives the data.
+   * An optional string identifier for a specific workflow operation. This is particularly useful for Unify calls that involve multiple downstream requests, allowing for precise targeting of the pass_through data.
    */
   operationId?: string | undefined;
   /**
-   * An object that allows for direct extension with any properties, providing a flexible structure for additional data. This can be used to include custom fields or configurations that are not predefined, adapting the response to specific needs.
+   * An object that can contain any properties for direct extension. This allows developers to add custom fields or data structures to the response, providing additional flexibility in handling API responses.
    */
   extendObject?: { [k: string]: any } | undefined;
   /**
-   * An array of objects designed for structured data modifications via specified paths. This allows developers to apply precise changes or additions to the data structure, facilitating complex integrations or custom workflows.
+   * An array of objects used for structured data modifications via paths. This property enables developers to specify precise modifications to the data structure, enhancing the customization of the API response.
    */
   extendPaths?: Array<ListUsersResponseExtendPaths> | undefined;
 };
 
 export type ListUsersResponseData = {
   /**
-   * A unique string identifier assigned to each user within the CRM system. This ID is crucial for distinguishing between different users and is used in various operations to reference specific user records. It is typically a non-empty string when a user is present in the system.
+   * The unique identifier for each user within the CRM system. This ID is crucial for distinguishing between different users and is often used in operations that require user-specific data retrieval or manipulation.
    */
   id?: string | undefined;
   /**
-   * The identifier of the parent user, if applicable, indicating a hierarchical relationship within the CRM. This field is useful for understanding user roles and relationships, especially in organizations with complex structures. It is a string value that may be empty if no parent relationship exists.
+   * The identifier for the parent user, if applicable, indicating a hierarchical relationship between users. This field is useful for understanding user roles and relationships within the CRM system, especially in organizations with complex user structures.
    */
   parentId?: string | null | undefined;
   /**
-   * The username associated with the user, used for login and identification purposes within the CRM. This string value is unique to each user and is essential for authentication and user management processes. It is typically a non-empty string for active users.
+   * The username assigned to the user, used for login and identification purposes within the CRM system. This field is important for authentication processes and user-specific operations.
    */
   username?: string | null | undefined;
   /**
-   * The first name of the user, representing their given name as stored in the CRM. This string value is used in user interfaces and communications to personalize interactions. It is generally a non-empty string for users with complete profiles.
+   * The first name of the user, providing a personal identifier that is often used in user interfaces and communications. This field helps personalize interactions and display user information in a more human-readable format.
    */
   firstName?: string | null | undefined;
   /**
-   * The last name of the user as recorded in the CRM system. This field is optional and may be empty if the last name is not provided. It is used to identify and display user information in applications that integrate with the CRM.
+   * The last name of the user in the CRM system. This field provides the surname or family name, which is part of the user's personal identification details. It is used in conjunction with other personal data to uniquely identify a user within the system.
    */
   lastName?: string | null | undefined;
   /**
-   * The job title of the user within their organization. This string field provides insight into the user's role and responsibilities, and is useful for applications that need to display or categorize users based on their professional titles.
+   * The professional job title of the user within their organization. This field indicates the user's role or position, which can be useful for understanding their responsibilities and hierarchy within the company. It is typically a string value representing titles like 'Manager', 'Developer', etc.
    */
   title?: string | null | undefined;
   /**
-   * The division within the organization where the user is currently assigned. This field helps categorize users into larger organizational units, such as collections of departments, teams, or regions, and is useful for organizational reporting and analysis.
+   * The division within the organization where the user is currently assigned. This field represents a higher-level grouping of departments, teams, or regions, providing context about the user's organizational structure. It helps in understanding the broader area of the company the user is associated with.
    */
   division?: string | null | undefined;
   /**
-   * The department where the user is currently assigned. This field is deprecated in favor of 'department_id' and 'department_name' fields, but it may still appear in responses for backward compatibility. It helps in identifying the user's specific organizational unit.
+   * The specific department within the organization where the user is currently assigned. Although deprecated in favor of 'department_id' and 'department_name', this field historically provided insight into the user's immediate working group or area of expertise. It is a string value that may still appear in legacy systems.
    *
    * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   department?: string | null | undefined;
   /**
-   * The name of the company the user is associated with. This field provides context about the user's employer and is essential for applications that display or process company-related user data. It is returned as a string and may be used in conjunction with other company-specific fields.
+   * The name of the company the user is associated with in the CRM system. This field provides the official name of the organization, which is crucial for identifying the user's employer or business entity. It is a string value that helps in linking the user to their corporate identity.
    */
   companyName?: string | null | undefined;
   /**
-   * A unique identifier assigned to each employee within the company, such as an Employee Number, Employee ID, or Employee Code. This string is used to uniquely identify staff members in the CRM system and can be utilized for tracking and managing employee-related data.
+   * A unique identifier assigned to each employee within the company. This string value serves as an Employee Number, Employee ID, or Employee Code, and is used to uniquely distinguish staff members in the CRM system. It is not required but can be useful for tracking and managing employee records.
    */
   employeeNumber?: string | null | undefined;
   /**
@@ -291,93 +291,93 @@ export type ListUsersResponseData = {
    */
   description?: string | null | undefined;
   /**
-   * The URL pointing to the user's avatar image. This string should be a valid URL and is used to visually represent the user in the CRM interface or any integrated applications.
+   * The URL pointing to the user's avatar image. This string should be a valid URL format and is used to visually represent the user in applications that integrate with the CRM system. It is optional but enhances user profiles by providing a visual identifier.
    */
   image?: string | null | undefined;
   /**
-   * The language code representing the user's preferred language, formatted according to ISO 639-1 standards (e.g., 'EN' for English). This string helps in localizing content and communications for the user within the CRM system.
+   * The language preference of the user, represented by a language code according to ISO 639-1 standards. For example, 'EN' for English as used in the United States. This string helps in localizing content and communications for the user within the CRM system.
    */
   language?: string | null | undefined;
   /**
-   * The current status of the user within the CRM system, such as 'active', 'inactive', or 'pending'. This string indicates the user's availability or engagement level and can be used to filter or manage user interactions.
+   * The current status of the user within the CRM system. This string indicates whether the user is active, inactive, or in another state, affecting their accessibility and interaction with the CRM functionalities. Understanding the user's status is crucial for managing permissions and roles.
    */
   status?: string | null | undefined;
   /**
-   * An array containing the user's addresses. Each address is represented as an object within the array, allowing for multiple addresses to be associated with a single user. This structure supports detailed address information, including type and specific address strings.
+   * An array of address objects associated with the user. Each object within the array represents a distinct address, providing detailed location information for the user. This field is optional and may be empty if no addresses are associated with the user.
    */
   addresses?: Array<ListUsersResponseAddresses> | undefined;
   /**
-   * An array containing the user's phone numbers, each represented as an object with specific details such as ID, country code, and area code. This allows applications to access and display multiple contact numbers associated with a user.
+   * An array containing the user's phone numbers, each represented as an object with specific details such as ID, country code, and area code. This array allows developers to access all phone numbers associated with a user in a structured format.
    */
   phoneNumbers?: Array<ListUsersResponsePhoneNumbers> | undefined;
   /**
-   * A list of email addresses associated with the user. This array contains multiple email objects, each representing a unique email address used for communication. It is essential for identifying and contacting the user electronically.
+   * An array containing the user's email addresses, each represented as an object with specific attributes. This field is required and provides a comprehensive list of all email contacts associated with the user, facilitating communication and integration with email-based services.
    */
   emails: Array<ListUsersResponseEmails>;
   /**
-   * Contains any custom mappings configured for the user resource. This object is included when custom mappings are set up, providing additional context or integration-specific data that may be necessary for certain applications.
+   * Contains any custom mappings configured for the user resource. This object provides additional, user-specific data that may not be part of the standard schema, allowing for extended customization and integration flexibility.
    */
   customMappings?: ListUsersResponseCustomMappings | null | undefined;
   /**
-   * Indicates the date and time when the user's information was last updated in the system. This timestamp is formatted as an ISO 8601 string, allowing developers to track changes and synchronize data efficiently.
+   * The timestamp indicating when the user's information was last updated in the CRM system. This is useful for tracking changes and ensuring data freshness. The format is typically ISO 8601 (e.g., '2023-01-01T12:00:00Z').
    */
   updatedAt?: string | null | undefined;
   /**
-   * Represents the date and time when the user account was initially created. Provided as an ISO 8601 formatted string, this field helps in understanding the account's age and history within the CRM system.
+   * The timestamp indicating when the user was initially created in the CRM system. This helps in understanding the user's history and tenure within the system. The format follows ISO 8601 standards (e.g., '2023-01-01T12:00:00Z').
    */
   createdAt?: string | null | undefined;
   /**
-   * This property contains an array of objects that allow for the inclusion of service-specific custom data or modifications. It is used to pass additional structured data when retrieving user information, enhancing the flexibility of the response. The array format supports multiple entries, each potentially targeting different services or operations.
+   * An array that holds service-specific custom data or structured modifications. This property allows developers to pass additional data when creating or updating resources, enhancing the flexibility of the API's response.
    */
   passThrough?: Array<ListUsersResponsePassThrough> | undefined;
 };
 
 /**
- * An object containing cursor information used for navigating through paginated API responses. It includes pointers to the previous and next pages, facilitating efficient data retrieval across multiple requests.
+ * Provides cursors for navigating through paginated API responses. These cursors enable developers to efficiently move to previous or next pages of user data, facilitating seamless data retrieval in applications that require browsing through large datasets.
  */
 export type ListUsersResponseCursors = {
   /**
-   * A string representing the cursor used to navigate to the previous page of results in the API response. This is useful for paginating through large sets of user data, allowing developers to efficiently access earlier pages of results.
+   * A string representing the cursor used to navigate to the previous page of results in the API response. This is useful for implementing pagination in applications that consume the API, allowing users to easily access earlier pages of user data.
    */
   previous?: string | null | undefined;
   /**
-   * A string that indicates the cursor for the current page of results in the API response. This helps developers understand their current position within the paginated data set, ensuring accurate data retrieval.
+   * A string that indicates the cursor for the current page of results in the API response. This helps in tracking the current position within the paginated data, ensuring consistent data retrieval across requests.
    */
   current?: string | null | undefined;
   /**
-   * A string representing the cursor used to navigate to the next page of results in the API response. This facilitates seamless pagination by allowing developers to move forward through the list of users.
+   * A string representing the cursor used to navigate to the next page of results in the API response. This facilitates pagination by enabling applications to load subsequent pages of user data seamlessly.
    */
   next?: string | null | undefined;
 };
 
 /**
- * An object containing metadata about the response, such as pagination details or request identifiers. This information helps in understanding the context of the response and managing subsequent API calls effectively.
+ * Contains metadata about the response, providing additional context such as pagination details or request processing information. This object helps in understanding the structure and status of the response received from the API.
  */
 export type ListUsersResponseMeta = {
   /**
-   * An integer indicating the number of user records returned in the current page of the response. This helps in understanding the volume of data retrieved and is useful for implementing pagination in client applications.
+   * Indicates the number of user records returned in the current response. This helps in understanding the volume of data retrieved and is useful for managing pagination and data display in applications.
    */
   itemsOnPage?: number | undefined;
   /**
-   * An object containing cursor information used for navigating through paginated API responses. It includes pointers to the previous and next pages, facilitating efficient data retrieval across multiple requests.
+   * Provides cursors for navigating through paginated API responses. These cursors enable developers to efficiently move to previous or next pages of user data, facilitating seamless data retrieval in applications that require browsing through large datasets.
    */
   cursors?: ListUsersResponseCursors | undefined;
 };
 
 /**
- * An object containing links for navigating between pages of results in the API response. This object typically includes URLs for accessing previous and next pages, aiding in efficient data traversal.
+ * An object containing links that facilitate navigation between pages of results in the API response. This includes links to both previous and next pages, aiding in the implementation of pagination controls.
  */
 export type ListUsersResponseLinks = {
   /**
-   * A string URL that provides a direct link to navigate to the previous page of results in the API response. This link is part of the pagination mechanism, enabling backward navigation through user data.
+   * A string URL that provides a direct link to navigate to the previous page of results in the API response. This is part of the pagination mechanism, allowing users to easily return to earlier data pages.
    */
   previous?: string | null | undefined;
   /**
-   * This property contains the URL link to the current page of the user list in the CRM system. It is a string formatted as a standard URL, allowing developers to easily access the current set of user data being viewed. This link is particularly useful for maintaining the current state in paginated responses.
+   * The 'links.current' property contains a URL string that directs to the current page of the user list in the CRM system. This link is useful for maintaining the current view state when navigating through paginated results. It helps developers implement seamless navigation within the user data fetched by the 'usersAll' operation.
    */
   current?: string | undefined;
   /**
-   * This property provides the URL link to the next page of the user list in the CRM system. It is formatted as a string URL, enabling seamless navigation to subsequent pages of user data. This link is essential for applications implementing pagination to efficiently load additional user records.
+   * The 'links.next' property provides a URL string that points to the next page of the user list in the CRM system. This link is essential for implementing pagination, allowing developers to fetch subsequent pages of user data efficiently. It ensures smooth data retrieval when handling large sets of user information in the 'usersAll' operation.
    */
   next?: string | null | undefined;
 };
@@ -387,35 +387,35 @@ export type ListUsersResponseLinks = {
  */
 export type ListUsersResponse = {
   /**
-   * The HTTP response status code indicating the result of the API request. This integer value helps determine if the request was successful (e.g., 200 for success) or if there was an error (e.g., 404 for not found). It is essential for error handling and debugging.
+   * The HTTP response status code returned by the server, indicating the result of the GET request to the '/crm/users' endpoint. This integer value helps developers understand whether the request was successful (e.g., 200 for success) or if there was an error (e.g., 404 for not found). It is essential for error handling and debugging.
    */
   statusCode: number;
   /**
-   * A string representation of the HTTP response status, such as 'OK' for a successful request or 'Not Found' for an error. This provides a human-readable explanation of the status code and is useful for logging and user feedback.
+   * A textual representation of the HTTP response status, such as 'OK' for a successful request or 'Not Found' for an unsuccessful one. This string provides a human-readable explanation of the 'status_code' and aids in quickly understanding the outcome of the API call.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider from which the user data is retrieved. This string uniquely identifies the service within the Apideck ecosystem, ensuring that the correct integration is accessed.
+   * The Apideck ID of the service provider from which the user data is being fetched. This string uniquely identifies the service within the Apideck ecosystem, helping developers determine the source of the data in the response.
    */
   service: string;
   /**
-   * The name of the unified API resource being accessed, such as 'users'. This string indicates the type of data returned by the API and is crucial for understanding the context of the response.
+   * The name of the unified API resource being accessed, in this case, 'users'. This string indicates the type of data returned in the response, aligning with the endpoint's purpose of fetching user information from the CRM system.
    */
   resource: string;
   /**
-   * The specific operation performed by the API, in this case, 'usersAll'. This string helps identify the action taken, which is useful for tracking and auditing API usage.
+   * The specific operation performed by the API, which in this context is 'usersAll'. This string helps developers understand the action taken by the API, confirming that the request was to retrieve all user data from the CRM system.
    */
   operation: string;
   /**
-   * An array containing user objects retrieved from the CRM system. Each object in the array represents a user and includes detailed information such as user ID, username, and personal details. This array is the primary container for user data in the response, allowing applications to iterate over and process each user's information.
+   * An array containing user objects, each representing a user in the CRM system. This array is the main component of the response, providing structured access to user details such as IDs, usernames, and names. It is essential for applications that need to process or display multiple user records simultaneously.
    */
   data: Array<ListUsersResponseData>;
   /**
-   * An object containing metadata about the response, such as pagination details or request identifiers. This information helps in understanding the context of the response and managing subsequent API calls effectively.
+   * Contains metadata about the response, providing additional context such as pagination details or request processing information. This object helps in understanding the structure and status of the response received from the API.
    */
   meta?: ListUsersResponseMeta | undefined;
   /**
-   * An object containing links for navigating between pages of results in the API response. This object typically includes URLs for accessing previous and next pages, aiding in efficient data traversal.
+   * An object containing links that facilitate navigation between pages of results in the API response. This includes links to both previous and next pages, aiding in the implementation of pagination controls.
    */
   links?: ListUsersResponseLinks | undefined;
 };

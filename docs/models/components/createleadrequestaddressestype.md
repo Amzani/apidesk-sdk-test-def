@@ -1,6 +1,6 @@
 # CreateLeadRequestAddressesType
 
-Defines the category of the address, such as 'home', 'work', or 'billing'. This classification aids in understanding the context and purpose of the address within the lead's profile. Ensure the type is a valid string that represents the address's function.
+Defines the category or purpose of the address, such as 'home', 'work', or 'billing'. This helps in organizing and utilizing addresses based on their intended use. It should be a clear string that specifies the address type.
 
 ## Example Usage
 

@@ -1,6 +1,6 @@
 # ListUsersResponseDataType
 
-Specifies the type of phone number, such as 'mobile', 'home', or 'work'. This string field helps categorize the phone number for better organization and understanding of the user's contact methods.
+Specifies the type of phone number, such as 'mobile', 'home', or 'work'. This optional field helps categorize the phone number, allowing applications to handle different types of contact numbers appropriately. Understanding the type can be crucial for context-specific communication strategies.
 
 ## Example Usage
 

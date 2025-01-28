@@ -1,6 +1,6 @@
 # ListLeadsResponseDataEmailsType
 
-Specifies the type of email address, such as 'work', 'personal', or 'other'. This helps categorize the email addresses for better organization and retrieval. The value is optional and can be a predefined string.
+Specifies the type of email address, such as 'work', 'personal', or 'other'. This helps categorize the email for better organization and retrieval within the CRM system.
 
 ## Example Usage
 

@@ -94,7 +94,6 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 
 ```typescript
 import { Apideck } from "apideck";
-import { RFCDate } from "apideck/types";
 
 const apideck = new Apideck({
   apiKey: process.env["APIDECK_API_KEY"] ?? "",
@@ -103,274 +102,27 @@ const apideck = new Apideck({
 });
 
 async function run() {
-  const result = await apideck.crm.companies.create({
+  const result = await apideck.crm.companies.list({
     raw: false,
     serviceId: "salesforce",
-    createCompanyRequest: {
+    limit: 20,
+    filter: {
       name: "SpaceX",
-      ownerId: "12345",
-      image: "https://www.spacex.com/static/images/share.jpg",
-      description:
-        "Space Exploration Technologies Corp. is an American aerospace manufacturer, space transportation services and communications company headquartered in Hawthorne, California.",
-      vatNumber: "BE0689615164",
-      currency: "USD",
-      status: "Open",
-      fax: "+12129876543",
-      annualRevenue: "+$35m",
-      numberOfEmployees: "500-1000",
-      industry: "Apparel",
-      ownership: "Public",
-      salesTaxNumber: "12456EN",
-      payeeNumber: "78932EN",
-      abnOrTfn: "46 115 614 695",
-      abnBranch: "123",
-      acn: "XXX XXX XXX",
-      firstName: "Elon",
-      lastName: "Musk",
-      bankAccounts: [
-        {
-          bankName: "Monzo",
-          accountNumber: "123465",
-          accountName: "SPACEX LLC",
-          accountType: "credit_card",
-          iban: "CH2989144532982975332",
-          bic: "AUDSCHGGXXX",
-          routingNumber: "012345678",
-          bsbNumber: "062-001",
-          branchIdentifier: "001",
-          bankCode: "BNH",
-          currency: "USD",
-        },
-        {
-          bankName: "Monzo",
-          accountNumber: "123465",
-          accountName: "SPACEX LLC",
-          accountType: "credit_card",
-          iban: "CH2989144532982975332",
-          bic: "AUDSCHGGXXX",
-          routingNumber: "012345678",
-          bsbNumber: "062-001",
-          branchIdentifier: "001",
-          bankCode: "BNH",
-          currency: "USD",
-        },
-      ],
-      websites: [
-        {
-          id: "12345",
-          url: "http://example.com",
-          type: "primary",
-        },
-        {
-          id: "12345",
-          url: "http://example.com",
-          type: "primary",
-        },
-      ],
-      addresses: [
-        {
-          id: "123",
-          type: "primary",
-          string: "25 Spring Street, Blackburn, VIC 3130",
-          name: "HQ US",
-          line1: "Main street",
-          line2: "apt #",
-          line3: "Suite #",
-          line4: "delivery instructions",
-          streetNumber: "25",
-          city: "San Francisco",
-          state: "CA",
-          postalCode: "94104",
-          country: "US",
-          latitude: "40.759211",
-          longitude: "-73.984638",
-          county: "Santa Clara",
-          contactName: "Elon Musk",
-          salutation: "Mr",
-          phoneNumber: "111-111-1111",
-          fax: "122-111-1111",
-          email: "elon@musk.com",
-          website: "https://elonmusk.com",
-          notes: "Address notes or delivery instructions.",
-          rowVersion: "1-12345",
-        },
-        {
-          id: "123",
-          type: "primary",
-          string: "25 Spring Street, Blackburn, VIC 3130",
-          name: "HQ US",
-          line1: "Main street",
-          line2: "apt #",
-          line3: "Suite #",
-          line4: "delivery instructions",
-          streetNumber: "25",
-          city: "San Francisco",
-          state: "CA",
-          postalCode: "94104",
-          country: "US",
-          latitude: "40.759211",
-          longitude: "-73.984638",
-          county: "Santa Clara",
-          contactName: "Elon Musk",
-          salutation: "Mr",
-          phoneNumber: "111-111-1111",
-          fax: "122-111-1111",
-          email: "elon@musk.com",
-          website: "https://elonmusk.com",
-          notes: "Address notes or delivery instructions.",
-          rowVersion: "1-12345",
-        },
-      ],
-      socialLinks: [
-        {
-          id: "12345",
-          url: "https://www.twitter.com/apideck",
-          type: "twitter",
-        },
-      ],
-      phoneNumbers: [
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-      ],
-      emails: [
-        {
-          id: "123",
-          email: "elon@musk.com",
-          type: "primary",
-        },
-        {
-          id: "123",
-          email: "elon@musk.com",
-          type: "primary",
-        },
-        {
-          id: "123",
-          email: "elon@musk.com",
-          type: "primary",
-        },
-      ],
-      rowType: {
-        id: "12345",
-        name: "Customer Account",
-      },
-      customFields: [
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: "Uses Salesforce and Marketo",
-        },
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: 10,
-        },
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: "Uses Salesforce and Marketo",
-        },
-      ],
-      tags: [
-        "New",
-      ],
-      readOnly: false,
-      salutation: "Mr",
-      birthday: new RFCDate("2000-08-12"),
-      passThrough: [
-        {
-          serviceId: "<id>",
-          extendPaths: [
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-          ],
-        },
-        {
-          serviceId: "<id>",
-          extendPaths: [
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-          ],
-        },
-        {
-          serviceId: "<id>",
-          extendPaths: [
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-          ],
-        },
-      ],
     },
+    sort: {
+      by: "created_at",
+      direction: "desc",
+    },
+    passThrough: {
+      "search": "San Francisco",
+    },
+    fields: "id,updated_at",
   });
 
-  // Handle the result
-  console.log(result);
+  for await (const page of result) {
+    // Handle the page
+    console.log(page);
+  }
 }
 
 run();
@@ -392,7 +144,6 @@ This SDK supports the following security scheme globally:
 To authenticate with the API the `apiKey` parameter must be set when initializing the SDK client instance. For example:
 ```typescript
 import { Apideck } from "apideck";
-import { RFCDate } from "apideck/types";
 
 const apideck = new Apideck({
   apiKey: process.env["APIDECK_API_KEY"] ?? "",
@@ -401,274 +152,27 @@ const apideck = new Apideck({
 });
 
 async function run() {
-  const result = await apideck.crm.companies.create({
+  const result = await apideck.crm.companies.list({
     raw: false,
     serviceId: "salesforce",
-    createCompanyRequest: {
+    limit: 20,
+    filter: {
       name: "SpaceX",
-      ownerId: "12345",
-      image: "https://www.spacex.com/static/images/share.jpg",
-      description:
-        "Space Exploration Technologies Corp. is an American aerospace manufacturer, space transportation services and communications company headquartered in Hawthorne, California.",
-      vatNumber: "BE0689615164",
-      currency: "USD",
-      status: "Open",
-      fax: "+12129876543",
-      annualRevenue: "+$35m",
-      numberOfEmployees: "500-1000",
-      industry: "Apparel",
-      ownership: "Public",
-      salesTaxNumber: "12456EN",
-      payeeNumber: "78932EN",
-      abnOrTfn: "46 115 614 695",
-      abnBranch: "123",
-      acn: "XXX XXX XXX",
-      firstName: "Elon",
-      lastName: "Musk",
-      bankAccounts: [
-        {
-          bankName: "Monzo",
-          accountNumber: "123465",
-          accountName: "SPACEX LLC",
-          accountType: "credit_card",
-          iban: "CH2989144532982975332",
-          bic: "AUDSCHGGXXX",
-          routingNumber: "012345678",
-          bsbNumber: "062-001",
-          branchIdentifier: "001",
-          bankCode: "BNH",
-          currency: "USD",
-        },
-        {
-          bankName: "Monzo",
-          accountNumber: "123465",
-          accountName: "SPACEX LLC",
-          accountType: "credit_card",
-          iban: "CH2989144532982975332",
-          bic: "AUDSCHGGXXX",
-          routingNumber: "012345678",
-          bsbNumber: "062-001",
-          branchIdentifier: "001",
-          bankCode: "BNH",
-          currency: "USD",
-        },
-      ],
-      websites: [
-        {
-          id: "12345",
-          url: "http://example.com",
-          type: "primary",
-        },
-        {
-          id: "12345",
-          url: "http://example.com",
-          type: "primary",
-        },
-      ],
-      addresses: [
-        {
-          id: "123",
-          type: "primary",
-          string: "25 Spring Street, Blackburn, VIC 3130",
-          name: "HQ US",
-          line1: "Main street",
-          line2: "apt #",
-          line3: "Suite #",
-          line4: "delivery instructions",
-          streetNumber: "25",
-          city: "San Francisco",
-          state: "CA",
-          postalCode: "94104",
-          country: "US",
-          latitude: "40.759211",
-          longitude: "-73.984638",
-          county: "Santa Clara",
-          contactName: "Elon Musk",
-          salutation: "Mr",
-          phoneNumber: "111-111-1111",
-          fax: "122-111-1111",
-          email: "elon@musk.com",
-          website: "https://elonmusk.com",
-          notes: "Address notes or delivery instructions.",
-          rowVersion: "1-12345",
-        },
-        {
-          id: "123",
-          type: "primary",
-          string: "25 Spring Street, Blackburn, VIC 3130",
-          name: "HQ US",
-          line1: "Main street",
-          line2: "apt #",
-          line3: "Suite #",
-          line4: "delivery instructions",
-          streetNumber: "25",
-          city: "San Francisco",
-          state: "CA",
-          postalCode: "94104",
-          country: "US",
-          latitude: "40.759211",
-          longitude: "-73.984638",
-          county: "Santa Clara",
-          contactName: "Elon Musk",
-          salutation: "Mr",
-          phoneNumber: "111-111-1111",
-          fax: "122-111-1111",
-          email: "elon@musk.com",
-          website: "https://elonmusk.com",
-          notes: "Address notes or delivery instructions.",
-          rowVersion: "1-12345",
-        },
-      ],
-      socialLinks: [
-        {
-          id: "12345",
-          url: "https://www.twitter.com/apideck",
-          type: "twitter",
-        },
-      ],
-      phoneNumbers: [
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-      ],
-      emails: [
-        {
-          id: "123",
-          email: "elon@musk.com",
-          type: "primary",
-        },
-        {
-          id: "123",
-          email: "elon@musk.com",
-          type: "primary",
-        },
-        {
-          id: "123",
-          email: "elon@musk.com",
-          type: "primary",
-        },
-      ],
-      rowType: {
-        id: "12345",
-        name: "Customer Account",
-      },
-      customFields: [
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: "Uses Salesforce and Marketo",
-        },
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: 10,
-        },
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: "Uses Salesforce and Marketo",
-        },
-      ],
-      tags: [
-        "New",
-      ],
-      readOnly: false,
-      salutation: "Mr",
-      birthday: new RFCDate("2000-08-12"),
-      passThrough: [
-        {
-          serviceId: "<id>",
-          extendPaths: [
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-          ],
-        },
-        {
-          serviceId: "<id>",
-          extendPaths: [
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-          ],
-        },
-        {
-          serviceId: "<id>",
-          extendPaths: [
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-          ],
-        },
-      ],
     },
+    sort: {
+      by: "created_at",
+      direction: "desc",
+    },
+    passThrough: {
+      "search": "San Francisco",
+    },
+    fields: "id,updated_at",
   });
 
-  // Handle the result
-  console.log(result);
+  for await (const page of result) {
+    // Handle the page
+    console.log(page);
+  }
 }
 
 run();
@@ -688,43 +192,43 @@ run();
 
 #### [crm.activities](docs/sdks/activities/README.md)
 
-* [list](docs/sdks/activities/README.md#list) - Retrieve all CRM activities with customizable query options.
-* [create](docs/sdks/activities/README.md#create) - Add a new activity to the CRM system.
+* [list](docs/sdks/activities/README.md#list) - Retrieve all CRM activities with optional filtering and sorting.
+* [create](docs/sdks/activities/README.md#create) - Adds a new activity to the CRM system.
 * [get](docs/sdks/activities/README.md#get) - Retrieve a specific CRM activity by its ID.
-* [update](docs/sdks/activities/README.md#update) - Update an existing activity record in the CRM.
-* [delete](docs/sdks/activities/README.md#delete) - Delete a specific CRM activity by its ID.
+* [update](docs/sdks/activities/README.md#update) - Update an existing CRM activity record by its ID.
+* [delete](docs/sdks/activities/README.md#delete) - Deletes a specified activity record from the CRM system.
 
 #### [crm.companies](docs/sdks/companies/README.md)
 
-* [create](docs/sdks/companies/README.md#create) - Add a new company to the CRM system.
-* [list](docs/sdks/companies/README.md#list) - Retrieve a list of companies from the CRM.
+* [list](docs/sdks/companies/README.md#list) - Retrieve a list of companies from the CRM system.
+* [create](docs/sdks/companies/README.md#create) - Adds a new company to the CRM system.
 * [get](docs/sdks/companies/README.md#get) - Retrieve detailed information about a specific company from the CRM.
 * [update](docs/sdks/companies/README.md#update) - Update company details in the CRM system.
-* [delete](docs/sdks/companies/README.md#delete) - Delete a company record from the CRM system.
+* [delete](docs/sdks/companies/README.md#delete) - Deletes a company record from the CRM system using its unique ID.
 
 #### [crm.contacts](docs/sdks/contacts/README.md)
 
-* [list](docs/sdks/contacts/README.md#list) - Retrieve all contacts from the CRM system.
-* [create](docs/sdks/contacts/README.md#create) - Add a new contact to the CRM system.
-* [get](docs/sdks/contacts/README.md#get) - Retrieve a specific contact by ID from the CRM system.
+* [list](docs/sdks/contacts/README.md#list) - Retrieve all CRM contacts efficiently.
+* [create](docs/sdks/contacts/README.md#create) - Adds a new contact to the CRM system.
+* [get](docs/sdks/contacts/README.md#get) - Retrieve a specific contact's details from the CRM.
 * [update](docs/sdks/contacts/README.md#update) - Update an existing contact in the CRM system.
-* [delete](docs/sdks/contacts/README.md#delete) - Delete a contact from the CRM system.
+* [delete](docs/sdks/contacts/README.md#delete) - Deletes a contact from the CRM system using the specified contact ID.
 
 #### [crm.leads](docs/sdks/leads/README.md)
 
-* [list](docs/sdks/leads/README.md#list) - Retrieve a list of leads from the CRM system.
+* [list](docs/sdks/leads/README.md#list) - Retrieve all CRM leads with optional filtering and sorting.
 * [create](docs/sdks/leads/README.md#create) - Add a new lead to the CRM system.
-* [get](docs/sdks/leads/README.md#get) - Retrieve a specific lead by ID from the CRM system.
-* [update](docs/sdks/leads/README.md#update) - Update an existing lead record in the CRM system.
-* [delete](docs/sdks/leads/README.md#delete) - Delete a lead from the CRM system.
+* [get](docs/sdks/leads/README.md#get) - Retrieve detailed information about a specific lead in the CRM.
+* [update](docs/sdks/leads/README.md#update) - Updates an existing lead record in the CRM system.
+* [delete](docs/sdks/leads/README.md#delete) - Deletes a lead record from the CRM system using its unique ID.
 
 #### [crm.notes](docs/sdks/notes/README.md)
 
-* [list](docs/sdks/notes/README.md#list) - Retrieve all CRM notes efficiently.
-* [create](docs/sdks/notes/README.md#create) - Add a new note to the CRM system.
-* [get](docs/sdks/notes/README.md#get) - Retrieve a specific note by its ID from the CRM system.
-* [update](docs/sdks/notes/README.md#update) - Update an existing note in the CRM system.
-* [delete](docs/sdks/notes/README.md#delete) - Delete a specific note from the CRM system.
+* [list](docs/sdks/notes/README.md#list) - Retrieve all CRM notes efficiently for analysis and integration.
+* [create](docs/sdks/notes/README.md#create) - Adds a new note to the CRM system for a specified consumer.
+* [get](docs/sdks/notes/README.md#get) - Retrieve a specific CRM note by its ID.
+* [update](docs/sdks/notes/README.md#update) - Update an existing note in the CRM system using its unique ID.
+* [delete](docs/sdks/notes/README.md#delete) - Deletes a specific note from the CRM system using its unique ID.
 
 #### [crm.opportunities](docs/sdks/opportunities/README.md)
 
@@ -732,19 +236,19 @@ run();
 * [create](docs/sdks/opportunities/README.md#create) - Add a new opportunity to the CRM system.
 * [get](docs/sdks/opportunities/README.md#get) - Retrieve a specific CRM opportunity by its ID.
 * [update](docs/sdks/opportunities/README.md#update) - Update an existing opportunity in the CRM system.
-* [delete](docs/sdks/opportunities/README.md#delete) - Delete an existing opportunity record in the CRM.
+* [delete](docs/sdks/opportunities/README.md#delete) - Deletes a specific opportunity record from the CRM system.
 
 #### [crm.pipelines](docs/sdks/pipelines/README.md)
 
-* [list](docs/sdks/pipelines/README.md#list) - Retrieve all CRM pipelines.
+* [list](docs/sdks/pipelines/README.md#list) - Retrieve all CRM pipelines for a specified consumer.
 
 #### [crm.users](docs/sdks/users/README.md)
 
-* [list](docs/sdks/users/README.md#list) - Retrieve a list of users from the CRM system.
-* [create](docs/sdks/users/README.md#create) - Add a new user to the CRM system.
-* [get](docs/sdks/users/README.md#get) - Retrieve a specific user's details from the CRM system.
-* [update](docs/sdks/users/README.md#update) - Update user details in the CRM system.
-* [delete](docs/sdks/users/README.md#delete) - Delete a user from the CRM system.
+* [list](docs/sdks/users/README.md#list) - Retrieve a list of CRM users with customizable data fields.
+* [create](docs/sdks/users/README.md#create) - Adds a new user to the CRM system.
+* [get](docs/sdks/users/README.md#get) - Retrieve detailed information about a specific user in the CRM system.
+* [update](docs/sdks/users/README.md#update) - Update user details in the CRM system using a PATCH request.
+* [delete](docs/sdks/users/README.md#delete) - Deletes a user from the CRM system by their unique ID.
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -764,42 +268,42 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 <summary>Available standalone functions</summary>
 
-- [`crmActivitiesCreate`](docs/sdks/activities/README.md#create) - Add a new activity to the CRM system.
-- [`crmActivitiesDelete`](docs/sdks/activities/README.md#delete) - Delete a specific CRM activity by its ID.
+- [`crmActivitiesCreate`](docs/sdks/activities/README.md#create) - Adds a new activity to the CRM system.
+- [`crmActivitiesDelete`](docs/sdks/activities/README.md#delete) - Deletes a specified activity record from the CRM system.
 - [`crmActivitiesGet`](docs/sdks/activities/README.md#get) - Retrieve a specific CRM activity by its ID.
-- [`crmActivitiesList`](docs/sdks/activities/README.md#list) - Retrieve all CRM activities with customizable query options.
-- [`crmActivitiesUpdate`](docs/sdks/activities/README.md#update) - Update an existing activity record in the CRM.
-- [`crmCompaniesCreate`](docs/sdks/companies/README.md#create) - Add a new company to the CRM system.
-- [`crmCompaniesDelete`](docs/sdks/companies/README.md#delete) - Delete a company record from the CRM system.
+- [`crmActivitiesList`](docs/sdks/activities/README.md#list) - Retrieve all CRM activities with optional filtering and sorting.
+- [`crmActivitiesUpdate`](docs/sdks/activities/README.md#update) - Update an existing CRM activity record by its ID.
+- [`crmCompaniesCreate`](docs/sdks/companies/README.md#create) - Adds a new company to the CRM system.
+- [`crmCompaniesDelete`](docs/sdks/companies/README.md#delete) - Deletes a company record from the CRM system using its unique ID.
 - [`crmCompaniesGet`](docs/sdks/companies/README.md#get) - Retrieve detailed information about a specific company from the CRM.
-- [`crmCompaniesList`](docs/sdks/companies/README.md#list) - Retrieve a list of companies from the CRM.
+- [`crmCompaniesList`](docs/sdks/companies/README.md#list) - Retrieve a list of companies from the CRM system.
 - [`crmCompaniesUpdate`](docs/sdks/companies/README.md#update) - Update company details in the CRM system.
-- [`crmContactsCreate`](docs/sdks/contacts/README.md#create) - Add a new contact to the CRM system.
-- [`crmContactsDelete`](docs/sdks/contacts/README.md#delete) - Delete a contact from the CRM system.
-- [`crmContactsGet`](docs/sdks/contacts/README.md#get) - Retrieve a specific contact by ID from the CRM system.
-- [`crmContactsList`](docs/sdks/contacts/README.md#list) - Retrieve all contacts from the CRM system.
+- [`crmContactsCreate`](docs/sdks/contacts/README.md#create) - Adds a new contact to the CRM system.
+- [`crmContactsDelete`](docs/sdks/contacts/README.md#delete) - Deletes a contact from the CRM system using the specified contact ID.
+- [`crmContactsGet`](docs/sdks/contacts/README.md#get) - Retrieve a specific contact's details from the CRM.
+- [`crmContactsList`](docs/sdks/contacts/README.md#list) - Retrieve all CRM contacts efficiently.
 - [`crmContactsUpdate`](docs/sdks/contacts/README.md#update) - Update an existing contact in the CRM system.
 - [`crmLeadsCreate`](docs/sdks/leads/README.md#create) - Add a new lead to the CRM system.
-- [`crmLeadsDelete`](docs/sdks/leads/README.md#delete) - Delete a lead from the CRM system.
-- [`crmLeadsGet`](docs/sdks/leads/README.md#get) - Retrieve a specific lead by ID from the CRM system.
-- [`crmLeadsList`](docs/sdks/leads/README.md#list) - Retrieve a list of leads from the CRM system.
-- [`crmLeadsUpdate`](docs/sdks/leads/README.md#update) - Update an existing lead record in the CRM system.
-- [`crmNotesCreate`](docs/sdks/notes/README.md#create) - Add a new note to the CRM system.
-- [`crmNotesDelete`](docs/sdks/notes/README.md#delete) - Delete a specific note from the CRM system.
-- [`crmNotesGet`](docs/sdks/notes/README.md#get) - Retrieve a specific note by its ID from the CRM system.
-- [`crmNotesList`](docs/sdks/notes/README.md#list) - Retrieve all CRM notes efficiently.
-- [`crmNotesUpdate`](docs/sdks/notes/README.md#update) - Update an existing note in the CRM system.
+- [`crmLeadsDelete`](docs/sdks/leads/README.md#delete) - Deletes a lead record from the CRM system using its unique ID.
+- [`crmLeadsGet`](docs/sdks/leads/README.md#get) - Retrieve detailed information about a specific lead in the CRM.
+- [`crmLeadsList`](docs/sdks/leads/README.md#list) - Retrieve all CRM leads with optional filtering and sorting.
+- [`crmLeadsUpdate`](docs/sdks/leads/README.md#update) - Updates an existing lead record in the CRM system.
+- [`crmNotesCreate`](docs/sdks/notes/README.md#create) - Adds a new note to the CRM system for a specified consumer.
+- [`crmNotesDelete`](docs/sdks/notes/README.md#delete) - Deletes a specific note from the CRM system using its unique ID.
+- [`crmNotesGet`](docs/sdks/notes/README.md#get) - Retrieve a specific CRM note by its ID.
+- [`crmNotesList`](docs/sdks/notes/README.md#list) - Retrieve all CRM notes efficiently for analysis and integration.
+- [`crmNotesUpdate`](docs/sdks/notes/README.md#update) - Update an existing note in the CRM system using its unique ID.
 - [`crmOpportunitiesCreate`](docs/sdks/opportunities/README.md#create) - Add a new opportunity to the CRM system.
-- [`crmOpportunitiesDelete`](docs/sdks/opportunities/README.md#delete) - Delete an existing opportunity record in the CRM.
+- [`crmOpportunitiesDelete`](docs/sdks/opportunities/README.md#delete) - Deletes a specific opportunity record from the CRM system.
 - [`crmOpportunitiesGet`](docs/sdks/opportunities/README.md#get) - Retrieve a specific CRM opportunity by its ID.
 - [`crmOpportunitiesList`](docs/sdks/opportunities/README.md#list) - Retrieve a list of CRM opportunities.
 - [`crmOpportunitiesUpdate`](docs/sdks/opportunities/README.md#update) - Update an existing opportunity in the CRM system.
-- [`crmPipelinesList`](docs/sdks/pipelines/README.md#list) - Retrieve all CRM pipelines.
-- [`crmUsersCreate`](docs/sdks/users/README.md#create) - Add a new user to the CRM system.
-- [`crmUsersDelete`](docs/sdks/users/README.md#delete) - Delete a user from the CRM system.
-- [`crmUsersGet`](docs/sdks/users/README.md#get) - Retrieve a specific user's details from the CRM system.
-- [`crmUsersList`](docs/sdks/users/README.md#list) - Retrieve a list of users from the CRM system.
-- [`crmUsersUpdate`](docs/sdks/users/README.md#update) - Update user details in the CRM system.
+- [`crmPipelinesList`](docs/sdks/pipelines/README.md#list) - Retrieve all CRM pipelines for a specified consumer.
+- [`crmUsersCreate`](docs/sdks/users/README.md#create) - Adds a new user to the CRM system.
+- [`crmUsersDelete`](docs/sdks/users/README.md#delete) - Deletes a user from the CRM system by their unique ID.
+- [`crmUsersGet`](docs/sdks/users/README.md#get) - Retrieve detailed information about a specific user in the CRM system.
+- [`crmUsersList`](docs/sdks/users/README.md#list) - Retrieve a list of CRM users with customizable data fields.
+- [`crmUsersUpdate`](docs/sdks/users/README.md#update) - Update user details in the CRM system using a PATCH request.
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
@@ -862,7 +366,6 @@ Some of the endpoints in this SDK support retries.  If you use the SDK without a
 To change the default retry strategy for a single API call, simply provide a retryConfig object to the call:
 ```typescript
 import { Apideck } from "apideck";
-import { RFCDate } from "apideck/types";
 
 const apideck = new Apideck({
   apiKey: process.env["APIDECK_API_KEY"] ?? "",
@@ -871,270 +374,21 @@ const apideck = new Apideck({
 });
 
 async function run() {
-  const result = await apideck.crm.companies.create({
+  const result = await apideck.crm.companies.list({
     raw: false,
     serviceId: "salesforce",
-    createCompanyRequest: {
+    limit: 20,
+    filter: {
       name: "SpaceX",
-      ownerId: "12345",
-      image: "https://www.spacex.com/static/images/share.jpg",
-      description:
-        "Space Exploration Technologies Corp. is an American aerospace manufacturer, space transportation services and communications company headquartered in Hawthorne, California.",
-      vatNumber: "BE0689615164",
-      currency: "USD",
-      status: "Open",
-      fax: "+12129876543",
-      annualRevenue: "+$35m",
-      numberOfEmployees: "500-1000",
-      industry: "Apparel",
-      ownership: "Public",
-      salesTaxNumber: "12456EN",
-      payeeNumber: "78932EN",
-      abnOrTfn: "46 115 614 695",
-      abnBranch: "123",
-      acn: "XXX XXX XXX",
-      firstName: "Elon",
-      lastName: "Musk",
-      bankAccounts: [
-        {
-          bankName: "Monzo",
-          accountNumber: "123465",
-          accountName: "SPACEX LLC",
-          accountType: "credit_card",
-          iban: "CH2989144532982975332",
-          bic: "AUDSCHGGXXX",
-          routingNumber: "012345678",
-          bsbNumber: "062-001",
-          branchIdentifier: "001",
-          bankCode: "BNH",
-          currency: "USD",
-        },
-        {
-          bankName: "Monzo",
-          accountNumber: "123465",
-          accountName: "SPACEX LLC",
-          accountType: "credit_card",
-          iban: "CH2989144532982975332",
-          bic: "AUDSCHGGXXX",
-          routingNumber: "012345678",
-          bsbNumber: "062-001",
-          branchIdentifier: "001",
-          bankCode: "BNH",
-          currency: "USD",
-        },
-      ],
-      websites: [
-        {
-          id: "12345",
-          url: "http://example.com",
-          type: "primary",
-        },
-        {
-          id: "12345",
-          url: "http://example.com",
-          type: "primary",
-        },
-      ],
-      addresses: [
-        {
-          id: "123",
-          type: "primary",
-          string: "25 Spring Street, Blackburn, VIC 3130",
-          name: "HQ US",
-          line1: "Main street",
-          line2: "apt #",
-          line3: "Suite #",
-          line4: "delivery instructions",
-          streetNumber: "25",
-          city: "San Francisco",
-          state: "CA",
-          postalCode: "94104",
-          country: "US",
-          latitude: "40.759211",
-          longitude: "-73.984638",
-          county: "Santa Clara",
-          contactName: "Elon Musk",
-          salutation: "Mr",
-          phoneNumber: "111-111-1111",
-          fax: "122-111-1111",
-          email: "elon@musk.com",
-          website: "https://elonmusk.com",
-          notes: "Address notes or delivery instructions.",
-          rowVersion: "1-12345",
-        },
-        {
-          id: "123",
-          type: "primary",
-          string: "25 Spring Street, Blackburn, VIC 3130",
-          name: "HQ US",
-          line1: "Main street",
-          line2: "apt #",
-          line3: "Suite #",
-          line4: "delivery instructions",
-          streetNumber: "25",
-          city: "San Francisco",
-          state: "CA",
-          postalCode: "94104",
-          country: "US",
-          latitude: "40.759211",
-          longitude: "-73.984638",
-          county: "Santa Clara",
-          contactName: "Elon Musk",
-          salutation: "Mr",
-          phoneNumber: "111-111-1111",
-          fax: "122-111-1111",
-          email: "elon@musk.com",
-          website: "https://elonmusk.com",
-          notes: "Address notes or delivery instructions.",
-          rowVersion: "1-12345",
-        },
-      ],
-      socialLinks: [
-        {
-          id: "12345",
-          url: "https://www.twitter.com/apideck",
-          type: "twitter",
-        },
-      ],
-      phoneNumbers: [
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-      ],
-      emails: [
-        {
-          id: "123",
-          email: "elon@musk.com",
-          type: "primary",
-        },
-        {
-          id: "123",
-          email: "elon@musk.com",
-          type: "primary",
-        },
-        {
-          id: "123",
-          email: "elon@musk.com",
-          type: "primary",
-        },
-      ],
-      rowType: {
-        id: "12345",
-        name: "Customer Account",
-      },
-      customFields: [
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: "Uses Salesforce and Marketo",
-        },
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: 10,
-        },
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: "Uses Salesforce and Marketo",
-        },
-      ],
-      tags: [
-        "New",
-      ],
-      readOnly: false,
-      salutation: "Mr",
-      birthday: new RFCDate("2000-08-12"),
-      passThrough: [
-        {
-          serviceId: "<id>",
-          extendPaths: [
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-          ],
-        },
-        {
-          serviceId: "<id>",
-          extendPaths: [
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-          ],
-        },
-        {
-          serviceId: "<id>",
-          extendPaths: [
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-          ],
-        },
-      ],
     },
+    sort: {
+      by: "created_at",
+      direction: "desc",
+    },
+    passThrough: {
+      "search": "San Francisco",
+    },
+    fields: "id,updated_at",
   }, {
     retries: {
       strategy: "backoff",
@@ -1148,8 +402,10 @@ async function run() {
     },
   });
 
-  // Handle the result
-  console.log(result);
+  for await (const page of result) {
+    // Handle the page
+    console.log(page);
+  }
 }
 
 run();
@@ -1159,7 +415,6 @@ run();
 If you'd like to override the default retry strategy for all operations that support retries, you can provide a retryConfig at SDK initialization:
 ```typescript
 import { Apideck } from "apideck";
-import { RFCDate } from "apideck/types";
 
 const apideck = new Apideck({
   retryConfig: {
@@ -1178,274 +433,27 @@ const apideck = new Apideck({
 });
 
 async function run() {
-  const result = await apideck.crm.companies.create({
+  const result = await apideck.crm.companies.list({
     raw: false,
     serviceId: "salesforce",
-    createCompanyRequest: {
+    limit: 20,
+    filter: {
       name: "SpaceX",
-      ownerId: "12345",
-      image: "https://www.spacex.com/static/images/share.jpg",
-      description:
-        "Space Exploration Technologies Corp. is an American aerospace manufacturer, space transportation services and communications company headquartered in Hawthorne, California.",
-      vatNumber: "BE0689615164",
-      currency: "USD",
-      status: "Open",
-      fax: "+12129876543",
-      annualRevenue: "+$35m",
-      numberOfEmployees: "500-1000",
-      industry: "Apparel",
-      ownership: "Public",
-      salesTaxNumber: "12456EN",
-      payeeNumber: "78932EN",
-      abnOrTfn: "46 115 614 695",
-      abnBranch: "123",
-      acn: "XXX XXX XXX",
-      firstName: "Elon",
-      lastName: "Musk",
-      bankAccounts: [
-        {
-          bankName: "Monzo",
-          accountNumber: "123465",
-          accountName: "SPACEX LLC",
-          accountType: "credit_card",
-          iban: "CH2989144532982975332",
-          bic: "AUDSCHGGXXX",
-          routingNumber: "012345678",
-          bsbNumber: "062-001",
-          branchIdentifier: "001",
-          bankCode: "BNH",
-          currency: "USD",
-        },
-        {
-          bankName: "Monzo",
-          accountNumber: "123465",
-          accountName: "SPACEX LLC",
-          accountType: "credit_card",
-          iban: "CH2989144532982975332",
-          bic: "AUDSCHGGXXX",
-          routingNumber: "012345678",
-          bsbNumber: "062-001",
-          branchIdentifier: "001",
-          bankCode: "BNH",
-          currency: "USD",
-        },
-      ],
-      websites: [
-        {
-          id: "12345",
-          url: "http://example.com",
-          type: "primary",
-        },
-        {
-          id: "12345",
-          url: "http://example.com",
-          type: "primary",
-        },
-      ],
-      addresses: [
-        {
-          id: "123",
-          type: "primary",
-          string: "25 Spring Street, Blackburn, VIC 3130",
-          name: "HQ US",
-          line1: "Main street",
-          line2: "apt #",
-          line3: "Suite #",
-          line4: "delivery instructions",
-          streetNumber: "25",
-          city: "San Francisco",
-          state: "CA",
-          postalCode: "94104",
-          country: "US",
-          latitude: "40.759211",
-          longitude: "-73.984638",
-          county: "Santa Clara",
-          contactName: "Elon Musk",
-          salutation: "Mr",
-          phoneNumber: "111-111-1111",
-          fax: "122-111-1111",
-          email: "elon@musk.com",
-          website: "https://elonmusk.com",
-          notes: "Address notes or delivery instructions.",
-          rowVersion: "1-12345",
-        },
-        {
-          id: "123",
-          type: "primary",
-          string: "25 Spring Street, Blackburn, VIC 3130",
-          name: "HQ US",
-          line1: "Main street",
-          line2: "apt #",
-          line3: "Suite #",
-          line4: "delivery instructions",
-          streetNumber: "25",
-          city: "San Francisco",
-          state: "CA",
-          postalCode: "94104",
-          country: "US",
-          latitude: "40.759211",
-          longitude: "-73.984638",
-          county: "Santa Clara",
-          contactName: "Elon Musk",
-          salutation: "Mr",
-          phoneNumber: "111-111-1111",
-          fax: "122-111-1111",
-          email: "elon@musk.com",
-          website: "https://elonmusk.com",
-          notes: "Address notes or delivery instructions.",
-          rowVersion: "1-12345",
-        },
-      ],
-      socialLinks: [
-        {
-          id: "12345",
-          url: "https://www.twitter.com/apideck",
-          type: "twitter",
-        },
-      ],
-      phoneNumbers: [
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-      ],
-      emails: [
-        {
-          id: "123",
-          email: "elon@musk.com",
-          type: "primary",
-        },
-        {
-          id: "123",
-          email: "elon@musk.com",
-          type: "primary",
-        },
-        {
-          id: "123",
-          email: "elon@musk.com",
-          type: "primary",
-        },
-      ],
-      rowType: {
-        id: "12345",
-        name: "Customer Account",
-      },
-      customFields: [
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: "Uses Salesforce and Marketo",
-        },
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: 10,
-        },
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: "Uses Salesforce and Marketo",
-        },
-      ],
-      tags: [
-        "New",
-      ],
-      readOnly: false,
-      salutation: "Mr",
-      birthday: new RFCDate("2000-08-12"),
-      passThrough: [
-        {
-          serviceId: "<id>",
-          extendPaths: [
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-          ],
-        },
-        {
-          serviceId: "<id>",
-          extendPaths: [
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-          ],
-        },
-        {
-          serviceId: "<id>",
-          extendPaths: [
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-          ],
-        },
-      ],
     },
+    sort: {
+      by: "created_at",
+      direction: "desc",
+    },
+    passThrough: {
+      "search": "San Francisco",
+    },
+    fields: "id,updated_at",
   });
 
-  // Handle the result
-  console.log(result);
+  for await (const page of result) {
+    // Handle the page
+    console.log(page);
+  }
 }
 
 run();
@@ -1456,7 +464,7 @@ run();
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-Some methods specify known errors which can be thrown. All the known errors are enumerated in the `models/errors/errors.ts` module. The known errors for a method are documented under the *Errors* tables in SDK docs. For example, the `create` method may throw the following errors:
+Some methods specify known errors which can be thrown. All the known errors are enumerated in the `models/errors/errors.ts` module. The known errors for a method are documented under the *Errors* tables in SDK docs. For example, the `list` method may throw the following errors:
 
 | Error Type                         | Status Code | Content Type     |
 | ---------------------------------- | ----------- | ---------------- |
@@ -1479,7 +487,6 @@ import {
   UnauthorizedResponse,
   UnprocessableEntityResponse,
 } from "apideck/models/errors";
-import { RFCDate } from "apideck/types";
 
 const apideck = new Apideck({
   apiKey: process.env["APIDECK_API_KEY"] ?? "",
@@ -1490,274 +497,27 @@ const apideck = new Apideck({
 async function run() {
   let result;
   try {
-    result = await apideck.crm.companies.create({
+    result = await apideck.crm.companies.list({
       raw: false,
       serviceId: "salesforce",
-      createCompanyRequest: {
+      limit: 20,
+      filter: {
         name: "SpaceX",
-        ownerId: "12345",
-        image: "https://www.spacex.com/static/images/share.jpg",
-        description:
-          "Space Exploration Technologies Corp. is an American aerospace manufacturer, space transportation services and communications company headquartered in Hawthorne, California.",
-        vatNumber: "BE0689615164",
-        currency: "USD",
-        status: "Open",
-        fax: "+12129876543",
-        annualRevenue: "+$35m",
-        numberOfEmployees: "500-1000",
-        industry: "Apparel",
-        ownership: "Public",
-        salesTaxNumber: "12456EN",
-        payeeNumber: "78932EN",
-        abnOrTfn: "46 115 614 695",
-        abnBranch: "123",
-        acn: "XXX XXX XXX",
-        firstName: "Elon",
-        lastName: "Musk",
-        bankAccounts: [
-          {
-            bankName: "Monzo",
-            accountNumber: "123465",
-            accountName: "SPACEX LLC",
-            accountType: "credit_card",
-            iban: "CH2989144532982975332",
-            bic: "AUDSCHGGXXX",
-            routingNumber: "012345678",
-            bsbNumber: "062-001",
-            branchIdentifier: "001",
-            bankCode: "BNH",
-            currency: "USD",
-          },
-          {
-            bankName: "Monzo",
-            accountNumber: "123465",
-            accountName: "SPACEX LLC",
-            accountType: "credit_card",
-            iban: "CH2989144532982975332",
-            bic: "AUDSCHGGXXX",
-            routingNumber: "012345678",
-            bsbNumber: "062-001",
-            branchIdentifier: "001",
-            bankCode: "BNH",
-            currency: "USD",
-          },
-        ],
-        websites: [
-          {
-            id: "12345",
-            url: "http://example.com",
-            type: "primary",
-          },
-          {
-            id: "12345",
-            url: "http://example.com",
-            type: "primary",
-          },
-        ],
-        addresses: [
-          {
-            id: "123",
-            type: "primary",
-            string: "25 Spring Street, Blackburn, VIC 3130",
-            name: "HQ US",
-            line1: "Main street",
-            line2: "apt #",
-            line3: "Suite #",
-            line4: "delivery instructions",
-            streetNumber: "25",
-            city: "San Francisco",
-            state: "CA",
-            postalCode: "94104",
-            country: "US",
-            latitude: "40.759211",
-            longitude: "-73.984638",
-            county: "Santa Clara",
-            contactName: "Elon Musk",
-            salutation: "Mr",
-            phoneNumber: "111-111-1111",
-            fax: "122-111-1111",
-            email: "elon@musk.com",
-            website: "https://elonmusk.com",
-            notes: "Address notes or delivery instructions.",
-            rowVersion: "1-12345",
-          },
-          {
-            id: "123",
-            type: "primary",
-            string: "25 Spring Street, Blackburn, VIC 3130",
-            name: "HQ US",
-            line1: "Main street",
-            line2: "apt #",
-            line3: "Suite #",
-            line4: "delivery instructions",
-            streetNumber: "25",
-            city: "San Francisco",
-            state: "CA",
-            postalCode: "94104",
-            country: "US",
-            latitude: "40.759211",
-            longitude: "-73.984638",
-            county: "Santa Clara",
-            contactName: "Elon Musk",
-            salutation: "Mr",
-            phoneNumber: "111-111-1111",
-            fax: "122-111-1111",
-            email: "elon@musk.com",
-            website: "https://elonmusk.com",
-            notes: "Address notes or delivery instructions.",
-            rowVersion: "1-12345",
-          },
-        ],
-        socialLinks: [
-          {
-            id: "12345",
-            url: "https://www.twitter.com/apideck",
-            type: "twitter",
-          },
-        ],
-        phoneNumbers: [
-          {
-            id: "12345",
-            countryCode: "1",
-            areaCode: "323",
-            number: "111-111-1111",
-            extension: "105",
-            type: "primary",
-          },
-        ],
-        emails: [
-          {
-            id: "123",
-            email: "elon@musk.com",
-            type: "primary",
-          },
-          {
-            id: "123",
-            email: "elon@musk.com",
-            type: "primary",
-          },
-          {
-            id: "123",
-            email: "elon@musk.com",
-            type: "primary",
-          },
-        ],
-        rowType: {
-          id: "12345",
-          name: "Customer Account",
-        },
-        customFields: [
-          {
-            id: "2389328923893298",
-            name: "employee_level",
-            description: "Employee Level",
-            value: "Uses Salesforce and Marketo",
-          },
-          {
-            id: "2389328923893298",
-            name: "employee_level",
-            description: "Employee Level",
-            value: 10,
-          },
-          {
-            id: "2389328923893298",
-            name: "employee_level",
-            description: "Employee Level",
-            value: "Uses Salesforce and Marketo",
-          },
-        ],
-        tags: [
-          "New",
-        ],
-        readOnly: false,
-        salutation: "Mr",
-        birthday: new RFCDate("2000-08-12"),
-        passThrough: [
-          {
-            serviceId: "<id>",
-            extendPaths: [
-              {
-                path: "$.nested.property",
-                value: {
-                  "TaxClassificationRef": {
-                    "value": "EUC-99990201-V1-00020000",
-                  },
-                },
-              },
-              {
-                path: "$.nested.property",
-                value: {
-                  "TaxClassificationRef": {
-                    "value": "EUC-99990201-V1-00020000",
-                  },
-                },
-              },
-              {
-                path: "$.nested.property",
-                value: {
-                  "TaxClassificationRef": {
-                    "value": "EUC-99990201-V1-00020000",
-                  },
-                },
-              },
-            ],
-          },
-          {
-            serviceId: "<id>",
-            extendPaths: [
-              {
-                path: "$.nested.property",
-                value: {
-                  "TaxClassificationRef": {
-                    "value": "EUC-99990201-V1-00020000",
-                  },
-                },
-              },
-              {
-                path: "$.nested.property",
-                value: {
-                  "TaxClassificationRef": {
-                    "value": "EUC-99990201-V1-00020000",
-                  },
-                },
-              },
-            ],
-          },
-          {
-            serviceId: "<id>",
-            extendPaths: [
-              {
-                path: "$.nested.property",
-                value: {
-                  "TaxClassificationRef": {
-                    "value": "EUC-99990201-V1-00020000",
-                  },
-                },
-              },
-              {
-                path: "$.nested.property",
-                value: {
-                  "TaxClassificationRef": {
-                    "value": "EUC-99990201-V1-00020000",
-                  },
-                },
-              },
-              {
-                path: "$.nested.property",
-                value: {
-                  "TaxClassificationRef": {
-                    "value": "EUC-99990201-V1-00020000",
-                  },
-                },
-              },
-            ],
-          },
-        ],
       },
+      sort: {
+        by: "created_at",
+        direction: "desc",
+      },
+      passThrough: {
+        "search": "San Francisco",
+      },
+      fields: "id,updated_at",
     });
 
-    // Handle the result
-    console.log(result);
+    for await (const page of result) {
+      // Handle the page
+      console.log(page);
+    }
   } catch (err) {
     switch (true) {
       // The server response does not match the expected SDK schema
@@ -1826,7 +586,6 @@ In some rare cases, the SDK can fail to get a response from the server or even m
 The default server can also be overridden globally by passing a URL to the `serverURL: string` optional parameter when initializing the SDK client instance. For example:
 ```typescript
 import { Apideck } from "apideck";
-import { RFCDate } from "apideck/types";
 
 const apideck = new Apideck({
   serverURL: "https://unify.apideck.com",
@@ -1836,274 +595,27 @@ const apideck = new Apideck({
 });
 
 async function run() {
-  const result = await apideck.crm.companies.create({
+  const result = await apideck.crm.companies.list({
     raw: false,
     serviceId: "salesforce",
-    createCompanyRequest: {
+    limit: 20,
+    filter: {
       name: "SpaceX",
-      ownerId: "12345",
-      image: "https://www.spacex.com/static/images/share.jpg",
-      description:
-        "Space Exploration Technologies Corp. is an American aerospace manufacturer, space transportation services and communications company headquartered in Hawthorne, California.",
-      vatNumber: "BE0689615164",
-      currency: "USD",
-      status: "Open",
-      fax: "+12129876543",
-      annualRevenue: "+$35m",
-      numberOfEmployees: "500-1000",
-      industry: "Apparel",
-      ownership: "Public",
-      salesTaxNumber: "12456EN",
-      payeeNumber: "78932EN",
-      abnOrTfn: "46 115 614 695",
-      abnBranch: "123",
-      acn: "XXX XXX XXX",
-      firstName: "Elon",
-      lastName: "Musk",
-      bankAccounts: [
-        {
-          bankName: "Monzo",
-          accountNumber: "123465",
-          accountName: "SPACEX LLC",
-          accountType: "credit_card",
-          iban: "CH2989144532982975332",
-          bic: "AUDSCHGGXXX",
-          routingNumber: "012345678",
-          bsbNumber: "062-001",
-          branchIdentifier: "001",
-          bankCode: "BNH",
-          currency: "USD",
-        },
-        {
-          bankName: "Monzo",
-          accountNumber: "123465",
-          accountName: "SPACEX LLC",
-          accountType: "credit_card",
-          iban: "CH2989144532982975332",
-          bic: "AUDSCHGGXXX",
-          routingNumber: "012345678",
-          bsbNumber: "062-001",
-          branchIdentifier: "001",
-          bankCode: "BNH",
-          currency: "USD",
-        },
-      ],
-      websites: [
-        {
-          id: "12345",
-          url: "http://example.com",
-          type: "primary",
-        },
-        {
-          id: "12345",
-          url: "http://example.com",
-          type: "primary",
-        },
-      ],
-      addresses: [
-        {
-          id: "123",
-          type: "primary",
-          string: "25 Spring Street, Blackburn, VIC 3130",
-          name: "HQ US",
-          line1: "Main street",
-          line2: "apt #",
-          line3: "Suite #",
-          line4: "delivery instructions",
-          streetNumber: "25",
-          city: "San Francisco",
-          state: "CA",
-          postalCode: "94104",
-          country: "US",
-          latitude: "40.759211",
-          longitude: "-73.984638",
-          county: "Santa Clara",
-          contactName: "Elon Musk",
-          salutation: "Mr",
-          phoneNumber: "111-111-1111",
-          fax: "122-111-1111",
-          email: "elon@musk.com",
-          website: "https://elonmusk.com",
-          notes: "Address notes or delivery instructions.",
-          rowVersion: "1-12345",
-        },
-        {
-          id: "123",
-          type: "primary",
-          string: "25 Spring Street, Blackburn, VIC 3130",
-          name: "HQ US",
-          line1: "Main street",
-          line2: "apt #",
-          line3: "Suite #",
-          line4: "delivery instructions",
-          streetNumber: "25",
-          city: "San Francisco",
-          state: "CA",
-          postalCode: "94104",
-          country: "US",
-          latitude: "40.759211",
-          longitude: "-73.984638",
-          county: "Santa Clara",
-          contactName: "Elon Musk",
-          salutation: "Mr",
-          phoneNumber: "111-111-1111",
-          fax: "122-111-1111",
-          email: "elon@musk.com",
-          website: "https://elonmusk.com",
-          notes: "Address notes or delivery instructions.",
-          rowVersion: "1-12345",
-        },
-      ],
-      socialLinks: [
-        {
-          id: "12345",
-          url: "https://www.twitter.com/apideck",
-          type: "twitter",
-        },
-      ],
-      phoneNumbers: [
-        {
-          id: "12345",
-          countryCode: "1",
-          areaCode: "323",
-          number: "111-111-1111",
-          extension: "105",
-          type: "primary",
-        },
-      ],
-      emails: [
-        {
-          id: "123",
-          email: "elon@musk.com",
-          type: "primary",
-        },
-        {
-          id: "123",
-          email: "elon@musk.com",
-          type: "primary",
-        },
-        {
-          id: "123",
-          email: "elon@musk.com",
-          type: "primary",
-        },
-      ],
-      rowType: {
-        id: "12345",
-        name: "Customer Account",
-      },
-      customFields: [
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: "Uses Salesforce and Marketo",
-        },
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: 10,
-        },
-        {
-          id: "2389328923893298",
-          name: "employee_level",
-          description: "Employee Level",
-          value: "Uses Salesforce and Marketo",
-        },
-      ],
-      tags: [
-        "New",
-      ],
-      readOnly: false,
-      salutation: "Mr",
-      birthday: new RFCDate("2000-08-12"),
-      passThrough: [
-        {
-          serviceId: "<id>",
-          extendPaths: [
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-          ],
-        },
-        {
-          serviceId: "<id>",
-          extendPaths: [
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-          ],
-        },
-        {
-          serviceId: "<id>",
-          extendPaths: [
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-            {
-              path: "$.nested.property",
-              value: {
-                "TaxClassificationRef": {
-                  "value": "EUC-99990201-V1-00020000",
-                },
-              },
-            },
-          ],
-        },
-      ],
     },
+    sort: {
+      by: "created_at",
+      direction: "desc",
+    },
+    passThrough: {
+      "search": "San Francisco",
+    },
+    fields: "id,updated_at",
   });
 
-  // Handle the result
-  console.log(result);
+  for await (const page of result) {
+    // Handle the page
+    console.log(page);
+  }
 }
 
 run();

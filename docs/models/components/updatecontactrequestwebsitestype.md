@@ -1,6 +1,6 @@
 # UpdateContactRequestWebsitesType
 
-Specifies the type of website associated with the contact, such as 'personal', 'business', or 'portfolio'. This optional field helps categorize the website, providing context and clarity about its purpose. It should be a descriptive string that accurately reflects the website's nature.
+Specifies the type of website, such as personal or business, associated with the contact. This optional field helps categorize the website for better organization and retrieval of contact information. Providing this detail enhances the context and usability of the contact's web data.
 
 ## Example Usage
 

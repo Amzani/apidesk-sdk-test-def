@@ -1,6 +1,6 @@
 # UpdateLeadRequestType
 
-Specifies the category or role of the website associated with the lead, such as 'personal', 'business', or 'portfolio'. This helps in categorizing the website information for better organization and retrieval. Ensure the type is a valid string that accurately reflects the website's purpose.
+Specifies the category or role of the website associated with the lead. This property helps in distinguishing between different types of websites, such as personal, business, or social media, which can be crucial for targeted communication and marketing strategies. Ensure the type is a valid string that accurately represents the website's purpose.
 
 ## Example Usage
 

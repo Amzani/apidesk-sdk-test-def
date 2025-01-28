@@ -1,6 +1,6 @@
 # CreateLeadRequestType
 
-Specifies the category or purpose of the website associated with the lead, such as 'personal', 'business', or 'portfolio'. This helps in categorizing the lead's online presence for better context in CRM records. Ensure the type is a valid string that accurately reflects the website's use.
+Specifies the category or nature of the website associated with the lead. This information helps in categorizing and managing leads based on their online presence. It should be a descriptive string that accurately reflects the website's purpose or type.
 
 ## Example Usage
 

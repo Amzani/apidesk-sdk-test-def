@@ -1,6 +1,6 @@
 # UpdateUserRequestType
 
-Specifies the category of the address, such as 'home', 'work', or 'billing'. This helps in organizing and differentiating between multiple addresses associated with a user. The value should be a valid string that matches predefined address types in the CRM.
+Specifies the category of the address, such as 'home' or 'work'. This helps in organizing and differentiating between multiple addresses associated with a user. Ensure the type is a valid string that accurately represents the address's purpose.
 
 ## Example Usage
 

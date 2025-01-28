@@ -27,15 +27,7 @@ import { Result } from "../types/fp.js";
  * Add a new opportunity to the CRM system.
  *
  * @remarks
- * The `opportunitiesAdd` operation allows developers to create a new opportunity within the CRM system by sending a POST request to the `/crm/opportunities` endpoint. This operation is essential for managing sales pipelines and tracking potential deals.
- *
- * Key Parameters:
- * - `x-apideck-consumer-id` (header, required): Specifies the consumer ID for data interaction.
- * - `x-apideck-app-id` (header, required): Identifies the Unify application in use.
- * - `x-apideck-service-id` (header, optional): Indicates the specific service ID to call, necessary when multiple integrations are active.
- * - `raw` (query, optional): Determines if the raw response should be included, useful for debugging.
- *
- * Upon successful creation, the operation returns a `201` status code along with a JSON object containing the unique identifier of the newly created opportunity, confirming the addition to the CRM system.
+ * The 'opportunitiesAdd' operation allows you to create a new opportunity within the CRM system by sending a POST request to the '/crm/opportunities' endpoint. This operation is essential for managing sales pipelines and tracking potential deals. The request must include a valid 'x-apideck-consumer-id' and 'x-apideck-app-id' in the headers for authentication. Optionally, specify 'x-apideck-service-id' to target a specific service integration. If 'raw' is set to true in the query, the response will include raw data for debugging purposes. Upon successful creation, the API returns a status code of 201 along with the ID of the newly created opportunity in a JSON object.
  */
 export async function crmOpportunitiesCreate(
   client: ApideckCore,
@@ -83,12 +75,12 @@ export async function crmOpportunitiesCreate(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

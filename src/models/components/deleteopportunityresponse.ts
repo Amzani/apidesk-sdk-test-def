@@ -9,11 +9,11 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This object encapsulates the details of the operation performed, specifically indicating the resource that was deleted. It serves as a confirmation that the delete request was processed successfully. The object structure is typically empty for delete operations, aligning with RESTful practices.
+ * This object contains information about the resource that was deleted. It serves as a confirmation that the specified opportunity record has been successfully removed from the CRM system. The object includes the unique identifier of the deleted resource, ensuring developers can verify the specific record that was affected by the delete operation.
  */
 export type DeleteOpportunityResponseUnifiedId = {
   /**
-   * The unique identifier of the opportunity record that was deleted. This string confirms the specific resource that has been removed from the CRM system, ensuring developers can verify the correct record was targeted by the delete operation.
+   * The unique identifier of the opportunity record that was deleted. This ID confirms the specific resource that has been removed from the CRM, allowing developers to track and verify the deletion operation. It is essential for ensuring that the correct record was targeted and successfully deleted.
    */
   id: string;
 };
@@ -23,27 +23,27 @@ export type DeleteOpportunityResponseUnifiedId = {
  */
 export type DeleteOpportunityResponse = {
   /**
-   * The HTTP response status code indicating the result of the delete operation. A status code of 200 confirms that the opportunity record was successfully deleted. This integer value is crucial for error handling and validation of the operation's success.
+   * The HTTP response status code returned by the server after attempting to delete the opportunity. A status code of 200 indicates that the deletion was successful, confirming that the specified opportunity record has been removed from the CRM system. This integer value is crucial for error handling and confirming the operation's success.
    */
   statusCode: number;
   /**
-   * A brief textual representation of the HTTP response status. Typically, this will be 'OK' for a successful delete operation, providing a human-readable confirmation of the action performed.
+   * A textual representation of the HTTP response status, typically 'OK' for a successful deletion operation. This string provides a human-readable confirmation of the operation's outcome, complementing the numerical status code.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider that processed the delete request. This string helps identify which service handled the operation, especially useful in environments with multiple integrations.
+   * The Apideck ID of the service provider that processed the delete request. This string identifies which service integration was used, helping developers track and manage service-specific operations within the unified API framework.
    */
   service: string;
   /**
-   * The name of the Unified API resource that was targeted by the delete operation. This string confirms the type of resource affected, ensuring developers understand the context of the deletion within the API ecosystem.
+   * The name of the unified API resource that was targeted by the delete operation, in this case, 'opportunities'. This string helps developers understand which type of resource was affected by the operation, ensuring clarity in API interactions.
    */
   resource: string;
   /**
-   * The specific operation performed, in this case, 'delete'. This string provides clarity on the action executed, helping developers track and log API interactions accurately.
+   * The specific operation performed, which in this context is 'delete'. This string indicates the type of action executed on the resource, providing a clear understanding of the operation's intent and outcome.
    */
   operation: string;
   /**
-   * This object encapsulates the details of the operation performed, specifically indicating the resource that was deleted. It serves as a confirmation that the delete request was processed successfully. The object structure is typically empty for delete operations, aligning with RESTful practices.
+   * This object contains information about the resource that was deleted. It serves as a confirmation that the specified opportunity record has been successfully removed from the CRM system. The object includes the unique identifier of the deleted resource, ensuring developers can verify the specific record that was affected by the delete operation.
    */
   data: DeleteOpportunityResponseUnifiedId;
 };

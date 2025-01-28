@@ -5,24 +5,15 @@
 
 ### Available Operations
 
-* [list](#list) - Retrieve a list of users from the CRM system.
-* [create](#create) - Add a new user to the CRM system.
-* [get](#get) - Retrieve a specific user's details from the CRM system.
-* [update](#update) - Update user details in the CRM system.
-* [delete](#delete) - Delete a user from the CRM system.
+* [list](#list) - Retrieve a list of CRM users with customizable data fields.
+* [create](#create) - Adds a new user to the CRM system.
+* [get](#get) - Retrieve detailed information about a specific user in the CRM system.
+* [update](#update) - Update user details in the CRM system using a PATCH request.
+* [delete](#delete) - Deletes a user from the CRM system by their unique ID.
 
 ## list
 
-The `usersAll` operation allows developers to retrieve a comprehensive list of users from the CRM system using a GET request to the `/crm/users` endpoint. This operation is essential for applications that need to access user data for various purposes, such as displaying user information or integrating with other systems.
-
-Key parameters include:
-- `x-apideck-consumer-id` (required): Identifies the consumer from which data is being accessed.
-- `x-apideck-app-id` (required): Specifies the Unify application ID.
-- `x-apideck-service-id`: Optional parameter to specify the service ID when multiple integrations are active.
-- `limit`: Controls the number of results returned, with a default of 20 and a maximum of 200.
-- `fields`: Allows selection of specific fields to include in the response, enhancing performance by reducing payload size.
-
-The response returns a JSON object containing user data, which can be filtered and paginated using the provided parameters. This operation supports debugging with the `raw` parameter and allows additional query parameters through `pass_through`. It is designed to be efficient and flexible, catering to various application needs.
+The 'usersAll' operation fetches a list of users from the CRM system, allowing developers to access user data efficiently. This GET request to the '/crm/users' endpoint supports various query parameters to tailor the response, such as 'fields' for selecting specific data fields, 'limit' for controlling the number of users returned, and 'cursor' for pagination. Essential headers like 'x-apideck-consumer-id' and 'x-apideck-app-id' are required for authentication and routing. The response is typically a JSON object containing user details, and the 'raw' parameter can be used to include raw data for debugging purposes. This operation is crucial for applications needing to integrate or display CRM user information dynamically.
 
 ### Example Usage
 
@@ -123,15 +114,7 @@ run();
 
 ## create
 
-The `usersAdd` operation allows developers to add a new user to the CRM system by sending a POST request to the `/crm/users` endpoint. This operation is essential for integrating user management capabilities into applications that interact with the CRM. 
-
-Key Parameters:
-- `x-apideck-consumer-id` (header, required): Identifies the consumer from which data is being pushed or retrieved.
-- `x-apideck-app-id` (header, required): Specifies the ID of the Unify application making the request.
-- `x-apideck-service-id` (header, optional): Indicates the specific service to call, necessary when multiple integrations are active.
-- `raw` (query, optional): Determines if the raw response should be included, useful for debugging.
-
-Upon successful creation, the operation returns a 201 status code along with a JSON object containing the unique identifier of the newly created user. This response confirms the successful addition of the user to the CRM system.
+The 'usersAdd' operation allows you to add a new user to your CRM system by sending a POST request to the /crm/users endpoint. This operation is essential for expanding your user base within the CRM, enabling better management and interaction with customer data. Key parameters include 'x-apideck-consumer-id' and 'x-apideck-app-id', which are required for authentication and routing the request to the correct application context. Optionally, 'raw' can be set to true to receive raw data for debugging purposes. Upon successful creation, the operation returns a 201 status code along with the ID of the newly created user in a JSON object.
 
 ### Example Usage
 
@@ -436,18 +419,7 @@ run();
 
 ## get
 
-The `usersOne` operation allows developers to fetch detailed information about a specific user from the CRM system using their unique ID. This operation is crucial for applications that need to display or process user-specific data. 
-
-### Key Parameters:
-- **id (path)**: The unique identifier of the user whose details are being retrieved. This parameter is mandatory.
-- **x-apideck-consumer-id (header)**: Required header specifying the consumer ID for data retrieval.
-- **x-apideck-app-id (header)**: Required header indicating the Unify application ID.
-- **x-apideck-service-id (header)**: Optional header to specify the service ID when multiple integrations are active.
-- **raw (query)**: Optional parameter to include raw response data, useful for debugging.
-- **fields (query)**: Optional parameter to specify which fields to include in the response, using a comma-separated string. Supports nested properties with dot notation.
-
-### Response Behavior:
-The operation returns a JSON object containing the user's details, including all available fields unless specified otherwise by the `fields` parameter. The response is typically a 200 status code, indicating successful retrieval of the user data.
+The 'usersOne' operation allows developers to fetch detailed information about a specific user in the CRM system by using their unique ID. This GET request requires the 'id' parameter in the path to specify the user record to retrieve. Additionally, headers such as 'x-apideck-consumer-id' and 'x-apideck-app-id' are mandatory for authentication and routing purposes. Optionally, the 'x-apideck-service-id' header can be used to target a specific service integration, and query parameters like 'raw' and 'fields' can be utilized to customize the response. The response is typically a JSON object containing the user's details, facilitating seamless integration and data retrieval for CRM applications.
 
 ### Example Usage
 
@@ -538,16 +510,7 @@ run();
 
 ## update
 
-The `usersUpdate` operation allows developers to modify existing user records in the CRM system using a PATCH request to the `/crm/users/{id}` endpoint. This operation is crucial for maintaining up-to-date user information, ensuring data accuracy and relevance. 
-
-Key Parameters:
-- `id` (path): The unique identifier of the user record to be updated. This is a required parameter.
-- `x-apideck-consumer-id` (header): Specifies the consumer ID for data retrieval or submission. This is mandatory.
-- `x-apideck-app-id` (header): Identifies the Unify application in use. This is also required.
-- `x-apideck-service-id` (header): Optional parameter to specify the service ID when multiple integrations are active.
-- `raw` (query): Optional parameter to include raw response data, useful for debugging.
-
-Upon successful execution, the operation returns a status code of 200, indicating that the user record has been updated. The response includes a JSON object with the updated user details, confirming the changes made. This operation is essential for developers needing to ensure that user data within the CRM remains current and accurate.
+The usersUpdate operation allows you to modify existing user records in the CRM system by sending a PATCH request to the /crm/users/{id} endpoint. This operation is crucial for keeping user information up-to-date and accurate. You must provide the user's ID in the path parameter to specify which record to update. Additionally, the request requires headers for authentication and authorization, including x-apideck-consumer-id and x-apideck-app-id. Optionally, you can specify x-apideck-service-id if targeting a specific service integration. The request body should contain the fields you wish to update. Upon successful execution, the operation returns a status code of 200, indicating the user record has been updated. The response typically includes the updated user details in a JSON format.
 
 ### Example Usage
 
@@ -1022,16 +985,7 @@ run();
 
 ## delete
 
-The `usersDelete` operation allows developers to remove a user from the CRM system by specifying the user's unique identifier in the endpoint path. This operation is crucial for maintaining an up-to-date and accurate user database by enabling the deletion of obsolete or incorrect user records. 
-
-Key Parameters:
-- `id` (path parameter, required): The unique identifier of the user to be deleted.
-- `x-apideck-consumer-id` (header, required): Identifies the consumer from which data is being managed.
-- `x-apideck-app-id` (header, required): The ID of the Unify application making the request.
-- `x-apideck-service-id` (header, optional): Specifies the service ID when multiple integrations are active.
-- `raw` (query parameter, optional): When set, includes the raw response for debugging purposes.
-
-Upon successful deletion, the operation returns a status code of 200, indicating that the user has been successfully removed from the system. This operation does not return a response body, ensuring a streamlined and efficient API interaction.
+The usersDelete operation allows you to remove a user from the CRM system by specifying their unique ID in the endpoint path. This operation is crucial for managing user data and ensuring that outdated or incorrect user records are efficiently removed. To execute this operation, you must provide the user's ID in the path, along with necessary headers such as x-apideck-consumer-id and x-apideck-app-id for authentication and authorization. Optionally, you can specify the x-apideck-service-id if targeting a specific service integration. The operation does not require a request body and returns a status code of 200 upon successful deletion, indicating that the user has been successfully removed from the system.
 
 ### Example Usage
 

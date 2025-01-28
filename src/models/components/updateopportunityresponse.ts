@@ -9,11 +9,11 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This object contains the updated details of the opportunity record within the CRM. It includes all relevant fields that were modified during the update operation, ensuring the CRM reflects the most current sales information. The structure of this object aligns with the opportunity resource schema used in the CRM system.
+ * This object contains the updated details of the opportunity record that was modified. It includes all relevant fields that were changed during the PATCH operation, ensuring that the opportunity data is current and accurate. This object is essential for confirming the success of the update operation.
  */
 export type UpdateOpportunityResponseUnifiedId = {
   /**
-   * The unique identifier of the opportunity record that was updated. This string value confirms the specific resource that has been modified, allowing developers to verify the successful update of the opportunity within the CRM. It is crucial for tracking changes and maintaining data integrity in the sales pipeline.
+   * The unique identifier of the opportunity record that was updated. This ID is crucial for referencing the specific opportunity within the CRM system and confirms which record was modified during the PATCH operation.
    */
   id: string;
 };
@@ -23,27 +23,27 @@ export type UpdateOpportunityResponseUnifiedId = {
  */
 export type UpdateOpportunityResponse = {
   /**
-   * The HTTP response status code indicating the result of the `opportunitiesUpdate` operation. A status code of 200 confirms that the opportunity record was successfully updated. This integer value helps developers understand the outcome of their API request.
+   * The HTTP response status code indicating the result of the PATCH request. A status code of 200 signifies that the opportunity record was successfully updated. This code is crucial for error handling and debugging in client applications.
    */
   statusCode: number;
   /**
-   * A textual representation of the HTTP response status, such as 'OK' for a successful update. This string provides a human-readable confirmation of the operation's result, complementing the numeric status code.
+   * A textual representation of the HTTP response status, such as 'OK' for a successful update. This provides a human-readable confirmation of the operation's outcome, complementing the numeric status code.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider involved in the `opportunitiesUpdate` operation. This string identifies which service handled the request, useful for tracking and logging purposes in environments with multiple integrations.
+   * The Apideck ID of the service provider that processed the request. This identifier helps in tracking which service integration handled the opportunity update, especially useful in multi-service environments.
    */
   service: string;
   /**
-   * The name of the Unified API resource that was updated, typically 'opportunity'. This string helps developers confirm the specific type of resource that was modified in the CRM system.
+   * The name of the unified API resource that was affected by the operation, in this case, 'opportunities'. This helps in identifying the type of resource that was updated, ensuring clarity in API responses.
    */
   resource: string;
   /**
-   * The specific operation performed, in this case, 'update'. This string indicates the action taken on the opportunity resource, helping developers verify the intended modification was executed.
+   * The specific operation performed on the resource, typically 'update' for this PATCH request. This field confirms the action taken, aiding in logging and auditing processes.
    */
   operation: string;
   /**
-   * This object contains the updated details of the opportunity record within the CRM. It includes all relevant fields that were modified during the update operation, ensuring the CRM reflects the most current sales information. The structure of this object aligns with the opportunity resource schema used in the CRM system.
+   * This object contains the updated details of the opportunity record that was modified. It includes all relevant fields that were changed during the PATCH operation, ensuring that the opportunity data is current and accurate. This object is essential for confirming the success of the update operation.
    */
   data: UpdateOpportunityResponseUnifiedId;
 };

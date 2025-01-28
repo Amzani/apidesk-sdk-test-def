@@ -1,6 +1,6 @@
 # ListLeadsResponseCustomMappings
 
-Contains any custom mappings configured for the lead resource. This object may include key-value pairs that map custom fields to standard fields, allowing for tailored data representation. Useful for integrations that require specific field alignments.
+Contains custom mappings configured for the lead resource, providing additional context or data transformations specific to the service integration. This object helps in aligning the lead data with custom fields or structures defined in the CRM system.
 
 ## Example Usage
 

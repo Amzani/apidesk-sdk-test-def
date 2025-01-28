@@ -1,6 +1,6 @@
 # UpdateContactRequestPhoneNumbersType
 
-The type of phone number, such as 'mobile', 'home', or 'work'. This property helps categorize the phone number for better organization and understanding of the contact's communication preferences. It should be a descriptive string that accurately reflects the phone number's usage context.
+Indicates the type of phone number provided, such as 'mobile', 'home', or 'work'. This optional field helps categorize the phone number for better organization and context within the CRM. Ensure the type is specified as a valid string to aid in contact management.
 
 ## Example Usage
 

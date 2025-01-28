@@ -1,6 +1,6 @@
 # ListContactsResponseValue
 
-Contains the value associated with a custom field for a contact. This value can be of various types, such as string, number, or date, depending on the custom field's configuration. It allows for the storage of additional, user-defined information that is not covered by standard contact fields.
+This property holds the value of a custom field associated with a contact. It allows for storing additional, user-defined information that may not be covered by standard fields. The format and content of this value depend on the specific custom field configuration within the CRM.
 
 
 ## Supported Types

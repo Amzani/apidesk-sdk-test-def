@@ -24,14 +24,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Update an existing activity record in the CRM.
+ * Update an existing CRM activity record by its ID.
  *
  * @remarks
- * The `activitiesUpdate` operation allows developers to modify an existing activity record within the CRM system. This operation is crucial for maintaining up-to-date information about activities, ensuring that any changes or updates are accurately reflected in the CRM.
- *
- * To perform this operation, the `id` parameter is required in the path to specify which activity record is being updated. Additionally, the request must include headers such as `x-apideck-consumer-id` and `x-apideck-app-id` to authenticate and identify the application making the request. The optional `x-apideck-service-id` header can be used if multiple integrations are active, specifying which service to target.
- *
- * The operation supports a `raw` query parameter for debugging purposes, allowing the inclusion of raw responses. Upon successful execution, the operation returns a status code of 200, indicating that the activity record has been updated. The response includes a JSON object representing the updated resource, ensuring developers can confirm the changes made.
+ * The activitiesUpdate operation allows you to modify an existing activity record in the CRM by specifying its unique ID in the endpoint path. This PATCH request requires the 'id' parameter to identify the record, and headers such as 'x-apideck-consumer-id' and 'x-apideck-app-id' for authentication and authorization. Optionally, 'x-apideck-service-id' can be included to target a specific service integration. The request body should contain the fields you wish to update. If successful, the operation returns a status code of 200, indicating the activity has been updated. The response includes the updated activity details in a JSON format. This operation is essential for keeping CRM activity records current and accurate, facilitating better customer relationship management.
  */
 export async function crmActivitiesUpdate(
   client: ApideckCore,
@@ -86,12 +82,12 @@ export async function crmActivitiesUpdate(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

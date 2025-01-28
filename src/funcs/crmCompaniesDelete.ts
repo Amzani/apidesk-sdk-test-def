@@ -24,19 +24,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Delete a company record from the CRM system.
+ * Deletes a company record from the CRM system using its unique ID.
  *
  * @remarks
- * The `companiesDelete` operation allows developers to remove a company record from the CRM system using its unique identifier. This operation is crucial for maintaining up-to-date and accurate data within the CRM by enabling the deletion of outdated or incorrect company entries.
- *
- * Key Parameters:
- * - `id` (path parameter, required): The unique identifier of the company record to be deleted.
- * - `x-apideck-consumer-id` (header, required): Identifies the consumer from which data is being managed.
- * - `x-apideck-app-id` (header, required): Specifies the Unify application ID associated with the request.
- * - `x-apideck-service-id` (header, optional): Indicates the specific service to be called, necessary when multiple integrations are active.
- * - `raw` (query parameter, optional): When set, includes the raw response, useful for debugging.
- *
- * Response Behavior: Upon successful deletion, the operation returns a status code of 200, confirming the removal of the specified company record. This ensures developers can verify the successful execution of the delete operation.
+ * The companiesDelete operation allows you to remove a specific company record from the CRM system by providing its unique ID in the endpoint path. This operation is crucial for maintaining up-to-date and accurate company data within your CRM. To execute this operation, you must include the 'x-apideck-consumer-id' and 'x-apideck-app-id' headers for authentication and authorization purposes. Optionally, you can specify the 'raw' query parameter to receive the raw response data, which is useful for debugging. Upon successful deletion, the operation returns a status code of 200, indicating that the company record has been successfully removed. This operation does not require a request body.
  */
 export async function crmCompaniesDelete(
   client: ApideckCore,
@@ -87,12 +78,12 @@ export async function crmCompaniesDelete(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

@@ -1,6 +1,6 @@
 # ListActivitiesResponseStatus
 
-The status of the attendee in relation to the activity, such as 'confirmed', 'tentative', or 'declined'. This field provides insight into the attendee's participation level and is essential for managing attendance and follow-ups.
+The current participation status of the attendee in the activity, such as confirmed, tentative, or declined. This field helps in managing and tracking attendee responses and is optional in the response.
 
 ## Example Usage
 

@@ -9,11 +9,11 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This object contains the details of the newly created activity within the CRM system. It serves as a container for the unique identifier and potentially other metadata related to the activity. The structure is defined by the CRM's schema for activity resources.
+ * This object contains the details of the newly created activity in the CRM system. It serves as a container for the unique identifier and other potential metadata related to the activity. The presence of this object confirms the successful creation of the activity.
  */
 export type CreateActivityResponseUnifiedId = {
   /**
-   * The unique identifier assigned to the activity that was just created in the CRM. This ID is a string and is used to reference the activity in future operations, such as updates or retrievals. It confirms the successful addition of the activity to the system.
+   * The unique identifier assigned to the newly created activity within the CRM system. This ID is crucial for referencing the activity in future operations, such as updates or retrievals. It is returned as a string and ensures that each activity can be distinctly identified.
    */
   id: string;
 };
@@ -23,27 +23,27 @@ export type CreateActivityResponseUnifiedId = {
  */
 export type CreateActivityResponse = {
   /**
-   * The HTTP response status code indicating the result of the POST request to create a new activity. A value of 201 confirms that the activity was successfully added to the CRM system. This integer is crucial for error handling and validation of the operation's success.
+   * The HTTP response status code returned by the server. This integer value indicates the result of the POST request to add a new activity, with a successful creation typically returning a 201 status code. It helps developers understand the outcome of their API call.
    */
   statusCode: number;
   /**
-   * A textual representation of the HTTP response status, such as 'Created' for a successful POST operation. This string provides a human-readable confirmation of the operation's outcome, complementing the status code.
+   * A textual representation of the HTTP response status. This string provides a human-readable explanation of the status code, such as 'Created' for a successful activity addition. It aids in quickly assessing the result of the operation.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider that processed the request. This string helps identify which service within the Apideck ecosystem handled the activity creation, especially useful in environments with multiple integrations.
+   * The Apideck ID of the service provider involved in the operation. This string identifies which service integration was used to add the activity, helping developers track and manage service-specific interactions within the CRM.
    */
   service: string;
   /**
-   * The name of the Unified API resource that was targeted by the operation, in this case, the 'activities' resource. This string confirms the specific CRM resource that was affected by the POST request.
+   * The name of the Unified API resource that was affected by the operation. This string specifies the type of resource, such as 'activity', that was created, providing context about the nature of the data involved in the POST request.
    */
   resource: string;
   /**
-   * The type of operation performed, specifically 'activitiesAdd' for this POST request. This string indicates the action taken within the CRM system, confirming the creation of a new activity.
+   * The specific operation that was performed, represented as a string. In this context, it indicates the action taken, such as 'add', to create a new activity in the CRM system. This helps in understanding the type of change made by the API call.
    */
   operation: string;
   /**
-   * This object contains the details of the newly created activity within the CRM system. It serves as a container for the unique identifier and potentially other metadata related to the activity. The structure is defined by the CRM's schema for activity resources.
+   * This object contains the details of the newly created activity in the CRM system. It serves as a container for the unique identifier and other potential metadata related to the activity. The presence of this object confirms the successful creation of the activity.
    */
   data: CreateActivityResponseUnifiedId;
 };

@@ -9,11 +9,11 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This object contains the updated details of the user record that was modified. It serves as a confirmation of the changes made to the user data in the CRM system. The structure includes various fields representing the user's updated information.
+ * This object contains the updated details of the user record in the CRM system. It encapsulates all the fields that were modified during the PATCH operation, ensuring that the user information is current and accurate. The structure of this object will vary based on the fields included in the update request.
  */
 export type UpdateUserResponseUnifiedId = {
   /**
-   * The unique identifier of the user record that was updated. This string value confirms the specific user entry that has been modified, ensuring developers can verify the correct record was altered.
+   * The unique identifier of the user record that was updated. This ID is crucial for referencing the specific user within the CRM system and confirms the successful modification of the user's details. It is returned as a string and remains unchanged during the update process.
    */
   id: string;
 };
@@ -23,27 +23,27 @@ export type UpdateUserResponseUnifiedId = {
  */
 export type UpdateUserResponse = {
   /**
-   * The HTTP response status code indicating the result of the PATCH request. A value of 200 confirms that the user record was successfully updated. This integer is crucial for error handling and debugging.
+   * The HTTP response status code returned by the server, indicating the result of the PATCH request to update a user record. A status code of 200 signifies that the operation was successful, and the user details have been updated accordingly. This code helps in programmatically determining the outcome of the request.
    */
   statusCode: number;
   /**
-   * A textual representation of the HTTP response status, such as 'OK' for a successful update. This string provides a human-readable confirmation of the operation's outcome, complementing the status code.
+   * A textual representation of the HTTP response status, such as 'OK' for a successful request. This provides a human-readable confirmation of the operation's result, complementing the numerical status code.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider that processed the update request. This string helps identify which service handled the operation, especially useful in environments with multiple integrations.
+   * The unique Apideck identifier for the service provider involved in the operation. This ID helps in identifying which service integration was used to perform the user update, especially when multiple integrations are in place.
    */
   service: string;
   /**
-   * The name of the Unified API resource that was updated, typically 'user' in this context. This string indicates the type of resource affected by the operation, ensuring clarity in multi-resource environments.
+   * The name of the unified API resource that was targeted by the operation, in this case, the user resource. This helps in understanding which type of resource was affected by the PATCH request.
    */
   resource: string;
   /**
-   * The specific operation performed, in this case, 'update'. This string confirms the action taken on the resource, providing context for the response and aiding in audit trails.
+   * The specific operation that was performed, identified as 'update' in this context. This indicates that the user record was modified as a result of the PATCH request, providing clarity on the action taken.
    */
   operation: string;
   /**
-   * This object contains the updated details of the user record that was modified. It serves as a confirmation of the changes made to the user data in the CRM system. The structure includes various fields representing the user's updated information.
+   * This object contains the updated details of the user record in the CRM system. It encapsulates all the fields that were modified during the PATCH operation, ensuring that the user information is current and accurate. The structure of this object will vary based on the fields included in the update request.
    */
   data: UpdateUserResponseUnifiedId;
 };

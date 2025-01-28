@@ -1,20 +1,20 @@
-speakeasyVersion: 1.469.12
+speakeasyVersion: 1.477.0
 sources:
     CRM API:
         sourceNamespace: crm-api-enhanced
-        sourceRevisionDigest: sha256:0b5f0817c56210658497971b68ccfb0e5d8e8c16741514c336bed390f21a3cfe
-        sourceBlobDigest: sha256:3cbec4cf3d3f965729d2161bb6c352328075b55b8534136a46afda5bcb964bb6
+        sourceRevisionDigest: sha256:4512e0bd34f3bc65f609098355c8ed05527f2c01cbc0af56cfc1f0e4d5647a8c
+        sourceBlobDigest: sha256:af8570a3a7c54a4b2ecb8eb1fb42a51f498dd3949d22f744c5c3405cb1f21eda
         tags:
             - latest
-            - 10.8.2
+            - 10.11.0
 targets:
     apideck:
         source: CRM API
         sourceNamespace: crm-api-enhanced
-        sourceRevisionDigest: sha256:0b5f0817c56210658497971b68ccfb0e5d8e8c16741514c336bed390f21a3cfe
-        sourceBlobDigest: sha256:3cbec4cf3d3f965729d2161bb6c352328075b55b8534136a46afda5bcb964bb6
+        sourceRevisionDigest: sha256:4512e0bd34f3bc65f609098355c8ed05527f2c01cbc0af56cfc1f0e4d5647a8c
+        sourceBlobDigest: sha256:af8570a3a7c54a4b2ecb8eb1fb42a51f498dd3949d22f744c5c3405cb1f21eda
         codeSamplesNamespace: crm-enhanced-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:d376e9608f6c1359ce036fa9dd3c0bf4fa100cab1ace97c4af1d166e179e0539
+        codeSamplesRevisionDigest: sha256:a8f5781aa74cf5516c1b022dce6d2bc751030bc64e915446e079e7ca36ab4f97
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

@@ -1,6 +1,6 @@
 # LeadsSortBy
 
-Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
+Specify the field by which to sort the leads. This property determines the attribute used for ordering the results, such as 'name' or 'created_at'.
 
 ## Example Usage
 

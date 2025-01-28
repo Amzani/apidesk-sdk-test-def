@@ -5,15 +5,15 @@
 
 ### Available Operations
 
-* [list](#list) - Retrieve all CRM activities with customizable query options.
-* [create](#create) - Add a new activity to the CRM system.
+* [list](#list) - Retrieve all CRM activities with optional filtering and sorting.
+* [create](#create) - Adds a new activity to the CRM system.
 * [get](#get) - Retrieve a specific CRM activity by its ID.
-* [update](#update) - Update an existing activity record in the CRM.
-* [delete](#delete) - Delete a specific CRM activity by its ID.
+* [update](#update) - Update an existing CRM activity record by its ID.
+* [delete](#delete) - Deletes a specified activity record from the CRM system.
 
 ## list
 
-The `activitiesAll` operation allows developers to retrieve a comprehensive list of CRM activities using a GET request to the `/crm/activities` endpoint. This operation is essential for accessing activity data across various CRM integrations, enabling users to manage and analyze customer interactions effectively. Key parameters include `x-apideck-consumer-id` and `x-apideck-app-id`, which are mandatory headers for identifying the consumer and application. Optional query parameters such as `cursor`, `limit`, `filter`, and `sort` provide flexibility in navigating and organizing the data. The `fields` parameter allows for selective data retrieval, enhancing performance by returning only specified fields. The response is a JSON object containing the requested activities, facilitating seamless integration into applications and workflows. This operation supports debugging with the `raw` parameter and allows additional query customization through `pass_through`. The response includes pagination details for efficient data handling.
+The 'activitiesAll' operation allows developers to fetch a comprehensive list of CRM activities using the GET method at the '/crm/activities' endpoint. This operation supports various query parameters for enhanced data retrieval, including 'raw' for debugging, 'cursor' for pagination, 'limit' for controlling data volume, 'filter' and 'sort' for data customization, and 'fields' for specifying response content. Essential headers like 'x-apideck-consumer-id' and 'x-apideck-app-id' are required for authentication. The response is a JSON object containing the requested activities, facilitating efficient data management and integration within CRM systems.
 
 ### Example Usage
 
@@ -128,15 +128,7 @@ run();
 
 ## create
 
-The `activitiesAdd` operation allows developers to create a new activity within the CRM system by sending a POST request to the `/crm/activities` endpoint. This operation is essential for integrating and managing customer interactions and tasks within a unified CRM platform. 
-
-Key Parameters:
-- `x-apideck-consumer-id` (header, required): Specifies the consumer ID for data retrieval or submission.
-- `x-apideck-app-id` (header, required): Identifies the Unify application making the request.
-- `x-apideck-service-id` (header, optional): Indicates the specific service to call, necessary when multiple integrations are active.
-- `raw` (query, optional): Determines if the raw response should be included, mainly for debugging.
-
-Upon successful creation, the operation returns a `201` status code along with a JSON object containing the unique identifier of the newly created activity. This response confirms the successful addition of the activity to the CRM system.
+The activitiesAdd operation allows developers to add a new activity to the CRM system by sending a POST request to the /crm/activities endpoint. This operation is crucial for maintaining up-to-date records of interactions and engagements within the CRM. The request must include a valid x-apideck-consumer-id and x-apideck-app-id in the headers for authentication and authorization. Optionally, the x-apideck-service-id can be specified to target a specific service integration. The 'raw' query parameter can be set to true to receive the raw data response, useful for debugging. Upon successful creation, the API returns a 201 status code along with the ID of the newly created activity, encapsulated in a JSON object.
 
 ### Example Usage
 
@@ -475,17 +467,7 @@ run();
 
 ## get
 
-The 'activitiesOne' operation allows developers to fetch detailed information about a specific CRM activity using its unique ID. This operation is essential for accessing individual activity records within a CRM system, enabling users to view or process specific activity data as needed. 
-
-Key Parameters:
-- **id** (path): The unique identifier of the activity record to retrieve. This parameter is mandatory.
-- **x-apideck-consumer-id** (header): Required to specify the consumer ID for data retrieval.
-- **x-apideck-app-id** (header): The ID of the Unify application making the request, also required.
-- **x-apideck-service-id** (header): Optional parameter to specify the service ID when multiple integrations are active.
-- **raw** (query): Optional parameter to include the raw response, useful for debugging.
-- **fields** (query): Allows specifying which fields to include in the response, using a comma-separated string for selective data retrieval.
-
-Response Behavior: The operation returns a JSON object representing the CRM activity, including all requested fields. This enables developers to integrate or display specific activity details within their applications efficiently.
+The 'activitiesOne' operation allows developers to fetch detailed information about a specific CRM activity using its unique ID. This GET request requires the 'id' parameter in the path to identify the activity record. Additionally, headers such as 'x-apideck-consumer-id' and 'x-apideck-app-id' are mandatory for authentication and routing purposes. Optionally, the 'x-apideck-service-id' header can be used to specify a service integration if multiple are active. Query parameters like 'raw' and 'fields' enable developers to customize the response, either by receiving raw data for debugging or by selecting specific fields to optimize performance. The response is typically a JSON object containing the activity details, ensuring developers have the necessary information for further processing or display.
 
 ### Example Usage
 
@@ -576,11 +558,7 @@ run();
 
 ## update
 
-The `activitiesUpdate` operation allows developers to modify an existing activity record within the CRM system. This operation is crucial for maintaining up-to-date information about activities, ensuring that any changes or updates are accurately reflected in the CRM.
-
-To perform this operation, the `id` parameter is required in the path to specify which activity record is being updated. Additionally, the request must include headers such as `x-apideck-consumer-id` and `x-apideck-app-id` to authenticate and identify the application making the request. The optional `x-apideck-service-id` header can be used if multiple integrations are active, specifying which service to target.
-
-The operation supports a `raw` query parameter for debugging purposes, allowing the inclusion of raw responses. Upon successful execution, the operation returns a status code of 200, indicating that the activity record has been updated. The response includes a JSON object representing the updated resource, ensuring developers can confirm the changes made.
+The activitiesUpdate operation allows you to modify an existing activity record in the CRM by specifying its unique ID in the endpoint path. This PATCH request requires the 'id' parameter to identify the record, and headers such as 'x-apideck-consumer-id' and 'x-apideck-app-id' for authentication and authorization. Optionally, 'x-apideck-service-id' can be included to target a specific service integration. The request body should contain the fields you wish to update. If successful, the operation returns a status code of 200, indicating the activity has been updated. The response includes the updated activity details in a JSON format. This operation is essential for keeping CRM activity records current and accurate, facilitating better customer relationship management.
 
 ### Example Usage
 
@@ -1029,17 +1007,7 @@ run();
 
 ## delete
 
-The `activitiesDelete` operation allows developers to remove a specific activity from the CRM system by providing its unique ID. This operation is crucial for maintaining accurate and up-to-date records within the CRM. 
-
-### Key Parameters:
-- **id (path parameter)**: The unique identifier of the activity to be deleted. This is a required parameter.
-- **x-apideck-consumer-id (header)**: The ID of the consumer from which data is being managed. This is a required parameter.
-- **x-apideck-app-id (header)**: The ID of the Unify application making the request. This is a required parameter.
-- **x-apideck-service-id (header)**: Optional parameter to specify the service ID when multiple integrations are active.
-- **raw (query parameter)**: Optional parameter to include the raw response, useful for debugging.
-
-### Response Behavior:
-Upon successful deletion, the operation returns a status code of 200, indicating that the activity has been successfully removed from the CRM system. No content is returned in the response body, aligning with standard practices for delete operations.
+The activitiesDelete operation allows you to remove an activity record from the CRM by specifying its unique ID in the endpoint path. This operation is crucial for maintaining accurate and up-to-date records by eliminating outdated or incorrect entries. To execute this operation, you must provide the 'id' of the activity to be deleted, along with the 'x-apideck-consumer-id' and 'x-apideck-app-id' headers for authentication. Optionally, you can specify the 'x-apideck-service-id' header if targeting a specific service integration. The operation does not require a request body and will return a status code of 200 upon successful deletion, indicating that the activity has been successfully removed from the system.
 
 ### Example Usage
 

@@ -1,6 +1,6 @@
 # UpdateContactRequestGender
 
-The gender of the contact, which can be used for demographic analysis and personalized communication. This optional field should be a string value, typically 'Male', 'Female', or other gender identities as applicable. Providing this information can help tailor interactions and improve user experience.
+The gender of the contact, which may be used for demographic analysis or personalized communication. This field is optional and should be provided only if relevant and necessary for the context of the CRM operations.
 
 ## Example Usage
 

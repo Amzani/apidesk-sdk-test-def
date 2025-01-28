@@ -1,6 +1,6 @@
 # UpdateLeadRequestAddressesType
 
-Defines the category of the address, such as 'home', 'work', or 'billing', to clarify its intended use. This categorization aids in managing and utilizing address data effectively within the CRM system. Ensure the type is a valid string that accurately describes the address's purpose.
+Defines the category or purpose of the address, such as home, work, or billing. This property helps in organizing and utilizing addresses effectively within the CRM system. Ensure the type is a valid string that accurately describes the address's role.
 
 ## Example Usage
 

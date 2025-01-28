@@ -1,6 +1,6 @@
 # ListContactsResponseCustomMappings
 
-An object containing any custom field mappings configured for the contact resource. This allows developers to access additional, non-standard data fields that have been tailored to specific business needs. The structure of this object depends on the custom mappings set up in the CRM.
+An object containing any custom mappings configured for the contact resource. This field includes additional, user-defined data mappings that extend the standard contact schema, allowing for tailored data integration and management. The structure of this object depends on the specific custom mappings applied.
 
 ## Example Usage
 

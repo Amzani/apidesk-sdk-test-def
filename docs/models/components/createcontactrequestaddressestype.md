@@ -1,6 +1,6 @@
 # CreateContactRequestAddressesType
 
-Specifies the category of the address, such as 'home', 'work', or 'billing'. This helps in organizing and distinguishing between different types of addresses associated with a contact. If provided, it should be a valid string representing the address type.
+Specifies the category of the address, such as 'home', 'work', or 'billing'. This helps in organizing and identifying the address type within the CRM system. It is optional and should be a descriptive string that clearly indicates the address's purpose.
 
 ## Example Usage
 

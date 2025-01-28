@@ -24,19 +24,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Update user details in the CRM system.
+ * Update user details in the CRM system using a PATCH request.
  *
  * @remarks
- * The `usersUpdate` operation allows developers to modify existing user records in the CRM system using a PATCH request to the `/crm/users/{id}` endpoint. This operation is crucial for maintaining up-to-date user information, ensuring data accuracy and relevance.
- *
- * Key Parameters:
- * - `id` (path): The unique identifier of the user record to be updated. This is a required parameter.
- * - `x-apideck-consumer-id` (header): Specifies the consumer ID for data retrieval or submission. This is mandatory.
- * - `x-apideck-app-id` (header): Identifies the Unify application in use. This is also required.
- * - `x-apideck-service-id` (header): Optional parameter to specify the service ID when multiple integrations are active.
- * - `raw` (query): Optional parameter to include raw response data, useful for debugging.
- *
- * Upon successful execution, the operation returns a status code of 200, indicating that the user record has been updated. The response includes a JSON object with the updated user details, confirming the changes made. This operation is essential for developers needing to ensure that user data within the CRM remains current and accurate.
+ * The usersUpdate operation allows you to modify existing user records in the CRM system by sending a PATCH request to the /crm/users/{id} endpoint. This operation is crucial for keeping user information up-to-date and accurate. You must provide the user's ID in the path parameter to specify which record to update. Additionally, the request requires headers for authentication and authorization, including x-apideck-consumer-id and x-apideck-app-id. Optionally, you can specify x-apideck-service-id if targeting a specific service integration. The request body should contain the fields you wish to update. Upon successful execution, the operation returns a status code of 200, indicating the user record has been updated. The response typically includes the updated user details in a JSON format.
  */
 export async function crmUsersUpdate(
   client: ApideckCore,
@@ -88,12 +79,12 @@ export async function crmUsersUpdate(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

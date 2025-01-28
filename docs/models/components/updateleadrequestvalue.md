@@ -1,6 +1,6 @@
 # UpdateLeadRequestValue
 
-The value assigned to a custom field for the lead. This allows for storing additional, non-standard information specific to the lead, which can be tailored to fit unique business needs. Ensure the value aligns with the expected data type and format for the custom field.
+The custom_fields.value property is used to update specific custom field data for a lead. This allows for the inclusion of tailored information that may not be covered by standard fields, enhancing the flexibility of lead management. Ensure the value provided aligns with the expected data type and format for the custom field being updated.
 
 
 ## Supported Types

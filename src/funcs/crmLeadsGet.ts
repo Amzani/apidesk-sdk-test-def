@@ -24,21 +24,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve a specific lead by ID from the CRM system.
+ * Retrieve detailed information about a specific lead in the CRM.
  *
  * @remarks
- * The `leadsOne` operation allows developers to retrieve detailed information about a specific lead from the CRM system using its unique ID. This operation is essential for accessing individual lead data for review or processing purposes.
- *
- * Key Parameters:
- * - `id` (path): The unique identifier of the lead you wish to retrieve. This parameter is mandatory.
- * - `x-apideck-consumer-id` (header): Required to specify the consumer ID from which data is being accessed.
- * - `x-apideck-app-id` (header): Required to identify your Unify application.
- * - `x-apideck-service-id` (header): Optional parameter to specify the service ID when multiple integrations are active.
- * - `raw` (query): Optional parameter to include the raw response, useful for debugging.
- * - `fields` (query): Optional parameter to specify which fields to include in the response, using a comma-separated string for selective data retrieval.
- *
- * Response Behavior:
- * The operation returns a JSON object representing the lead, including all requested fields. If the `fields` parameter is used, only the specified fields will be included in the response. This operation is performed using the HTTP GET method and responds with a status code of 200 upon successful retrieval.
+ * The 'leadsOne' operation allows developers to fetch comprehensive details of a specific lead by its unique ID from the CRM system. This GET request requires the lead's ID as a path parameter and mandates the inclusion of 'x-apideck-consumer-id' and 'x-apideck-app-id' in the headers for authentication and authorization. Optionally, specify 'x-apideck-service-id' to target a specific service integration if multiple are active. Use the 'raw' query parameter to receive unprocessed data for debugging, and 'fields' to customize the response by selecting specific data fields. The response is a JSON object containing the lead's details, facilitating efficient data retrieval and integration into applications.
  */
 export async function crmLeadsGet(
   client: ApideckCore,
@@ -90,12 +79,12 @@ export async function crmLeadsGet(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

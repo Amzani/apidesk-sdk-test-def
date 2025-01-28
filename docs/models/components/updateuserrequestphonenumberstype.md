@@ -1,6 +1,6 @@
 # UpdateUserRequestPhoneNumbersType
 
-Specifies the category of the phone number, such as 'mobile', 'home', or 'work'. This helps in identifying the context in which the phone number is used, aiding in better communication management within the CRM system. If provided, it should be a valid string representing the phone type.
+Specifies the category of the phone number, such as 'home', 'work', or 'mobile'. This helps in identifying the context in which the phone number is used, ensuring accurate communication channels are maintained. It is optional and can be left blank if the type is not specified.
 
 ## Example Usage
 

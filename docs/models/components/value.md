@@ -1,6 +1,6 @@
 # Value
 
-The actual data or content stored in the custom field for the company. This value can vary depending on the custom field's purpose and should be formatted according to the field's requirements. It is essential for capturing specific information that standard fields do not cover.
+The 'custom_fields.value' property holds the actual data or value for the custom field defined by 'custom_fields.name'. This optional field allows you to assign specific information to the custom field, enhancing the company's data profile. It should be a string that accurately represents the value intended for the custom attribute.
 
 
 ## Supported Types

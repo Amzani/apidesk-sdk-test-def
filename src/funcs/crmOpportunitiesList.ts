@@ -39,18 +39,7 @@ import {
  * Retrieve a list of CRM opportunities.
  *
  * @remarks
- * The `opportunitiesAll` operation allows developers to retrieve a comprehensive list of opportunities from the CRM system. This GET request is essential for accessing sales opportunities data, enabling users to analyze and manage potential deals effectively.
- *
- * Key Parameters:
- * - `x-apideck-consumer-id` (header, required): Identifies the consumer for data retrieval.
- * - `x-apideck-app-id` (header, required): Specifies the Unify application ID.
- * - `x-apideck-service-id` (header, optional): Indicates the service ID for specific integrations.
- * - `cursor` (query): Used for pagination to navigate through results.
- * - `limit` (query): Defines the number of results per page, with a default of 20 and a maximum of 200.
- * - `fields` (query): Allows selection of specific fields to include in the response, optimizing data retrieval.
- *
- * Response Behavior:
- * The operation returns a JSON object containing the list of opportunities, with pagination support through cursors. This enables efficient data handling and integration into applications, providing a streamlined approach to managing CRM opportunities.
+ * The 'opportunitiesAll' operation fetches a comprehensive list of CRM opportunities from the specified service. This GET request to the '/crm/opportunities' endpoint allows developers to access detailed opportunity data, which is crucial for sales tracking and management. Key parameters include 'limit' for controlling the number of results, 'filter' for narrowing down opportunities based on criteria like 'title' or 'status', and 'sort' for ordering the results. The response is a JSON object containing the list of opportunities, with pagination supported via the 'cursor' parameter. Essential headers such as 'x-apideck-consumer-id' and 'x-apideck-app-id' are required for authentication and authorization. This operation is vital for integrating CRM data into applications, enabling efficient sales process management.
  */
 export async function crmOpportunitiesList(
   client: ApideckCore,
@@ -108,12 +97,12 @@ export async function crmOpportunitiesList(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

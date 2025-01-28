@@ -27,17 +27,7 @@ import { Result } from "../types/fp.js";
  * Retrieve a specific CRM activity by its ID.
  *
  * @remarks
- * The 'activitiesOne' operation allows developers to fetch detailed information about a specific CRM activity using its unique ID. This operation is essential for accessing individual activity records within a CRM system, enabling users to view or process specific activity data as needed.
- *
- * Key Parameters:
- * - **id** (path): The unique identifier of the activity record to retrieve. This parameter is mandatory.
- * - **x-apideck-consumer-id** (header): Required to specify the consumer ID for data retrieval.
- * - **x-apideck-app-id** (header): The ID of the Unify application making the request, also required.
- * - **x-apideck-service-id** (header): Optional parameter to specify the service ID when multiple integrations are active.
- * - **raw** (query): Optional parameter to include the raw response, useful for debugging.
- * - **fields** (query): Allows specifying which fields to include in the response, using a comma-separated string for selective data retrieval.
- *
- * Response Behavior: The operation returns a JSON object representing the CRM activity, including all requested fields. This enables developers to integrate or display specific activity details within their applications efficiently.
+ * The 'activitiesOne' operation allows developers to fetch detailed information about a specific CRM activity using its unique ID. This GET request requires the 'id' parameter in the path to identify the activity record. Additionally, headers such as 'x-apideck-consumer-id' and 'x-apideck-app-id' are mandatory for authentication and routing purposes. Optionally, the 'x-apideck-service-id' header can be used to specify a service integration if multiple are active. Query parameters like 'raw' and 'fields' enable developers to customize the response, either by receiving raw data for debugging or by selecting specific fields to optimize performance. The response is typically a JSON object containing the activity details, ensuring developers have the necessary information for further processing or display.
  */
 export async function crmActivitiesGet(
   client: ApideckCore,
@@ -89,12 +79,12 @@ export async function crmActivitiesGet(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

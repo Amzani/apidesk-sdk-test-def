@@ -27,18 +27,7 @@ import { Result } from "../types/fp.js";
  * Retrieve a specific CRM opportunity by its ID.
  *
  * @remarks
- * The 'opportunitiesOne' operation allows developers to fetch detailed information about a specific opportunity within the CRM system by providing its unique ID. This operation is essential for accessing and managing individual opportunity records, enabling users to view and analyze specific sales opportunities.
- *
- * Key Parameters:
- * - **id** (path): The unique identifier of the opportunity record to retrieve. This parameter is mandatory.
- * - **x-apideck-consumer-id** (header): Required to specify the consumer ID for data retrieval.
- * - **x-apideck-app-id** (header): Required to identify the Unify application making the request.
- * - **x-apideck-service-id** (header): Optional parameter to specify the service ID when multiple integrations are active.
- * - **raw** (query): Optional parameter to include the raw response, useful for debugging.
- * - **fields** (query): Optional parameter to specify which fields to include in the response, allowing for customized data retrieval.
- *
- * Response Behavior:
- * This operation returns a JSON object representing the opportunity resource, including all requested fields. The response will include a status code of 200 upon successful retrieval of the opportunity data. This operation does not modify any data, ensuring that the integrity of the CRM records is maintained.
+ * The 'opportunitiesOne' operation allows developers to fetch detailed information about a specific opportunity within a CRM system using its unique ID. This GET request requires the 'id' parameter in the path to identify the opportunity record. Essential headers include 'x-apideck-consumer-id' and 'x-apideck-app-id' for authentication and authorization. Optionally, specify 'x-apideck-service-id' to target a particular service integration if multiple are active. Use the 'raw' query parameter to receive raw data for debugging, and 'fields' to customize the response by selecting specific data fields. The response is a JSON object containing the opportunity details, facilitating efficient data retrieval and integration into applications.
  */
 export async function crmOpportunitiesGet(
   client: ApideckCore,
@@ -91,12 +80,12 @@ export async function crmOpportunitiesGet(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

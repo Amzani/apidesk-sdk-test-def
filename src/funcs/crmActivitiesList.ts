@@ -36,10 +36,10 @@ import {
 } from "../types/operations.js";
 
 /**
- * Retrieve all CRM activities with customizable query options.
+ * Retrieve all CRM activities with optional filtering and sorting.
  *
  * @remarks
- * The `activitiesAll` operation allows developers to retrieve a comprehensive list of CRM activities using a GET request to the `/crm/activities` endpoint. This operation is essential for accessing activity data across various CRM integrations, enabling users to manage and analyze customer interactions effectively. Key parameters include `x-apideck-consumer-id` and `x-apideck-app-id`, which are mandatory headers for identifying the consumer and application. Optional query parameters such as `cursor`, `limit`, `filter`, and `sort` provide flexibility in navigating and organizing the data. The `fields` parameter allows for selective data retrieval, enhancing performance by returning only specified fields. The response is a JSON object containing the requested activities, facilitating seamless integration into applications and workflows. This operation supports debugging with the `raw` parameter and allows additional query customization through `pass_through`. The response includes pagination details for efficient data handling.
+ * The 'activitiesAll' operation allows developers to fetch a comprehensive list of CRM activities using the GET method at the '/crm/activities' endpoint. This operation supports various query parameters for enhanced data retrieval, including 'raw' for debugging, 'cursor' for pagination, 'limit' for controlling data volume, 'filter' and 'sort' for data customization, and 'fields' for specifying response content. Essential headers like 'x-apideck-consumer-id' and 'x-apideck-app-id' are required for authentication. The response is a JSON object containing the requested activities, facilitating efficient data management and integration within CRM systems.
  */
 export async function crmActivitiesList(
   client: ApideckCore,
@@ -96,12 +96,12 @@ export async function crmActivitiesList(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

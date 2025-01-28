@@ -17,18 +17,7 @@ export class Opportunities extends ClientSDK {
    * Retrieve a list of CRM opportunities.
    *
    * @remarks
-   * The `opportunitiesAll` operation allows developers to retrieve a comprehensive list of opportunities from the CRM system. This GET request is essential for accessing sales opportunities data, enabling users to analyze and manage potential deals effectively.
-   *
-   * Key Parameters:
-   * - `x-apideck-consumer-id` (header, required): Identifies the consumer for data retrieval.
-   * - `x-apideck-app-id` (header, required): Specifies the Unify application ID.
-   * - `x-apideck-service-id` (header, optional): Indicates the service ID for specific integrations.
-   * - `cursor` (query): Used for pagination to navigate through results.
-   * - `limit` (query): Defines the number of results per page, with a default of 20 and a maximum of 200.
-   * - `fields` (query): Allows selection of specific fields to include in the response, optimizing data retrieval.
-   *
-   * Response Behavior:
-   * The operation returns a JSON object containing the list of opportunities, with pagination support through cursors. This enables efficient data handling and integration into applications, providing a streamlined approach to managing CRM opportunities.
+   * The 'opportunitiesAll' operation fetches a comprehensive list of CRM opportunities from the specified service. This GET request to the '/crm/opportunities' endpoint allows developers to access detailed opportunity data, which is crucial for sales tracking and management. Key parameters include 'limit' for controlling the number of results, 'filter' for narrowing down opportunities based on criteria like 'title' or 'status', and 'sort' for ordering the results. The response is a JSON object containing the list of opportunities, with pagination supported via the 'cursor' parameter. Essential headers such as 'x-apideck-consumer-id' and 'x-apideck-app-id' are required for authentication and authorization. This operation is vital for integrating CRM data into applications, enabling efficient sales process management.
    */
   async list(
     request: operations.CrmOpportunitiesAllRequest,
@@ -47,15 +36,7 @@ export class Opportunities extends ClientSDK {
    * Add a new opportunity to the CRM system.
    *
    * @remarks
-   * The `opportunitiesAdd` operation allows developers to create a new opportunity within the CRM system by sending a POST request to the `/crm/opportunities` endpoint. This operation is essential for managing sales pipelines and tracking potential deals.
-   *
-   * Key Parameters:
-   * - `x-apideck-consumer-id` (header, required): Specifies the consumer ID for data interaction.
-   * - `x-apideck-app-id` (header, required): Identifies the Unify application in use.
-   * - `x-apideck-service-id` (header, optional): Indicates the specific service ID to call, necessary when multiple integrations are active.
-   * - `raw` (query, optional): Determines if the raw response should be included, useful for debugging.
-   *
-   * Upon successful creation, the operation returns a `201` status code along with a JSON object containing the unique identifier of the newly created opportunity, confirming the addition to the CRM system.
+   * The 'opportunitiesAdd' operation allows you to create a new opportunity within the CRM system by sending a POST request to the '/crm/opportunities' endpoint. This operation is essential for managing sales pipelines and tracking potential deals. The request must include a valid 'x-apideck-consumer-id' and 'x-apideck-app-id' in the headers for authentication. Optionally, specify 'x-apideck-service-id' to target a specific service integration. If 'raw' is set to true in the query, the response will include raw data for debugging purposes. Upon successful creation, the API returns a status code of 201 along with the ID of the newly created opportunity in a JSON object.
    */
   async create(
     request: operations.CrmOpportunitiesAddRequest,
@@ -72,18 +53,7 @@ export class Opportunities extends ClientSDK {
    * Retrieve a specific CRM opportunity by its ID.
    *
    * @remarks
-   * The 'opportunitiesOne' operation allows developers to fetch detailed information about a specific opportunity within the CRM system by providing its unique ID. This operation is essential for accessing and managing individual opportunity records, enabling users to view and analyze specific sales opportunities.
-   *
-   * Key Parameters:
-   * - **id** (path): The unique identifier of the opportunity record to retrieve. This parameter is mandatory.
-   * - **x-apideck-consumer-id** (header): Required to specify the consumer ID for data retrieval.
-   * - **x-apideck-app-id** (header): Required to identify the Unify application making the request.
-   * - **x-apideck-service-id** (header): Optional parameter to specify the service ID when multiple integrations are active.
-   * - **raw** (query): Optional parameter to include the raw response, useful for debugging.
-   * - **fields** (query): Optional parameter to specify which fields to include in the response, allowing for customized data retrieval.
-   *
-   * Response Behavior:
-   * This operation returns a JSON object representing the opportunity resource, including all requested fields. The response will include a status code of 200 upon successful retrieval of the opportunity data. This operation does not modify any data, ensuring that the integrity of the CRM records is maintained.
+   * The 'opportunitiesOne' operation allows developers to fetch detailed information about a specific opportunity within a CRM system using its unique ID. This GET request requires the 'id' parameter in the path to identify the opportunity record. Essential headers include 'x-apideck-consumer-id' and 'x-apideck-app-id' for authentication and authorization. Optionally, specify 'x-apideck-service-id' to target a particular service integration if multiple are active. Use the 'raw' query parameter to receive raw data for debugging, and 'fields' to customize the response by selecting specific data fields. The response is a JSON object containing the opportunity details, facilitating efficient data retrieval and integration into applications.
    */
   async get(
     request: operations.CrmOpportunitiesOneRequest,
@@ -100,16 +70,7 @@ export class Opportunities extends ClientSDK {
    * Update an existing opportunity in the CRM system.
    *
    * @remarks
-   * The `opportunitiesUpdate` operation allows developers to modify an existing opportunity record within the CRM system. This operation is crucial for maintaining up-to-date information on sales opportunities, enabling businesses to track and manage their sales pipeline effectively.
-   *
-   * Key Parameters:
-   * - `id` (path): The unique identifier of the opportunity record to be updated. This parameter is mandatory.
-   * - `x-apideck-consumer-id` (header): Required to specify the consumer ID for data retrieval or submission.
-   * - `x-apideck-app-id` (header): Identifies the Unify application in use.
-   * - `x-apideck-service-id` (header): Optional parameter to specify the service ID when multiple integrations are active.
-   * - `raw` (query): Optional parameter to include raw response data, useful for debugging.
-   *
-   * Upon successful execution, the operation returns a status code of 200, along with a JSON object representing the updated opportunity resource. This response includes the unique identifier of the updated resource, confirming the successful modification of the opportunity record. The operation ensures that the CRM data remains current and reflective of the latest sales activities.
+   * The opportunitiesUpdate operation allows you to modify an existing opportunity record in the CRM by sending a PATCH request to the /crm/opportunities/{id} endpoint. This operation is crucial for keeping opportunity data up-to-date, ensuring accurate tracking and management of sales processes. The request requires the opportunity ID in the path and authentication headers, including x-apideck-consumer-id and x-apideck-app-id. Optionally, specify x-apideck-service-id to target a specific service integration. The raw query parameter can be used to receive raw data for debugging. A successful update returns a 200 status code and the updated opportunity details in a JSON object.
    */
   async update(
     request: operations.CrmOpportunitiesUpdateRequest,
@@ -123,20 +84,10 @@ export class Opportunities extends ClientSDK {
   }
 
   /**
-   * Delete an existing opportunity record in the CRM.
+   * Deletes a specific opportunity record from the CRM system.
    *
    * @remarks
-   * The `opportunitiesDelete` operation allows developers to remove an existing opportunity record from the CRM system. This operation is crucial for maintaining accurate and up-to-date records by enabling the deletion of opportunities that are no longer relevant or were created in error.
-   *
-   * ### Key Parameters:
-   * - **id (path parameter)**: The unique identifier of the opportunity record to be deleted. This parameter is mandatory.
-   * - **x-apideck-consumer-id (header)**: Required to specify the consumer ID from which data is being managed.
-   * - **x-apideck-app-id (header)**: The ID of the Unify application making the request, also required.
-   * - **x-apideck-service-id (header)**: Optional parameter to specify the service ID when multiple integrations are active.
-   * - **raw (query parameter)**: Optional flag to include raw response data, useful for debugging.
-   *
-   * ### Response Behavior:
-   * Upon successful deletion, the API returns a status code of 200, indicating that the opportunity record has been successfully removed. No content is returned in the response body, aligning with standard practices for delete operations.
+   * The opportunitiesDelete operation allows developers to remove an opportunity record from the CRM by specifying its unique ID in the endpoint path. This operation is crucial for maintaining accurate and up-to-date CRM data by enabling the deletion of obsolete or incorrect records. To execute this operation, the 'id' parameter is required in the path, along with necessary headers for authentication: 'x-apideck-consumer-id' and 'x-apideck-app-id'. Optionally, 'x-apideck-service-id' can be included to target a specific service integration. The operation does not require a request body and returns a status code of 200 upon successful deletion, indicating that the record has been successfully removed. This operation is essential for developers managing CRM data lifecycle efficiently.
    */
   async delete(
     request: operations.CrmOpportunitiesDeleteRequest,

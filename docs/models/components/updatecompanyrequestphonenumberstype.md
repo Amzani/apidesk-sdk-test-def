@@ -1,6 +1,6 @@
 # UpdateCompanyRequestPhoneNumbersType
 
-Specifies the category of the phone number, such as 'work', 'home', or 'mobile'. This helps in identifying the context in which the phone number is used within the company's contact information. It is optional and should be a valid string representing the type of phone number.
+Specifies the category of the phone number, such as 'work', 'home', or 'mobile'. This helps in identifying the context in which the phone number is used within the company record. It is optional and should be a descriptive string that aligns with the company's contact management strategy.
 
 ## Example Usage
 

@@ -9,202 +9,14 @@ import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import {
+  Currency,
+  Currency$inboundSchema,
+  Currency$outboundSchema,
+} from "./currency.js";
 
 /**
- * Specifies the currency in which financial transactions are conducted for the company. This should be a valid ISO 4217 currency code, such as 'USD' for United States Dollar or 'EUR' for Euro. It helps in standardizing financial data across the CRM system.
- */
-export const Currency = {
-  UnknownCurrency: "UNKNOWN_CURRENCY",
-  Aed: "AED",
-  Afn: "AFN",
-  All: "ALL",
-  Amd: "AMD",
-  Ang: "ANG",
-  Aoa: "AOA",
-  Ars: "ARS",
-  Aud: "AUD",
-  Awg: "AWG",
-  Azn: "AZN",
-  Bam: "BAM",
-  Bbd: "BBD",
-  Bdt: "BDT",
-  Bgn: "BGN",
-  Bhd: "BHD",
-  Bif: "BIF",
-  Bmd: "BMD",
-  Bnd: "BND",
-  Bob: "BOB",
-  Bov: "BOV",
-  Brl: "BRL",
-  Bsd: "BSD",
-  Btn: "BTN",
-  Bwp: "BWP",
-  Byr: "BYR",
-  Bzd: "BZD",
-  Cad: "CAD",
-  Cdf: "CDF",
-  Che: "CHE",
-  Chf: "CHF",
-  Chw: "CHW",
-  Clf: "CLF",
-  Clp: "CLP",
-  Cny: "CNY",
-  Cop: "COP",
-  Cou: "COU",
-  Crc: "CRC",
-  Cuc: "CUC",
-  Cup: "CUP",
-  Cve: "CVE",
-  Czk: "CZK",
-  Djf: "DJF",
-  Dkk: "DKK",
-  Dop: "DOP",
-  Dzd: "DZD",
-  Egp: "EGP",
-  Ern: "ERN",
-  Etb: "ETB",
-  Eur: "EUR",
-  Fjd: "FJD",
-  Fkp: "FKP",
-  Gbp: "GBP",
-  Gel: "GEL",
-  Ghs: "GHS",
-  Gip: "GIP",
-  Gmd: "GMD",
-  Gnf: "GNF",
-  Gtq: "GTQ",
-  Gyd: "GYD",
-  Hkd: "HKD",
-  Hnl: "HNL",
-  Hrk: "HRK",
-  Htg: "HTG",
-  Huf: "HUF",
-  Idr: "IDR",
-  Ils: "ILS",
-  Inr: "INR",
-  Iqd: "IQD",
-  Irr: "IRR",
-  Isk: "ISK",
-  Jmd: "JMD",
-  Jod: "JOD",
-  Jpy: "JPY",
-  Kes: "KES",
-  Kgs: "KGS",
-  Khr: "KHR",
-  Kmf: "KMF",
-  Kpw: "KPW",
-  Krw: "KRW",
-  Kwd: "KWD",
-  Kyd: "KYD",
-  Kzt: "KZT",
-  Lak: "LAK",
-  Lbp: "LBP",
-  Lkr: "LKR",
-  Lrd: "LRD",
-  Lsl: "LSL",
-  Ltl: "LTL",
-  Lvl: "LVL",
-  Lyd: "LYD",
-  Mad: "MAD",
-  Mdl: "MDL",
-  Mga: "MGA",
-  Mkd: "MKD",
-  Mmk: "MMK",
-  Mnt: "MNT",
-  Mop: "MOP",
-  Mro: "MRO",
-  Mur: "MUR",
-  Mvr: "MVR",
-  Mwk: "MWK",
-  Mxn: "MXN",
-  Mxv: "MXV",
-  Myr: "MYR",
-  Mzn: "MZN",
-  Nad: "NAD",
-  Ngn: "NGN",
-  Nio: "NIO",
-  Nok: "NOK",
-  Npr: "NPR",
-  Nzd: "NZD",
-  Omr: "OMR",
-  Pab: "PAB",
-  Pen: "PEN",
-  Pgk: "PGK",
-  Php: "PHP",
-  Pkr: "PKR",
-  Pln: "PLN",
-  Pyg: "PYG",
-  Qar: "QAR",
-  Ron: "RON",
-  Rsd: "RSD",
-  Rub: "RUB",
-  Rwf: "RWF",
-  Sar: "SAR",
-  Sbd: "SBD",
-  Scr: "SCR",
-  Sdg: "SDG",
-  Sek: "SEK",
-  Sgd: "SGD",
-  Shp: "SHP",
-  Sll: "SLL",
-  Sos: "SOS",
-  Srd: "SRD",
-  Ssp: "SSP",
-  Std: "STD",
-  Svc: "SVC",
-  Syp: "SYP",
-  Szl: "SZL",
-  Thb: "THB",
-  Tjs: "TJS",
-  Tmt: "TMT",
-  Tnd: "TND",
-  Top: "TOP",
-  Trc: "TRC",
-  Try: "TRY",
-  Ttd: "TTD",
-  Twd: "TWD",
-  Tzs: "TZS",
-  Uah: "UAH",
-  Ugx: "UGX",
-  Usd: "USD",
-  Usn: "USN",
-  Uss: "USS",
-  Uyi: "UYI",
-  Uyu: "UYU",
-  Uzs: "UZS",
-  Vef: "VEF",
-  Vnd: "VND",
-  Vuv: "VUV",
-  Wst: "WST",
-  Xaf: "XAF",
-  Xag: "XAG",
-  Xau: "XAU",
-  Xba: "XBA",
-  Xbb: "XBB",
-  Xbc: "XBC",
-  Xbd: "XBD",
-  Xcd: "XCD",
-  Xdr: "XDR",
-  Xof: "XOF",
-  Xpd: "XPD",
-  Xpf: "XPF",
-  Xpt: "XPT",
-  Xts: "XTS",
-  Xxx: "XXX",
-  Yer: "YER",
-  Zar: "ZAR",
-  Zmk: "ZMK",
-  Zmw: "ZMW",
-  Btc: "BTC",
-  Eth: "ETH",
-} as const;
-/**
- * Specifies the currency in which financial transactions are conducted for the company. This should be a valid ISO 4217 currency code, such as 'USD' for United States Dollar or 'EUR' for Euro. It helps in standardizing financial data across the CRM system.
- */
-export type Currency = ClosedEnum<typeof Currency>;
-
-/**
- * Indicates the type of bank account, such as checking, savings, or business. This classification helps in managing the company's financial accounts appropriately within the CRM. The account type should be specified as recognized by the bank.
+ * The classification of the company's bank account, such as checking or savings. This property helps determine the account's features and limitations. Ensure the account type is specified accurately to avoid transaction issues.
  */
 export const AccountType = {
   BankAccount: "bank_account",
@@ -212,254 +24,56 @@ export const AccountType = {
   Other: "other",
 } as const;
 /**
- * Indicates the type of bank account, such as checking, savings, or business. This classification helps in managing the company's financial accounts appropriately within the CRM. The account type should be specified as recognized by the bank.
+ * The classification of the company's bank account, such as checking or savings. This property helps determine the account's features and limitations. Ensure the account type is specified accurately to avoid transaction issues.
  */
 export type AccountType = ClosedEnum<typeof AccountType>;
 
-/**
- * Specifies the currency type for the company's bank account transactions. Must be a valid ISO 4217 currency code, such as 'USD' for US Dollars or 'EUR' for Euros. This ensures that all financial data is accurately recorded and processed in the correct currency.
- */
-export const CreateCompanyRequestCurrency = {
-  UnknownCurrency: "UNKNOWN_CURRENCY",
-  Aed: "AED",
-  Afn: "AFN",
-  All: "ALL",
-  Amd: "AMD",
-  Ang: "ANG",
-  Aoa: "AOA",
-  Ars: "ARS",
-  Aud: "AUD",
-  Awg: "AWG",
-  Azn: "AZN",
-  Bam: "BAM",
-  Bbd: "BBD",
-  Bdt: "BDT",
-  Bgn: "BGN",
-  Bhd: "BHD",
-  Bif: "BIF",
-  Bmd: "BMD",
-  Bnd: "BND",
-  Bob: "BOB",
-  Bov: "BOV",
-  Brl: "BRL",
-  Bsd: "BSD",
-  Btn: "BTN",
-  Bwp: "BWP",
-  Byr: "BYR",
-  Bzd: "BZD",
-  Cad: "CAD",
-  Cdf: "CDF",
-  Che: "CHE",
-  Chf: "CHF",
-  Chw: "CHW",
-  Clf: "CLF",
-  Clp: "CLP",
-  Cny: "CNY",
-  Cop: "COP",
-  Cou: "COU",
-  Crc: "CRC",
-  Cuc: "CUC",
-  Cup: "CUP",
-  Cve: "CVE",
-  Czk: "CZK",
-  Djf: "DJF",
-  Dkk: "DKK",
-  Dop: "DOP",
-  Dzd: "DZD",
-  Egp: "EGP",
-  Ern: "ERN",
-  Etb: "ETB",
-  Eur: "EUR",
-  Fjd: "FJD",
-  Fkp: "FKP",
-  Gbp: "GBP",
-  Gel: "GEL",
-  Ghs: "GHS",
-  Gip: "GIP",
-  Gmd: "GMD",
-  Gnf: "GNF",
-  Gtq: "GTQ",
-  Gyd: "GYD",
-  Hkd: "HKD",
-  Hnl: "HNL",
-  Hrk: "HRK",
-  Htg: "HTG",
-  Huf: "HUF",
-  Idr: "IDR",
-  Ils: "ILS",
-  Inr: "INR",
-  Iqd: "IQD",
-  Irr: "IRR",
-  Isk: "ISK",
-  Jmd: "JMD",
-  Jod: "JOD",
-  Jpy: "JPY",
-  Kes: "KES",
-  Kgs: "KGS",
-  Khr: "KHR",
-  Kmf: "KMF",
-  Kpw: "KPW",
-  Krw: "KRW",
-  Kwd: "KWD",
-  Kyd: "KYD",
-  Kzt: "KZT",
-  Lak: "LAK",
-  Lbp: "LBP",
-  Lkr: "LKR",
-  Lrd: "LRD",
-  Lsl: "LSL",
-  Ltl: "LTL",
-  Lvl: "LVL",
-  Lyd: "LYD",
-  Mad: "MAD",
-  Mdl: "MDL",
-  Mga: "MGA",
-  Mkd: "MKD",
-  Mmk: "MMK",
-  Mnt: "MNT",
-  Mop: "MOP",
-  Mro: "MRO",
-  Mur: "MUR",
-  Mvr: "MVR",
-  Mwk: "MWK",
-  Mxn: "MXN",
-  Mxv: "MXV",
-  Myr: "MYR",
-  Mzn: "MZN",
-  Nad: "NAD",
-  Ngn: "NGN",
-  Nio: "NIO",
-  Nok: "NOK",
-  Npr: "NPR",
-  Nzd: "NZD",
-  Omr: "OMR",
-  Pab: "PAB",
-  Pen: "PEN",
-  Pgk: "PGK",
-  Php: "PHP",
-  Pkr: "PKR",
-  Pln: "PLN",
-  Pyg: "PYG",
-  Qar: "QAR",
-  Ron: "RON",
-  Rsd: "RSD",
-  Rub: "RUB",
-  Rwf: "RWF",
-  Sar: "SAR",
-  Sbd: "SBD",
-  Scr: "SCR",
-  Sdg: "SDG",
-  Sek: "SEK",
-  Sgd: "SGD",
-  Shp: "SHP",
-  Sll: "SLL",
-  Sos: "SOS",
-  Srd: "SRD",
-  Ssp: "SSP",
-  Std: "STD",
-  Svc: "SVC",
-  Syp: "SYP",
-  Szl: "SZL",
-  Thb: "THB",
-  Tjs: "TJS",
-  Tmt: "TMT",
-  Tnd: "TND",
-  Top: "TOP",
-  Trc: "TRC",
-  Try: "TRY",
-  Ttd: "TTD",
-  Twd: "TWD",
-  Tzs: "TZS",
-  Uah: "UAH",
-  Ugx: "UGX",
-  Usd: "USD",
-  Usn: "USN",
-  Uss: "USS",
-  Uyi: "UYI",
-  Uyu: "UYU",
-  Uzs: "UZS",
-  Vef: "VEF",
-  Vnd: "VND",
-  Vuv: "VUV",
-  Wst: "WST",
-  Xaf: "XAF",
-  Xag: "XAG",
-  Xau: "XAU",
-  Xba: "XBA",
-  Xbb: "XBB",
-  Xbc: "XBC",
-  Xbd: "XBD",
-  Xcd: "XCD",
-  Xdr: "XDR",
-  Xof: "XOF",
-  Xpd: "XPD",
-  Xpf: "XPF",
-  Xpt: "XPT",
-  Xts: "XTS",
-  Xxx: "XXX",
-  Yer: "YER",
-  Zar: "ZAR",
-  Zmk: "ZMK",
-  Zmw: "ZMW",
-  Btc: "BTC",
-  Eth: "ETH",
-} as const;
-/**
- * Specifies the currency type for the company's bank account transactions. Must be a valid ISO 4217 currency code, such as 'USD' for US Dollars or 'EUR' for Euros. This ensures that all financial data is accurately recorded and processed in the correct currency.
- */
-export type CreateCompanyRequestCurrency = ClosedEnum<
-  typeof CreateCompanyRequestCurrency
->;
-
 export type BankAccounts = {
   /**
-   * Specifies the name of the bank associated with the company's account. This property is used to identify the financial institution where the account is held, aiding in accurate financial tracking and management within the CRM. It should be a valid bank name as recognized by financial institutions.
+   * The name of the bank associated with the company's account. This property is used to identify the financial institution where the company's account is held. It should be a valid bank name as recognized by the financial system.
    */
   bankName?: string | null | undefined;
   /**
-   * Represents the unique number assigned to the company's bank account. This is crucial for transactions and financial operations, ensuring funds are directed to the correct account. The account number must be formatted according to the bank's standards, typically a string of digits.
+   * The unique number assigned to the company's bank account. This property is crucial for transactions and must be formatted according to the bank's specifications. It ensures that funds are correctly routed to the intended account.
    */
   accountNumber?: string | null | undefined;
   /**
-   * Denotes the name under which the bank account was opened. This property helps verify the account's ownership and should match the name registered with the bank. It is essential for ensuring that transactions are processed under the correct account holder.
+   * The name under which the company's bank account is registered. This property helps verify the account holder's identity and should match the name on official bank documents.
    */
   accountName?: string | null | undefined;
   /**
-   * Indicates the type of bank account, such as checking, savings, or business. This classification helps in managing the company's financial accounts appropriately within the CRM. The account type should be specified as recognized by the bank.
+   * The classification of the company's bank account, such as checking or savings. This property helps determine the account's features and limitations. Ensure the account type is specified accurately to avoid transaction issues.
    */
   accountType?: AccountType | null | undefined;
   /**
-   * The International Bank Account Number (IBAN) used for international transactions. This property ensures that the company's bank account can be identified globally, facilitating cross-border financial operations. The IBAN must be formatted according to international banking standards.
+   * The International Bank Account Number (IBAN) for the company's bank account. This property is used for international transactions and must comply with the IBAN format standards. It ensures that cross-border payments are processed correctly.
    */
   iban?: string | null | undefined;
   /**
-   * The Bank Identifier Code (BIC) is used to uniquely identify a bank during international transactions. It should be a valid BIC format, typically 8 or 11 characters long, consisting of both letters and numbers. This property helps ensure that the company’s bank details are correctly recorded for international financial operations.
+   * The Bank Identifier Code (BIC) is used to uniquely identify a bank in international transactions. This property is optional and should be provided if the company has an international bank account. It helps ensure that funds are correctly routed to the intended financial institution.
    */
   bic?: string | null | undefined;
   /**
-   * The routing number is a nine-digit code essential for identifying a financial institution in the United States. It is required for processing domestic wire transfers and electronic payments. Including this ensures accurate routing of funds to the company's bank account within the U.S. financial system.
+   * The routing number is a nine-digit code used to identify a financial institution in the United States. This property is optional and should be included if the company has a U.S. bank account. It is crucial for processing domestic transactions accurately.
    */
   routingNumber?: string | null | undefined;
   /**
-   * The BSB number is a 6-digit code used to identify the branch of an Australian or New Zealand bank. It is crucial for processing domestic transactions within these countries. Providing this ensures that payments are directed to the correct branch of the company's bank.
+   * The BSB number is a six-digit code used to identify a specific branch of a bank in Australia or New Zealand. This property is optional and should be provided if the company holds an account in these regions. It ensures that transactions are directed to the correct branch.
    */
   bsbNumber?: string | null | undefined;
   /**
-   * The branch identifier uniquely identifies a specific branch of a bank or financial institution. This property is important for ensuring that transactions are accurately directed to the correct branch, especially in regions where branch-specific codes are used.
+   * The branch identifier is a unique code for identifying a specific branch of a bank or financial institution. This property is optional and should be used when precise branch identification is necessary for the company's banking operations. It aids in directing transactions to the correct branch.
    */
   branchIdentifier?: string | null | undefined;
   /**
-   * The bank code is assigned by a central authority to identify banks within a country. It is used to facilitate the correct routing of transactions to the company's bank. This property is essential for ensuring that the company's banking details are accurately captured and used in financial operations.
+   * The bank code is assigned by a central authority to identify banks within a country. This property is optional and should be included if the company operates in a region where such codes are used. It helps in ensuring that transactions are processed by the correct bank.
    */
   bankCode?: string | null | undefined;
-  /**
-   * Specifies the currency type for the company's bank account transactions. Must be a valid ISO 4217 currency code, such as 'USD' for US Dollars or 'EUR' for Euros. This ensures that all financial data is accurately recorded and processed in the correct currency.
-   */
-  currency?: CreateCompanyRequestCurrency | null | undefined;
+  currency?: Currency | null | undefined;
 };
 
 /**
- * Describes the category or purpose of the website, such as 'corporate', 'e-commerce', or 'blog'. This helps in classifying the website's role within the company's digital strategy and is useful for targeted marketing and analytics.
+ * Describes the type of website, such as 'corporate', 'e-commerce', or 'blog'. This categorization helps in understanding the purpose and content focus of the website. This property is optional and can be used to provide additional context about the website's role.
  */
 export const CreateCompanyRequestWebsitesType = {
   Primary: "primary",
@@ -469,7 +83,7 @@ export const CreateCompanyRequestWebsitesType = {
   Other: "other",
 } as const;
 /**
- * Describes the category or purpose of the website, such as 'corporate', 'e-commerce', or 'blog'. This helps in classifying the website's role within the company's digital strategy and is useful for targeted marketing and analytics.
+ * Describes the type of website, such as 'corporate', 'e-commerce', or 'blog'. This categorization helps in understanding the purpose and content focus of the website. This property is optional and can be used to provide additional context about the website's role.
  */
 export type CreateCompanyRequestWebsitesType = ClosedEnum<
   typeof CreateCompanyRequestWebsitesType
@@ -477,21 +91,21 @@ export type CreateCompanyRequestWebsitesType = ClosedEnum<
 
 export type Websites = {
   /**
-   * A unique identifier for each website entry in the company's list of websites. This ID is crucial for differentiating between multiple websites and managing them individually within the CRM system.
+   * A unique identifier for each website entry within the company's website list. This ID is used to distinguish between different websites and is crucial for managing and updating specific website records. This property is optional and can be auto-generated if not provided.
    */
   id?: string | null | undefined;
   /**
-   * The full URL of the company's website, which must be a valid and reachable web address. This is a required field as it provides a direct link to the company's online presence, essential for digital engagement and verification.
+   * The URL of the company's website, which must be a valid web address. This field is required to ensure that the company's online presence is accurately captured and accessible. It is essential for linking to the company's digital resources.
    */
   url: string;
   /**
-   * Describes the category or purpose of the website, such as 'corporate', 'e-commerce', or 'blog'. This helps in classifying the website's role within the company's digital strategy and is useful for targeted marketing and analytics.
+   * Describes the type of website, such as 'corporate', 'e-commerce', or 'blog'. This categorization helps in understanding the purpose and content focus of the website. This property is optional and can be used to provide additional context about the website's role.
    */
   type?: CreateCompanyRequestWebsitesType | null | undefined;
 };
 
 /**
- * Specifies the type of address, such as 'billing', 'shipping', or 'office'. This helps categorize the address for specific business functions and should be a predefined string that matches the company's address type categories.
+ * Specifies the type of address, such as 'billing' or 'shipping'. This helps categorize the address for specific business functions and ensures that the correct address is used for the right purpose. It is optional but recommended for clarity.
  */
 export const CreateCompanyRequestType = {
   Primary: "primary",
@@ -503,7 +117,7 @@ export const CreateCompanyRequestType = {
   Other: "other",
 } as const;
 /**
- * Specifies the type of address, such as 'billing', 'shipping', or 'office'. This helps categorize the address for specific business functions and should be a predefined string that matches the company's address type categories.
+ * Specifies the type of address, such as 'billing' or 'shipping'. This helps categorize the address for specific business functions and ensures that the correct address is used for the right purpose. It is optional but recommended for clarity.
  */
 export type CreateCompanyRequestType = ClosedEnum<
   typeof CreateCompanyRequestType
@@ -511,120 +125,120 @@ export type CreateCompanyRequestType = ClosedEnum<
 
 export type Addresses = {
   /**
-   * A unique identifier for each address object within the addresses array. This ID is used to distinguish between different addresses and is particularly useful for updates or deletions of specific addresses. It should be a valid UUID or a similar unique string format.
+   * A unique identifier for each address object within the addresses array. This ID is used to distinguish between different addresses and is particularly useful for updates or deletions of specific addresses. It is optional and can be left blank if not applicable.
    */
   id?: string | null | undefined;
   /**
-   * Specifies the type of address, such as 'billing', 'shipping', or 'office'. This helps categorize the address for specific business functions and should be a predefined string that matches the company's address type categories.
+   * Specifies the type of address, such as 'billing' or 'shipping'. This helps categorize the address for specific business functions and ensures that the correct address is used for the right purpose. It is optional but recommended for clarity.
    */
   type?: CreateCompanyRequestType | null | undefined;
   /**
-   * The full address in a single string format, used when structured address data is not available. This should include all necessary address components like street, city, and postal code, formatted as a single line of text.
+   * The full address in a single string format, used when structured address data is not available. This field allows for flexibility in address input, accommodating various formats and international addresses. It is optional and can be used when detailed address components are not provided.
    */
   string?: string | null | undefined;
   /**
-   * A descriptive name for the address, such as 'Headquarters' or 'Main Office'. This helps identify the purpose or location of the address within the company's operations and should be a clear, concise label.
+   * A descriptive name for the address, such as 'Headquarters' or 'Warehouse'. This name helps identify the address within the company's records and can be used for quick reference. It is optional and can be omitted if not needed.
    */
   name?: string | null | undefined;
   /**
-   * The primary address line, typically including the street number, street name, and any suite or apartment number. This field helps identify the main location of the company and should be formatted as a standard address line.
+   * The primary address line for the company, including details such as street number, street name, and apartment or suite number. This field helps in accurately locating the company and is optional, allowing flexibility in address entry.
    */
   line1?: string | null | undefined;
   /**
-   * An additional address line for supplementary information such as building name or floor number. This field is optional and can be used to provide more detailed location data if necessary.
+   * An additional address line for the company, often used for supplementary information like building name or floor number. This field is optional and provides extra space for detailed address information if needed.
    */
   line2?: string | null | undefined;
   /**
-   * A third address line for any extra address details that do not fit in the first two lines. This is optional and can be used for extended address information.
+   * A third address line for the company, which can be used for any additional address details that do not fit in the first two lines. This optional field ensures comprehensive address documentation.
    */
   line3?: string | null | undefined;
   /**
-   * A fourth address line for further address details, allowing for comprehensive address information. This is optional and typically used for very detailed address specifications.
+   * A fourth address line for the company, allowing for further address details if necessary. This optional field supports extensive address information, ensuring all relevant details are captured.
    */
   line4?: string | null | undefined;
   /**
-   * The specific street number of the company's address. This field is part of the primary address line and is crucial for precise location identification. It should be formatted as a numeric or alphanumeric string, depending on local address conventions.
+   * The specific street number of the company's address, crucial for precise location identification. This optional field can be used to enhance the accuracy of the address provided.
    */
   streetNumber?: string | null | undefined;
   /**
-   * The city where the company is located. This field helps in geographically categorizing the company within the CRM system. It should be a valid city name and is used for location-based operations and reporting.
+   * Specifies the city where the company is located. This field helps in geographically categorizing the company within the CRM system. It should be a valid city name to ensure accurate location data.
    */
   city?: string | null | undefined;
   /**
-   * The state or region where the company is situated. This information is crucial for regional analysis and reporting within the CRM. It should be a valid state name or abbreviation, depending on the country's conventions.
+   * Indicates the state or region where the company is situated. This information is used to further refine the company's geographical location in the CRM. Ensure it is a valid state or region name for proper categorization.
    */
   state?: string | null | undefined;
   /**
-   * The postal code corresponding to the company's address. This field is used for precise location identification and mail delivery purposes. It should follow the postal code format of the respective country.
+   * Represents the postal code for the company's address, crucial for precise location mapping. It should conform to the postal code format of the respective country to ensure accuracy.
    */
   postalCode?: string | null | undefined;
   /**
-   * The country code of the company's location, following the ISO 3166-1 alpha-2 standard. This code is essential for international operations and ensures consistency in country identification across the CRM system.
+   * Denotes the country where the company is based, using the ISO 3166-1 alpha-2 code. This field is essential for international categorization and must be a valid two-letter country code.
    */
   country?: string | null | undefined;
   /**
-   * The latitude coordinate of the company's address. This geographic coordinate is used for mapping and spatial analysis within the CRM. It should be a valid latitude value, typically in decimal degrees.
+   * Specifies the latitude coordinate of the company's address, aiding in precise geographical positioning. It should be a valid latitude value to ensure accurate mapping within the CRM.
    */
   latitude?: string | null | undefined;
   /**
-   * The longitude coordinate of the company's address. This property is used to specify the geographical location of the company, which can be important for mapping and location-based services. It should be a valid string representation of a longitude value, typically ranging from -180 to 180 degrees.
+   * The longitude coordinate of the company's address. This property is used to pinpoint the exact geographical location of the company on a map. It should be a valid string representation of a longitude value, typically ranging from -180 to 180 degrees.
    */
   longitude?: string | null | undefined;
   /**
-   * The county or sublocality of the company's address. This field helps in identifying the specific administrative region within a state or country where the company is located. It is useful for regional segmentation and reporting within the CRM system.
+   * The county or sublocality of the company's address. This field helps in identifying the specific administrative region within a larger area, which can be crucial for regional operations or compliance. It should be a valid string representing the county name.
    */
   county?: string | null | undefined;
   /**
-   * The full name of the primary contact person at the company's address. This property is essential for personalizing communications and ensuring that correspondence is directed to the correct individual. It should be a valid string containing the contact's first and last name.
+   * The full name of the primary contact person at the company's address. This information is essential for establishing direct communication with the company and should be a valid string containing the contact's name.
    */
   contactName?: string | null | undefined;
   /**
-   * The salutation or title of the contact person at the company's address, such as Mr., Ms., or Dr. This property is used to address the contact person appropriately in communications and should match the contact's preferred form of address.
+   * The salutation or title of the contact person at the company's address. This property is used to address the contact person respectfully and appropriately in communications. It should be a valid string such as 'Mr.', 'Ms.', 'Dr.', etc.
    */
   salutation?: string | null | undefined;
   /**
-   * The phone number associated with the company's address. This property is crucial for direct communication with the company and should be formatted according to international standards, including the country code if applicable.
+   * The phone number associated with the company's address. This is used for direct telephonic communication with the company and should be a valid string formatted according to international or local standards.
    */
   phoneNumber?: string | null | undefined;
   /**
-   * The fax number associated with the company's address. This optional field should be a valid fax number format, allowing the CRM to store and manage fax communication details for the company. Useful for companies that still utilize fax for official communications.
+   * The fax number associated with the company's address. This property is optional and should be formatted as a standard fax number. It helps in maintaining comprehensive contact details for the company within the CRM system.
    */
   fax?: string | null | undefined;
   /**
-   * The email address linked to the company's address. This optional field should be a valid email format, enabling the CRM to send and receive email communications related to the company. Essential for maintaining contact through digital correspondence.
+   * The email address linked to the company's address. This optional field should be a valid email format and is used for electronic communication purposes, ensuring that the company can be contacted efficiently through the CRM.
    */
   email?: string | null | undefined;
   /**
-   * The website URL associated with the company's address. This optional field should be a valid URL format, providing a direct link to the company's online presence. Useful for accessing more information about the company directly from the CRM.
+   * The website URL associated with the company's address. This optional property should be a valid URL format and provides a direct link to the company's online presence, enhancing the CRM's contact information.
    */
   website?: string | null | undefined;
   /**
-   * Additional notes related to the company's address. This optional field allows for any extra information or comments that might be relevant to the address, aiding in better context and understanding of the company's location details.
+   * Additional notes related to the company's address. This optional field allows for any extra information or comments that might be relevant to the address, aiding in detailed record-keeping within the CRM.
    */
   notes?: string | null | undefined;
   /**
-   * A binary value used to track updates to the address object and prevent data conflicts. This optional field is incremented with each update, ensuring data integrity by detecting concurrent modifications. Essential for maintaining accurate and up-to-date address information in the CRM.
+   * A binary value used to track changes to the address object. This optional field is crucial for concurrency control, as it helps detect updates and prevent data conflicts by incrementing with each modification.
    */
   rowVersion?: string | null | undefined;
 };
 
 export type SocialLinks = {
   /**
-   * A unique identifier for each social link entry. This ID is used to distinguish between different social media profiles within the company's record. While not required, providing an ID can help in managing and updating specific social links efficiently.
+   * A unique identifier for each social link entry. This ID is used to distinguish between different social media profiles or links associated with the company, ensuring accurate data management and retrieval.
    */
   id?: string | null | undefined;
   /**
-   * The full URL of the company's social media profile. This must be a valid URL format, such as 'https://www.twitter.com/apideck', and is required to ensure accurate linking to the company's online presence. This property is crucial for integrating social media data into the CRM.
+   * The URL of the social link, such as a company's Twitter or LinkedIn profile. This field is required to establish a direct connection to the company's social media presence, facilitating easy access and interaction.
    */
   url: string;
   /**
-   * Specifies the type of social media platform, such as 'twitter' or 'linkedin'. This helps categorize the social link and is useful for filtering and organizing the company's social media data. Although optional, it enhances the clarity of the social media profile information.
+   * Specifies the type of social link, such as 'twitter' or 'linkedin'. This helps categorize the social media profiles, enabling better organization and filtering within the CRM system.
    */
   type?: string | null | undefined;
 };
 
 /**
- * Specifies the category of the phone number, such as 'work', 'home', or 'mobile'. This helps in organizing and identifying the purpose of each phone number associated with the company. It is optional and can be left blank if categorization is not needed.
+ * Specifies the category of the phone number, such as 'work', 'home', or 'mobile'. This helps in identifying the context in which the phone number is used within the CRM system. It is optional and can be left out if not applicable.
  */
 export const CreateCompanyRequestPhoneNumbersType = {
   Primary: "primary",
@@ -640,7 +254,7 @@ export const CreateCompanyRequestPhoneNumbersType = {
   Other: "other",
 } as const;
 /**
- * Specifies the category of the phone number, such as 'work', 'home', or 'mobile'. This helps in organizing and identifying the purpose of each phone number associated with the company. It is optional and can be left blank if categorization is not needed.
+ * Specifies the category of the phone number, such as 'work', 'home', or 'mobile'. This helps in identifying the context in which the phone number is used within the CRM system. It is optional and can be left out if not applicable.
  */
 export type CreateCompanyRequestPhoneNumbersType = ClosedEnum<
   typeof CreateCompanyRequestPhoneNumbersType
@@ -648,33 +262,33 @@ export type CreateCompanyRequestPhoneNumbersType = ClosedEnum<
 
 export type PhoneNumbers = {
   /**
-   * A unique identifier for the phone number entry within the company's contact information. This ID is used to distinguish between multiple phone numbers associated with the same company, ensuring accurate data management and retrieval.
+   * A unique identifier for the phone number entry within the company's contact information. This ID is used to distinguish between different phone numbers associated with the company, allowing for precise updates and management of contact details. It is not required when adding a new phone number but may be used for reference in updates.
    */
   id?: string | null | undefined;
   /**
-   * The international dialing code for the phone number, such as '+1' for the United States. This code is essential for making international calls and should be included to ensure the phone number is correctly formatted and dialable from outside the country.
+   * The international dialing code for the phone number, such as '+1' for the United States. This code is essential for ensuring the phone number is correctly formatted and can be dialed internationally. It should be provided in the standard international format, prefixed with a '+'.
    */
   countryCode?: string | null | undefined;
   /**
-   * The regional area code for the phone number, like '323' for Los Angeles. This code helps in routing calls to the correct geographic area and should be provided to ensure the phone number is complete and valid within its region.
+   * The regional area code for the phone number, such as '323' for Los Angeles. This code helps in identifying the specific geographic region of the phone number within a country. It should be provided as part of the complete phone number format.
    */
   areaCode?: string | null | undefined;
   /**
-   * The main phone number for the company, excluding country and area codes. This number is required and must be a valid sequence of digits that can be dialed locally within the area specified by the area code.
+   * The main phone number for the company, excluding the country and area codes. This is a required field and must be provided to successfully add a phone number to the company's contact information. It should be formatted as a string of digits without spaces or special characters.
    */
   number: string;
   /**
-   * An optional extension number for reaching specific departments or individuals within the company. This extension should be numeric and is used to direct calls internally once the main phone number is reached.
+   * An optional extension number for the phone line, used to direct calls to a specific department or individual within the company. This field is useful for companies with complex phone systems and should be provided if applicable.
    */
   extension?: string | null | undefined;
   /**
-   * Specifies the category of the phone number, such as 'work', 'home', or 'mobile'. This helps in organizing and identifying the purpose of each phone number associated with the company. It is optional and can be left blank if categorization is not needed.
+   * Specifies the category of the phone number, such as 'work', 'home', or 'mobile'. This helps in identifying the context in which the phone number is used within the CRM system. It is optional and can be left out if not applicable.
    */
   type?: CreateCompanyRequestPhoneNumbersType | null | undefined;
 };
 
 /**
- * Defines the nature of the email address, such as 'personal', 'work', or 'support'. This classification aids in understanding the context and intended use of each email address. It is optional and can be omitted if not applicable.
+ * Defines the type of email address, such as 'work', 'personal', or 'support'. This categorization helps in organizing and managing email communications related to the company. It is optional and can be specified to provide additional context.
  */
 export const CreateCompanyRequestEmailsType = {
   Primary: "primary",
@@ -685,7 +299,7 @@ export const CreateCompanyRequestEmailsType = {
   Other: "other",
 } as const;
 /**
- * Defines the nature of the email address, such as 'personal', 'work', or 'support'. This classification aids in understanding the context and intended use of each email address. It is optional and can be omitted if not applicable.
+ * Defines the type of email address, such as 'work', 'personal', or 'support'. This categorization helps in organizing and managing email communications related to the company. It is optional and can be specified to provide additional context.
  */
 export type CreateCompanyRequestEmailsType = ClosedEnum<
   typeof CreateCompanyRequestEmailsType
@@ -693,29 +307,29 @@ export type CreateCompanyRequestEmailsType = ClosedEnum<
 
 export type Emails = {
   /**
-   * A unique identifier for each email address entry within the company's email array. This ID is used to distinguish between different email records, facilitating updates and management of email information. It is optional and can be auto-generated if not provided.
+   * A unique identifier for each email address in the array. This ID is used to distinguish between different email entries and is crucial for managing email records within the CRM. It is optional but recommended for better email management.
    */
   id?: string | null | undefined;
   /**
-   * The actual email address used for communication with the company. This field is mandatory and must be a valid email format to ensure proper delivery of messages. It serves as a primary contact method within the CRM system.
+   * The actual email address associated with the company. This field is required and must be a valid email format to ensure proper communication and record-keeping within the CRM system.
    */
   email: string | null;
   /**
-   * Defines the nature of the email address, such as 'personal', 'work', or 'support'. This classification aids in understanding the context and intended use of each email address. It is optional and can be omitted if not applicable.
+   * Defines the type of email address, such as 'work', 'personal', or 'support'. This categorization helps in organizing and managing email communications related to the company. It is optional and can be specified to provide additional context.
    */
   type?: CreateCompanyRequestEmailsType | null | undefined;
 };
 
 /**
- * Defines the type of company record being added. This object may include additional attributes that specify the category or classification of the company within the CRM system. It is optional and can be omitted if the company type is not relevant to the operation.
+ * Specifies the type of company record being added. This object can include additional details such as the company's unique identifier and name, helping to categorize and manage different company types within the CRM. It is optional but can be used to provide more structured data about the company.
  */
 export type CompanyRowType = {
   /**
-   * A unique identifier for the company type. This string should be a valid UUID or another unique format that distinguishes the company type within the CRM. It is optional and used when specifying a particular type of company is necessary.
+   * A unique identifier for the type of company being added. This ID helps in distinguishing between different company types and is useful for integrations that require specific type handling. It is optional and should be a valid string if provided.
    */
   id?: string | null | undefined;
   /**
-   * The name of the company type. This string should clearly describe the category or classification of the company, such as 'Supplier' or 'Client'. It is optional and helps in categorizing the company within the CRM system.
+   * The name of the company type. This field allows you to specify a human-readable name for the company type, aiding in the organization and retrieval of company records. It is optional and should be a valid string if provided.
    */
   name?: string | null | undefined;
 };
@@ -725,7 +339,7 @@ export type Six = {};
 export type Four = {};
 
 /**
- * The actual data or content stored in the custom field for the company. This value can vary depending on the custom field's purpose and should be formatted according to the field's requirements. It is essential for capturing specific information that standard fields do not cover.
+ * The 'custom_fields.value' property holds the actual data or value for the custom field defined by 'custom_fields.name'. This optional field allows you to assign specific information to the custom field, enhancing the company's data profile. It should be a string that accurately represents the value intended for the custom attribute.
  */
 export type Value =
   | Four
@@ -737,19 +351,19 @@ export type Value =
 
 export type CustomFields = {
   /**
-   * A mandatory unique identifier for each custom field. This string must be a valid UUID or another unique format that ensures each custom field is distinct within the CRM system. It is crucial for linking specific custom data to the company record.
+   * A mandatory unique identifier for each custom field. This ID ensures that each custom field can be distinctly referenced and managed within the CRM system. It must be a valid string and is crucial for maintaining the integrity of custom data entries.
    */
   id: string | null;
   /**
-   * The name assigned to a custom field within the company record. This allows for additional, user-defined data to be associated with the company, enhancing the flexibility of data management. It should be a descriptive string that clearly identifies the custom field's purpose.
+   * The 'custom_fields.name' property is used to specify the name of a custom field associated with the company being added. This field allows for the customization of company records by adding specific attributes that are not covered by standard fields. It is optional and should be a string that clearly identifies the custom attribute's purpose.
    */
   name?: string | null | undefined;
   /**
-   * A detailed explanation of what the custom field represents or is used for. This helps users understand the context and relevance of the custom field within the company record. It should provide enough information to clarify the field's intended use.
+   * The 'custom_fields.description' property provides additional context or details about the custom field specified by 'custom_fields.name'. This optional field helps in understanding the purpose and usage of the custom field within the company record. It should be a descriptive string that elaborates on the custom field's role.
    */
   description?: string | null | undefined;
   /**
-   * The actual data or content stored in the custom field for the company. This value can vary depending on the custom field's purpose and should be formatted according to the field's requirements. It is essential for capturing specific information that standard fields do not cover.
+   * The 'custom_fields.value' property holds the actual data or value for the custom field defined by 'custom_fields.name'. This optional field allows you to assign specific information to the custom field, enhancing the company's data profile. It should be a string that accurately represents the value intended for the custom attribute.
    */
   value?:
     | Four
@@ -764,183 +378,161 @@ export type CustomFields = {
 
 export type ExtendPaths = {
   /**
-   * A JSONPath string that specifies the exact location within the data structure where the value should be applied. This property is mandatory and must be a valid JSONPath expression, ensuring precise data manipulation within the extend_paths array.
+   * A JSONPath string that specifies the exact location within the data structure where the value should be applied. This path must be a valid JSONPath expression, ensuring that the data modification is accurately targeted within the nested structure. It is crucial for operations that require precise data placement or updates.
    */
   path: string;
   /**
-   * The value to be set at the specified JSONPath within the data structure. This property is required and can be of any data type, allowing for flexible data updates in the extend_paths array. It must be compatible with the data structure at the specified path.
+   * The value to be set at the specified JSONPath, which can be of any data type. This allows for flexible data updates, accommodating various types of data modifications as required by the operation. The value should be compatible with the data structure at the specified path to ensure successful application.
    */
   value?: any | undefined;
 };
 
 export type PassThrough = {
   /**
-   * A mandatory identifier for the service to which the pass_through data should be applied. This string must match the service ID expected by the target service, ensuring that the custom data is processed correctly.
+   * A required identifier for the service to which the pass_through data should be applied. This ensures that the custom data is correctly routed and processed by the intended service integration.
    */
   serviceId: string;
   /**
-   * An optional identifier for a specific workflow operation to which this pass-through should be applied. This property is particularly useful for Unify calls that involve multiple downstream requests, allowing for precise tracking and management of each operation. If provided, it must be a valid string that uniquely identifies the operation within the workflow.
+   * An optional identifier for a specific workflow operation that this pass-through should be applied to. This is particularly useful in scenarios where multiple downstream requests are made in a single Unify call, allowing for precise tracking and management of each operation. The value should be a valid string that uniquely identifies the operation within the context of the request.
    */
   operationId?: string | undefined;
   /**
-   * A flexible object that allows for the direct extension of properties. This property can include any key-value pairs necessary for the operation, enabling developers to customize the request to meet specific needs. It should be structured as a valid JSON object.
+   * A flexible object that allows for the direct extension of properties, enabling custom data to be included in the request. This is useful for adding additional metadata or custom fields that are not predefined in the API schema. The object can contain any key-value pairs as needed for the specific use case.
    */
   extendObject?: { [k: string]: any } | undefined;
   /**
-   * An array of objects designed for structured data modifications using specified paths. Each object within the array should define a path and a corresponding value, facilitating targeted updates to the data structure. This property must be a valid JSON array containing objects with defined paths and values.
+   * An array of objects designed for structured data modifications, allowing developers to specify changes to the request data using paths. Each object in the array should define a path and a value, facilitating precise updates to nested data structures. This feature is essential for complex data manipulations where direct object modification is required.
    */
   extendPaths?: Array<ExtendPaths> | undefined;
 };
 
 export type CreateCompanyRequest = {
   /**
-   * The official registered business name for the new company record. Must be a non-empty string that matches the company's legal documentation. This identifier will be used across the CRM system for all company-related operations.
+   * The name of the company to be added to the CRM. This field is required and must be a non-empty string, as it uniquely identifies the company within the CRM system. Ensure the name accurately reflects the company's official or commonly recognized name to maintain clear records.
    */
   name: string | null;
   /**
-   * The unique identifier of the user or entity that owns the company record. This field is optional but can be used to assign ownership within the CRM, facilitating user-specific management and access control.
+   * The unique identifier of the user who owns or manages the company record. This field is optional and can be used to assign responsibility for the company within the CRM. If provided, it should match a valid user ID in the system to ensure proper association.
    */
   ownerId?: string | null | undefined;
   /**
-   * A URL pointing to the company's logo or representative image. This optional field should be a valid URL format and can enhance the visual representation of the company within the CRM interface.
+   * The URL of the company's logo or representative image. This optional field allows for visual identification of the company within the CRM. Ensure the URL points to a valid image file accessible over the internet to display correctly.
    */
   image?: string | null | undefined;
   /**
-   * A brief overview or summary of the company's activities, mission, or services. This optional field provides context and additional information about the company, aiding in better understanding and categorization within the CRM.
+   * A brief overview or summary of the company. This optional field provides additional context about the company's operations, mission, or services. Use clear and concise language to effectively communicate the company's purpose or key attributes.
    */
   description?: string | null | undefined;
   /**
-   * The company's VAT (Value Added Tax) number, used for tax identification purposes. This optional field should be a valid VAT number format and is crucial for companies operating in regions where VAT is applicable.
+   * The company's VAT (Value Added Tax) number, used for tax identification purposes. This optional field should contain a valid VAT number if applicable, ensuring compliance with tax regulations and facilitating financial transactions.
    */
   vatNumber?: string | null | undefined;
-  /**
-   * Specifies the currency in which financial transactions are conducted for the company. This should be a valid ISO 4217 currency code, such as 'USD' for United States Dollar or 'EUR' for Euro. It helps in standardizing financial data across the CRM system.
-   */
   currency?: Currency | null | undefined;
   /**
-   * Indicates the current operational status of the company within the CRM. This could include statuses like 'active', 'inactive', or 'pending'. It helps in categorizing and managing companies based on their engagement level.
+   * Defines the operational status of the company within the CRM. This status helps in categorizing the company for various business processes and reporting. It should be a valid status string that reflects the company's current state in the system.
    */
   status?: string | null | undefined;
   /**
-   * The fax number associated with the company, used for sending and receiving documents. This should be a valid phone number format, including country and area codes if applicable. It facilitates traditional communication methods within the CRM.
+   * The fax number associated with the company, used for sending and receiving documents via fax. This should be a valid phone number format, facilitating traditional communication methods where necessary.
    */
   fax?: string | null | undefined;
   /**
-   * Represents the total annual revenue generated by the company, expressed in the specified currency. This should be a numeric string that accurately reflects the company's financial performance. It is crucial for financial analysis and reporting within the CRM.
+   * Represents the total annual revenue generated by the company, expressed in the specified currency. This information is crucial for financial analysis and strategic planning within the CRM system. It should be a numeric string reflecting the company's revenue.
    */
   annualRevenue?: string | null | undefined;
   /**
-   * Denotes the total number of employees working at the company. This should be a numeric string that provides insight into the company's size and operational capacity. It aids in resource allocation and workforce management within the CRM.
+   * Indicates the total number of employees working for the company. This metric is important for understanding the company's size and operational capacity. It should be a numeric string representing the employee count.
    */
   numberOfEmployees?: string | null | undefined;
   /**
-   * Specifies the business sector or category the company operates within. This information helps categorize the company within the CRM for better organization and reporting. Accepts any string value representing a recognized industry type.
+   * Specifies the business sector the company operates in, helping categorize and manage company records within the CRM. This field is optional and can be any string that accurately represents the company's industry.
    */
   industry?: string | null | undefined;
   /**
-   * Defines the ownership structure of the company, such as 'private', 'public', or 'government'. This property aids in understanding the company's governance and legal structure, which can be important for compliance and reporting purposes. Accepts any string value that accurately describes the ownership type.
+   * Defines the ownership structure of the company, such as private or public, which can influence reporting and compliance requirements. This optional field should be a string that clearly describes the company's ownership type.
    */
   ownership?: string | null | undefined;
   /**
-   * A unique identifier assigned to the company for tax reporting purposes. This number is crucial for ensuring compliance with tax regulations and is used in financial transactions and reporting. Must be a valid string that conforms to the tax authority's format requirements.
+   * A unique identifier for the company used in tax-related processes, ensuring compliance with tax regulations. This optional field should be a valid string representing the company's sales tax number.
    */
   salesTaxNumber?: string | null | undefined;
   /**
-   * Identifies the company as a payee for tax purposes, facilitating transactions and compliance with tax obligations. This number is essential for financial operations involving payments and deductions. Should be a valid string that meets the format specified by the relevant tax authority.
+   * Identifies the company as a payee for tax purposes, facilitating accurate tax reporting and transactions. This optional field should be a valid string that uniquely identifies the company as a payee.
    */
   payeeNumber?: string | null | undefined;
   /**
-   * The Australian Business Number (ABN) or Tax File Number (TFN) required for business operations and tax purposes in Australia. This identifier is necessary for legal and financial activities within the country. Must be a valid string that adheres to the Australian government's format standards.
+   * Required for businesses operating in Australia, this field should contain either an Australian Business Number (ABN) or a Tax File Number (TFN) for compliance with local regulations. This optional field must be a valid string representing either an ABN or TFN.
    */
   abnOrTfn?: string | null | undefined;
   /**
-   * Specifies the ABN Branch, also known as a GST Branch, for the company. This is used when a part of the business needs to account for GST separately from its parent entity. It should be a valid string if applicable to the company's structure.
+   * Specifies the ABN Branch for the company, used when a business segment needs separate GST accounting from its parent entity. This field is optional and should be provided if applicable to the company's structure.
    */
   abnBranch?: string | null | undefined;
   /**
-   * The Australian Company Number (ACN) is a unique nine-digit identifier for companies registered in Australia. It must be formatted as three blocks of three digits (XXX XXX XXX) and is essential for legal and official documentation within the CRM.
+   * The Australian Company Number (ACN) uniquely identifies the company in Australia. It must be a nine-digit number formatted as XXX XXX XXX, ensuring compliance with ASIC standards. This field is optional but recommended for Australian companies.
    */
   acn?: string | null | undefined;
   /**
-   * Represents the first name of a contact person associated with the company. This field is optional but can be useful for personalizing communications and managing contact information within the CRM.
+   * The first name of the primary contact person for the company. This field is optional and helps personalize communications and records within the CRM.
    */
   firstName?: string | null | undefined;
   /**
-   * Denotes the last name of a contact person linked to the company. While optional, providing this helps in maintaining detailed contact records and facilitates personalized interactions within the CRM.
+   * The last name of the primary contact person for the company. This field is optional and complements the first name to fully identify the contact person in CRM records.
    */
   lastName?: string | null | undefined;
   /**
-   * An array of bank account details associated with the company. Each entry should include necessary banking information to facilitate financial transactions and record-keeping within the CRM system.
+   * A list of bank accounts associated with the company. This field is optional and can include multiple accounts to facilitate financial transactions and record-keeping within the CRM.
    */
   bankAccounts?: Array<BankAccounts> | undefined;
   /**
-   * A list of websites associated with the company. Each entry in the array should represent a distinct website, providing a comprehensive digital presence for the company. This array helps in managing and tracking multiple online resources linked to the company.
+   * A collection of website entries associated with the company. Each entry in this array should represent a distinct website, providing a comprehensive list of the company's online presence. This property is optional and can be left empty if no websites are to be recorded.
    */
   websites?: Array<Websites> | undefined;
   /**
-   * An array of address objects associated with the company. Each object within the array should represent a distinct address related to the company, such as headquarters or branch locations. This property is optional and can be omitted if no address information is available.
+   * An array of address objects associated with the company. Each object within the array represents a distinct address, allowing for multiple addresses to be linked to a single company record. This property is optional and can be omitted if no addresses are to be added.
    */
   addresses?: Array<Addresses> | undefined;
   /**
-   * An array containing the social media links associated with the company. Each entry in the array should represent a distinct social media profile, allowing for comprehensive tracking of the company's online presence. This property is optional but recommended for a complete company profile.
+   * An array of social links associated with the company. Each entry in the array should represent a distinct social media profile or link related to the company, allowing for comprehensive social media integration within the CRM.
    */
   socialLinks?: Array<SocialLinks> | undefined;
   /**
-   * An array of phone numbers associated with the company. Each entry should represent a distinct phone number, allowing for multiple contact points. This property is optional but can be vital for ensuring comprehensive communication options within the CRM.
+   * An array of phone numbers associated with the company. This allows the CRM to store multiple contact numbers, ensuring that all relevant communication channels are available for the company.
    */
   phoneNumbers?: Array<PhoneNumbers> | undefined;
   /**
-   * A collection of email objects associated with the company. Each object within the array should contain details like the email address and its type. This array allows for multiple email contacts to be linked to the company profile, enhancing communication capabilities.
+   * A collection of email objects associated with the company. Each object within the array should contain details about an email address, including its type and unique identifier. This array is optional but necessary if you want to associate emails with the company.
    */
   emails?: Array<Emails> | undefined;
   /**
-   * Defines the type of company record being added. This object may include additional attributes that specify the category or classification of the company within the CRM system. It is optional and can be omitted if the company type is not relevant to the operation.
+   * Specifies the type of company record being added. This object can include additional details such as the company's unique identifier and name, helping to categorize and manage different company types within the CRM. It is optional but can be used to provide more structured data about the company.
    */
   rowType?: CompanyRowType | undefined;
   /**
-   * An array of custom fields that allow for additional, user-defined data to be associated with the company. Each entry in the array should conform to the structure defined for custom fields, enabling flexible data integration into the CRM.
+   * An array of custom fields that can be used to store additional information about the company. These fields allow for flexibility and customization of company records, enabling the storage of data that may not fit into predefined fields. It is optional but can enhance the detail and specificity of the company record.
    */
   customFields?: Array<CustomFields> | undefined;
   /**
-   * A collection of tags associated with the company, used for categorization and easy retrieval. Tags help in organizing companies within the CRM by allowing users to label them with relevant keywords. Each tag should be a concise string that accurately represents a category or attribute of the company.
+   * The 'tags' property is an array used to categorize or label the company with specific keywords or identifiers. This optional field helps in organizing and retrieving company records based on common themes or characteristics. Each tag should be a string that succinctly represents a relevant category or label.
    */
   tags?: Array<string> | null | undefined;
   /**
-   * Indicates whether the company record is immutable. If set to true, the company data cannot be modified after creation, ensuring data integrity for records that should remain unchanged. This property is optional and defaults to false if not specified.
+   * Indicates whether the company record is read-only. This property is used to determine if the company data can be modified after creation. If set to true, the company details cannot be edited, ensuring data integrity for certain records.
    */
   readOnly?: boolean | null | undefined;
   /**
-   * A formal salutation for a contact person associated with the company, such as 'Mr.' or 'Mrs.'. This property is optional and should be used to personalize communications or records within the CRM. It must be a valid string if provided.
+   * A formal salutation for the primary contact person at the company, such as 'Mr' or 'Mrs'. This field is used to personalize communications and should be a valid salutation string. It is optional and can be omitted if not applicable.
    */
   salutation?: string | null | undefined;
   /**
-   * The birth date of a contact person associated with the company, formatted as YYYY-MM-DD. This optional property can be used for personalizing interactions or for demographic analysis within the CRM system.
+   * The date of birth of the primary contact person at the company, formatted as a string. This information can be used for personalized interactions or demographic analysis. It is optional and should be provided in a standard date format, such as 'YYYY-MM-DD'.
    */
   birthday?: RFCDate | null | undefined;
   /**
-   * An array that allows the inclusion of service-specific custom data or modifications when creating or updating company resources. This property is optional and should be structured according to the specific service requirements it targets.
+   * An array that allows the inclusion of service-specific custom data or modifications when creating or updating company records. This property is useful for integrating with specific services that require additional data not covered by standard fields.
    */
   passThrough?: Array<PassThrough> | undefined;
 };
-
-/** @internal */
-export const Currency$inboundSchema: z.ZodNativeEnum<typeof Currency> = z
-  .nativeEnum(Currency);
-
-/** @internal */
-export const Currency$outboundSchema: z.ZodNativeEnum<typeof Currency> =
-  Currency$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Currency$ {
-  /** @deprecated use `Currency$inboundSchema` instead. */
-  export const inboundSchema = Currency$inboundSchema;
-  /** @deprecated use `Currency$outboundSchema` instead. */
-  export const outboundSchema = Currency$outboundSchema;
-}
 
 /** @internal */
 export const AccountType$inboundSchema: z.ZodNativeEnum<typeof AccountType> = z
@@ -962,27 +554,6 @@ export namespace AccountType$ {
 }
 
 /** @internal */
-export const CreateCompanyRequestCurrency$inboundSchema: z.ZodNativeEnum<
-  typeof CreateCompanyRequestCurrency
-> = z.nativeEnum(CreateCompanyRequestCurrency);
-
-/** @internal */
-export const CreateCompanyRequestCurrency$outboundSchema: z.ZodNativeEnum<
-  typeof CreateCompanyRequestCurrency
-> = CreateCompanyRequestCurrency$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateCompanyRequestCurrency$ {
-  /** @deprecated use `CreateCompanyRequestCurrency$inboundSchema` instead. */
-  export const inboundSchema = CreateCompanyRequestCurrency$inboundSchema;
-  /** @deprecated use `CreateCompanyRequestCurrency$outboundSchema` instead. */
-  export const outboundSchema = CreateCompanyRequestCurrency$outboundSchema;
-}
-
-/** @internal */
 export const BankAccounts$inboundSchema: z.ZodType<
   BankAccounts,
   z.ZodTypeDef,
@@ -998,7 +569,7 @@ export const BankAccounts$inboundSchema: z.ZodType<
   bsb_number: z.nullable(z.string()).optional(),
   branch_identifier: z.nullable(z.string()).optional(),
   bank_code: z.nullable(z.string()).optional(),
-  currency: z.nullable(CreateCompanyRequestCurrency$inboundSchema).optional(),
+  currency: z.nullable(Currency$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     "bank_name": "bankName",
@@ -1043,7 +614,7 @@ export const BankAccounts$outboundSchema: z.ZodType<
   bsbNumber: z.nullable(z.string()).optional(),
   branchIdentifier: z.nullable(z.string()).optional(),
   bankCode: z.nullable(z.string()).optional(),
-  currency: z.nullable(CreateCompanyRequestCurrency$outboundSchema).optional(),
+  currency: z.nullable(Currency$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     bankName: "bank_name",

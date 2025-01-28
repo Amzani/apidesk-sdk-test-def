@@ -1,6 +1,6 @@
 # UpdateLeadRequestPhoneNumbersType
 
-Specifies the category of the phone number, such as 'mobile', 'home', or 'work'. This helps in identifying the context in which the phone number is used, aiding in more personalized communication strategies. The value should be a predefined string that matches one of the accepted phone number types in the CRM system.
+Indicates the category of the phone number, such as 'mobile', 'home', or 'work'. This optional field helps in identifying the context in which the phone number is used, aiding in better communication management with the lead.
 
 ## Example Usage
 

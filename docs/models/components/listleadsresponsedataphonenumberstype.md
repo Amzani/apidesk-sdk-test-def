@@ -1,6 +1,6 @@
 # ListLeadsResponseDataPhoneNumbersType
 
-The classification of the phone number, such as 'mobile', 'home', or 'work'. This optional field helps in identifying the context in which the phone number is used and is returned as a string.
+The type of phone number, such as 'mobile', 'home', or 'work', represented as a string. This categorization helps in understanding the context of the phone number usage and prioritizing communication methods.
 
 ## Example Usage
 

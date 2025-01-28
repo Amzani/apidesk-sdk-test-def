@@ -1,6 +1,6 @@
 # Currency
 
-Specifies the currency in which financial transactions are conducted for the company. This should be a valid ISO 4217 currency code, such as 'USD' for United States Dollar or 'EUR' for Euro. It helps in standardizing financial data across the CRM system.
+The currency code associated with the company's financial transactions, following the ISO 4217 standard. This field indicates the currency in which the company primarily conducts its business, such as 'USD' for US Dollars or 'EUR' for Euros. It is optional and helps in financial reporting and analysis.
 
 ## Example Usage
 

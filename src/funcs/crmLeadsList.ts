@@ -36,19 +36,10 @@ import {
 } from "../types/operations.js";
 
 /**
- * Retrieve a list of leads from the CRM system.
+ * Retrieve all CRM leads with optional filtering and sorting.
  *
  * @remarks
- * The `leadsAll` operation allows developers to fetch a comprehensive list of leads from the CRM system using a GET request to the `/crm/leads` endpoint. This operation is crucial for accessing lead data, enabling integration with other systems or applications.
- *
- * Key parameters include:
- * - `x-apideck-consumer-id` (header, required): Identifies the consumer accessing the data.
- * - `x-apideck-app-id` (header, required): Specifies the Unify application ID.
- * - `x-apideck-service-id` (header, optional): Indicates the service ID when multiple integrations are active.
- * - `limit` (query, optional): Controls the number of results returned, with a default of 20 and a maximum of 200.
- * - `fields` (query, optional): Allows selection of specific fields to include in the response, using a comma-separated string.
- *
- * The response returns a JSON object containing the requested lead data, facilitating easy integration and data manipulation. This operation supports pagination through the `cursor` parameter, ensuring efficient data retrieval for large datasets.
+ * The 'leadsAll' operation fetches a list of CRM leads from the specified service integration. This GET request allows developers to retrieve comprehensive lead data, which can be filtered, sorted, and paginated according to specific needs. Key parameters include 'raw' for debugging, 'cursor' for pagination, 'limit' to control the number of results, and 'fields' to specify which data fields to include in the response. Authentication is required via 'x-apideck-consumer-id' and 'x-apideck-app-id' headers. The response is a JSON object containing lead details, facilitating efficient data handling and integration into CRM systems.
  */
 export async function crmLeadsList(
   client: ApideckCore,
@@ -105,12 +96,12 @@ export async function crmLeadsList(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

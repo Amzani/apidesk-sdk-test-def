@@ -1,6 +1,6 @@
 # CreateLeadRequestPhoneNumbersType
 
-The type of phone number, indicating its purpose such as 'mobile', 'home', or 'work'. This optional field helps categorize the phone number for better organization and retrieval within the CRM system. Providing this information can assist in tailoring communication strategies based on the lead's preferred contact method.
+The type of phone number provided for the lead, such as 'mobile', 'home', or 'work'. This field helps categorize the phone number for better contact management and is optional. Ensure the type is a valid string that accurately describes the phone number's usage context.
 
 ## Example Usage
 

@@ -24,19 +24,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Update an existing note in the CRM system.
+ * Update an existing note in the CRM system using its unique ID.
  *
  * @remarks
- * The `notesUpdate` operation allows developers to modify an existing note within the CRM system using a PATCH request to the `/crm/notes/{id}` endpoint. This operation is crucial for maintaining up-to-date information in CRM records.
- *
- * Key Parameters:
- * - `id` (path): The unique identifier of the note to be updated. This is a required parameter.
- * - `x-apideck-consumer-id` (header): Specifies the consumer ID for data retrieval or submission. This is mandatory.
- * - `x-apideck-app-id` (header): Identifies your Unify application. This is a required parameter.
- * - `x-apideck-service-id` (header): Optional parameter to specify the service ID when multiple integrations are active.
- * - `raw` (query): Optional parameter to include the raw response, useful for debugging.
- *
- * Upon successful update, the operation returns a 200 status code along with a JSON object representing the updated note, including its unique identifier. This ensures developers can confirm the update and retrieve the latest note data efficiently.
+ * The notesUpdate operation allows you to modify an existing note in the CRM by specifying its unique ID in the endpoint path. This PATCH request requires the 'id' parameter to identify the note to be updated. Additionally, headers such as 'x-apideck-consumer-id' and 'x-apideck-app-id' are mandatory for authentication and routing purposes. Optionally, 'x-apideck-service-id' can be included to target a specific service integration. The 'raw' query parameter can be set to true to receive the raw response data for debugging. Upon successful update, the operation returns a status code of 200, indicating the note has been updated successfully. The response typically includes the updated note details in a JSON format.
  */
 export async function crmNotesUpdate(
   client: ApideckCore,
@@ -88,12 +79,12 @@ export async function crmNotesUpdate(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

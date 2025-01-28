@@ -24,21 +24,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve a specific note by its ID from the CRM system.
+ * Retrieve a specific CRM note by its ID.
  *
  * @remarks
- * The 'notesOne' operation allows developers to retrieve a specific note from the CRM system using its unique identifier. This operation is essential for accessing detailed information about a particular note, which can be used for further processing or display in applications.
- *
- * Key Parameters:
- * - **id** (path): The unique identifier of the note to retrieve. This parameter is required.
- * - **x-apideck-consumer-id** (header): The ID of the consumer from which data is being retrieved. This is a mandatory header.
- * - **x-apideck-app-id** (header): The ID of the Unify application making the request. This is also required.
- * - **x-apideck-service-id** (header): Optional header to specify the service ID when multiple integrations are active.
- * - **raw** (query): Optional parameter to include the raw response, useful for debugging.
- * - **fields** (query): Optional parameter to specify which fields to include in the response, using a comma-separated string.
- *
- * Response Behavior:
- * This operation returns a JSON object representing the note, including all available fields unless specified otherwise by the 'fields' parameter. The response will include a status code of 200 upon successful retrieval.
+ * The 'notesOne' operation allows developers to retrieve a specific note from the CRM system using its unique ID. This GET request requires the 'id' parameter in the path to specify which note to fetch. Additionally, headers such as 'x-apideck-consumer-id' and 'x-apideck-app-id' are mandatory for authentication and authorization purposes. The operation can also target specific service integrations using the 'x-apideck-service-id' header if multiple integrations are active. Optional query parameters include 'raw' for obtaining raw service data and 'fields' for customizing the response fields. The response is typically a JSON object containing the note details, provided the request is successful with a 200 status code.
  */
 export async function crmNotesGet(
   client: ApideckCore,
@@ -90,12 +79,12 @@ export async function crmNotesGet(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

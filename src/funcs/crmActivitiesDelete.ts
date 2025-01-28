@@ -24,20 +24,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Delete a specific CRM activity by its ID.
+ * Deletes a specified activity record from the CRM system.
  *
  * @remarks
- * The `activitiesDelete` operation allows developers to remove a specific activity from the CRM system by providing its unique ID. This operation is crucial for maintaining accurate and up-to-date records within the CRM.
- *
- * ### Key Parameters:
- * - **id (path parameter)**: The unique identifier of the activity to be deleted. This is a required parameter.
- * - **x-apideck-consumer-id (header)**: The ID of the consumer from which data is being managed. This is a required parameter.
- * - **x-apideck-app-id (header)**: The ID of the Unify application making the request. This is a required parameter.
- * - **x-apideck-service-id (header)**: Optional parameter to specify the service ID when multiple integrations are active.
- * - **raw (query parameter)**: Optional parameter to include the raw response, useful for debugging.
- *
- * ### Response Behavior:
- * Upon successful deletion, the operation returns a status code of 200, indicating that the activity has been successfully removed from the CRM system. No content is returned in the response body, aligning with standard practices for delete operations.
+ * The activitiesDelete operation allows you to remove an activity record from the CRM by specifying its unique ID in the endpoint path. This operation is crucial for maintaining accurate and up-to-date records by eliminating outdated or incorrect entries. To execute this operation, you must provide the 'id' of the activity to be deleted, along with the 'x-apideck-consumer-id' and 'x-apideck-app-id' headers for authentication. Optionally, you can specify the 'x-apideck-service-id' header if targeting a specific service integration. The operation does not require a request body and will return a status code of 200 upon successful deletion, indicating that the activity has been successfully removed from the system.
  */
 export async function crmActivitiesDelete(
   client: ApideckCore,
@@ -89,12 +79,12 @@ export async function crmActivitiesDelete(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

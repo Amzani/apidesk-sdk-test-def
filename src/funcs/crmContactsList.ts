@@ -36,20 +36,10 @@ import {
 } from "../types/operations.js";
 
 /**
- * Retrieve all contacts from the CRM system.
+ * Retrieve all CRM contacts efficiently.
  *
  * @remarks
- * The 'contactsAll' operation allows developers to fetch a comprehensive list of contacts from the CRM system using a GET request to the '/crm/contacts' endpoint. This operation is essential for applications that need to access contact data for various purposes such as displaying contact lists, synchronizing data, or performing analytics.
- *
- * Key Parameters:
- * - **x-apideck-consumer-id** (header, required): Specifies the consumer ID for data retrieval.
- * - **x-apideck-app-id** (header, required): Identifies the Unify application making the request.
- * - **cursor** (query): Used for pagination to specify the starting point for the next set of results.
- * - **limit** (query): Defines the number of results to return, with a default of 20 and a maximum of 200.
- * - **fields** (query): Allows selection of specific fields to include in the response, optimizing data transfer by excluding unnecessary information.
- *
- * Response Behavior:
- * The operation returns a JSON object containing the list of contacts, with support for pagination and field selection to tailor the response to specific needs. This enables efficient data handling and integration into various applications.
+ * The 'contactsAll' operation allows developers to retrieve a comprehensive list of CRM contacts using a GET request to the '/crm/contacts' endpoint. This operation is essential for accessing contact data across various CRM systems, enabling seamless integration and data management. Key parameters include 'raw' for debugging, 'x-apideck-consumer-id' and 'x-apideck-app-id' for authentication, and 'cursor' and 'limit' for pagination control. The response is typically a JSON object containing contact details, supporting efficient data handling and integration. This operation is crucial for applications requiring up-to-date contact information from multiple CRM platforms.
  */
 export async function crmContactsList(
   client: ApideckCore,
@@ -106,12 +96,12 @@ export async function crmContactsList(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

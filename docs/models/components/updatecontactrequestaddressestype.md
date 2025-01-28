@@ -1,6 +1,6 @@
 # UpdateContactRequestAddressesType
 
-Specifies the category of the address, such as 'home', 'work', or 'billing'. This helps in identifying the purpose of the address within the contact's profile. It should be a valid string that clearly indicates the address type.
+Specifies the category of the address, such as 'home', 'work', or 'billing'. This helps in identifying the purpose of the address within the contact's profile. Ensure the type is a valid string that accurately reflects the address's role.
 
 ## Example Usage
 

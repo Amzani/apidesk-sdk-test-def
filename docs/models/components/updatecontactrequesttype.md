@@ -1,6 +1,6 @@
 # UpdateContactRequestType
 
-Specifies the category or classification of the contact, such as 'customer', 'supplier', or 'partner'. This optional field aids in organizing contacts within the CRM for targeted communication and reporting.
+Specifies the category or classification of the contact. This optional field helps in organizing contacts based on their type, such as 'customer', 'supplier', or 'partner', enhancing the CRM's ability to filter and manage contacts effectively.
 
 ## Example Usage
 

@@ -1,6 +1,6 @@
 # LeadsSortDirection
 
-Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
+Define the direction for sorting the results. Use 'asc' for ascending or 'desc' for descending order to control the sequence of the returned leads.
 
 ## Example Usage
 

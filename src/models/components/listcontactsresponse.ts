@@ -10,7 +10,7 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Specifies the type or category of the contact, such as 'customer', 'lead', or 'vendor'. This string helps in classifying contacts for better organization and targeted operations within the CRM.
+ * Specifies the category or classification of the contact, such as 'customer', 'lead', or 'vendor'. This field aids in organizing and filtering contacts based on their role or relationship with the organization.
  */
 export const ListContactsResponseType = {
   Customer: "customer",
@@ -19,14 +19,14 @@ export const ListContactsResponseType = {
   Personal: "personal",
 } as const;
 /**
- * Specifies the type or category of the contact, such as 'customer', 'lead', or 'vendor'. This string helps in classifying contacts for better organization and targeted operations within the CRM.
+ * Specifies the category or classification of the contact, such as 'customer', 'lead', or 'vendor'. This field aids in organizing and filtering contacts based on their role or relationship with the organization.
  */
 export type ListContactsResponseType = ClosedEnum<
   typeof ListContactsResponseType
 >;
 
 /**
- * The gender of the contact, typically represented as 'male', 'female', or other gender identities. This information can be used for personalized communication and analytics.
+ * The gender of the contact, which can be used for demographic analysis or personalized communication. This field may include values like 'male', 'female', or other gender identities as applicable.
  */
 export const ListContactsResponseGender = {
   Male: "male",
@@ -34,14 +34,14 @@ export const ListContactsResponseGender = {
   Unisex: "unisex",
 } as const;
 /**
- * The gender of the contact, typically represented as 'male', 'female', or other gender identities. This information can be used for personalized communication and analytics.
+ * The gender of the contact, which can be used for demographic analysis or personalized communication. This field may include values like 'male', 'female', or other gender identities as applicable.
  */
 export type ListContactsResponseGender = ClosedEnum<
   typeof ListContactsResponseGender
 >;
 
 /**
- * Specifies the type of website, such as personal, business, or social media, associated with the contact. This string helps categorize the websites, enabling applications to display or process them according to their type.
+ * Specifies the type of website, such as personal, business, or social media. This categorization helps in understanding the nature of the website linked to the contact.
  */
 export const ListContactsResponseDataType = {
   Primary: "primary",
@@ -51,7 +51,7 @@ export const ListContactsResponseDataType = {
   Other: "other",
 } as const;
 /**
- * Specifies the type of website, such as personal, business, or social media, associated with the contact. This string helps categorize the websites, enabling applications to display or process them according to their type.
+ * Specifies the type of website, such as personal, business, or social media. This categorization helps in understanding the nature of the website linked to the contact.
  */
 export type ListContactsResponseDataType = ClosedEnum<
   typeof ListContactsResponseDataType
@@ -59,21 +59,21 @@ export type ListContactsResponseDataType = ClosedEnum<
 
 export type ListContactsResponseWebsites = {
   /**
-   * A unique string identifier for each website associated with the contact. This ID is used to distinguish between different websites and is essential for operations that require specific website data manipulation or retrieval.
+   * A unique identifier for each website entry associated with the contact. This ID is used to distinguish between different websites linked to the same contact.
    */
   id?: string | null | undefined;
   /**
-   * The URL of the website associated with the contact, provided as a string. This is a required field and is crucial for linking to the contact's online presence or resources directly from the application.
+   * The URL of the website associated with the contact. This field is required and must be a valid web address, providing direct access to the contact's online resource.
    */
   url: string;
   /**
-   * Specifies the type of website, such as personal, business, or social media, associated with the contact. This string helps categorize the websites, enabling applications to display or process them according to their type.
+   * Specifies the type of website, such as personal, business, or social media. This categorization helps in understanding the nature of the website linked to the contact.
    */
   type?: ListContactsResponseDataType | null | undefined;
 };
 
 /**
- * Specifies the category or purpose of the address, such as 'home', 'work', or 'billing'. This string helps in identifying the context in which the address is used, aiding in filtering and organizing addresses based on their type.
+ * Specifies the category or purpose of the address, such as 'home', 'work', or 'billing'. This helps in organizing and differentiating addresses based on their usage context within the CRM system.
  */
 export const ListContactsResponseDataAddressesType = {
   Primary: "primary",
@@ -85,7 +85,7 @@ export const ListContactsResponseDataAddressesType = {
   Other: "other",
 } as const;
 /**
- * Specifies the category or purpose of the address, such as 'home', 'work', or 'billing'. This string helps in identifying the context in which the address is used, aiding in filtering and organizing addresses based on their type.
+ * Specifies the category or purpose of the address, such as 'home', 'work', or 'billing'. This helps in organizing and differentiating addresses based on their usage context within the CRM system.
  */
 export type ListContactsResponseDataAddressesType = ClosedEnum<
   typeof ListContactsResponseDataAddressesType
@@ -93,120 +93,120 @@ export type ListContactsResponseDataAddressesType = ClosedEnum<
 
 export type ListContactsResponseAddresses = {
   /**
-   * A unique identifier for each address entry within the contact's address list. This string is used to distinguish between different addresses and is essential for operations that require specific address manipulation or retrieval.
+   * A unique identifier for each address entry within the contact's address list. This ID is used to distinguish between different addresses and is crucial for operations that require specific address manipulation or retrieval.
    */
   id?: string | null | undefined;
   /**
-   * Specifies the category or purpose of the address, such as 'home', 'work', or 'billing'. This string helps in identifying the context in which the address is used, aiding in filtering and organizing addresses based on their type.
+   * Specifies the category or purpose of the address, such as 'home', 'work', or 'billing'. This helps in organizing and differentiating addresses based on their usage context within the CRM system.
    */
   type?: ListContactsResponseDataAddressesType | null | undefined;
   /**
-   * The complete address as a single string, which may include street, city, state, and postal code. This format is particularly useful when structured address data is unavailable, providing a straightforward way to display or process address information.
+   * A complete address in a single string format, used when structured address data is unavailable. This field provides a fallback for capturing address information in a less granular form, ensuring that essential location details are still accessible.
    */
   string?: string | null | undefined;
   /**
-   * A descriptive name associated with the address, such as 'Headquarters' or 'Main Office'. This string provides a human-readable label for the address, making it easier to identify and differentiate between multiple addresses in user interfaces or reports.
+   * The name associated with the address, which could be a business name or a contact person. This field aids in identifying the address context or ownership, enhancing the clarity of address records within the CRM.
    */
   name?: string | null | undefined;
   /**
-   * This property contains the first line of the address, typically including the street number, street name, and any suite or apartment number. It is a string value that provides the primary location information for a contact's address, essential for identifying the exact location in mailing and navigation applications.
+   * The first line of the address, typically including the street number, street name, and any apartment or suite number. This field is part of the contact's address details, providing essential location information for CRM records.
    */
   line1?: string | null | undefined;
   /**
-   * This property holds the second line of the address, often used for additional address details such as building name or floor number. It is a string value that supplements the primary address line, offering more precise location information when needed.
+   * The second line of the address, often used for additional location details such as building name or floor number. This field complements the primary address line to ensure accurate and complete address information.
    */
   line2?: string | null | undefined;
   /**
-   * This property contains the third line of the address, which can be used for further address details not covered in the first two lines. It is a string value that provides additional context for complex addresses, ensuring all necessary location information is captured.
+   * The third line of the address, which can be used for further address details if needed. This field allows for extended address information, ensuring comprehensive location data in CRM systems.
    */
   line3?: string | null | undefined;
   /**
-   * This property includes the fourth line of the address, reserved for any extra address information that may be required. It is a string value that allows for comprehensive address details, particularly useful for international addresses with multiple components.
+   * The fourth line of the address, providing additional space for any extra address information. This field supports detailed address entries, enhancing the completeness of contact location data.
    */
   line4?: string | null | undefined;
   /**
-   * This property specifies the street number of the address, a crucial component for pinpointing the exact location of a contact. It is a string value that is part of the primary address line, used in conjunction with the street name to identify a specific address.
+   * The street number component of the address, indicating the specific number assigned to a building or location on a street. This field is crucial for pinpointing the exact location within the address structure.
    */
   streetNumber?: string | null | undefined;
   /**
-   * The city name associated with the contact's address. This string value represents the urban area where the contact resides or is located. It is part of the address details returned in the contact list, useful for geographical categorization and display purposes.
+   * The 'city' field contains the name of the city associated with the contact's address. This information is part of the address details returned in the response, helping to identify the geographical location of the contact. The value is expected to be a string representing the city's name.
    */
   city?: string | null | undefined;
   /**
-   * The state or region name related to the contact's address. This string provides the administrative division within the country where the contact is situated. It helps in organizing contacts by regional boundaries and is included in the address details of the response.
+   * The 'state' field represents the name of the state or region for the contact's address. This property is included in the address details to provide more specific location information. The value should be a string indicating the state's name.
    */
   state?: string | null | undefined;
   /**
-   * The postal code or ZIP code for the contact's address. This string is used to identify the specific area within a city or town for mailing purposes. It is crucial for precise location identification and is part of the address information in the contact data.
+   * The 'postal_code' field contains the postal code or equivalent for the contact's address. This is used to specify the precise area within a city or region, aiding in accurate location identification. The value is expected to be a string representing the postal code.
    */
   postalCode?: string | null | undefined;
   /**
-   * The country code for the contact's address, following the ISO 3166-1 alpha-2 standard. This two-letter string identifies the country where the contact is located, facilitating international address recognition and sorting in the contact list.
+   * The 'country' field provides the country code for the contact's address, following the ISO 3166-1 alpha-2 standard. This code helps in identifying the country part of the address, ensuring international compatibility. The value is a two-letter string representing the country code.
    */
   country?: string | null | undefined;
   /**
-   * The latitude coordinate of the contact's address. This string represents the geographical latitude, which is used in mapping and location-based services to pinpoint the contact's exact position on the globe. It is part of the geolocation data included in the contact response.
+   * The 'latitude' field indicates the geographical latitude of the contact's address. This numeric value is part of the geolocation data, used for mapping and spatial analysis. The value should be a string representing the latitude in decimal degrees.
    */
   latitude?: string | null | undefined;
   /**
-   * The longitude coordinate of the address, represented as a string. This value is part of the geographical data used to pinpoint the exact location of a contact's address on a map. It is optional and may not be present if the address does not include geographical coordinates.
+   * The longitude coordinate of the address, represented as a string. This value is part of the geographical data that helps pinpoint the exact location of the contact's address on a map. It is useful for applications that require mapping or location-based services.
    */
   longitude?: string | null | undefined;
   /**
-   * The county or sublocality associated with the address, provided as a string. This field helps in identifying the regional division within a state or country where the contact is located. It is optional and may be omitted if not applicable.
+   * The county or sublocality associated with the address, provided as a string. This field helps in identifying the regional division within a state or country where the contact resides. It is particularly useful for regional segmentation and analysis.
    */
   county?: string | null | undefined;
   /**
-   * The full name of the contact person associated with the address, formatted as a string. This information is useful for identifying the primary individual linked to the address, especially in business or personal correspondence. It is optional and may not be included if not specified.
+   * The name of the contact person associated with the address, formatted as a string. This information is crucial for identifying the primary individual at the given address, facilitating personalized communication and record-keeping.
    */
   contactName?: string | null | undefined;
   /**
-   * The salutation or title used for the contact person at the address, such as 'Mr.', 'Ms.', or 'Dr.', provided as a string. This field is used to address the contact person respectfully in communications. It is optional and may be absent if not specified.
+   * The salutation or title used for the contact person at the address, such as 'Mr.', 'Ms.', or 'Dr.', represented as a string. This field is important for formal communication and ensuring respectful address in correspondence.
    */
   salutation?: string | null | undefined;
   /**
-   * The phone number associated with the address, formatted as a string. This number is used for contacting the individual or business at the specified address and may include country and area codes. It is optional and may not be present if no phone number is provided.
+   * The phone number associated with the address, formatted as a string. This contact detail is essential for direct communication with the individual or organization at the specified address, supporting customer service and outreach efforts.
    */
   phoneNumber?: string | null | undefined;
   /**
-   * The fax number associated with the contact's address. This is an optional field and may be empty if no fax number is provided. It is returned as a string and can be used for communication purposes where fax is applicable.
+   * The fax number associated with the contact's address. This field contains the fax number in a standard string format, allowing for communication via fax. It is optional and may not be present for all contacts.
    */
   fax?: string | null | undefined;
   /**
-   * The email address linked to the contact's address. This field is optional and may be empty if no email is provided. It is formatted as a string and is crucial for electronic communication with the contact.
+   * The email address linked to the contact's address. This property holds the email in a standard string format, used for electronic communication with the contact. It is optional and may not be available for every contact entry.
    */
   email?: string | null | undefined;
   /**
-   * The website URL associated with the contact's address. This optional field is returned as a string and may be empty if no website is provided. It is useful for accessing the contact's online presence or additional information.
+   * The website URL associated with the contact's address. This field contains the URL in a string format, providing a link to the contact's online presence or business site. It is optional and may not be included for all contacts.
    */
   website?: string | null | undefined;
   /**
-   * Additional notes related to the contact's address. This field is optional and returned as a string, providing space for any extra information or comments about the address that may be relevant for users.
+   * Additional notes related to the contact's address. This property contains supplementary information in a string format, which can include comments or special instructions. It is optional and may vary in content and length.
    */
   notes?: string | null | undefined;
   /**
-   * A binary string value used to track changes to the contact's address object. This field is optional and is incremented with each update to prevent data conflicts, ensuring data integrity during synchronization processes.
+   * A version identifier for the contact's address record, represented as a string. This binary value is used to track changes and prevent data conflicts by incrementing with each update to the address. It is optional and primarily used for data integrity and synchronization purposes.
    */
   rowVersion?: string | null | undefined;
 };
 
 export type ListContactsResponseSocialLinks = {
   /**
-   * A unique identifier for each social link associated with the contact. This ID is used to distinguish between different social media profiles within the contact's social links array. It is optional and may not be present if the social link does not have a unique identifier.
+   * A unique identifier for each social media link associated with the contact. This ID is used to distinguish between different social media profiles within the contact's data, ensuring accurate referencing and management.
    */
   id?: string | null | undefined;
   /**
-   * The URL of the social media profile, such as 'https://www.twitter.com/apideck'. This string is required and provides a direct link to the contact's social media page, facilitating easy access and integration into applications.
+   * The URL of the social media profile linked to the contact, such as 'https://www.twitter.com/apideck'. This field is essential for directing users to the specific social media page associated with the contact, facilitating direct access and interaction.
    */
   url: string;
   /**
-   * Indicates the type of social media platform, such as 'twitter' or 'linkedin'. This string helps categorize the social link, allowing applications to display appropriate icons or labels. It is optional and may be omitted if the type is not specified.
+   * Specifies the type of social media platform for the link, such as 'twitter'. This helps in categorizing the social media links, allowing developers to filter or sort contacts based on their social media presence.
    */
   type?: string | null | undefined;
 };
 
 /**
- * Indicates the category of the phone number, such as 'mobile', 'home', or 'work'. This helps in identifying the context in which the phone number is used, aiding in better contact management and communication strategies.
+ * Specifies the category of the phone number, such as 'mobile', 'home', or 'work'. This helps in identifying the context in which the phone number is used within the contact's details.
  */
 export const ListContactsResponseDataPhoneNumbersType = {
   Primary: "primary",
@@ -222,7 +222,7 @@ export const ListContactsResponseDataPhoneNumbersType = {
   Other: "other",
 } as const;
 /**
- * Indicates the category of the phone number, such as 'mobile', 'home', or 'work'. This helps in identifying the context in which the phone number is used, aiding in better contact management and communication strategies.
+ * Specifies the category of the phone number, such as 'mobile', 'home', or 'work'. This helps in identifying the context in which the phone number is used within the contact's details.
  */
 export type ListContactsResponseDataPhoneNumbersType = ClosedEnum<
   typeof ListContactsResponseDataPhoneNumbersType
@@ -230,33 +230,33 @@ export type ListContactsResponseDataPhoneNumbersType = ClosedEnum<
 
 export type ListContactsResponsePhoneNumbers = {
   /**
-   * A unique identifier assigned to each phone number entry within the contact's record. This identifier is used to distinguish between multiple phone numbers associated with a single contact and is typically a non-empty string when present.
+   * A unique identifier assigned to each phone number entry within the contact's data. This ID is used to distinguish between different phone numbers associated with a contact, facilitating precise data management and updates.
    */
   id?: string | null | undefined;
   /**
-   * The international dialing code associated with the phone number, such as '+1' for the United States. This code is crucial for making international calls and is included in the phone number format to ensure proper dialing.
+   * The international dialing code associated with the phone number, such as '+1' for the United States. This code is crucial for ensuring the phone number is correctly formatted for international calls.
    */
   countryCode?: string | null | undefined;
   /**
-   * The regional area code that forms part of the phone number, for example, '323' for Los Angeles. This code helps in identifying the specific geographic region of the phone number within a country.
+   * The regional area code that forms part of the phone number, like '323' for Los Angeles. This code helps in identifying the geographical location of the phone number within a country.
    */
   areaCode?: string | null | undefined;
   /**
-   * The main sequence of digits that make up the phone number, excluding the country and area codes. This is the essential part of the phone number used for dialing and is always required for contact records.
+   * The main sequence of digits representing the phone number, excluding country and area codes. This is the essential part of the phone number used for direct dialing within the specified area.
    */
   number: string;
   /**
-   * An optional numeric extension that can be dialed after the main phone number to reach a specific person or department within an organization. This is typically used in business settings where multiple extensions are available under a single main number.
+   * An additional number used to direct calls to a specific department or individual within an organization, often used in business settings. This extension is appended to the main phone number for internal routing purposes.
    */
   extension?: string | null | undefined;
   /**
-   * Indicates the category of the phone number, such as 'mobile', 'home', or 'work'. This helps in identifying the context in which the phone number is used, aiding in better contact management and communication strategies.
+   * Specifies the category of the phone number, such as 'mobile', 'home', or 'work'. This helps in identifying the context in which the phone number is used within the contact's details.
    */
   type?: ListContactsResponseDataPhoneNumbersType | null | undefined;
 };
 
 /**
- * Specifies the type of email address, such as 'personal' or 'work'. This classification aids in organizing and prioritizing email communications based on their intended use or context.
+ * Indicates the type of email address, such as 'personal' or 'work'. This classification helps in understanding the context and preferred usage of the email address within the contact's profile.
  */
 export const ListContactsResponseDataEmailsType = {
   Primary: "primary",
@@ -267,7 +267,7 @@ export const ListContactsResponseDataEmailsType = {
   Other: "other",
 } as const;
 /**
- * Specifies the type of email address, such as 'personal' or 'work'. This classification aids in organizing and prioritizing email communications based on their intended use or context.
+ * Indicates the type of email address, such as 'personal' or 'work'. This classification helps in understanding the context and preferred usage of the email address within the contact's profile.
  */
 export type ListContactsResponseDataEmailsType = ClosedEnum<
   typeof ListContactsResponseDataEmailsType
@@ -275,15 +275,15 @@ export type ListContactsResponseDataEmailsType = ClosedEnum<
 
 export type ListContactsResponseEmails = {
   /**
-   * A unique identifier for each email address associated with the contact. This ID is crucial for distinguishing between multiple email entries and performing operations like updates or deletions on specific emails.
+   * A unique identifier for each email address entry within the contact's email list. This ID is crucial for distinguishing between multiple email addresses associated with a single contact.
    */
   id?: string | null | undefined;
   /**
-   * The actual email address of the contact, formatted as a standard email string (e.g., 'example@domain.com'). This is a required field and serves as a primary means of electronic communication with the contact.
+   * The actual email address of the contact, formatted as a standard email string. This is a required field and serves as a primary means of electronic communication with the contact.
    */
   email: string | null;
   /**
-   * Specifies the type of email address, such as 'personal' or 'work'. This classification aids in organizing and prioritizing email communications based on their intended use or context.
+   * Indicates the type of email address, such as 'personal' or 'work'. This classification helps in understanding the context and preferred usage of the email address within the contact's profile.
    */
   type?: ListContactsResponseDataEmailsType | null | undefined;
 };
@@ -293,7 +293,7 @@ export type ListContactsResponseValue6 = {};
 export type ListContactsResponseValue4 = {};
 
 /**
- * Contains the value associated with a custom field for a contact. This value can be of various types, such as string, number, or date, depending on the custom field's configuration. It allows for the storage of additional, user-defined information that is not covered by standard contact fields.
+ * This property holds the value of a custom field associated with a contact. It allows for storing additional, user-defined information that may not be covered by standard fields. The format and content of this value depend on the specific custom field configuration within the CRM.
  */
 export type ListContactsResponseValue =
   | ListContactsResponseValue4
@@ -305,19 +305,19 @@ export type ListContactsResponseValue =
 
 export type ListContactsResponseCustomFields = {
   /**
-   * A unique identifier for each custom field associated with the contact. This ID is crucial for distinguishing between different custom fields and is used when accessing or modifying specific custom field data. It is always returned as a non-empty string.
+   * A unique identifier for each custom field associated with the contact. This string value is essential for referencing and managing specific custom fields within the CRM system.
    */
   id: string | null;
   /**
-   * The name assigned to the custom field, which describes the type of information it holds. This is a user-friendly label that helps in identifying the purpose of the custom field within the CRM. It is returned as a string and may be empty if not specified.
+   * The name assigned to the custom field, which provides a human-readable label for the field. This string helps users identify the purpose or content of the custom field within the contact's data.
    */
   name?: string | null | undefined;
   /**
-   * A detailed description of what the custom field represents, providing context and additional information about its use. This helps users understand the relevance and application of the custom field data. It is returned as a string and can be empty if no description is provided.
+   * A detailed description of the custom field, offering additional context or information about its intended use. This string can help users understand the relevance or application of the custom field in the contact's profile.
    */
   description?: string | null | undefined;
   /**
-   * Contains the value associated with a custom field for a contact. This value can be of various types, such as string, number, or date, depending on the custom field's configuration. It allows for the storage of additional, user-defined information that is not covered by standard contact fields.
+   * This property holds the value of a custom field associated with a contact. It allows for storing additional, user-defined information that may not be covered by standard fields. The format and content of this value depend on the specific custom field configuration within the CRM.
    */
   value?:
     | ListContactsResponseValue4
@@ -331,255 +331,255 @@ export type ListContactsResponseCustomFields = {
 };
 
 /**
- * An object containing any custom field mappings configured for the contact resource. This allows developers to access additional, non-standard data fields that have been tailored to specific business needs. The structure of this object depends on the custom mappings set up in the CRM.
+ * An object containing any custom mappings configured for the contact resource. This field includes additional, user-defined data mappings that extend the standard contact schema, allowing for tailored data integration and management. The structure of this object depends on the specific custom mappings applied.
  */
 export type ListContactsResponseCustomMappings = {};
 
 export type ListContactsResponseExtendPaths = {
   /**
-   * A JSONPath string that precisely identifies the location within the contact data where the specified value should be applied. This string must be a valid JSONPath expression, ensuring accurate targeting of data modifications within the contact records.
+   * A JSONPath string that indicates the specific location within the data structure where the value should be applied. This path is crucial for accurately targeting data modifications.
    */
   path: string;
   /**
-   * The value to be set at the specified JSONPath within the contact data. This can be of any data type, allowing for versatile modifications to the contact records based on the application's requirements.
+   * The value to be set at the specified JSONPath. This can be of any data type, allowing for flexible data updates based on the path provided.
    */
   value?: any | undefined;
 };
 
 export type ListContactsResponsePassThrough = {
   /**
-   * A string that uniquely identifies the service to which the pass_through data should be applied. This is required to ensure that the custom data is directed to the correct service within the CRM system.
+   * A string identifier for the service to which the pass_through data should be applied. This ensures that the custom data is directed to the correct service, facilitating precise data handling and integration.
    */
   serviceId: string;
   /**
-   * An optional string identifier for a specific workflow operation that the pass_through data should be applied to. This is particularly useful for Unify calls that involve multiple downstream requests, ensuring that the correct operation is targeted.
+   * An optional string identifier for a workflow operation that the pass_through data should be applied to. This is useful for Unify calls that involve multiple downstream requests, allowing developers to specify which operation the data pertains to.
    */
   operationId?: string | undefined;
   /**
-   * An object that allows for direct extension with any properties, providing flexibility to include additional data as needed. This is useful for developers who need to customize the request with specific attributes that are not predefined in the API.
+   * An object that allows for direct extension with any properties. This flexibility enables developers to add custom fields or data structures as needed, supporting complex data integration scenarios.
    */
   extendObject?: { [k: string]: any } | undefined;
   /**
-   * This property contains an array of objects, each representing a structured data modification path. It is used to specify where and how data should be altered within the contact records. The array format allows for multiple modifications to be defined in a single request, enhancing flexibility in data handling.
+   * An array containing objects that define structured data modifications. Each object specifies a path and a value to be applied, allowing for dynamic data transformation within the response.
    */
   extendPaths?: Array<ListContactsResponseExtendPaths> | undefined;
 };
 
 export type ListContactsResponseData = {
   /**
-   * A unique identifier assigned to each contact within the CRM system. This string is used to distinguish each contact from others and is essential for operations that require specific contact identification, such as updates or deletions.
+   * A unique identifier assigned to each contact within the CRM system. This ID is used to distinguish and reference individual contacts, allowing for precise data retrieval and manipulation.
    */
   id?: string | undefined;
   /**
-   * The full name of the contact as recorded in the CRM. This string is required and serves as a key piece of information for identifying and displaying contacts in user interfaces and reports.
+   * The full name of the contact as stored in the CRM. This field is essential for identifying and displaying contact information in user interfaces and reports.
    */
   name: string | null;
   /**
-   * The identifier of the user or entity that owns or manages the contact. This string helps in assigning responsibility and tracking contact management within the CRM system.
+   * The identifier of the user or entity that owns or manages the contact within the CRM. This field helps in assigning responsibility and tracking contact management activities.
    */
   ownerId?: string | null | undefined;
   /**
-   * Specifies the type or category of the contact, such as 'customer', 'lead', or 'vendor'. This string helps in classifying contacts for better organization and targeted operations within the CRM.
+   * Specifies the category or classification of the contact, such as 'customer', 'lead', or 'vendor'. This field aids in organizing and filtering contacts based on their role or relationship with the organization.
    */
   type?: ListContactsResponseType | null | undefined;
   /**
-   * A unique identifier for the company associated with the contact. This string value is used to link the contact to its respective company within the CRM system, facilitating data organization and retrieval.
+   * The unique identifier for the company associated with the contact. This ID is used to link the contact to its respective company within the CRM system, facilitating organization and retrieval of company-related information.
    */
   companyId?: string | null | undefined;
   /**
-   * The official name of the company that the contact is linked to. This string provides a human-readable reference to the company, aiding in the identification and display of contact affiliations within applications.
+   * The full name of the company that the contact is linked to. This property helps in identifying the organization the contact is associated with, providing context for the contact's professional background.
    */
   companyName?: string | null | undefined;
   /**
-   * A unique identifier for the lead associated with the contact. This string is used to connect the contact to a specific lead record, which can be useful for tracking the contact's origin or sales process involvement.
+   * The unique identifier for the lead associated with the contact. This ID helps in tracking the contact's relationship to potential sales opportunities within the CRM system.
    */
   leadId?: string | null | undefined;
   /**
-   * The given name of the contact person. This string is part of the contact's personal information and is typically used in user interfaces and communications to address the contact directly.
+   * The given name of the contact person. This property is used to personalize communications and identify the contact within the CRM system.
    */
   firstName?: string | null | undefined;
   /**
-   * The middle name of the contact, if available. This string provides additional personal identification details, which can be useful for distinguishing between contacts with similar names.
+   * The middle name of the contact person, if available. This property can be used for more precise identification and record-keeping within the CRM system.
    */
   middleName?: string | null | undefined;
   /**
-   * The last name of the contact as recorded in the CRM system. This field may be empty if the last name is not provided. It is used to identify and sort contacts within lists and reports.
+   * The last name of the contact, representing the family name or surname. This field is used to identify and sort contacts within the CRM system. It is a string value and may be used in conjunction with other name fields for full identification.
    */
   lastName?: string | null | undefined;
   /**
-   * The prefix of the contact, such as 'Mr.', 'Ms.', or 'Dr.', which is used for formal addressing. This field is optional and may be omitted if not applicable.
+   * The prefix of the contact, such as 'Mr.', 'Ms.', or 'Dr.'. This field provides additional context to the contact's name, often used in formal communication. It is a string value and is optional depending on the contact's details.
    */
   prefix?: string | null | undefined;
   /**
-   * The suffix of the contact, such as 'Jr.', 'Sr.', or 'III', which is used to distinguish between individuals with similar names. This field is optional and may be left blank if not applicable.
+   * The suffix of the contact, such as 'Jr.', 'Sr.', or 'III'. This field adds further distinction to the contact's name, particularly in cases of generational naming. It is a string value and is optional based on the contact's personal information.
    */
   suffix?: string | null | undefined;
   /**
-   * The job title of the contact, indicating their role or position within their organization. This information is useful for understanding the contact's responsibilities and authority level.
+   * The job title of the contact, indicating their position or role within their organization. This field helps in understanding the contact's professional responsibilities and hierarchy. It is a string value and can be used to filter or categorize contacts based on their job roles.
    */
   title?: string | null | undefined;
   /**
-   * The department within the organization where the contact works. This helps categorize contacts based on their functional area, aiding in targeted communication and analysis.
+   * The department within the organization where the contact works. This field provides insight into the contact's area of expertise or responsibility, aiding in organizational mapping and communication. It is a string value and can be used to group contacts by their departmental affiliations.
    */
   department?: string | null | undefined;
   /**
-   * The language code representing the contact's preferred language, formatted according to ISO 639-1 standards. For example, 'EN' for English in the United States. This helps in localizing content and communications for the contact.
+   * The language code representing the contact's preferred language, formatted according to ISO 639-1 standards. This property helps in localizing communication with the contact, such as 'EN' for English in the United States.
    */
   language?: string | null | undefined;
   /**
-   * The gender of the contact, typically represented as 'male', 'female', or other gender identities. This information can be used for personalized communication and analytics.
+   * The gender of the contact, which can be used for demographic analysis or personalized communication. This field may include values like 'male', 'female', or other gender identities as applicable.
    */
   gender?: ListContactsResponseGender | null | undefined;
   /**
-   * The contact's date of birth, formatted as a string in the 'YYYY-MM-DD' format. This can be used for age verification, birthday greetings, or demographic analysis.
+   * The contact's date of birth, formatted as a string. This information can be used for age verification, sending birthday greetings, or demographic segmentation.
    */
   birthday?: string | null | undefined;
   /**
-   * A URL pointing to an image file associated with the contact, such as a profile picture. This can be used to visually represent the contact in applications or reports.
+   * A string containing the URL or path to the contact's image. This can be used to visually identify the contact within the CRM system or related applications.
    *
    * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   image?: string | null | undefined;
   /**
-   * The URL of the contact's photo, typically used to display the contact's image in user interfaces. This is useful for visual identification and personalization in applications.
+   * The URL linking to the contact's photo, allowing for easy access and display of the contact's image in applications or user interfaces.
    */
   photoUrl?: string | null | undefined;
   /**
-   * Indicates the origin from which the contact was acquired, such as 'web', 'referral', or 'advertisement'. This helps in tracking the effectiveness of different lead generation channels. The value is a string that may be used for analytics and reporting purposes.
+   * Indicates the origin from which the contact was acquired, such as a marketing campaign, referral, or direct inquiry. This information helps in tracking the effectiveness of different lead generation strategies. The value is a string that describes the source of the lead.
    */
   leadSource?: string | null | undefined;
   /**
-   * Contains the fax number associated with the contact, formatted as a string. This field may be empty if the contact does not have a fax number. Useful for businesses that still utilize fax communication.
+   * Contains the fax number associated with the contact, formatted as a string. This field is useful for businesses that still utilize fax communication and need to store this information for their contacts.
    */
   fax?: string | null | undefined;
   /**
-   * A brief textual description or notes about the contact, which can include additional context or personal notes. This string field is optional and can be used to store miscellaneous information that doesn't fit into other fields.
+   * Provides additional information or notes about the contact, which can include personal preferences, relationship history, or other relevant details. This field is a string and serves to give context or background that may be useful for CRM users.
    */
   description?: string | null | undefined;
   /**
-   * Represents the current financial balance associated with the contact, expressed as a numerical value. This could be used in contexts where the contact has an account balance or outstanding payments. The value is optional and may not be present for all contacts.
+   * Represents the current financial balance associated with the contact, typically in a numerical format. This could relate to outstanding invoices, credit balances, or other financial metrics relevant to the contact's account.
    */
   currentBalance?: number | null | undefined;
   /**
-   * Denotes the current status of the contact, such as 'active', 'inactive', or 'pending'. This string helps in categorizing contacts based on their engagement or lifecycle stage within the CRM system. It is useful for filtering and managing contact lists.
+   * Describes the current state or condition of the contact within the CRM system, such as active, inactive, or pending. This status helps determine how the contact is managed and interacted with in the CRM.
    */
   status?: string | null | undefined;
   /**
-   * Indicates whether the contact is currently active or inactive in the CRM system. This boolean value helps in filtering contacts based on their status, allowing applications to focus on active contacts for operations like communication or updates.
+   * Indicates whether the contact is currently active within the CRM system. A value of 'true' means the contact is active, while 'false' indicates it is inactive. This status helps in filtering and managing contact records effectively.
    */
   active?: boolean | null | undefined;
   /**
-   * An array containing the list of websites associated with the contact. Each entry in the array represents a website object, providing detailed information such as URL and type, which can be used for displaying or linking purposes.
+   * A list of websites associated with the contact. Each entry in the array represents a website object containing details such as the URL and type. This array helps in managing and displaying the contact's online presence.
    */
   websites?: Array<ListContactsResponseWebsites> | undefined;
   /**
-   * An array containing address objects associated with the contact. Each object in the array represents a distinct address entry, which may include details such as type, full address string, and name. This array allows applications to handle multiple addresses for a single contact efficiently.
+   * An array containing multiple address objects associated with a contact. Each object within the array represents a distinct address entry, allowing for comprehensive address management within the CRM system. This structure supports the retrieval of all address-related information for a contact in a single request.
    */
   addresses?: Array<ListContactsResponseAddresses> | undefined;
   /**
-   * An array containing the social media links associated with the contact. Each entry in the array represents a distinct social media profile, providing a comprehensive view of the contact's online presence. This property is optional and may be empty if no social links are available for the contact.
+   * An array containing the social media links associated with the contact. Each entry in the array represents a distinct social media profile, providing URLs and types for easy identification and access. This property helps in aggregating all social media connections of a contact for comprehensive CRM data management.
    */
   socialLinks?: Array<ListContactsResponseSocialLinks> | undefined;
   /**
-   * An array of phone numbers associated with the contact. Each entry in the array represents a different phone number, providing multiple contact options. This property is optional and may be empty if no phone numbers are available for the contact.
+   * An array of phone numbers associated with the contact. Each entry in the array represents a different phone number, providing a comprehensive list of contact methods for the individual. This property is crucial for ensuring all potential communication channels are documented and accessible.
    */
   phoneNumbers?: Array<ListContactsResponsePhoneNumbers> | undefined;
   /**
-   * An array containing email objects associated with the contact. Each object includes details such as the email address, its type, and a unique identifier, facilitating comprehensive email management for the contact.
+   * An array containing the email addresses associated with the contact. Each entry in the array provides detailed information about a specific email address, facilitating comprehensive contact management.
    */
   emails?: Array<ListContactsResponseEmails> | undefined;
   /**
-   * The email domain associated with the contact's primary email address. This is typically the part of the email address following the '@' symbol and helps in categorizing contacts by their organization or email provider. It is returned as a string and may be used for filtering or grouping contacts in the CRM.
+   * The email domain associated with the contact's primary email address. This string value helps categorize and manage contacts based on their email domains, facilitating domain-specific operations or filtering within the CRM.
    */
   emailDomain?: string | null | undefined;
   /**
-   * An array of custom fields associated with the contact, allowing for additional, user-defined data to be stored. Each entry in the array represents a unique custom field, providing flexibility to include information beyond standard contact details. This array can be empty if no custom fields are defined for the contact.
+   * An array of custom fields associated with the contact. Each entry in this array represents a unique custom field, allowing for the storage of additional, user-defined information that is not covered by standard contact fields.
    */
   customFields?: Array<ListContactsResponseCustomFields> | undefined;
   /**
-   * An array of tags associated with the contact, each representing a label or category that helps in organizing and filtering contacts. Tags are useful for segmenting contacts based on specific criteria or characteristics.
+   * An array containing tags associated with the contact. Tags are used to categorize and organize contacts within the CRM, allowing for easier filtering and management. Each tag is represented as a string within this array.
    */
   tags?: Array<string> | null | undefined;
   /**
-   * The date and time when the first call was made to or from the contact, formatted as an ISO 8601 string. This timestamp helps track the initial point of voice communication with the contact.
+   * The date and time when the first call was made to or from the contact, formatted as an ISO 8601 string. This timestamp helps track the initial interaction with the contact, providing insights into communication history.
    */
   firstCallAt?: Date | null | undefined;
   /**
-   * The date and time when the first email was sent to or received from the contact, formatted as an ISO 8601 string. This information is useful for understanding the history of email interactions with the contact.
+   * The date and time when the first email was sent to or received from the contact, formatted as an ISO 8601 string. This information is useful for understanding the timeline of email communications with the contact.
    */
   firstEmailAt?: Date | null | undefined;
   /**
-   * The timestamp indicating the most recent interaction or activity associated with the contact. This is formatted as an ISO 8601 string, allowing developers to track engagement and activity trends over time. Useful for applications that need to display or analyze recent contact interactions.
+   * The date and time of the last recorded activity associated with the contact. This timestamp helps track the most recent interaction or update involving the contact, aiding in activity monitoring and engagement analysis. The format is typically ISO 8601, such as '2023-10-05T14:48:00Z'.
    */
   lastActivityAt?: Date | null | undefined;
   /**
-   * An object containing any custom field mappings configured for the contact resource. This allows developers to access additional, non-standard data fields that have been tailored to specific business needs. The structure of this object depends on the custom mappings set up in the CRM.
+   * An object containing any custom mappings configured for the contact resource. This field includes additional, user-defined data mappings that extend the standard contact schema, allowing for tailored data integration and management. The structure of this object depends on the specific custom mappings applied.
    */
   customMappings?: ListContactsResponseCustomMappings | null | undefined;
   /**
-   * The timestamp of the last modification made to the contact's record. Provided as an ISO 8601 string, this helps developers determine the recency of the data and manage synchronization processes effectively. It is crucial for applications that rely on the most current contact information.
+   * The date and time when the contact's information was last updated. This timestamp is crucial for synchronization processes, ensuring that the most recent data is reflected in the CRM system. The format follows ISO 8601 standards, such as '2023-10-05T14:48:00Z'.
    */
   updatedAt?: Date | null | undefined;
   /**
-   * The timestamp indicating when the contact was initially created in the CRM system. This is formatted as an ISO 8601 string, providing a historical reference for when the contact was added. Useful for tracking the age of contact records and understanding data growth over time.
+   * The date and time when the contact was initially created in the CRM system. This timestamp provides historical context for the contact's record, useful for auditing and tracking the lifecycle of the contact. The format is typically ISO 8601, like '2023-10-05T14:48:00Z'.
    */
   createdAt?: Date | null | undefined;
   /**
-   * An array of identifiers representing opportunities associated with the contact. Each ID corresponds to a specific opportunity record in the CRM, allowing developers to link contacts to potential business deals or projects. This is essential for applications that need to display or analyze contact-related opportunities.
+   * An array of identifiers representing opportunities associated with the contact. These IDs link the contact to potential business opportunities, facilitating tracking and management of sales prospects. Each ID in the array is a unique identifier for an opportunity within the CRM system.
    */
   opportunityIds?: Array<string> | undefined;
   /**
-   * An array that allows the inclusion of service-specific custom data or structured modifications in the request body. This property is used when creating or updating resources, enabling developers to pass additional information that may be required by specific services.
+   * An array that allows the inclusion of service-specific custom data or structured modifications in the request body. This is particularly useful when creating or updating resources, enabling developers to pass additional data that may be required by specific services.
    */
   passThrough?: Array<ListContactsResponsePassThrough> | undefined;
 };
 
 /**
- * This object contains cursors that help navigate through paginated API results. It includes pointers to move to previous, current, or next pages, facilitating efficient data retrieval in large datasets. The structure is essential for implementing pagination in applications consuming the API.
+ * This object contains cursors used for paginating through the list of contacts. It provides the necessary pointers to move between pages of results, ensuring efficient navigation and data retrieval in large datasets.
  */
 export type ListContactsResponseCursors = {
   /**
-   * A string cursor that points to the previous page of results in a paginated response. Use this cursor to retrieve the set of results immediately preceding the current page, enabling backward navigation through the dataset.
+   * A string cursor that points to the previous page of contact results. Use this cursor to retrieve the preceding set of contacts in the paginated list, facilitating backward navigation.
    */
   previous?: string | null | undefined;
   /**
-   * A string cursor representing the current page of results in the paginated response. This cursor is useful for maintaining the current position in the dataset, especially when refreshing or reloading data.
+   * A string cursor representing the current page of contact results. This cursor helps in identifying the current position within the paginated list, ensuring accurate data retrieval.
    */
   current?: string | null | undefined;
   /**
-   * A string cursor that points to the next page of results in a paginated response. Use this cursor to fetch the subsequent set of results, allowing forward navigation through the dataset.
+   * A string cursor that points to the next page of contact results. Utilize this cursor to access the subsequent set of contacts, enabling forward navigation through the paginated data.
    */
   next?: string | null | undefined;
 };
 
 /**
- * An object containing metadata about the response, such as pagination details or request processing information. This metadata helps in understanding the context of the response and managing subsequent data retrieval operations efficiently.
+ * An object containing metadata about the response, such as pagination details or processing information. This helps in understanding the context and scope of the returned data.
  */
 export type ListContactsResponseMeta = {
   /**
-   * Indicates the number of contact items included in the current page of the response. This integer value helps in managing pagination by showing how many contacts are returned in this specific API call, aiding in navigation through large datasets.
+   * The number of items included in the current page of the response data. This is useful for managing pagination and understanding the volume of data retrieved in a single request.
    */
   itemsOnPage?: number | undefined;
   /**
-   * This object contains cursors that help navigate through paginated API results. It includes pointers to move to previous, current, or next pages, facilitating efficient data retrieval in large datasets. The structure is essential for implementing pagination in applications consuming the API.
+   * This object contains cursors used for paginating through the list of contacts. It provides the necessary pointers to move between pages of results, ensuring efficient navigation and data retrieval in large datasets.
    */
   cursors?: ListContactsResponseCursors | undefined;
 };
 
 /**
- * This object contains hypermedia links that facilitate navigation to previous or next pages in the API response. It provides URLs that can be used directly to access other pages, supporting RESTful navigation patterns in client applications.
+ * This object contains hyperlinks for navigating between pages of contact results. It provides direct links to previous and next pages, enhancing user experience by simplifying page transitions in the API response.
  */
 export type ListContactsResponseLinks = {
   /**
-   * This property contains the URL link to the previous page of contact results in the paginated response. It is a string formatted as a URL and is included when there is a preceding page available. This link is useful for navigating backward through the list of contacts when handling large datasets.
+   * This property contains the URL link to the previous page of contacts in the API response. It is used for pagination, allowing developers to navigate back to the earlier set of results when viewing a list of contacts. The value is a string formatted as a URL, and it is optional, appearing only when there is a previous page available.
    */
   previous?: string | null | undefined;
   /**
-   * This property provides the URL link to the current page of contact results in the paginated response. It is formatted as a string URL and represents the current position in the pagination sequence. This link is essential for referencing the current set of contacts being viewed or processed.
+   * This property holds the URL link to the current page of contacts being viewed in the API response. It helps developers confirm the current position within the paginated list of contacts. The value is a string formatted as a URL, providing a direct reference to the current set of results.
    */
   current?: string | undefined;
   /**
-   * This property contains the URL link to the next page of contact results in the paginated response. It is a string formatted as a URL and is included when there is a subsequent page available. This link facilitates forward navigation through the contact list, aiding in efficient data retrieval and browsing.
+   * This property provides the URL link to the next page of contacts in the API response. It is essential for pagination, enabling developers to proceed to the subsequent set of results in the contact list. The value is a string formatted as a URL, and it is optional, appearing only when there is a next page available.
    */
   next?: string | null | undefined;
 };
@@ -589,35 +589,35 @@ export type ListContactsResponseLinks = {
  */
 export type ListContactsResponse = {
   /**
-   * The HTTP response status code indicating the result of the API request. This integer value helps determine whether the request was successful (e.g., 200 for success) or if there was an error (e.g., 404 for not found). It is crucial for error handling and debugging in client applications.
+   * The HTTP response status code indicating the result of the API request. This integer value helps determine if the request was successful (e.g., 200 for success) or if there was an error (e.g., 404 for not found). It is crucial for error handling and debugging in client applications.
    */
   statusCode: number;
   /**
-   * A string representation of the HTTP response status, such as 'OK' for a successful request or 'Not Found' for an error. This provides a human-readable status that complements the status code, aiding in quick understanding of the request outcome.
+   * A textual representation of the HTTP response status, such as 'OK' for a successful request or 'Not Found' for an error. This string provides a human-readable explanation of the status code, aiding in understanding the outcome of the API call.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider from which the contact data is retrieved. This string identifier is essential for distinguishing between different service providers integrated into the CRM system, ensuring the correct source of data is referenced.
+   * The Apideck ID of the service provider from which the contact data is retrieved. This string uniquely identifies the CRM service being accessed, ensuring that the data is sourced from the correct provider within the Apideck ecosystem.
    */
   service: string;
   /**
-   * The name of the Unified API resource being accessed, in this case, 'contacts'. This string value helps identify the specific resource type involved in the API operation, facilitating resource-specific processing and handling in applications.
+   * The name of the unified API resource being accessed, in this case, 'contacts'. This string indicates the type of data returned by the API, helping developers understand the context and structure of the response data.
    */
   resource: string;
   /**
-   * The specific operation performed by the API request, represented as a string. For this endpoint, it typically indicates a 'GET' operation, reflecting the retrieval of contact data from the CRM system. This helps in logging and tracking the type of API interactions performed.
+   * The specific operation performed by the API, such as 'retrieve' for fetching contact data. This string helps developers identify the action taken by the API, ensuring clarity in the response's purpose and context.
    */
   operation: string;
   /**
-   * An array containing the list of contact objects retrieved from the CRM. Each object within the array represents a single contact and includes detailed information such as the contact's ID, name, owner, and type. This array is the primary data structure returned by the 'contactsAll' operation, facilitating easy access and manipulation of contact data.
+   * An array containing the list of contact objects retrieved from the CRM. Each object within the array represents a single contact with its associated details, facilitating the handling and integration of contact data across various CRM systems.
    */
   data: Array<ListContactsResponseData>;
   /**
-   * An object containing metadata about the response, such as pagination details or request processing information. This metadata helps in understanding the context of the response and managing subsequent data retrieval operations efficiently.
+   * An object containing metadata about the response, such as pagination details or processing information. This helps in understanding the context and scope of the returned data.
    */
   meta?: ListContactsResponseMeta | undefined;
   /**
-   * This object contains hypermedia links that facilitate navigation to previous or next pages in the API response. It provides URLs that can be used directly to access other pages, supporting RESTful navigation patterns in client applications.
+   * This object contains hyperlinks for navigating between pages of contact results. It provides direct links to previous and next pages, enhancing user experience by simplifying page transitions in the API response.
    */
   links?: ListContactsResponseLinks | undefined;
 };

@@ -24,19 +24,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Update an existing lead record in the CRM system.
+ * Updates an existing lead record in the CRM system.
  *
  * @remarks
- * The `leadsUpdate` operation allows developers to modify an existing lead's information within the CRM system using a PATCH request. This operation is crucial for keeping lead data current and accurate, which is essential for effective customer relationship management.
- *
- * Key Parameters:
- * - `id` (path): The unique identifier of the lead record to be updated. This is a required parameter.
- * - `x-apideck-consumer-id` (header): Specifies the consumer ID from which data is being accessed or modified. This is a required parameter.
- * - `x-apideck-app-id` (header): The ID of the Unify application making the request. This is a required parameter.
- * - `x-apideck-service-id` (header): Optional parameter to specify the service ID when multiple integrations are active.
- * - `raw` (query): Optional parameter to include the raw response, useful for debugging.
- *
- * Upon successful execution, the operation returns a status code of 200, indicating that the lead record has been successfully updated. The response includes a JSON object representing the updated lead resource, ensuring developers can verify the changes made to the lead's data. This operation is vital for maintaining up-to-date lead information, which supports better decision-making and customer interactions.
+ * The leadsUpdate operation allows you to modify an existing lead's information in the CRM by sending a PATCH request to the /crm/leads/{id} endpoint. This operation is crucial for keeping lead data current and accurate, which is essential for effective customer relationship management. You must provide the lead's unique ID in the path parameter to specify which record to update. Additionally, the request requires headers for authentication, including x-apideck-consumer-id and x-apideck-app-id. Optionally, you can specify x-apideck-service-id if targeting a specific service integration. The request body should contain the fields you wish to update. Upon successful update, the API returns a 200 status code along with the updated lead data in JSON format, confirming the changes made.
  */
 export async function crmLeadsUpdate(
   client: ApideckCore,
@@ -88,12 +79,12 @@ export async function crmLeadsUpdate(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

@@ -9,11 +9,11 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This object contains the unique identifier of the note that was deleted. It serves as confirmation that the specified note has been successfully removed from the CRM system. The presence of this object in the response indicates a successful deletion operation.
+ * This object contains details about the note that was deleted from the CRM system. It serves as a confirmation that the specified note has been successfully removed. The object includes the unique identifier of the deleted note, ensuring developers can verify the deletion operation's success.
  */
 export type DeleteNoteResponseUnifiedId = {
   /**
-   * The unique identifier of the note that was deleted. This string value confirms the specific note that was removed from the CRM, ensuring developers can verify the correct resource was deleted. It matches the 'id' provided in the request path parameter.
+   * The unique identifier of the note that was deleted. This ID confirms which specific note has been removed from the CRM system, allowing developers to track and verify the deletion process. It is crucial for ensuring that the correct note has been deleted, especially in systems with numerous entries.
    */
   id: string;
 };
@@ -23,27 +23,27 @@ export type DeleteNoteResponseUnifiedId = {
  */
 export type DeleteNoteResponse = {
   /**
-   * The HTTP response status code indicating the result of the delete operation. A status code of 200 confirms that the note was successfully deleted from the CRM system. This integer value is crucial for error handling and confirming successful operations.
+   * The HTTP response status code returned by the server. This integer value indicates the result of the delete operation, with a successful deletion typically represented by a 200 status code. It helps developers confirm whether the note was successfully removed from the CRM system.
    */
   statusCode: number;
   /**
-   * A textual representation of the HTTP response status. This string provides a human-readable status message, such as 'OK' for a successful deletion, helping developers quickly understand the outcome of the operation.
+   * A textual representation of the HTTP response status. This string provides a human-readable status message, such as 'OK' for a successful operation, helping developers quickly understand the outcome of the delete request.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider that processed the delete request. This string helps identify which service handled the operation, especially useful in environments with multiple integrations.
+   * The Apideck ID of the service provider involved in the operation. This string identifies which service integration was used for the delete operation, allowing developers to track and manage service-specific actions within the CRM.
    */
   service: string;
   /**
-   * The name of the Unified API resource involved in the operation. This string specifies the type of resource, such as 'note', that was targeted by the delete request, aiding in logging and debugging processes.
+   * The name of the unified API resource that was targeted by the operation. This string indicates the specific type of resource, such as 'note', that was deleted, providing context about the nature of the data affected by the operation.
    */
   resource: string;
   /**
-   * The specific operation performed, in this case, 'delete'. This string indicates the action taken on the resource, confirming that the operation was a deletion, which is essential for audit trails and operation tracking.
+   * The type of operation performed, represented as a string. In this context, it specifies 'delete', indicating that the operation involved removing a resource from the CRM, which is crucial for maintaining data integrity and relevance.
    */
   operation: string;
   /**
-   * This object contains the unique identifier of the note that was deleted. It serves as confirmation that the specified note has been successfully removed from the CRM system. The presence of this object in the response indicates a successful deletion operation.
+   * This object contains details about the note that was deleted from the CRM system. It serves as a confirmation that the specified note has been successfully removed. The object includes the unique identifier of the deleted note, ensuring developers can verify the deletion operation's success.
    */
   data: DeleteNoteResponseUnifiedId;
 };

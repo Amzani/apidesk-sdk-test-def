@@ -1,6 +1,6 @@
 # CreateUserRequestType
 
-Specifies the category or purpose of the address, such as 'home', 'work', or 'billing'. This helps in organizing and retrieving addresses based on their usage context. The value should be a valid string that clearly indicates the address type, though it is optional.
+Specifies the type of address, such as 'home' or 'work', associated with the user. This helps categorize the address within the CRM for better organization and retrieval. Ensure the type is a valid string that accurately represents the address category.
 
 ## Example Usage
 

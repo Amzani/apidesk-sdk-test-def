@@ -36,18 +36,10 @@ import {
 } from "../types/operations.js";
 
 /**
- * Retrieve a list of companies from the CRM.
+ * Retrieve a list of companies from the CRM system.
  *
  * @remarks
- * The `companiesAll` operation allows developers to fetch a comprehensive list of companies stored within the CRM system. This operation is crucial for applications that need to access company data for analysis, reporting, or integration purposes.
- *
- * Key Parameters:
- * - `x-apideck-consumer-id` (header, required): Identifies the consumer accessing the data.
- * - `x-apideck-app-id` (header, required): Specifies the Unify application ID.
- * - `limit` (query): Determines the number of results returned, with a default of 20 and a maximum of 200.
- * - `fields` (query): Allows selection of specific fields to include in the response, enhancing performance by reducing payload size.
- *
- * The response returns a JSON object containing the list of companies, with pagination supported through the `cursor` parameter. This operation does not modify data and is safe to use for read-only purposes.
+ * The 'companiesAll' operation allows developers to retrieve a comprehensive list of companies stored within the CRM system. This GET request to the '/crm/companies' endpoint supports various query parameters to customize the response, such as 'limit' for controlling the number of results, 'filter' for narrowing down the list based on specific criteria, and 'sort' for ordering the results. Essential headers like 'x-apideck-consumer-id' and 'x-apideck-app-id' are required for authentication. The response is typically a JSON object containing company details, and developers can specify which fields to include using the 'fields' parameter. This operation is crucial for applications needing to access or display company data efficiently.
  */
 export async function crmCompaniesList(
   client: ApideckCore,
@@ -104,12 +96,12 @@ export async function crmCompaniesList(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

@@ -1,6 +1,6 @@
 # ActivitiesSortDirection
 
-Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
+The direction in which to sort the results. Use 'asc' for ascending or 'desc' for descending order to control the sequence of the returned activities.
 
 ## Example Usage
 

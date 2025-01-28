@@ -1,6 +1,6 @@
 # ListOpportunitiesResponseCustomMappings
 
-An object containing custom mappings configured on the resource, if any. This allows for flexibility in data representation and integration with other systems. Developers can use this to access additional, non-standard fields that have been tailored to specific business needs.
+This property contains an object that holds custom mappings configured specifically for the opportunity resource. These mappings allow for the inclusion of additional, user-defined fields in the response, offering flexibility in how opportunity data is represented and utilized. This feature is particularly useful for tailoring the CRM data to meet specific business needs or integration requirements.
 
 ## Example Usage
 

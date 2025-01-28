@@ -1,6 +1,6 @@
 # ListLeadsResponseValue
 
-The actual value assigned to the custom field for a particular lead. This can vary in format depending on the field's intended use, such as a date, number, or text.
+The actual value assigned to the custom field for a lead. This can vary in type and content, depending on the custom field's definition, and is crucial for personalized data management in CRM applications.
 
 
 ## Supported Types

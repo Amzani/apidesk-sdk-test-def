@@ -24,18 +24,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Add a new company to the CRM system.
+ * Adds a new company to the CRM system.
  *
  * @remarks
- * The `companiesAdd` operation allows developers to add a new company to the CRM system using a POST request to the `/crm/companies` endpoint. This operation is essential for integrating new company data into the CRM, enabling seamless management and tracking of company information.
- *
- * Key Parameters:
- * - `x-apideck-consumer-id` (header, required): Specifies the consumer ID for data retrieval or submission.
- * - `x-apideck-app-id` (header, required): Identifies the Unify application making the request.
- * - `x-apideck-service-id` (header, optional): Indicates the specific service ID to call, necessary when multiple integrations are active.
- * - `raw` (query, optional): Determines if the raw response should be included, mainly for debugging.
- *
- * Upon successful creation, the operation returns a status code of 201, along with a JSON object containing the unique identifier of the newly created company resource. This response confirms the successful addition of the company to the CRM system.
+ * The companiesAdd operation allows developers to add a new company to the CRM system by sending a POST request to the /crm/companies endpoint. This operation is essential for maintaining up-to-date company records within the CRM. The request must include a valid x-apideck-consumer-id and x-apideck-app-id in the headers for authentication and authorization purposes. Optionally, the x-apideck-service-id can be specified if targeting a specific service integration. The 'raw' query parameter can be set to true to receive the raw data response, useful for debugging. Upon successful creation, the API returns a 201 status code along with the ID of the newly created company resource in a JSON object.
  */
 export async function crmCompaniesCreate(
   client: ApideckCore,
@@ -82,12 +74,12 @@ export async function crmCompaniesCreate(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

@@ -9,11 +9,11 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This object contains the details of the newly created company resource, including its unique identifier. It serves as the main container for the response data, confirming the successful addition of the company to the CRM system. The structure is typically a JSON object with nested properties.
+ * This object contains the details of the newly created company resource in the CRM system. It serves as the primary container for the response data, ensuring that all relevant information about the operation's outcome is encapsulated. The object includes essential identifiers and attributes that define the newly added company.
  */
 export type UnifiedId = {
   /**
-   * The unique identifier assigned to the newly created company resource in the CRM. This string value is crucial for referencing the company in future operations, such as updates or retrievals, and confirms the successful creation of the resource.
+   * The unique identifier assigned to the company resource that has just been created in the CRM system. This ID is crucial for referencing the company in future operations, such as updates or retrievals, and is returned as a string format to ensure compatibility across different systems.
    */
   id: string;
 };
@@ -23,27 +23,27 @@ export type UnifiedId = {
  */
 export type CreateCompanyResponse = {
   /**
-   * The HTTP response status code indicating the result of the operation. A status code of 201 confirms that the company was successfully added to the CRM. This integer value is crucial for error handling and understanding the outcome of the POST request.
+   * The HTTP response status code returned by the server. This integer value indicates the result of the POST request to add a new company, with a successful creation typically returning a 201 status code. It helps developers understand the outcome of their API call.
    */
   statusCode: number;
   /**
-   * A textual representation of the HTTP response status. This string provides a human-readable status message, such as 'Created', which corresponds to the status code and helps in quickly understanding the result of the operation.
+   * A textual representation of the HTTP response status. This string provides a human-readable status message corresponding to the status code, such as 'Created' for a successful company addition. It aids in quickly identifying the result of the operation.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider used for this operation. This string identifies which service within Apideck's ecosystem processed the request, especially useful when multiple services are integrated.
+   * The Apideck ID of the service provider used for this operation. This string identifies which service integration was utilized when adding the company, especially useful if multiple services are connected. It ensures the correct service context is maintained.
    */
   service: string;
   /**
-   * The name of the Unified API resource that was affected by the operation. This string indicates the type of resource, such as 'company', that was created or modified, providing context about the operation's target within the CRM.
+   * The name of the unified API resource involved in the operation. This string specifies the type of resource that was affected, in this case, a 'company', helping developers understand the context of the API response.
    */
   resource: string;
   /**
-   * The specific operation that was performed, represented as a string. In this context, it indicates the action taken, such as 'add', confirming the type of modification made to the CRM data.
+   * The specific operation performed by the API. This string indicates the action taken, such as 'create', reflecting the nature of the POST request to add a new company. It provides clarity on what change was made to the CRM system.
    */
   operation: string;
   /**
-   * This object contains the details of the newly created company resource, including its unique identifier. It serves as the main container for the response data, confirming the successful addition of the company to the CRM system. The structure is typically a JSON object with nested properties.
+   * This object contains the details of the newly created company resource in the CRM system. It serves as the primary container for the response data, ensuring that all relevant information about the operation's outcome is encapsulated. The object includes essential identifiers and attributes that define the newly added company.
    */
   data: UnifiedId;
 };

@@ -1,6 +1,6 @@
 # CreateContactRequestValue
 
-The value assigned to the custom field, representing the data or information stored in this field. This property is optional and should match the expected data type for the field's intended use.
+The actual data or value associated with the custom field, representing the specific information you wish to store for the contact. This field is optional and should be formatted as a string to align with the CRM's data handling requirements.
 
 
 ## Supported Types

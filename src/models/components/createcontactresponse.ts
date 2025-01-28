@@ -9,11 +9,11 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This object contains the details of the newly created contact, including its unique identifier. It serves as the main container for the response data, confirming the successful addition of the contact to the CRM system. The structure is typically a JSON object with nested properties.
+ * This object contains the details of the contact that was successfully created in the CRM system. It serves as a container for all relevant information about the new contact, including its unique identifier. This object is essential for confirming the successful addition of the contact and for any subsequent operations that may require reference to this contact.
  */
 export type CreateContactResponseUnifiedId = {
   /**
-   * The unique identifier assigned to the newly created contact in the CRM system. This ID is a string that serves as a reference for future operations involving this contact, such as updates or deletions. It is crucial for tracking and managing the contact within the CRM.
+   * The unique identifier assigned to the newly created contact resource. This ID is crucial for referencing the contact in future operations, such as updates or deletions, and ensures that each contact can be distinctly identified within the CRM system.
    */
   id: string;
 };
@@ -23,27 +23,27 @@ export type CreateContactResponseUnifiedId = {
  */
 export type CreateContactResponse = {
   /**
-   * The HTTP response status code indicating the result of the contact addition operation. A value of 201 confirms that the contact was successfully created in the CRM system. This integer is crucial for error handling and confirming successful operations.
+   * The HTTP response status code indicating the result of the POST request to add a new contact. A successful operation returns a 201 status code, confirming that the contact has been successfully created in the CRM system.
    */
   statusCode: number;
   /**
-   * A textual representation of the HTTP response status, such as 'Created' for a successful contact addition. This string provides a human-readable confirmation of the operation's outcome, complementing the status code.
+   * A textual representation of the HTTP response status, such as 'Created' for a successful contact addition. This provides a human-readable confirmation of the operation's outcome.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider used for this operation. This string identifies which service handled the contact addition, especially useful in environments with multiple integrations.
+   * The Apideck ID of the service provider used for this operation, identifying which service integration was utilized to add the contact. This helps in tracking and managing service-specific operations within the CRM.
    */
   service: string;
   /**
-   * The name of the Unified API resource involved in the operation, typically 'contacts' for this endpoint. This string helps developers understand which resource was affected by the operation.
+   * The name of the unified API resource that was affected by this operation, typically 'contact' in this context. It signifies the type of resource that has been created or modified.
    */
   resource: string;
   /**
-   * The specific operation performed, such as 'add' for this endpoint. This string indicates the action taken on the resource, providing clarity on what change was made in the CRM system.
+   * The specific operation performed, in this case, 'contactsAdd', indicating that a new contact has been added to the CRM system. This helps in understanding the action taken by the API call.
    */
   operation: string;
   /**
-   * This object contains the details of the newly created contact, including its unique identifier. It serves as the main container for the response data, confirming the successful addition of the contact to the CRM system. The structure is typically a JSON object with nested properties.
+   * This object contains the details of the contact that was successfully created in the CRM system. It serves as a container for all relevant information about the new contact, including its unique identifier. This object is essential for confirming the successful addition of the contact and for any subsequent operations that may require reference to this contact.
    */
   data: CreateContactResponseUnifiedId;
 };

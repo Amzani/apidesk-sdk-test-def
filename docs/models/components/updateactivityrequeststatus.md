@@ -1,6 +1,6 @@
 # UpdateActivityRequestStatus
 
-The current status of the attendee in relation to the activity, such as confirmed, tentative, or declined. This optional field helps track the attendee's participation status, aiding in the management and coordination of the activity within the CRM. Ensure the status is a valid string reflecting the attendee's current state.
+The current status of the attendee in relation to the activity, such as 'confirmed', 'tentative', or 'cancelled'. This field helps track the attendee's participation status and is important for planning and resource allocation. Ensure the status accurately reflects the attendee's commitment to the activity.
 
 ## Example Usage
 

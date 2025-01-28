@@ -1,6 +1,6 @@
 # CreateLeadRequestEmailsType
 
-Specifies the category of the email address, such as 'work', 'personal', or 'other'. This helps in organizing and distinguishing between different email addresses associated with the lead. If provided, it should be a valid string representing the email type.
+Specifies the type of email address associated with the lead, such as 'work', 'personal', or 'other'. This helps categorize the email for better organization and communication. It is optional and should be a string that clearly identifies the email's purpose.
 
 ## Example Usage
 

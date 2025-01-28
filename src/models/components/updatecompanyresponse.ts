@@ -9,11 +9,11 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This object contains the updated company resource, reflecting the latest changes made to the record. It includes all relevant fields that define the company, ensuring developers have access to the most current data. The structure of this object aligns with the company's schema in the CRM system.
+ * This object contains the updated details of the company record that was modified through the PATCH request. It includes all the fields that were successfully updated, reflecting the current state of the company in the CRM. This object is essential for confirming that the intended changes have been applied correctly.
  */
 export type UpdateCompanyResponseUnifiedId = {
   /**
-   * The unique identifier of the company resource that was updated. This string value confirms the specific company record that has been modified, allowing developers to verify the update operation's success. It is crucial for tracking and referencing the updated company within the CRM.
+   * The unique identifier of the company record that was updated. This ID is crucial for referencing the specific company within the CRM system and confirms the exact resource that has been modified. It ensures that developers can accurately track changes to the correct company entry.
    */
   id: string;
 };
@@ -23,27 +23,27 @@ export type UpdateCompanyResponseUnifiedId = {
  */
 export type UpdateCompanyResponse = {
   /**
-   * The HTTP response status code indicating the result of the PATCH operation. This integer value helps determine if the update was successful (e.g., 200 for success) or if there was an error (e.g., 4xx or 5xx codes). It is crucial for error handling and debugging purposes.
+   * The HTTP response status code returned by the server, indicating the result of the PATCH request to update a company record. A status code of 200 signifies a successful update, while other codes may indicate errors or issues with the request.
    */
   statusCode: number;
   /**
-   * A string representation of the HTTP response status, such as 'OK' for a successful update. This provides a human-readable status that complements the status code, offering a quick understanding of the operation's outcome.
+   * A textual representation of the HTTP response status, such as 'OK' for a successful update operation. This provides a human-readable status alongside the numeric status code, helping to quickly understand the outcome of the request.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider that processed the update request. This string identifies which service within the Apideck ecosystem handled the operation, especially useful when multiple services are integrated.
+   * The Apideck ID of the service provider used for the operation, identifying which service facilitated the update of the company record. This is crucial for tracking and auditing purposes within the Apideck ecosystem.
    */
   service: string;
   /**
-   * The name of the unified API resource that was updated, represented as a string. This indicates the specific type of resource affected by the operation, such as 'company', helping developers understand the context of the update.
+   * The name of the unified API resource that was targeted by the operation, in this case, a company record. This helps in identifying the type of resource that was updated, ensuring clarity in multi-resource environments.
    */
   resource: string;
   /**
-   * A string that specifies the operation performed, in this case, 'update'. This clarifies the action taken on the resource, confirming that the operation was a modification of existing data.
+   * The specific operation performed, which in this context is 'update'. This indicates that the PATCH request was intended to modify an existing company record, providing context to the nature of the API call.
    */
   operation: string;
   /**
-   * This object contains the updated company resource, reflecting the latest changes made to the record. It includes all relevant fields that define the company, ensuring developers have access to the most current data. The structure of this object aligns with the company's schema in the CRM system.
+   * This object contains the updated details of the company record that was modified through the PATCH request. It includes all the fields that were successfully updated, reflecting the current state of the company in the CRM. This object is essential for confirming that the intended changes have been applied correctly.
    */
   data: UpdateCompanyResponseUnifiedId;
 };

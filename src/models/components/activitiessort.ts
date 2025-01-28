@@ -9,26 +9,26 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
+ * The field on which to sort the activities. This property specifies the attribute used for sorting, such as 'date' or 'type', to arrange the activities accordingly.
  */
 export const ActivitiesSortBy = {
   CreatedAt: "created_at",
   UpdatedAt: "updated_at",
 } as const;
 /**
- * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
+ * The field on which to sort the activities. This property specifies the attribute used for sorting, such as 'date' or 'type', to arrange the activities accordingly.
  */
 export type ActivitiesSortBy = ClosedEnum<typeof ActivitiesSortBy>;
 
 /**
- * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
+ * The direction in which to sort the results. Use 'asc' for ascending or 'desc' for descending order to control the sequence of the returned activities.
  */
 export const ActivitiesSortDirection = {
   Asc: "asc",
   Desc: "desc",
 } as const;
 /**
- * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
+ * The direction in which to sort the results. Use 'asc' for ascending or 'desc' for descending order to control the sequence of the returned activities.
  */
 export type ActivitiesSortDirection = ClosedEnum<
   typeof ActivitiesSortDirection
@@ -36,11 +36,11 @@ export type ActivitiesSortDirection = ClosedEnum<
 
 export type ActivitiesSort = {
   /**
-   * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
+   * The field on which to sort the activities. This property specifies the attribute used for sorting, such as 'date' or 'type', to arrange the activities accordingly.
    */
   by?: ActivitiesSortBy | undefined;
   /**
-   * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
+   * The direction in which to sort the results. Use 'asc' for ascending or 'desc' for descending order to control the sequence of the returned activities.
    */
   direction?: ActivitiesSortDirection | undefined;
 };

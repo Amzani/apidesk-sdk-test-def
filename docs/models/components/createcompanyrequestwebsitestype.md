@@ -1,6 +1,6 @@
 # CreateCompanyRequestWebsitesType
 
-Describes the category or purpose of the website, such as 'corporate', 'e-commerce', or 'blog'. This helps in classifying the website's role within the company's digital strategy and is useful for targeted marketing and analytics.
+Describes the type of website, such as 'corporate', 'e-commerce', or 'blog'. This categorization helps in understanding the purpose and content focus of the website. This property is optional and can be used to provide additional context about the website's role.
 
 ## Example Usage
 

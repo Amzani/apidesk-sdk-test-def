@@ -1,6 +1,6 @@
 # ListUsersResponseType
 
-Indicates the type of address, such as 'home', 'work', or 'billing'. This helps categorize the address for better organization and retrieval in applications that manage multiple address types for users.
+The type of address, such as 'home', 'work', or 'billing'. This string helps categorize the address for better organization and retrieval within the CRM system. Understanding the address type is essential for applications that need to differentiate between various address uses.
 
 ## Example Usage
 

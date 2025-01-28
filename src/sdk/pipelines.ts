@@ -9,21 +9,10 @@ import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class Pipelines extends ClientSDK {
   /**
-   * Retrieve all CRM pipelines.
+   * Retrieve all CRM pipelines for a specified consumer.
    *
    * @remarks
-   * The `pipelinesAll` operation allows developers to retrieve a list of all CRM pipelines using a GET request to the `/crm/pipelines` endpoint. This operation is essential for accessing and managing pipeline data within a CRM system, enabling users to view and analyze sales processes.
-   *
-   * Key Parameters:
-   * - `x-apideck-consumer-id` (header, required): Specifies the consumer ID for data retrieval.
-   * - `x-apideck-app-id` (header, required): Identifies the Unify application in use.
-   * - `x-apideck-service-id` (header, optional): Indicates the specific service ID, necessary when multiple integrations are active.
-   * - `cursor` (query, optional): Used for pagination, indicating the starting point for data retrieval.
-   * - `limit` (query, optional): Defines the number of results per page, with a default of 20 and a maximum of 200.
-   * - `fields` (query, optional): Allows selection of specific fields to include in the response, using a comma-separated list.
-   *
-   * Response Behavior:
-   * The operation returns a JSON object containing the list of pipelines, with pagination support through cursors. This enables efficient data handling and retrieval, facilitating seamless integration with CRM systems.
+   * The 'pipelinesAll' operation fetches a list of CRM pipelines associated with a specified consumer. This GET request to the '/crm/pipelines' endpoint is essential for developers needing to access pipeline data for integration or analysis purposes. Key parameters include 'x-apideck-consumer-id' for consumer identification, 'limit' for controlling the number of results, and 'cursor' for pagination. The response is a JSON object containing pipeline details, which can be tailored using the 'fields' parameter to include specific data fields. This operation is crucial for applications that require comprehensive pipeline data from CRM systems.
    */
   async list(
     request: operations.CrmPipelinesAllRequest,

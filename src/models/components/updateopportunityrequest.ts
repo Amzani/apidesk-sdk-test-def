@@ -5,212 +5,21 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-/**
- * Specifies the currency type for the opportunity's financial values, adhering to the ISO 4217 standard. This property is optional and should be used when updating monetary fields to ensure consistency in currency representation across the CRM system.
- */
-export const UpdateOpportunityRequestCurrency = {
-  UnknownCurrency: "UNKNOWN_CURRENCY",
-  Aed: "AED",
-  Afn: "AFN",
-  All: "ALL",
-  Amd: "AMD",
-  Ang: "ANG",
-  Aoa: "AOA",
-  Ars: "ARS",
-  Aud: "AUD",
-  Awg: "AWG",
-  Azn: "AZN",
-  Bam: "BAM",
-  Bbd: "BBD",
-  Bdt: "BDT",
-  Bgn: "BGN",
-  Bhd: "BHD",
-  Bif: "BIF",
-  Bmd: "BMD",
-  Bnd: "BND",
-  Bob: "BOB",
-  Bov: "BOV",
-  Brl: "BRL",
-  Bsd: "BSD",
-  Btn: "BTN",
-  Bwp: "BWP",
-  Byr: "BYR",
-  Bzd: "BZD",
-  Cad: "CAD",
-  Cdf: "CDF",
-  Che: "CHE",
-  Chf: "CHF",
-  Chw: "CHW",
-  Clf: "CLF",
-  Clp: "CLP",
-  Cny: "CNY",
-  Cop: "COP",
-  Cou: "COU",
-  Crc: "CRC",
-  Cuc: "CUC",
-  Cup: "CUP",
-  Cve: "CVE",
-  Czk: "CZK",
-  Djf: "DJF",
-  Dkk: "DKK",
-  Dop: "DOP",
-  Dzd: "DZD",
-  Egp: "EGP",
-  Ern: "ERN",
-  Etb: "ETB",
-  Eur: "EUR",
-  Fjd: "FJD",
-  Fkp: "FKP",
-  Gbp: "GBP",
-  Gel: "GEL",
-  Ghs: "GHS",
-  Gip: "GIP",
-  Gmd: "GMD",
-  Gnf: "GNF",
-  Gtq: "GTQ",
-  Gyd: "GYD",
-  Hkd: "HKD",
-  Hnl: "HNL",
-  Hrk: "HRK",
-  Htg: "HTG",
-  Huf: "HUF",
-  Idr: "IDR",
-  Ils: "ILS",
-  Inr: "INR",
-  Iqd: "IQD",
-  Irr: "IRR",
-  Isk: "ISK",
-  Jmd: "JMD",
-  Jod: "JOD",
-  Jpy: "JPY",
-  Kes: "KES",
-  Kgs: "KGS",
-  Khr: "KHR",
-  Kmf: "KMF",
-  Kpw: "KPW",
-  Krw: "KRW",
-  Kwd: "KWD",
-  Kyd: "KYD",
-  Kzt: "KZT",
-  Lak: "LAK",
-  Lbp: "LBP",
-  Lkr: "LKR",
-  Lrd: "LRD",
-  Lsl: "LSL",
-  Ltl: "LTL",
-  Lvl: "LVL",
-  Lyd: "LYD",
-  Mad: "MAD",
-  Mdl: "MDL",
-  Mga: "MGA",
-  Mkd: "MKD",
-  Mmk: "MMK",
-  Mnt: "MNT",
-  Mop: "MOP",
-  Mro: "MRO",
-  Mur: "MUR",
-  Mvr: "MVR",
-  Mwk: "MWK",
-  Mxn: "MXN",
-  Mxv: "MXV",
-  Myr: "MYR",
-  Mzn: "MZN",
-  Nad: "NAD",
-  Ngn: "NGN",
-  Nio: "NIO",
-  Nok: "NOK",
-  Npr: "NPR",
-  Nzd: "NZD",
-  Omr: "OMR",
-  Pab: "PAB",
-  Pen: "PEN",
-  Pgk: "PGK",
-  Php: "PHP",
-  Pkr: "PKR",
-  Pln: "PLN",
-  Pyg: "PYG",
-  Qar: "QAR",
-  Ron: "RON",
-  Rsd: "RSD",
-  Rub: "RUB",
-  Rwf: "RWF",
-  Sar: "SAR",
-  Sbd: "SBD",
-  Scr: "SCR",
-  Sdg: "SDG",
-  Sek: "SEK",
-  Sgd: "SGD",
-  Shp: "SHP",
-  Sll: "SLL",
-  Sos: "SOS",
-  Srd: "SRD",
-  Ssp: "SSP",
-  Std: "STD",
-  Svc: "SVC",
-  Syp: "SYP",
-  Szl: "SZL",
-  Thb: "THB",
-  Tjs: "TJS",
-  Tmt: "TMT",
-  Tnd: "TND",
-  Top: "TOP",
-  Trc: "TRC",
-  Try: "TRY",
-  Ttd: "TTD",
-  Twd: "TWD",
-  Tzs: "TZS",
-  Uah: "UAH",
-  Ugx: "UGX",
-  Usd: "USD",
-  Usn: "USN",
-  Uss: "USS",
-  Uyi: "UYI",
-  Uyu: "UYU",
-  Uzs: "UZS",
-  Vef: "VEF",
-  Vnd: "VND",
-  Vuv: "VUV",
-  Wst: "WST",
-  Xaf: "XAF",
-  Xag: "XAG",
-  Xau: "XAU",
-  Xba: "XBA",
-  Xbb: "XBB",
-  Xbc: "XBC",
-  Xbd: "XBD",
-  Xcd: "XCD",
-  Xdr: "XDR",
-  Xof: "XOF",
-  Xpd: "XPD",
-  Xpf: "XPF",
-  Xpt: "XPT",
-  Xts: "XTS",
-  Xxx: "XXX",
-  Yer: "YER",
-  Zar: "ZAR",
-  Zmk: "ZMK",
-  Zmw: "ZMW",
-  Btc: "BTC",
-  Eth: "ETH",
-} as const;
-/**
- * Specifies the currency type for the opportunity's financial values, adhering to the ISO 4217 standard. This property is optional and should be used when updating monetary fields to ensure consistency in currency representation across the CRM system.
- */
-export type UpdateOpportunityRequestCurrency = ClosedEnum<
-  typeof UpdateOpportunityRequestCurrency
->;
+import {
+  Currency,
+  Currency$inboundSchema,
+  Currency$outboundSchema,
+} from "./currency.js";
 
 export type UpdateOpportunityRequestValue6 = {};
 
 export type UpdateOpportunityRequestValue4 = {};
 
 /**
- * The actual data or value associated with the custom field in the opportunity record. This value should align with the field's intended use and format, providing meaningful information that enhances the opportunity's data set.
+ * The value assigned to the custom field for the opportunity. This property holds the actual data or information that the custom field is meant to capture, allowing for tailored data tracking and analysis. Ensure the value aligns with the intended use of the custom field.
  */
 export type UpdateOpportunityRequestValue =
   | UpdateOpportunityRequestValue4
@@ -222,19 +31,19 @@ export type UpdateOpportunityRequestValue =
 
 export type UpdateOpportunityRequestCustomFields = {
   /**
-   * Unique identifier for the custom field. This ID is necessary to specify which custom field is being updated or added, ensuring that the correct data is associated with the opportunity. It must match an existing custom field ID within the CRM system.
+   * The custom_fields.id is a required string that uniquely identifies each custom field within the opportunity. It ensures that the correct custom field is targeted for updates or additions, allowing for precise customization of the opportunity record.
    */
   id: string | null;
   /**
-   * The name assigned to a custom field within the opportunity record. This field allows users to label and identify custom data points specific to their business needs. It should be a descriptive string that clearly conveys the purpose of the custom field.
+   * The name of the custom field associated with the opportunity. This field allows you to specify a unique identifier or label for custom data points, facilitating better organization and retrieval of opportunity-specific information. It should be a descriptive string that clearly conveys the purpose of the custom field.
    */
   name?: string | null | undefined;
   /**
-   * A detailed explanation of the custom field's purpose and usage within the opportunity record. This description helps users understand the context and significance of the custom field, ensuring it is used appropriately within the CRM system.
+   * A detailed explanation of the custom field's purpose and usage within the opportunity. This description helps clarify the role of the custom field, ensuring that users understand its relevance and how it fits into the overall opportunity data structure. It should provide enough context to guide users in its application.
    */
   description?: string | null | undefined;
   /**
-   * The actual data or value associated with the custom field in the opportunity record. This value should align with the field's intended use and format, providing meaningful information that enhances the opportunity's data set.
+   * The value assigned to the custom field for the opportunity. This property holds the actual data or information that the custom field is meant to capture, allowing for tailored data tracking and analysis. Ensure the value aligns with the intended use of the custom field.
    */
   value?:
     | UpdateOpportunityRequestValue4
@@ -249,173 +58,149 @@ export type UpdateOpportunityRequestCustomFields = {
 
 export type UpdateOpportunityRequestExtendPaths = {
   /**
-   * A JSONPath string that specifies the exact location within the opportunity record where the value should be applied. This path must be valid and correctly formatted to ensure the update is applied to the intended data field.
+   * A JSONPath string that specifies the exact location within the data structure where the value should be applied. This is required for each entry in the extend_paths array to ensure accurate targeting of data modifications.
    */
   path: string;
   /**
-   * Specifies the new value to be assigned at the designated path within the opportunity record. This property is essential for updating specific fields of an opportunity, allowing for dynamic modifications based on business needs. The value can be of any data type, ensuring flexibility in updating various field types within the CRM system.
+   * This property specifies the new value to be set at the designated path within the opportunity record. It is essential for updating specific fields of an opportunity, allowing for dynamic modifications based on the provided path. The value can be of any type, ensuring flexibility in the types of data that can be updated, such as strings, numbers, or objects.
    */
   value?: any | undefined;
 };
 
 export type UpdateOpportunityRequestPassThrough = {
   /**
-   * The unique identifier for the service to which this pass_through should be applied. This string must match an existing service ID within the CRM system, ensuring the operation targets the correct service for updating the opportunity record.
+   * The unique identifier for the service to which this pass-through operation should be applied. This field is mandatory and ensures that the update is directed to the correct service integration, facilitating precise modifications within the CRM system.
    */
   serviceId: string;
   /**
-   * An optional identifier for a specific workflow operation that this pass_through should be applied to. This is particularly useful when the Unify application makes multiple downstream requests, allowing developers to specify which operation to target.
+   * An optional identifier for a specific workflow operation that this pass-through should target. This is particularly useful for Unify calls that involve multiple downstream requests, allowing for more granular control over the operation's execution.
    */
   operationId?: string | undefined;
   /**
-   * A flexible object that allows for the direct extension of properties within the opportunity record. This object can include any additional fields that need to be updated or added, providing a customizable way to enhance the opportunity data.
+   * A flexible object that allows for the direct extension of properties. This can be used to add custom fields or data to the opportunity record, providing a way to tailor the CRM data structure to specific business needs.
    */
   extendObject?: { [k: string]: any } | undefined;
   /**
-   * An array of objects designed for structured data modifications using specified paths. Each object in the array should define a path and the corresponding value to be applied, enabling precise updates to nested data structures within the opportunity record.
+   * An array of objects designed for structured data modifications using specified paths. This allows for precise updates to nested data structures within the opportunity record, ensuring that changes are applied exactly where needed.
    */
   extendPaths?: Array<UpdateOpportunityRequestExtendPaths> | undefined;
 };
 
 export type UpdateOpportunityRequest = {
   /**
-   * The title or name of the opportunity. This field is required and should be a concise, descriptive label that identifies the opportunity within the CRM system. It helps in quickly recognizing and differentiating between various opportunities in the sales pipeline.
+   * The title or name of the opportunity. This field is essential for identifying and distinguishing the opportunity within the CRM system. It must be a non-empty string that clearly represents the opportunity's focus or goal.
    */
   title: string;
   /**
-   * The unique identifier of the primary contact associated with the opportunity. This required field links the opportunity to a specific contact, ensuring that communications and interactions are properly tracked and managed within the CRM.
+   * The unique identifier of the primary contact associated with the opportunity. This ID links the opportunity to a specific contact, facilitating communication and relationship management. It should be a valid string that corresponds to an existing contact in the CRM.
    */
-  primaryContactId: string | null;
+  primaryContactId?: string | null | undefined;
   /**
-   * A detailed description of the opportunity, providing additional context or notes. This optional field can include any relevant information that helps in understanding the nature and specifics of the opportunity, aiding in better management and tracking.
+   * A description of the opportunity, providing additional context or details about its nature and objectives. This optional field can include any relevant information that helps in understanding the opportunity's scope and potential impact.
    */
   description?: string | null | undefined;
   /**
-   * The type of the opportunity, such as 'new business' or 'renewal'. This optional field helps categorize the opportunity, allowing for more organized tracking and reporting within the CRM system.
+   * The type of the opportunity, categorizing it within the CRM for better organization and tracking. This field helps in filtering and managing opportunities based on their nature or business context. It should be a descriptive string that aligns with the organization's classification system.
    */
   type?: string | null | undefined;
   /**
-   * The monetary value associated with the opportunity, representing its potential revenue. This optional field should be a numeric value that helps in forecasting and analyzing the financial impact of the opportunity on the sales pipeline.
+   * The monetary value associated with the opportunity, representing its financial potential or worth. This numeric field is crucial for forecasting and assessing the opportunity's impact on revenue. It should be a positive number reflecting the expected financial outcome.
    */
   monetaryAmount?: number | null | undefined;
+  currency?: Currency | null | undefined;
   /**
-   * Specifies the currency type for the opportunity's financial values, adhering to the ISO 4217 standard. This property is optional and should be used when updating monetary fields to ensure consistency in currency representation across the CRM system.
-   */
-  currency?: UpdateOpportunityRequestCurrency | null | undefined;
-  /**
-   * Represents the likelihood of successfully closing the opportunity, expressed as a percentage from 0 to 100. This optional field helps in forecasting and prioritizing sales efforts based on the probability of winning.
+   * Represents the likelihood of successfully closing the opportunity, expressed as a percentage. This value helps prioritize opportunities by indicating their potential success rate. It should be a number between 0 and 100, reflecting the confidence level in winning the deal.
    */
   winProbability?: number | null | undefined;
   /**
-   * Denotes the date when the opportunity was finalized, formatted as an ISO 8601 date string. If this field is left null, it indicates that the opportunity is still open and has not yet reached a conclusion.
+   * Denotes the date on which the opportunity was or is expected to be closed. This field is crucial for forecasting and tracking the sales pipeline. If left null, it indicates that the opportunity is still open and active.
    */
   closeDate?: RFCDate | null | undefined;
   /**
-   * Identifies the specific reason for losing the opportunity using a unique identifier. This optional field is crucial for analyzing lost opportunities and improving future sales strategies.
+   * Identifies the specific reason for losing the opportunity using a unique identifier. This aids in analyzing lost opportunities to improve future sales strategies. It should match a predefined loss reason ID in the system.
    */
   lossReasonId?: string | null | undefined;
   /**
-   * Provides a textual explanation for why the opportunity was lost. This optional field complements the loss_reason_id by offering a human-readable reason, aiding in qualitative analysis of sales outcomes.
+   * Describes the reason why the opportunity was lost in a human-readable format. This information is valuable for understanding sales challenges and refining approaches. It complements the loss_reason_id by providing a descriptive context.
    */
   lossReason?: string | null | undefined;
   /**
-   * The unique identifier for the reason an opportunity was won. This optional field should be a valid string that corresponds to a predefined reason in the CRM system. It helps categorize and analyze the factors contributing to successful sales outcomes.
+   * The unique identifier for the reason an opportunity was won. This field helps categorize and analyze successful sales by linking them to predefined reasons. It should be a valid string that corresponds to an existing reason ID in your CRM system.
    */
   wonReasonId?: string | null | undefined;
   /**
-   * A descriptive explanation of why the opportunity was won. This optional field allows for a textual description that provides context and insights into the factors leading to the opportunity's success, aiding in qualitative analysis.
+   * A descriptive reason explaining why the opportunity was won. This field provides context and insights into the factors contributing to a successful sale. It should be a clear and concise string that accurately reflects the reason for winning the opportunity.
    */
   wonReason?: string | null | undefined;
   /**
-   * The unique identifier for the pipeline associated with the opportunity. This optional field must be a valid string that matches an existing pipeline in the CRM, ensuring the opportunity is tracked within the correct sales process.
+   * The unique identifier for the pipeline associated with the opportunity. This field is used to track the opportunity's progress within a specific sales pipeline. Ensure this is a valid string that matches an existing pipeline ID in your CRM.
    */
   pipelineId?: string | null | undefined;
   /**
-   * The unique identifier for the stage within the pipeline where the opportunity currently resides. This optional field should be a valid string that corresponds to a stage in the specified pipeline, helping to accurately reflect the opportunity's progress.
+   * The unique identifier for the stage within the pipeline where the opportunity currently resides. This field helps in tracking the opportunity's current status and progress. It should be a valid string corresponding to a stage ID within the specified pipeline.
    */
   pipelineStageId?: string | null | undefined;
   /**
-   * The unique identifier for the source from which the opportunity originated. This optional field should be a valid string that links to a predefined source in the CRM, enabling tracking of lead origins and effectiveness of different channels.
+   * The unique identifier for the source from which the opportunity originated. This field is crucial for understanding and analyzing the origin of sales opportunities. It must be a valid string that matches an existing source ID in your CRM system.
    */
   sourceId?: string | null | undefined;
   /**
-   * The unique identifier of the lead associated with the opportunity. This property is used to link the opportunity to a specific lead within the CRM system, ensuring accurate tracking of sales activities. It should be a valid string that corresponds to an existing lead ID in the system.
+   * The lead_id is used to associate the opportunity with a specific lead in the CRM. This identifier helps in tracking the origin of the opportunity and linking it to the corresponding lead record. It should be a valid string that uniquely identifies the lead within the CRM system.
    */
   leadId?: string | null | undefined;
   /**
-   * The source of the lead associated with the opportunity. This property helps categorize and track where the lead originated from, such as 'web', 'referral', or 'advertisement'. It should be a descriptive string that accurately reflects the lead's source.
+   * The lead_source indicates the origin of the lead associated with the opportunity, such as a marketing campaign or referral. This information is crucial for analyzing the effectiveness of different lead generation channels. It should be a descriptive string that clearly identifies the source of the lead.
    */
   leadSource?: string | null | undefined;
   /**
-   * The unique identifier of the contact associated with the opportunity. This property is essential for linking the opportunity to a specific contact, facilitating personalized communication and follow-up. It must be a valid string matching an existing contact ID in the CRM.
+   * The contact_id is used to link the opportunity to a specific contact in the CRM. This identifier ensures that the opportunity is associated with the correct individual, facilitating personalized communication and follow-up. It must be a valid string that uniquely identifies the contact within the CRM.
    */
   contactId?: string | null | undefined;
   /**
-   * An array of unique identifiers of all contacts associated with the opportunity. This property allows for associating multiple contacts with a single opportunity, enabling comprehensive tracking of all involved parties. Each entry in the array should be a valid contact ID string.
+   * The contact_ids array contains unique identifiers for all contacts associated with the opportunity. This allows for the opportunity to be linked to multiple contacts, enabling comprehensive tracking of all involved parties. Each entry in the array should be a valid string representing a contact's unique ID.
    */
   contactIds?: Array<string> | undefined;
   /**
-   * The unique identifier for the company associated with the opportunity. This ID must be a valid string that corresponds to an existing company record in the CRM. It links the opportunity to the correct company, ensuring accurate tracking and management within the sales pipeline.
+   * The company_id is used to specify the unique identifier of the company linked to the opportunity being updated. This field helps in associating the opportunity with the correct company record in the CRM. It should be a valid string that matches an existing company ID in the system.
    */
   companyId?: string | null | undefined;
   /**
-   * The name of the company linked to the opportunity. This should be the official business name as registered in the CRM. It helps in identifying the company associated with the opportunity, facilitating better organization and retrieval of opportunity records.
+   * The company_name represents the name of the company associated with the opportunity. This field is used to update or verify the company name linked to the opportunity, ensuring accurate representation in the CRM. It should be a valid string reflecting the company's current name.
    */
   companyName?: string | null | undefined;
   /**
-   * The unique identifier of the user responsible for managing the opportunity. This ID should match a valid user record in the CRM, ensuring that the opportunity is assigned to the correct owner for follow-up and management.
+   * The owner_id specifies the unique identifier of the user responsible for managing the opportunity. This field is crucial for assigning or updating the ownership of the opportunity within the CRM, ensuring accountability and proper tracking. It must be a valid string corresponding to an existing user ID.
    */
   ownerId?: string | null | undefined;
   /**
-   * Indicates the priority level of the opportunity, such as 'High', 'Medium', or 'Low'. This helps in prioritizing tasks and managing the sales pipeline effectively. Ensure the priority level is consistent with the predefined categories in the CRM system.
+   * The priority field indicates the importance level of the opportunity. This property helps in prioritizing opportunities within the CRM, allowing users to focus on high-priority opportunities first. It should be a valid string that reflects the current priority status of the opportunity.
    */
   priority?: string | null | undefined;
   /**
-   * Represents the current status of the opportunity, such as 'Open', 'Closed', or 'In Progress'. This status helps in tracking the opportunity's progress through the sales pipeline. Ensure the status aligns with the CRM's standard status categories.
+   * The status field represents the current state of the opportunity in the sales process. This property is essential for tracking the progress and lifecycle of the opportunity within the CRM. It should be a valid string that accurately reflects the opportunity's current status.
    */
   status?: string | null | undefined;
   /**
-   * The unique identifier of the current status of the opportunity. This property allows you to update the status of the opportunity, reflecting its current stage in the sales pipeline. It should be a valid status ID that exists within the CRM system, ensuring accurate tracking of the opportunity's progress.
+   * The status_id represents the unique identifier for the current status of the opportunity. It allows you to update the opportunity's status, reflecting its progress in the sales pipeline. This field is optional and should be a valid string that corresponds to an existing status within your CRM system.
    */
   statusId?: string | null | undefined;
   /**
-   * An array of tags associated with the opportunity. Tags are used to categorize and filter opportunities, making it easier to manage and search for specific records. Each tag should be a relevant keyword or phrase that aids in identifying the opportunity's characteristics or status.
+   * The tags property is an array that allows you to associate multiple tags with the opportunity. Tags are useful for categorizing and filtering opportunities based on specific criteria or characteristics. This field is optional and can include any number of string elements representing individual tags.
    */
   tags?: Array<string> | null | undefined;
   /**
-   * An array of custom fields that allow for additional, user-defined data to be associated with the opportunity. Custom fields enable the storage of extra information that is not covered by standard fields, providing flexibility to tailor the CRM to specific business needs.
+   * The custom_fields property is an array that allows you to include additional, user-defined fields for the opportunity. This feature enables customization and extension of the opportunity record to meet specific business needs. Each entry in the array must include a valid custom field identifier and value.
    */
   customFields?: Array<UpdateOpportunityRequestCustomFields> | undefined;
   /**
-   * The timestamp indicating when the opportunity's stage was last updated. This information is crucial for tracking the progression of the opportunity through the sales pipeline. The date and time should be in ISO 8601 format to ensure consistency and accuracy.
+   * The timestamp indicating when the opportunity's stage was last updated. This property is crucial for tracking the progression of the opportunity through different stages, aiding in historical analysis and reporting. It should be formatted as an ISO 8601 date-time string to ensure consistency and accuracy.
    */
   stageLastChangedAt?: Date | null | undefined;
   /**
-   * An array that allows the inclusion of service-specific custom data or modifications when updating the opportunity record. This property is useful for integrating additional data that may not be covered by standard fields, ensuring flexibility and extensibility in data handling.
+   * An array that allows the inclusion of service-specific custom data or modifications when updating the opportunity. This property is useful for passing additional parameters that are not part of the standard API fields, enabling more flexible and tailored integrations. Each element in the array should conform to the expected structure of the target service.
    */
   passThrough?: Array<UpdateOpportunityRequestPassThrough> | undefined;
 };
-
-/** @internal */
-export const UpdateOpportunityRequestCurrency$inboundSchema: z.ZodNativeEnum<
-  typeof UpdateOpportunityRequestCurrency
-> = z.nativeEnum(UpdateOpportunityRequestCurrency);
-
-/** @internal */
-export const UpdateOpportunityRequestCurrency$outboundSchema: z.ZodNativeEnum<
-  typeof UpdateOpportunityRequestCurrency
-> = UpdateOpportunityRequestCurrency$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateOpportunityRequestCurrency$ {
-  /** @deprecated use `UpdateOpportunityRequestCurrency$inboundSchema` instead. */
-  export const inboundSchema = UpdateOpportunityRequestCurrency$inboundSchema;
-  /** @deprecated use `UpdateOpportunityRequestCurrency$outboundSchema` instead. */
-  export const outboundSchema = UpdateOpportunityRequestCurrency$outboundSchema;
-}
 
 /** @internal */
 export const UpdateOpportunityRequestValue6$inboundSchema: z.ZodType<
@@ -838,12 +623,11 @@ export const UpdateOpportunityRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   title: z.string(),
-  primary_contact_id: z.nullable(z.string()),
+  primary_contact_id: z.nullable(z.string()).optional(),
   description: z.nullable(z.string()).optional(),
   type: z.nullable(z.string()).optional(),
   monetary_amount: z.nullable(z.number()).optional(),
-  currency: z.nullable(UpdateOpportunityRequestCurrency$inboundSchema)
-    .optional(),
+  currency: z.nullable(Currency$inboundSchema).optional(),
   win_probability: z.nullable(z.number()).optional(),
   close_date: z.nullable(z.string().transform(v => new RFCDate(v))).optional(),
   loss_reason_id: z.nullable(z.string()).optional(),
@@ -903,7 +687,7 @@ export const UpdateOpportunityRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type UpdateOpportunityRequest$Outbound = {
   title: string;
-  primary_contact_id: string | null;
+  primary_contact_id?: string | null | undefined;
   description?: string | null | undefined;
   type?: string | null | undefined;
   monetary_amount?: number | null | undefined;
@@ -944,12 +728,11 @@ export const UpdateOpportunityRequest$outboundSchema: z.ZodType<
   UpdateOpportunityRequest
 > = z.object({
   title: z.string(),
-  primaryContactId: z.nullable(z.string()),
+  primaryContactId: z.nullable(z.string()).optional(),
   description: z.nullable(z.string()).optional(),
   type: z.nullable(z.string()).optional(),
   monetaryAmount: z.nullable(z.number()).optional(),
-  currency: z.nullable(UpdateOpportunityRequestCurrency$outboundSchema)
-    .optional(),
+  currency: z.nullable(Currency$outboundSchema).optional(),
   winProbability: z.nullable(z.number()).optional(),
   closeDate: z.nullable(z.instanceof(RFCDate).transform(v => v.toString()))
     .optional(),

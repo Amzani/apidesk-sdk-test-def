@@ -10,7 +10,7 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Specifies the category or nature of the activity, such as 'meeting', 'call', or 'task'. This field is mandatory and helps in classifying the activity for better tracking and reporting within the CRM. Ensure the type is a valid string that matches predefined activity types in the system.
+ * Specifies the category or nature of the activity being updated. This required field helps classify the activity within the CRM, ensuring it is processed and displayed correctly. It must be a valid string that accurately represents the activity type.
  */
 export const UpdateActivityRequestType = {
   Call: "call",
@@ -24,14 +24,14 @@ export const UpdateActivityRequestType = {
   Other: "other",
 } as const;
 /**
- * Specifies the category or nature of the activity, such as 'meeting', 'call', or 'task'. This field is mandatory and helps in classifying the activity for better tracking and reporting within the CRM. Ensure the type is a valid string that matches predefined activity types in the system.
+ * Specifies the category or nature of the activity being updated. This required field helps classify the activity within the CRM, ensuring it is processed and displayed correctly. It must be a valid string that accurately represents the activity type.
  */
 export type UpdateActivityRequestType = ClosedEnum<
   typeof UpdateActivityRequestType
 >;
 
 /**
- * Indicates the category or nature of the address, such as 'business' or 'residential'. This helps in classifying the address type for better organization and retrieval within the CRM system.
+ * Indicates the type of address, such as 'billing' or 'shipping'. This optional field helps categorize the address within the CRM, ensuring that the correct address type is used for the activity.
  */
 export const UpdateActivityRequestLocationAddressType = {
   Primary: "primary",
@@ -43,123 +43,123 @@ export const UpdateActivityRequestLocationAddressType = {
   Other: "other",
 } as const;
 /**
- * Indicates the category or nature of the address, such as 'business' or 'residential'. This helps in classifying the address type for better organization and retrieval within the CRM system.
+ * Indicates the type of address, such as 'billing' or 'shipping'. This optional field helps categorize the address within the CRM, ensuring that the correct address type is used for the activity.
  */
 export type UpdateActivityRequestLocationAddressType = ClosedEnum<
   typeof UpdateActivityRequestLocationAddressType
 >;
 
 /**
- * An object containing detailed address information for the activity's location. This is useful for activities that require precise geographical data, such as meetings or events. It allows for structured address data to be stored and retrieved within the CRM.
+ * An object containing detailed address information for the activity's location. This optional field allows for a structured representation of the address, which can be useful for integrations that require precise location data.
  */
 export type UpdateActivityRequestLocationAddress = {
   /**
-   * A unique identifier for the specific address entry associated with the activity. This ID is used to reference and manage address records within the CRM, ensuring accurate linkage between activities and their locations.
+   * A unique identifier for the address associated with the activity. This optional field is used to reference specific address records within the CRM, facilitating updates or retrievals of address data.
    */
   id?: string | null | undefined;
   /**
-   * Indicates the category or nature of the address, such as 'business' or 'residential'. This helps in classifying the address type for better organization and retrieval within the CRM system.
+   * Indicates the type of address, such as 'billing' or 'shipping'. This optional field helps categorize the address within the CRM, ensuring that the correct address type is used for the activity.
    */
   type?: UpdateActivityRequestLocationAddressType | null | undefined;
   /**
-   * A comprehensive address string that provides the full address details in a single line. This is particularly useful when APIs do not support structured address formats, ensuring that all necessary location information is captured.
+   * The full address in a single string format. This field is optional and is particularly useful when the API does not support structured address data, allowing for a complete address to be provided in a simple format.
    */
   string?: string | null | undefined;
   /**
-   * The name of the address location, used to identify the specific address associated with the activity. This field is optional and can include any descriptive name that helps distinguish this address from others. It should be a string that provides meaningful context within the CRM system.
+   * The name of the address associated with the activity. This field is used to identify or label the location where the activity takes place. It should be a descriptive name that helps users recognize the address easily within the CRM system.
    */
   name?: string | null | undefined;
   /**
-   * The primary line of the address, typically including the street number, street name, and any suite or apartment number. This field is optional but should be formatted as a string that accurately represents the first line of the address for the activity. It is crucial for ensuring precise location details within the CRM.
+   * The primary line of the address, typically including the street number, street name, and any apartment or suite number. This field is crucial for accurately locating the activity's venue and should be formatted according to standard postal address conventions.
    */
   line1?: string | null | undefined;
   /**
-   * An additional line for the address, often used for supplementary information such as building names or secondary address details. This optional field should be a string that complements the primary address line, providing further clarity and specificity for the activity's location.
+   * An additional line for the address, often used for supplementary information such as building name or floor number. This field helps provide a complete and precise address for the activity location, ensuring accurate delivery and navigation.
    */
   line2?: string | null | undefined;
   /**
-   * A third line for the address, allowing for extra details that may not fit in the first two lines. This optional field should be a string that adds further context to the address, ensuring comprehensive location information for the activity within the CRM.
+   * A third line for the address, which can be used for any extra details that do not fit in the first two lines. This field supports comprehensive address descriptions, enhancing the clarity and specificity of the activity's location.
    */
   line3?: string | null | undefined;
   /**
-   * A fourth line for the address, used for any additional address information necessary for complete clarity. This optional field should be a string that provides any remaining details needed to fully describe the activity's location, supporting thorough record-keeping in the CRM.
+   * A fourth line for the address, allowing for additional address details if necessary. This field ensures that all relevant location information can be captured, facilitating precise identification of the activity's venue.
    */
   line4?: string | null | undefined;
   /**
-   * Specifies the street number of the activity's location. This property is used to update the address details of an activity, ensuring accurate location information in the CRM. It should be a string representing the numeric or alphanumeric identifier of the building.
+   * Specifies the street number of the activity's location. This property is used to update the street number in the CRM activity record, ensuring accurate address details. It should be a valid string representing the street number.
    */
   streetNumber?: string | null | undefined;
   /**
-   * Indicates the city where the activity is located. This property helps in updating the geographical details of an activity, which is crucial for location-based services and reporting within the CRM. The city name should be a valid string representing the locality.
+   * Indicates the city where the activity is located. This property updates the city name in the CRM activity record, helping to maintain precise location information. It should be a valid city name string.
    */
   city?: string | null | undefined;
   /**
-   * Denotes the state or region of the activity's location. This property is essential for refining the address details of an activity, aiding in regional categorization and analysis within the CRM. The state name should be a valid string corresponding to the administrative division.
+   * Represents the state or region of the activity's location. Use this property to update the state name in the CRM activity record, ensuring the address is complete and accurate. It should be a valid state name string.
    */
   state?: string | null | undefined;
   /**
-   * Represents the postal code or ZIP code of the activity's location. This property is used to enhance the precision of the address in the CRM, facilitating accurate mail delivery and location-based analytics. The postal code should be a valid string following the local postal format.
+   * Defines the postal code for the activity's location. This property updates the postal code in the CRM activity record, which is crucial for precise geographic identification. It should be a valid postal code string.
    */
   postalCode?: string | null | undefined;
   /**
-   * Specifies the country code of the activity's location, following the ISO 3166-1 alpha-2 standard. This property is crucial for international address standardization and ensures that the activity's location is correctly identified globally within the CRM. The country code must be a two-letter string as per the ISO standard.
+   * Specifies the country code for the activity's location, following the ISO 3166-1 alpha-2 standard. This property updates the country information in the CRM activity record, ensuring international address accuracy. It must be a valid two-letter country code.
    */
   country?: string | null | undefined;
   /**
-   * The latitude coordinate of the activity's location. This property is used to specify the geographical latitude for mapping and location-based services. It should be a valid string representation of a decimal number, typically ranging from -90.0 to 90.0, to ensure accurate geolocation.
+   * Specifies the latitude coordinate of the activity's location. This property is used to accurately place the activity on a map, which can be crucial for location-based services or analytics. The value should be a valid latitude string, typically in decimal degrees format.
    */
   latitude?: string | null | undefined;
   /**
-   * The longitude coordinate of the activity's location. This property is essential for defining the geographical longitude, which works in conjunction with latitude for precise mapping. It should be a valid string representation of a decimal number, usually ranging from -180.0 to 180.0, to ensure accurate geolocation.
+   * Specifies the longitude coordinate of the activity's location. This property complements the latitude to provide a precise geographical point for the activity. Ensure the value is a valid longitude string, usually in decimal degrees format.
    */
   longitude?: string | null | undefined;
   /**
-   * The county or sublocality associated with the activity's location. This property helps in identifying the specific administrative region within a broader geographical area. It should be a string that accurately reflects the county name, aiding in regional categorization and reporting.
+   * Represents the county or sublocality of the activity's location. This field helps in categorizing or filtering activities based on regional divisions, which can be useful for reporting or analysis. The value should be a string that accurately reflects the county name.
    */
   county?: string | null | undefined;
   /**
-   * The full name of the contact person at the specified location. This property is used to identify the primary individual associated with the activity's address, facilitating communication and coordination. It should be a string containing the contact's first and last name, ensuring clarity in identification.
+   * The name of the primary contact person associated with the activity's location. This information is essential for personalizing communications or for logistical purposes when coordinating activities. The value should be a string containing the full name of the contact.
    */
   contactName?: string | null | undefined;
   /**
-   * The salutation or title of the contact person at the location. This property is used to address the contact person appropriately in communications, reflecting their preferred title such as Mr., Ms., Dr., etc. It should be a string that accurately represents the contact's salutation, enhancing professionalism in interactions.
+   * The salutation or title of the contact person at the activity's location. This field is used to address the contact person respectfully in communications. The value should be a string such as 'Mr.', 'Ms.', or 'Dr.', depending on the appropriate title for the individual.
    */
   salutation?: string | null | undefined;
   /**
-   * The contact phone number associated with the activity's location. This field is optional and should be formatted according to international standards to ensure proper communication. It helps in maintaining direct contact details for the location within the CRM system.
+   * The phone number associated with the activity's location. This field allows you to update the contact number for the location, ensuring accurate communication details are maintained. It should be formatted according to international standards to avoid any discrepancies.
    */
   phoneNumber?: string | null | undefined;
   /**
-   * The fax number for the activity's location, allowing for alternative communication methods. This optional field should be formatted correctly to ensure successful fax transmissions. It supports the CRM's ability to store comprehensive contact information for each location.
+   * The fax number for the activity's location. Use this field to update the fax contact information, which can be crucial for businesses that still rely on fax communication. Ensure the number is correctly formatted to facilitate proper transmission.
    */
   fax?: string | null | undefined;
   /**
-   * The email address linked to the activity's location, used for electronic communication. This optional field must be a valid email format to facilitate accurate and efficient correspondence. It ensures that email communications are directed to the correct location contact.
+   * The email address linked to the activity's location. This property is used to update the email contact, allowing for electronic communication with the location. It must be a valid email format to ensure messages are correctly delivered.
    */
   email?: string | null | undefined;
   /**
-   * The website URL for the activity's location, providing a digital point of reference. This optional field should be a valid URL format, allowing users to access more information about the location online. It enhances the CRM's data by linking to external resources.
+   * The website URL for the activity's location. This field is used to update the web address, providing a direct link to the location's online presence. Ensure the URL is complete and valid to facilitate easy access.
    */
   website?: string | null | undefined;
   /**
-   * Additional notes or comments about the activity's location, offering context or special instructions. This optional field allows for free-form text, enabling users to include any relevant information that doesn't fit into other structured fields. It enriches the CRM record with personalized insights.
+   * Additional notes related to the activity's location. This field allows you to include any extra information or comments that might be relevant to the location. It can be used to store miscellaneous details that do not fit into other fields.
    */
   notes?: string | null | undefined;
   /**
-   * The `location_address.row_version` is a concurrency control token used to manage updates to the activity's location address. It ensures that updates do not overwrite changes made by others, by requiring the latest version of the object. This string should be the current version value of the location address to prevent data conflicts during the update process.
+   * The 'row_version' is a concurrency control token used to manage updates to the activity record. It ensures that updates do not overwrite changes made by others by checking this version before applying new changes. This string should be updated with each modification to maintain data integrity.
    */
   rowVersion?: string | null | undefined;
 };
 
 /**
- * Defines how the activity should be displayed in terms of status or availability, such as 'busy' or 'free'. This property helps in visualizing the activity's impact on scheduling and availability within the CRM. Accepts any valid string that represents a display status.
+ * Defines how the activity should be visually represented or categorized in the CRM interface. This property allows users to set a display status that can affect how the activity is perceived or prioritized by users.
  */
 export const UpdateActivityRequestShowAs = {
   Free: "free",
   Busy: "busy",
 } as const;
 /**
- * Defines how the activity should be displayed in terms of status or availability, such as 'busy' or 'free'. This property helps in visualizing the activity's impact on scheduling and availability within the CRM. Accepts any valid string that represents a display status.
+ * Defines how the activity should be visually represented or categorized in the CRM interface. This property allows users to set a display status that can affect how the activity is perceived or prioritized by users.
  */
 export type UpdateActivityRequestShowAs = ClosedEnum<
   typeof UpdateActivityRequestShowAs
@@ -170,7 +170,7 @@ export type UpdateActivityRequestValue6 = {};
 export type UpdateActivityRequestValue4 = {};
 
 /**
- * The actual data or value stored in the custom field, which can vary based on the field's intended use. This field is optional and should be formatted according to the data type expected by the custom field's definition.
+ * The value assigned to the custom field, representing the actual data or information it holds. This property is optional and can be used to update the content of the custom field as needed, ensuring the activity record reflects the most current and relevant information.
  */
 export type UpdateActivityRequestValue =
   | UpdateActivityRequestValue4
@@ -182,19 +182,19 @@ export type UpdateActivityRequestValue =
 
 export type UpdateActivityRequestCustomFields = {
   /**
-   * A unique identifier for each custom field within the activity. This ID is essential for distinguishing between different custom fields and must be a valid string that uniquely identifies the field within the CRM system.
+   * The unique identifier for each custom field within the activity. This ID is required to ensure that the correct custom field is being referenced and updated. It must be a valid string that uniquely identifies the custom field in the context of the activity.
    */
   id: string | null;
   /**
-   * The name assigned to the custom field, providing a human-readable label that describes the field's purpose. This is optional but recommended for clarity when managing multiple custom fields.
+   * The name of the custom field, which serves as a label or identifier for the data it holds. This property is optional and can be used to provide a human-readable name for the custom field, aiding in its identification and use within the CRM.
    */
   name?: string | null | undefined;
   /**
-   * A detailed explanation of what the custom field represents or how it should be used. This optional field helps provide context and guidance for users interacting with the custom field.
+   * Additional information or context about the custom field. This optional property can be used to describe the purpose or usage of the custom field, helping users understand its role within the activity record.
    */
   description?: string | null | undefined;
   /**
-   * The actual data or value stored in the custom field, which can vary based on the field's intended use. This field is optional and should be formatted according to the data type expected by the custom field's definition.
+   * The value assigned to the custom field, representing the actual data or information it holds. This property is optional and can be used to update the content of the custom field as needed, ensuring the activity record reflects the most current and relevant information.
    */
   value?:
     | UpdateActivityRequestValue4
@@ -208,7 +208,7 @@ export type UpdateActivityRequestCustomFields = {
 };
 
 /**
- * The current status of the attendee in relation to the activity, such as confirmed, tentative, or declined. This optional field helps track the attendee's participation status, aiding in the management and coordination of the activity within the CRM. Ensure the status is a valid string reflecting the attendee's current state.
+ * The current status of the attendee in relation to the activity, such as 'confirmed', 'tentative', or 'cancelled'. This field helps track the attendee's participation status and is important for planning and resource allocation. Ensure the status accurately reflects the attendee's commitment to the activity.
  */
 export const UpdateActivityRequestStatus = {
   Accepted: "accepted",
@@ -216,7 +216,7 @@ export const UpdateActivityRequestStatus = {
   Declined: "declined",
 } as const;
 /**
- * The current status of the attendee in relation to the activity, such as confirmed, tentative, or declined. This optional field helps track the attendee's participation status, aiding in the management and coordination of the activity within the CRM. Ensure the status is a valid string reflecting the attendee's current state.
+ * The current status of the attendee in relation to the activity, such as 'confirmed', 'tentative', or 'cancelled'. This field helps track the attendee's participation status and is important for planning and resource allocation. Ensure the status accurately reflects the attendee's commitment to the activity.
  */
 export type UpdateActivityRequestStatus = ClosedEnum<
   typeof UpdateActivityRequestStatus
@@ -224,248 +224,248 @@ export type UpdateActivityRequestStatus = ClosedEnum<
 
 export type UpdateActivityRequestAttendees = {
   /**
-   * The full name of the attendee, combining first, middle, and last names if applicable. This field is used to identify the attendee within the activity and should be a non-empty string. It helps in personalizing communication and ensuring the correct individual is associated with the activity.
+   * The full name of the attendee. This field is used to identify the attendee in a human-readable format and should be a concatenation of first, middle, and last names if applicable. It is optional but recommended for clarity when listing attendees.
    */
   name?: string | null | undefined;
   /**
-   * The first name of the attendee, used for personal identification within the activity. This field should be a non-empty string and is essential for addressing the attendee correctly in communications and records.
+   * The first name of the attendee. This field is part of the attendee's full name and is used for personal identification within the activity. It is optional but can be used to personalize communications or records.
    */
   firstName?: string | null | undefined;
   /**
-   * The middle name of the attendee, which can be included for more precise identification. This field is optional and can be left empty if not applicable. It helps in distinguishing individuals with similar first and last names.
+   * The middle name of the attendee. This optional field can be included to provide a more complete identification of the attendee, especially in cases where middle names are commonly used for differentiation.
    */
   middleName?: string | null | undefined;
   /**
-   * The last name of the attendee, crucial for identifying the individual in the activity records. This field should be a non-empty string and is used in conjunction with the first name to ensure accurate identification and communication.
+   * The last name of the attendee. This field is essential for identifying the attendee within the activity and is typically used in conjunction with the first name. It is optional but important for distinguishing between attendees with similar first names.
    */
   lastName?: string | null | undefined;
   /**
-   * The prefix for the attendee's name, such as Mr., Ms., or Dr. This field is optional and can be used to provide a formal title for the attendee, enhancing the personalization of communication within the CRM. Ensure the prefix is a valid string if provided.
+   * The prefix of the attendee's name, such as 'Mr.', 'Ms.', or 'Dr.'. This field is optional and can be used to address attendees formally in communications related to the activity. Ensure the prefix is appropriate for the attendee's title or preference.
    */
   prefix?: string | null | undefined;
   /**
-   * The suffix for the attendee's name, such as Jr., Sr., or III. This optional field allows for the inclusion of generational or professional titles, ensuring accurate representation of the attendee's full name in the CRM. If used, the suffix should be a valid string.
+   * The suffix of the attendee's name, such as 'Jr.', 'Sr.', or 'III'. This optional field can be used to distinguish attendees with similar names or to respect personal naming conventions. Ensure the suffix accurately reflects the attendee's designation.
    */
   suffix?: string | null | undefined;
   /**
-   * The email address of the attendee, used for communication and identification purposes within the CRM. This optional field should be a valid email format to ensure successful delivery of notifications and updates related to the activity.
+   * The email address of the attendee, used for sending notifications and updates about the activity. This field should contain a valid email format and is crucial for ensuring the attendee receives all relevant communications. It is optional but recommended for effective engagement.
    */
   emailAddress?: string | null | undefined;
   /**
-   * Indicates whether the attendee is the organizer of the activity. This boolean field helps in identifying the primary contact responsible for the activity, which can influence permissions and notifications within the CRM. Set to true if the attendee is the organizer, otherwise false.
+   * Indicates whether the attendee is the organizer of the activity. This boolean field helps identify the primary contact responsible for managing the activity. Set to 'true' if the attendee is the organizer, otherwise 'false'.
    */
   isOrganizer?: boolean | null | undefined;
   /**
-   * The current status of the attendee in relation to the activity, such as confirmed, tentative, or declined. This optional field helps track the attendee's participation status, aiding in the management and coordination of the activity within the CRM. Ensure the status is a valid string reflecting the attendee's current state.
+   * The current status of the attendee in relation to the activity, such as 'confirmed', 'tentative', or 'cancelled'. This field helps track the attendee's participation status and is important for planning and resource allocation. Ensure the status accurately reflects the attendee's commitment to the activity.
    */
   status?: UpdateActivityRequestStatus | null | undefined;
 };
 
 export type UpdateActivityRequestExtendPaths = {
   /**
-   * This property specifies the JSONPath string that indicates the exact location within the activity record where the new value should be applied. It is crucial for pinpointing the precise field to update, ensuring that changes are made accurately within the CRM system. The path must be a valid JSONPath expression, and it is required for the operation to succeed.
+   * Specifies the JSONPath string where the update should be applied within the activity record. This path must be a valid JSONPath expression, ensuring precise targeting of the field to be updated. Essential for directing the update operation to the correct location in the activity data structure.
    */
   path: string;
   /**
-   * This property represents the new value to be set at the specified JSONPath within the activity record. It can be of any data type, depending on the field being updated, allowing for flexible modifications to the activity's details. This value is essential for the update operation, as it defines the new state of the targeted field.
+   * Defines the new value to be set at the specified JSONPath within the activity record. This value can be of any data type, allowing flexibility in updating various fields such as strings, numbers, or objects. Critical for applying the desired changes to the activity record, ensuring the data reflects the latest information.
    */
   value?: any | undefined;
 };
 
 export type UpdateActivityRequestPassThrough = {
   /**
-   * A mandatory string that uniquely identifies the service to which the pass_through data should be applied. This ensures that the custom data is directed to the correct service within the CRM's integrated environment.
+   * This property specifies the unique identifier for the service to which the pass_through data should be applied. It is required to ensure that the custom data is directed to the correct service, facilitating precise updates in multi-service environments.
    */
   serviceId: string;
   /**
-   * An optional string identifier for a specific workflow operation that the pass_through data should target. This is particularly useful for operations involving multiple downstream requests, allowing precise control over where the data is applied.
+   * An optional identifier for a specific workflow operation that the pass_through data should target. This is particularly useful when the update involves multiple downstream requests, allowing for targeted modifications within a unified operation.
    */
   operationId?: string | undefined;
   /**
-   * An optional object that allows for the direct extension of properties. This can include any additional fields that need to be added to the activity record, providing flexibility in how the record is updated.
+   * This property allows for the direct extension of the request body with any additional properties needed for the update. It provides a flexible structure to include extra data that may not be predefined, supporting custom extensions to the activity record.
    */
   extendObject?: { [k: string]: any } | undefined;
   /**
-   * An optional array of objects used for structured data modifications via specific paths. This allows developers to specify precise changes to the activity record, ensuring that updates are applied exactly as intended.
+   * An array of objects used for making structured data modifications via specific paths. This property enables precise updates to nested data structures within the activity record, allowing for detailed customization of the update process.
    */
   extendPaths?: Array<UpdateActivityRequestExtendPaths> | undefined;
 };
 
 export type UpdateActivityRequest = {
   /**
-   * Specifies the exact date and time when the activity occurred or is scheduled to occur. This property should be formatted as an ISO 8601 string (e.g., '2023-10-15T13:45:30Z') to ensure consistency and proper parsing. It helps in tracking and organizing activities chronologically within the CRM system.
+   * Specifies the date and time when the activity occurred. This property is used to update the timestamp of the activity in the CRM, ensuring accurate chronological tracking. The format should be a valid date-time string, typically in ISO 8601 format, to ensure consistency and proper parsing by the system.
    */
   activityDatetime?: string | null | undefined;
   /**
-   * Indicates the total duration of the activity in seconds. This integer value helps in calculating time spent on activities, which can be useful for reporting and analysis purposes. Ensure the value is a non-negative integer to accurately reflect the activity's length.
+   * Indicates the total duration of the activity in seconds. This property helps in tracking the length of the activity, which can be useful for reporting and analysis purposes. Ensure the value is a non-negative integer representing the duration accurately.
    */
   durationSeconds?: number | null | undefined;
   /**
-   * Represents the unique identifier of the user associated with the activity. This string should match the user's ID within the CRM system, linking the activity to the correct user for accountability and tracking purposes. It is crucial for assigning responsibility and managing user-specific activity logs.
+   * Identifies the user associated with the activity. This property links the activity to a specific user in the CRM, facilitating user-specific tracking and management. The value should be a valid user identifier within the system.
    */
   userId?: string | null | undefined;
   /**
-   * Denotes the unique identifier of the account related to the activity. This string should correspond to an existing account ID in the CRM, ensuring the activity is correctly associated with the relevant account. It aids in maintaining accurate records of account interactions and activities.
+   * Specifies the account related to the activity. This property is used to associate the activity with a particular account in the CRM, aiding in account-specific activity tracking. The value must be a valid account identifier recognized by the system.
    */
   accountId?: string | null | undefined;
   /**
-   * Specifies the unique identifier of the contact associated with the activity. This string must match a contact ID within the CRM to link the activity to the appropriate contact. It is essential for tracking interactions and maintaining comprehensive contact histories.
+   * Denotes the contact associated with the activity. This property links the activity to a specific contact, which is essential for maintaining accurate contact-related records in the CRM. The value should be a valid contact identifier within the system.
    */
   contactId?: string | null | undefined;
   /**
-   * The unique identifier for the company associated with the activity. This property allows the activity to be linked to a specific company within the CRM, facilitating organization and retrieval of company-related activities. It should be a valid string that corresponds to an existing company record in the CRM.
+   * The unique identifier for the company associated with this activity. This field allows you to link the activity to a specific company within the CRM, facilitating better tracking and management of company-related interactions. Ensure the ID corresponds to an existing company record in the CRM.
    */
   companyId?: string | null | undefined;
   /**
-   * The unique identifier for the opportunity associated with the activity. This property is used to connect the activity to a specific sales opportunity, helping track progress and updates related to that opportunity. Ensure it is a valid string that matches an existing opportunity record in the CRM.
+   * The unique identifier for the opportunity linked to this activity. Use this field to associate the activity with a particular sales opportunity, aiding in the management and tracking of opportunity-related tasks and communications. The ID should match an existing opportunity record in the CRM.
    */
   opportunityId?: string | null | undefined;
   /**
-   * The unique identifier for the lead associated with the activity. This property links the activity to a particular lead, enabling tracking of interactions and updates pertinent to that lead. It should be a valid string that corresponds to an existing lead record in the CRM.
+   * The unique identifier for the lead associated with this activity. This property is used to connect the activity to a specific lead, helping in organizing and monitoring lead-related activities. Ensure the ID is valid and corresponds to an existing lead in the CRM.
    */
   leadId?: string | null | undefined;
   /**
-   * The unique identifier for the user who owns or is responsible for the activity. This property designates the activity's owner, ensuring accountability and proper assignment within the CRM. It must be a valid string that matches an existing user record in the CRM.
+   * The unique identifier for the user who owns this activity. This field designates responsibility for the activity, allowing for clear assignment and accountability within the CRM. The ID should correspond to a valid user in the system.
    */
   ownerId?: string | null | undefined;
   /**
-   * The unique identifier for the campaign associated with the activity. This property connects the activity to a specific marketing campaign, allowing for tracking and analysis of campaign-related activities. Ensure it is a valid string that corresponds to an existing campaign record in the CRM.
+   * The unique identifier for the campaign related to this activity. Use this property to link the activity to a specific marketing campaign, which helps in tracking the effectiveness and engagement of campaign-related efforts. Ensure the ID matches an existing campaign in the CRM.
    */
   campaignId?: string | null | undefined;
   /**
-   * The unique identifier for the case associated with this activity. This property allows you to link the activity to a specific case within the CRM, facilitating better tracking and management of related tasks. Ensure the ID corresponds to an existing case record.
+   * The unique identifier for the case associated with this activity. This property allows you to link the activity to a specific case within the CRM, facilitating better tracking and management of related tasks. Ensure the case ID is a valid string that corresponds to an existing case record.
    */
   caseId?: string | null | undefined;
   /**
-   * The unique identifier for the asset associated with this activity. Use this property to connect the activity to a particular asset, enabling detailed asset management and tracking within the CRM. The ID should match an existing asset record.
+   * The unique identifier for the asset associated with this activity. Use this property to connect the activity to a particular asset, enabling detailed asset management and tracking within the CRM. The asset ID should be a valid string that matches an existing asset record.
    */
   assetId?: string | null | undefined;
   /**
-   * The unique identifier for the contract related to this activity. This property is used to associate the activity with a specific contract, ensuring that all contract-related activities are easily accessible and manageable. The ID must correspond to an existing contract record.
+   * The unique identifier for the contract related to this activity. This property is used to associate the activity with a specific contract, aiding in the management and monitoring of contract-related activities. Ensure the contract ID is a valid string that corresponds to an existing contract record.
    */
   contractId?: string | null | undefined;
   /**
-   * The unique identifier for the product associated with this activity. By specifying this property, you can link the activity to a particular product, aiding in product-related activity tracking and analysis. Ensure the ID matches an existing product record.
+   * The unique identifier for the product associated with this activity. This property links the activity to a specific product, which helps in tracking product-related interactions and updates within the CRM. The product ID must be a valid string that corresponds to an existing product record.
    */
   productId?: string | null | undefined;
   /**
-   * The unique identifier for the solution related to this activity. This property helps in associating the activity with a specific solution, which is crucial for managing solution-related tasks and updates within the CRM. The ID should correspond to an existing solution record.
+   * The unique identifier for the solution related to this activity. Use this property to associate the activity with a particular solution, facilitating better management of solution-related tasks and updates. The solution ID should be a valid string that matches an existing solution record.
    */
   solutionId?: string | null | undefined;
   /**
-   * The unique identifier for a custom object associated with the activity. This optional field allows you to link the activity to a specific custom object within the CRM, facilitating better organization and retrieval of related data. Ensure the ID corresponds to an existing custom object in the system.
+   * The unique identifier for a custom object associated with the activity. This field allows you to link the activity to a specific custom object within the CRM, providing context and relevance to the activity record. It must be a valid string that corresponds to an existing custom object ID in the system.
    */
   customObjectId?: string | null | undefined;
   /**
-   * Specifies the category or nature of the activity, such as 'meeting', 'call', or 'task'. This field is mandatory and helps in classifying the activity for better tracking and reporting within the CRM. Ensure the type is a valid string that matches predefined activity types in the system.
+   * Specifies the category or nature of the activity being updated. This required field helps classify the activity within the CRM, ensuring it is processed and displayed correctly. It must be a valid string that accurately represents the activity type.
    */
   type: UpdateActivityRequestType | null;
   /**
-   * A brief, descriptive title for the activity that summarizes its purpose or content. This optional field aids in quickly identifying the activity in lists and reports. The title should be concise yet informative, typically under 100 characters.
+   * The title or name of the activity, providing a brief summary of its purpose. This optional field helps users quickly identify the activity in the CRM. It should be a concise string that effectively conveys the main focus of the activity.
    */
   title?: string | null | undefined;
   /**
-   * A detailed explanation or summary of the activity, providing context and specifics about what the activity entails. This optional field can include any relevant information that helps in understanding the activity's scope and objectives. There are no strict format requirements, but clarity and completeness are encouraged.
+   * A detailed explanation of the activity, offering more context and information. This optional field allows users to understand the specifics and objectives of the activity. It should be a clear and informative string that elaborates on the activity's purpose.
    */
   description?: string | null | undefined;
   /**
-   * An internal note for additional context or remarks about the activity, visible only to CRM users. This optional field is useful for adding personal observations or reminders that do not need to be shared with external parties. Notes should be concise and relevant to the activity's context.
+   * An internal note for additional context or remarks about the activity. This optional field is intended for internal use, providing insights or comments that are not visible to external users. It should be a string that captures any supplementary information relevant to the activity.
    */
   note?: string | null | undefined;
   /**
-   * Specifies the venue or place where the activity is scheduled to occur. This field can be left empty if the activity does not have a physical location. It helps users identify the geographical context of the activity within the CRM system.
+   * Specifies the location where the activity is taking place. This field is optional and can be used to provide additional context about the activity's venue or setting. It helps in identifying the geographical context of the activity within the CRM.
    */
   location?: string | null | undefined;
   /**
-   * An object containing detailed address information for the activity's location. This is useful for activities that require precise geographical data, such as meetings or events. It allows for structured address data to be stored and retrieved within the CRM.
+   * An object containing detailed address information for the activity's location. This optional field allows for a structured representation of the address, which can be useful for integrations that require precise location data.
    */
   locationAddress?: UpdateActivityRequestLocationAddress | undefined;
   /**
-   * The `all_day_event` property indicates whether the activity spans the entire day. Set this to `true` if the activity does not have specific start and end times, ensuring it is treated as an all-day event in the CRM system. This helps in scheduling and calendar management within the CRM.
+   * Indicates if the activity spans the entire day without a specific start or end time. This boolean flag helps in scheduling and displaying the activity as an all-day event in the CRM calendar. Set to 'true' for all-day events, otherwise 'false'.
    */
   allDayEvent?: boolean | null | undefined;
   /**
-   * The `private` property specifies if the activity is confidential and should be restricted from general visibility. When set to `true`, the activity will only be accessible to authorized users, maintaining privacy and security of sensitive information.
+   * Determines the visibility of the activity within the CRM. When set to 'true', the activity is marked as private, restricting access to authorized users only. Use this flag to control who can view the activity details.
    */
   private?: boolean | null | undefined;
   /**
-   * The `group_event` property determines if the activity involves multiple participants. Set this to `true` for events that include more than one attendee, facilitating group scheduling and coordination within the CRM.
+   * Specifies whether the activity involves multiple participants, classifying it as a group event. This boolean value helps in organizing and managing group activities within the CRM. Set to 'true' for group events, otherwise 'false'.
    */
   groupEvent?: boolean | null | undefined;
   /**
-   * The `event_sub_type` specifies the detailed classification of the group event. Use this to provide additional context about the nature of the event, such as 'meeting', 'workshop', or 'conference', enhancing the CRM's ability to categorize and manage events effectively.
+   * Defines the specific subcategory of the group event, providing additional context and classification. This string helps in further categorizing the event type for better organization and reporting within the CRM.
    */
   eventSubType?: string | null | undefined;
   /**
-   * Specifies the type of group event associated with the activity. This property helps categorize the activity within the CRM, allowing for better organization and retrieval. Accepts any valid string that represents a predefined group event type.
+   * Specifies the category or nature of the group event associated with the activity. This property helps in classifying the activity for better organization and retrieval within the CRM. It should be a descriptive string that accurately represents the event type.
    */
   groupEventType?: string | null | undefined;
   /**
-   * Indicates whether the activity is a subordinate or dependent of another activity. This boolean flag helps in structuring activities hierarchically within the CRM. Set to true if the activity is a child activity, otherwise false.
+   * Indicates whether the activity is a subordinate or dependent event within a larger activity structure. This property is useful for organizing activities hierarchically, allowing for better management of related tasks or events.
    */
   child?: boolean | null | undefined;
   /**
-   * Determines if the activity is archived, meaning it is no longer active but retained for historical reference. This property is useful for filtering out inactive activities in queries. Set to true to archive the activity, otherwise false.
+   * Determines if the activity is stored in an archive state, meaning it is no longer active but retained for historical reference. This property is crucial for managing the lifecycle of activities, ensuring that only current and relevant activities are prominently displayed.
    */
   archived?: boolean | null | undefined;
   /**
-   * Indicates whether the activity has been marked as deleted. This flag helps manage the lifecycle of activities, allowing them to be excluded from active views without permanent removal. Set to true to mark the activity as deleted, otherwise false.
+   * Specifies whether the activity has been marked as deleted, effectively removing it from active records while potentially retaining it for recovery or audit purposes. This property is essential for maintaining data integrity and managing the visibility of activities within the CRM.
    */
   deleted?: boolean | null | undefined;
   /**
-   * Defines how the activity should be displayed in terms of status or availability, such as 'busy' or 'free'. This property helps in visualizing the activity's impact on scheduling and availability within the CRM. Accepts any valid string that represents a display status.
+   * Defines how the activity should be visually represented or categorized in the CRM interface. This property allows users to set a display status that can affect how the activity is perceived or prioritized by users.
    */
   showAs?: UpdateActivityRequestShowAs | null | undefined;
   /**
-   * Indicates whether the activity has been completed. This property is optional and should be set to true if the activity is finished, or false if it is still ongoing. It helps in tracking the status of activities within the CRM system, ensuring accurate reporting and follow-up actions.
+   * Indicates whether the activity has been completed. This property is optional and should be set to true if the activity is finished, or false if it is still ongoing. It helps in tracking the status of activities within the CRM, ensuring accurate record-keeping and follow-up actions.
    */
   done?: boolean | null | undefined;
   /**
-   * Specifies the start date and time of the activity in ISO 8601 format (e.g., '2023-10-05T14:48:00.000Z'). This optional property helps in scheduling and organizing activities, allowing users to see when an activity is set to begin. It is crucial for time management and planning within the CRM.
+   * Specifies the start date and time of the activity in ISO 8601 format (e.g., '2023-10-15T08:00:00Z'). This optional field helps define when the activity begins, allowing for precise scheduling and time management within the CRM.
    */
   startDatetime?: string | null | undefined;
   /**
-   * Defines the end date and time of the activity, formatted in ISO 8601 (e.g., '2023-10-05T16:48:00.000Z'). This optional property is used to mark when an activity is expected to conclude, aiding in the management of time slots and resource allocation within the CRM system.
+   * Defines the end date and time of the activity in ISO 8601 format (e.g., '2023-10-15T10:00:00Z'). This optional property is crucial for determining the duration of the activity and ensuring that it fits within the planned schedule.
    */
   endDatetime?: string | null | undefined;
   /**
-   * Represents the specific date on which the activity occurs, formatted as a date string (e.g., '2023-10-05'). This optional property is useful for activities that span multiple days or for setting a general date without specific start or end times. It helps in organizing and filtering activities by date within the CRM.
+   * Represents the specific date of the activity in ISO 8601 format (e.g., '2023-10-15'). This optional field is used to log the activity's occurrence date, which is essential for chronological tracking and reporting within the CRM.
    */
   activityDate?: string | null | undefined;
   /**
-   * Indicates the final date of the activity, formatted as a date string (e.g., '2023-10-05'). This optional property is particularly useful for activities that extend over multiple days, providing a clear endpoint for the activity's duration. It assists in planning and tracking long-term activities within the CRM.
+   * Indicates the end date of the activity in ISO 8601 format (e.g., '2023-10-15'). This optional property is used to specify when the activity concludes, which is important for managing timelines and ensuring activities are completed as scheduled.
    */
   endDate?: string | null | undefined;
   /**
-   * Indicates whether the activity is set to repeat at regular intervals. This property helps in managing recurring tasks or events within the CRM, ensuring that repeated activities are automatically scheduled. Accepts a boolean value: true if the activity is recurrent, false otherwise.
+   * Indicates if the activity is set to repeat over time. This property helps in managing recurring tasks or events within the CRM, ensuring that repeated activities are tracked without manual re-entry. Set this to true if the activity should recur, otherwise false.
    */
   recurrent?: boolean | undefined;
   /**
-   * Specifies the date and time when a reminder for the activity should be triggered. This property is crucial for alerting users about upcoming activities. The value must be in ISO 8601 format (e.g., '2023-10-15T14:30:00Z') to ensure proper scheduling and time zone handling.
+   * Specifies the date and time when a reminder for the activity should be triggered. This property is crucial for alerting users about upcoming tasks or meetings. The value must be in a valid date-time format (e.g., ISO 8601) to ensure proper scheduling.
    */
   reminderDatetime?: string | null | undefined;
   /**
-   * Determines whether a reminder is activated for the activity. This property allows users to enable or disable reminders, helping them manage notifications for important tasks. Accepts a boolean value: true to set a reminder, false to disable it.
+   * Determines whether a reminder is activated for the activity. Use this property to enable or disable notifications for the activity, helping users stay informed about important tasks. Set to true to activate the reminder, otherwise false.
    */
   reminderSet?: boolean | null | undefined;
   /**
-   * The URL link to join the video conference associated with the activity. This property facilitates virtual meetings by providing a direct link to the conference platform. Ensure the URL is valid and accessible to all intended participants.
+   * The web address for accessing the video conference associated with the activity. This property allows users to join meetings directly from the CRM, facilitating seamless virtual collaboration. Ensure the URL is valid and accessible to participants.
    */
   videoConferenceUrl?: string | null | undefined;
   /**
-   * A unique identifier for the video conference session linked to the activity. This property is used to reference the specific video conference, aiding in organization and retrieval of meeting details. It should be a valid string that matches the conference provider's ID format.
+   * A unique identifier for the video conference linked to the activity. This ID is used to manage and reference the specific video meeting within the CRM system. It should be a valid string that corresponds to the video conference service being used.
    */
   videoConferenceId?: string | null | undefined;
   /**
-   * An array of custom fields associated with the activity. Each entry in the array represents a specific custom field that can store additional information relevant to the activity. This allows for flexible data storage tailored to specific business needs.
+   * An array of custom fields associated with the activity. Each entry in this array allows you to specify additional, user-defined data that can be used to tailor the activity record to specific needs or business logic. This property is optional and can be omitted if no custom fields are needed for the update.
    */
   customFields?: Array<UpdateActivityRequestCustomFields> | undefined;
   /**
-   * An array of attendee objects representing individuals participating in the activity. Each object should include detailed information about the attendee, such as their name and contact details. This property allows you to update the list of participants for the activity, ensuring accurate tracking and communication.
+   * An array of attendees associated with the activity. Each attendee object within the array can include details such as name, first name, middle name, and last name. This property allows you to update the list of participants for the activity, ensuring accurate tracking of who is involved.
    */
   attendees?: Array<UpdateActivityRequestAttendees> | undefined;
   /**
-   * An array that allows the inclusion of service-specific custom data or structured modifications when updating an activity record. This property is optional and can be used to pass additional data that may be required by specific services integrated with the CRM.
+   * The pass_through property is used to include service-specific custom data or structured modifications when updating an activity record. This allows for flexibility in handling unique service requirements or additional data that needs to be passed along with the update request. It is not mandatory to include this property unless specific service modifications are needed.
    */
   passThrough?: Array<UpdateActivityRequestPassThrough> | undefined;
 };

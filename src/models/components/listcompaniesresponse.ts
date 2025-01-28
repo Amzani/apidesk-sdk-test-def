@@ -9,204 +9,14 @@ import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import {
+  Currency,
+  Currency$inboundSchema,
+  Currency$outboundSchema,
+} from "./currency.js";
 
 /**
- * The currency code associated with the company's financial transactions, following the ISO 4217 standard. This string indicates the currency used for billing and accounting purposes, helping to standardize financial data across the CRM. It is optional and may not be specified for all companies.
- */
-export const ListCompaniesResponseCurrency = {
-  UnknownCurrency: "UNKNOWN_CURRENCY",
-  Aed: "AED",
-  Afn: "AFN",
-  All: "ALL",
-  Amd: "AMD",
-  Ang: "ANG",
-  Aoa: "AOA",
-  Ars: "ARS",
-  Aud: "AUD",
-  Awg: "AWG",
-  Azn: "AZN",
-  Bam: "BAM",
-  Bbd: "BBD",
-  Bdt: "BDT",
-  Bgn: "BGN",
-  Bhd: "BHD",
-  Bif: "BIF",
-  Bmd: "BMD",
-  Bnd: "BND",
-  Bob: "BOB",
-  Bov: "BOV",
-  Brl: "BRL",
-  Bsd: "BSD",
-  Btn: "BTN",
-  Bwp: "BWP",
-  Byr: "BYR",
-  Bzd: "BZD",
-  Cad: "CAD",
-  Cdf: "CDF",
-  Che: "CHE",
-  Chf: "CHF",
-  Chw: "CHW",
-  Clf: "CLF",
-  Clp: "CLP",
-  Cny: "CNY",
-  Cop: "COP",
-  Cou: "COU",
-  Crc: "CRC",
-  Cuc: "CUC",
-  Cup: "CUP",
-  Cve: "CVE",
-  Czk: "CZK",
-  Djf: "DJF",
-  Dkk: "DKK",
-  Dop: "DOP",
-  Dzd: "DZD",
-  Egp: "EGP",
-  Ern: "ERN",
-  Etb: "ETB",
-  Eur: "EUR",
-  Fjd: "FJD",
-  Fkp: "FKP",
-  Gbp: "GBP",
-  Gel: "GEL",
-  Ghs: "GHS",
-  Gip: "GIP",
-  Gmd: "GMD",
-  Gnf: "GNF",
-  Gtq: "GTQ",
-  Gyd: "GYD",
-  Hkd: "HKD",
-  Hnl: "HNL",
-  Hrk: "HRK",
-  Htg: "HTG",
-  Huf: "HUF",
-  Idr: "IDR",
-  Ils: "ILS",
-  Inr: "INR",
-  Iqd: "IQD",
-  Irr: "IRR",
-  Isk: "ISK",
-  Jmd: "JMD",
-  Jod: "JOD",
-  Jpy: "JPY",
-  Kes: "KES",
-  Kgs: "KGS",
-  Khr: "KHR",
-  Kmf: "KMF",
-  Kpw: "KPW",
-  Krw: "KRW",
-  Kwd: "KWD",
-  Kyd: "KYD",
-  Kzt: "KZT",
-  Lak: "LAK",
-  Lbp: "LBP",
-  Lkr: "LKR",
-  Lrd: "LRD",
-  Lsl: "LSL",
-  Ltl: "LTL",
-  Lvl: "LVL",
-  Lyd: "LYD",
-  Mad: "MAD",
-  Mdl: "MDL",
-  Mga: "MGA",
-  Mkd: "MKD",
-  Mmk: "MMK",
-  Mnt: "MNT",
-  Mop: "MOP",
-  Mro: "MRO",
-  Mur: "MUR",
-  Mvr: "MVR",
-  Mwk: "MWK",
-  Mxn: "MXN",
-  Mxv: "MXV",
-  Myr: "MYR",
-  Mzn: "MZN",
-  Nad: "NAD",
-  Ngn: "NGN",
-  Nio: "NIO",
-  Nok: "NOK",
-  Npr: "NPR",
-  Nzd: "NZD",
-  Omr: "OMR",
-  Pab: "PAB",
-  Pen: "PEN",
-  Pgk: "PGK",
-  Php: "PHP",
-  Pkr: "PKR",
-  Pln: "PLN",
-  Pyg: "PYG",
-  Qar: "QAR",
-  Ron: "RON",
-  Rsd: "RSD",
-  Rub: "RUB",
-  Rwf: "RWF",
-  Sar: "SAR",
-  Sbd: "SBD",
-  Scr: "SCR",
-  Sdg: "SDG",
-  Sek: "SEK",
-  Sgd: "SGD",
-  Shp: "SHP",
-  Sll: "SLL",
-  Sos: "SOS",
-  Srd: "SRD",
-  Ssp: "SSP",
-  Std: "STD",
-  Svc: "SVC",
-  Syp: "SYP",
-  Szl: "SZL",
-  Thb: "THB",
-  Tjs: "TJS",
-  Tmt: "TMT",
-  Tnd: "TND",
-  Top: "TOP",
-  Trc: "TRC",
-  Try: "TRY",
-  Ttd: "TTD",
-  Twd: "TWD",
-  Tzs: "TZS",
-  Uah: "UAH",
-  Ugx: "UGX",
-  Usd: "USD",
-  Usn: "USN",
-  Uss: "USS",
-  Uyi: "UYI",
-  Uyu: "UYU",
-  Uzs: "UZS",
-  Vef: "VEF",
-  Vnd: "VND",
-  Vuv: "VUV",
-  Wst: "WST",
-  Xaf: "XAF",
-  Xag: "XAG",
-  Xau: "XAU",
-  Xba: "XBA",
-  Xbb: "XBB",
-  Xbc: "XBC",
-  Xbd: "XBD",
-  Xcd: "XCD",
-  Xdr: "XDR",
-  Xof: "XOF",
-  Xpd: "XPD",
-  Xpf: "XPF",
-  Xpt: "XPT",
-  Xts: "XTS",
-  Xxx: "XXX",
-  Yer: "YER",
-  Zar: "ZAR",
-  Zmk: "ZMK",
-  Zmw: "ZMW",
-  Btc: "BTC",
-  Eth: "ETH",
-} as const;
-/**
- * The currency code associated with the company's financial transactions, following the ISO 4217 standard. This string indicates the currency used for billing and accounting purposes, helping to standardize financial data across the CRM. It is optional and may not be specified for all companies.
- */
-export type ListCompaniesResponseCurrency = ClosedEnum<
-  typeof ListCompaniesResponseCurrency
->;
-
-/**
- * Indicates the type of bank account, such as checking, savings, or business. This information is returned as a string and helps in categorizing the account for financial operations and reporting.
+ * Specifies the type of bank account associated with the company, such as 'savings', 'checking', or 'business'. This string value helps categorize the account, influencing factors like transaction limits and applicable interest rates. Understanding the account type is crucial for financial operations and reporting within the CRM system.
  */
 export const ListCompaniesResponseAccountType = {
   BankAccount: "bank_account",
@@ -214,258 +24,60 @@ export const ListCompaniesResponseAccountType = {
   Other: "other",
 } as const;
 /**
- * Indicates the type of bank account, such as checking, savings, or business. This information is returned as a string and helps in categorizing the account for financial operations and reporting.
+ * Specifies the type of bank account associated with the company, such as 'savings', 'checking', or 'business'. This string value helps categorize the account, influencing factors like transaction limits and applicable interest rates. Understanding the account type is crucial for financial operations and reporting within the CRM system.
  */
 export type ListCompaniesResponseAccountType = ClosedEnum<
   typeof ListCompaniesResponseAccountType
 >;
 
-/**
- * The currency property indicates the type of currency associated with the company's bank account, following the ISO 4217 standard. It specifies the currency in which transactions are conducted and is crucial for financial reporting and analysis. This property is included in the response when bank account details are relevant to the operation.
- */
-export const ListCompaniesResponseDataCurrency = {
-  UnknownCurrency: "UNKNOWN_CURRENCY",
-  Aed: "AED",
-  Afn: "AFN",
-  All: "ALL",
-  Amd: "AMD",
-  Ang: "ANG",
-  Aoa: "AOA",
-  Ars: "ARS",
-  Aud: "AUD",
-  Awg: "AWG",
-  Azn: "AZN",
-  Bam: "BAM",
-  Bbd: "BBD",
-  Bdt: "BDT",
-  Bgn: "BGN",
-  Bhd: "BHD",
-  Bif: "BIF",
-  Bmd: "BMD",
-  Bnd: "BND",
-  Bob: "BOB",
-  Bov: "BOV",
-  Brl: "BRL",
-  Bsd: "BSD",
-  Btn: "BTN",
-  Bwp: "BWP",
-  Byr: "BYR",
-  Bzd: "BZD",
-  Cad: "CAD",
-  Cdf: "CDF",
-  Che: "CHE",
-  Chf: "CHF",
-  Chw: "CHW",
-  Clf: "CLF",
-  Clp: "CLP",
-  Cny: "CNY",
-  Cop: "COP",
-  Cou: "COU",
-  Crc: "CRC",
-  Cuc: "CUC",
-  Cup: "CUP",
-  Cve: "CVE",
-  Czk: "CZK",
-  Djf: "DJF",
-  Dkk: "DKK",
-  Dop: "DOP",
-  Dzd: "DZD",
-  Egp: "EGP",
-  Ern: "ERN",
-  Etb: "ETB",
-  Eur: "EUR",
-  Fjd: "FJD",
-  Fkp: "FKP",
-  Gbp: "GBP",
-  Gel: "GEL",
-  Ghs: "GHS",
-  Gip: "GIP",
-  Gmd: "GMD",
-  Gnf: "GNF",
-  Gtq: "GTQ",
-  Gyd: "GYD",
-  Hkd: "HKD",
-  Hnl: "HNL",
-  Hrk: "HRK",
-  Htg: "HTG",
-  Huf: "HUF",
-  Idr: "IDR",
-  Ils: "ILS",
-  Inr: "INR",
-  Iqd: "IQD",
-  Irr: "IRR",
-  Isk: "ISK",
-  Jmd: "JMD",
-  Jod: "JOD",
-  Jpy: "JPY",
-  Kes: "KES",
-  Kgs: "KGS",
-  Khr: "KHR",
-  Kmf: "KMF",
-  Kpw: "KPW",
-  Krw: "KRW",
-  Kwd: "KWD",
-  Kyd: "KYD",
-  Kzt: "KZT",
-  Lak: "LAK",
-  Lbp: "LBP",
-  Lkr: "LKR",
-  Lrd: "LRD",
-  Lsl: "LSL",
-  Ltl: "LTL",
-  Lvl: "LVL",
-  Lyd: "LYD",
-  Mad: "MAD",
-  Mdl: "MDL",
-  Mga: "MGA",
-  Mkd: "MKD",
-  Mmk: "MMK",
-  Mnt: "MNT",
-  Mop: "MOP",
-  Mro: "MRO",
-  Mur: "MUR",
-  Mvr: "MVR",
-  Mwk: "MWK",
-  Mxn: "MXN",
-  Mxv: "MXV",
-  Myr: "MYR",
-  Mzn: "MZN",
-  Nad: "NAD",
-  Ngn: "NGN",
-  Nio: "NIO",
-  Nok: "NOK",
-  Npr: "NPR",
-  Nzd: "NZD",
-  Omr: "OMR",
-  Pab: "PAB",
-  Pen: "PEN",
-  Pgk: "PGK",
-  Php: "PHP",
-  Pkr: "PKR",
-  Pln: "PLN",
-  Pyg: "PYG",
-  Qar: "QAR",
-  Ron: "RON",
-  Rsd: "RSD",
-  Rub: "RUB",
-  Rwf: "RWF",
-  Sar: "SAR",
-  Sbd: "SBD",
-  Scr: "SCR",
-  Sdg: "SDG",
-  Sek: "SEK",
-  Sgd: "SGD",
-  Shp: "SHP",
-  Sll: "SLL",
-  Sos: "SOS",
-  Srd: "SRD",
-  Ssp: "SSP",
-  Std: "STD",
-  Svc: "SVC",
-  Syp: "SYP",
-  Szl: "SZL",
-  Thb: "THB",
-  Tjs: "TJS",
-  Tmt: "TMT",
-  Tnd: "TND",
-  Top: "TOP",
-  Trc: "TRC",
-  Try: "TRY",
-  Ttd: "TTD",
-  Twd: "TWD",
-  Tzs: "TZS",
-  Uah: "UAH",
-  Ugx: "UGX",
-  Usd: "USD",
-  Usn: "USN",
-  Uss: "USS",
-  Uyi: "UYI",
-  Uyu: "UYU",
-  Uzs: "UZS",
-  Vef: "VEF",
-  Vnd: "VND",
-  Vuv: "VUV",
-  Wst: "WST",
-  Xaf: "XAF",
-  Xag: "XAG",
-  Xau: "XAU",
-  Xba: "XBA",
-  Xbb: "XBB",
-  Xbc: "XBC",
-  Xbd: "XBD",
-  Xcd: "XCD",
-  Xdr: "XDR",
-  Xof: "XOF",
-  Xpd: "XPD",
-  Xpf: "XPF",
-  Xpt: "XPT",
-  Xts: "XTS",
-  Xxx: "XXX",
-  Yer: "YER",
-  Zar: "ZAR",
-  Zmk: "ZMK",
-  Zmw: "ZMW",
-  Btc: "BTC",
-  Eth: "ETH",
-} as const;
-/**
- * The currency property indicates the type of currency associated with the company's bank account, following the ISO 4217 standard. It specifies the currency in which transactions are conducted and is crucial for financial reporting and analysis. This property is included in the response when bank account details are relevant to the operation.
- */
-export type ListCompaniesResponseDataCurrency = ClosedEnum<
-  typeof ListCompaniesResponseDataCurrency
->;
-
 export type ListCompaniesResponseBankAccounts = {
   /**
-   * The name of the bank where the company's account is held. This field is part of the bank account details and helps identify the financial institution associated with the company's banking activities.
+   * This property contains the name of the bank where the company's account is held. It is a string value that forms part of the bank account details array, helping to identify the financial institution associated with the company's banking activities. This field is optional and may not be present if the bank name is not recorded in the CRM system.
    */
   bankName?: string | null | undefined;
   /**
-   * The bank account number associated with a company's bank account. This is a unique identifier for each account and is used for transactions and account management. It is returned as a string and may vary in format depending on the bank's specifications.
+   * This property contains the bank account number linked to a specific bank account within the CRM system. It is a string of digits that uniquely identifies the account for financial transactions and management purposes. In the context of the 'companiesAll' operation, it provides essential financial details for each company retrieved, aiding in comprehensive company data analysis.
    */
   accountNumber?: string | null | undefined;
   /**
-   * The name under which the company's bank account is registered. This is typically the name of the account holder or the business entity and is returned as a string. It helps in identifying the account within the bank's records.
+   * The account_name property contains the name associated with a bank account, typically reflecting the account holder's or business's registered name. This string value is crucial for identifying and verifying the bank account within the CRM system's company data. It helps ensure that financial transactions and records are accurately matched to the correct entity.
    */
   accountName?: string | null | undefined;
   /**
-   * Indicates the type of bank account, such as checking, savings, or business. This information is returned as a string and helps in categorizing the account for financial operations and reporting.
+   * Specifies the type of bank account associated with the company, such as 'savings', 'checking', or 'business'. This string value helps categorize the account, influencing factors like transaction limits and applicable interest rates. Understanding the account type is crucial for financial operations and reporting within the CRM system.
    */
   accountType?: ListCompaniesResponseAccountType | null | undefined;
   /**
-   * The International Bank Account Number (IBAN) for the company's bank account. This is a standardized international code that facilitates cross-border transactions and is returned as a string. It ensures the account can be uniquely identified across international banking systems.
+   * This property contains the International Bank Account Number (IBAN) associated with a company's bank account. The IBAN is a string formatted according to international standards, typically including a country code, bank code, and account number. In the context of the 'companiesAll' operation, it provides essential banking details for companies listed in the CRM, facilitating international financial transactions.
    */
   iban?: string | null | undefined;
   /**
-   * The Bank Identifier Code (BIC), also known as the SWIFT code, for the company's bank account. This code is used to identify the bank in international transactions and is returned as a string. It is essential for ensuring funds are transferred to the correct financial institution.
+   * This property contains the Bank Identifier Code (BIC), also known as the SWIFT code, which is a unique string identifier for a bank used in international transactions. The BIC is crucial for routing transactions to the correct bank and branch, ensuring accurate and secure cross-border fund transfers. In the context of the 'companiesAll' operation, this field provides essential banking details for companies listed in the CRM, aiding in financial operations and integrations.
    */
   bic?: string | null | undefined;
   /**
-   * The routing number is a nine-digit code used to identify a financial institution within the United States. It is essential for processing domestic wire transfers and electronic payments. This property is included in the response when the company's bank account details are available and relevant to the operation.
+   * This property contains the routing number, a nine-digit code essential for identifying a specific financial institution within the United States. It is used primarily for processing domestic transfers and transactions, ensuring that funds are directed to the correct bank. In the context of the 'companiesAll' operation, this information is relevant for applications that handle U.S.-based financial operations, providing necessary details for financial transactions associated with the companies listed in the CRM.
    */
   routingNumber?: string | null | undefined;
   /**
-   * The BSB number is a six-digit numeric code used to identify the branch of an Australian or New Zealand bank or financial institution. It is crucial for processing transactions within these countries. This property appears in the response when the company's bank account information includes Australian or New Zealand bank details.
+   * This property contains the BSB (Bank State Branch) number, a six-digit code used to identify a specific branch of a bank or financial institution in Australia or New Zealand. The BSB number is essential for routing financial transactions accurately to the correct branch, ensuring efficient processing of payments and other banking operations. In the context of the 'companiesAll' operation, this field provides detailed banking information for companies listed in the CRM, aiding in financial transactions and record-keeping.
    */
   bsbNumber?: string | null | undefined;
   /**
-   * The branch identifier is a unique code that identifies a specific branch of a bank or financial institution. It is used to ensure transactions are routed to the correct branch. This property is part of the response when detailed bank account information is provided for the company.
+   * This property contains the unique code identifying a specific branch of a bank or financial institution associated with the company. The branch identifier is crucial for ensuring that financial transactions are directed to the correct branch, facilitating accurate processing and record-keeping. In the context of the 'companiesAll' operation, this information helps developers understand the financial affiliations of the companies retrieved from the CRM system.
    */
   branchIdentifier?: string | null | undefined;
   /**
-   * The bank code is a unique identifier assigned to banks by a central authority or banking association within a country. It is used for identifying member banks in financial transactions. This property is included in the response when the company's bank account details require such identification.
+   * A unique code assigned to banks or financial institutions within a country, used to identify them in financial transactions. This string ensures that funds are accurately routed to the correct institution, playing a vital role in both domestic and international banking operations. In the context of the 'companiesAll' operation, it provides essential banking details for each company listed in the CRM.
    */
   bankCode?: string | null | undefined;
-  /**
-   * The currency property indicates the type of currency associated with the company's bank account, following the ISO 4217 standard. It specifies the currency in which transactions are conducted and is crucial for financial reporting and analysis. This property is included in the response when bank account details are relevant to the operation.
-   */
-  currency?: ListCompaniesResponseDataCurrency | null | undefined;
+  currency?: Currency | null | undefined;
 };
 
 /**
- * Indicates the type of website, such as 'main', 'blog', or 'support'. This string helps categorize the website's purpose or function within the company's digital ecosystem. It is optional and may be omitted if the type is not specified.
+ * This property specifies the category of the company's website, such as 'corporate', 'e-commerce', or 'blog'. It helps in identifying the website's role or function within the company's digital presence. The value is expected to be a string that categorizes the website, aiding developers in understanding the company's online strategy as part of the CRM data.
  */
-export const ListCompaniesResponseType = {
+export const ListCompaniesResponseDataWebsitesType = {
   Primary: "primary",
   Secondary: "secondary",
   Work: "work",
@@ -473,31 +85,31 @@ export const ListCompaniesResponseType = {
   Other: "other",
 } as const;
 /**
- * Indicates the type of website, such as 'main', 'blog', or 'support'. This string helps categorize the website's purpose or function within the company's digital ecosystem. It is optional and may be omitted if the type is not specified.
+ * This property specifies the category of the company's website, such as 'corporate', 'e-commerce', or 'blog'. It helps in identifying the website's role or function within the company's digital presence. The value is expected to be a string that categorizes the website, aiding developers in understanding the company's online strategy as part of the CRM data.
  */
-export type ListCompaniesResponseType = ClosedEnum<
-  typeof ListCompaniesResponseType
+export type ListCompaniesResponseDataWebsitesType = ClosedEnum<
+  typeof ListCompaniesResponseDataWebsitesType
 >;
 
 export type ListCompaniesResponseWebsites = {
   /**
-   * A unique identifier for each website entry within the company's website list. This string is used to distinguish between different websites and is crucial for operations that require specific website identification. It is optional and may not be present for all websites.
+   * This property contains a unique identifier for each website entry associated with a company in the CRM system. The ID is a string that serves to uniquely distinguish each website within the company's list of websites, allowing developers to reference or manipulate specific website entries efficiently. This identifier is crucial for operations that involve accessing or updating website details for a company.
    */
   id?: string | null | undefined;
   /**
-   * The URL of the company's website, provided as a string. This is a required field and must be a valid URL format, representing the web address where the company's site can be accessed. It is essential for linking to the company's online resources.
+   * This property contains the URL of the company's official website. It is a required field and should be a valid web address (e.g., 'https://www.example.com') that directs users to the company's online presence. In the context of the 'companiesAll' operation, this URL is crucial for accessing detailed information about the company directly from the web, facilitating seamless integration and data retrieval for applications displaying company data.
    */
   url: string;
   /**
-   * Indicates the type of website, such as 'main', 'blog', or 'support'. This string helps categorize the website's purpose or function within the company's digital ecosystem. It is optional and may be omitted if the type is not specified.
+   * This property specifies the category of the company's website, such as 'corporate', 'e-commerce', or 'blog'. It helps in identifying the website's role or function within the company's digital presence. The value is expected to be a string that categorizes the website, aiding developers in understanding the company's online strategy as part of the CRM data.
    */
-  type?: ListCompaniesResponseType | null | undefined;
+  type?: ListCompaniesResponseDataWebsitesType | null | undefined;
 };
 
 /**
- * Specifies the category or purpose of the address, such as 'billing', 'shipping', or 'office'. This helps in identifying the role of the address within the company's operations. The value is a string that aligns with predefined address types in the CRM.
+ * This property specifies the category or purpose of the address associated with a company, such as 'billing', 'shipping', or 'office'. It helps in identifying the role of the address within the company's operations, ensuring that the correct address is used for the appropriate context. The value is expected to be a string that clearly defines the address type, aiding in the organization and retrieval of company address information.
  */
-export const ListCompaniesResponseDataType = {
+export const ListCompaniesResponseType = {
   Primary: "primary",
   Secondary: "secondary",
   Home: "home",
@@ -507,130 +119,130 @@ export const ListCompaniesResponseDataType = {
   Other: "other",
 } as const;
 /**
- * Specifies the category or purpose of the address, such as 'billing', 'shipping', or 'office'. This helps in identifying the role of the address within the company's operations. The value is a string that aligns with predefined address types in the CRM.
+ * This property specifies the category or purpose of the address associated with a company, such as 'billing', 'shipping', or 'office'. It helps in identifying the role of the address within the company's operations, ensuring that the correct address is used for the appropriate context. The value is expected to be a string that clearly defines the address type, aiding in the organization and retrieval of company address information.
  */
-export type ListCompaniesResponseDataType = ClosedEnum<
-  typeof ListCompaniesResponseDataType
+export type ListCompaniesResponseType = ClosedEnum<
+  typeof ListCompaniesResponseType
 >;
 
 export type ListCompaniesResponseAddresses = {
   /**
-   * A unique identifier assigned to each address associated with a company. This ID is used to distinguish between different addresses within the CRM system. It is typically a non-empty string when an address is present.
+   * This property contains a unique identifier for each address linked to a company within the CRM system. The ID is a string format and is essential for distinguishing between multiple addresses associated with a single company. It plays a critical role in operations that involve retrieving or updating specific address details, ensuring precise data management and access.
    */
   id?: string | null | undefined;
   /**
-   * Specifies the category or purpose of the address, such as 'billing', 'shipping', or 'office'. This helps in identifying the role of the address within the company's operations. The value is a string that aligns with predefined address types in the CRM.
+   * This property specifies the category or purpose of the address associated with a company, such as 'billing', 'shipping', or 'office'. It helps in identifying the role of the address within the company's operations, ensuring that the correct address is used for the appropriate context. The value is expected to be a string that clearly defines the address type, aiding in the organization and retrieval of company address information.
    */
-  type?: ListCompaniesResponseDataType | null | undefined;
+  type?: ListCompaniesResponseType | null | undefined;
   /**
-   * Represents the full address as a single unstructured string. This format is used when the API does not provide detailed address components, allowing for flexible address representation. It is useful for display purposes where structured data is not required.
+   * This property contains the full address of a company as a single string. It may include various components such as street, city, state, and postal code, all concatenated into one line. This format is particularly useful when a structured breakdown of address components is unavailable, offering a comprehensive view of the company's location in the CRM system.
    */
   string?: string | null | undefined;
   /**
-   * The designated name or label for the address, which might include a description like 'Headquarters' or 'Main Office'. This helps users quickly identify the address's significance or location. It is a string value that can be customized by the user.
+   * The name or label assigned to a specific address associated with the company. This string value helps identify the address's role or purpose within the company's operations, such as 'Headquarters' or 'Warehouse'. It is useful for distinguishing between multiple addresses in the company's records.
    */
   name?: string | null | undefined;
   /**
-   * The first line of the address, typically including the street number, street name, and any apartment or suite numbers. This is a crucial part of the address used for mailing and identification purposes. It is formatted as a string and is often the primary address line used in correspondence.
+   * This property contains the first line of a company's address, typically including the street number, street name, and any apartment or suite numbers. It is formatted as a string and is essential for identifying the company's physical location for mailing and logistical purposes. In the context of the 'companiesAll' operation, this field helps users retrieve detailed address information for each company listed in the CRM system.
    */
   line1?: string | null | undefined;
   /**
-   * This property contains the second line of the company's address, which may include additional location details such as apartment or suite numbers. It is returned as a string and is optional, meaning it may not be present if not applicable to the address.
+   * Contains the second line of the company's address, typically used for additional details like apartment or suite numbers. This optional field enhances the address structure for precise mailing and location purposes.
    */
   line2?: string | null | undefined;
   /**
-   * This property holds the third line of the company's address, often used for further address details like building names or complex identifiers. It is an optional string field and may be omitted if not relevant to the address structure.
+   * Holds the third line of the company's address, used for further details such as building names or other identifiers. This optional field allows for a more comprehensive address format when necessary.
    */
   line3?: string | null | undefined;
   /**
-   * This property represents the fourth line of the company's address, typically used for any additional address information that doesn't fit in the previous lines. It is an optional string and may not be included if unnecessary.
+   * Represents the fourth line of the company's address, accommodating any extra information not covered in previous lines. This optional field ensures flexibility in capturing complex address details.
    */
   line4?: string | null | undefined;
   /**
-   * This property specifies the street number of the company's address, providing a precise location on the street. It is returned as a string and is optional, as some addresses may not include a street number.
+   * Specifies the street number of the company's address, indicating its precise location on the street. The format is a string to support various alphanumeric combinations, crucial for accurate address identification.
    */
   streetNumber?: string | null | undefined;
   /**
-   * This property contains the name of the city where the company is located. It is an optional string field and provides geographical context within the address, aiding in identifying the company's location.
+   * Contains the name of the city where the company is located, essential for identifying the company's geographical location. This information is vital for regional categorization and logistical purposes.
    */
   city?: string | null | undefined;
   /**
-   * The full name of the state or region where the company is located. This information is part of the company's address details and is useful for geographical analysis or regional reporting. The value is returned as a string and may be empty if the state information is not available.
+   * This property contains the name of the state or region where the company is located, as part of its address details. The value is a string representing the state's name, which helps identify the geographical area for the company's business operations. This information is crucial for applications that need to display or process location-based company data.
    */
   state?: string | null | undefined;
   /**
-   * The postal code or ZIP code associated with the company's address. This code is crucial for mail delivery and location-based services. It is returned as a string and may vary in format depending on the country's postal system.
+   * The postal_code field contains the zip code or equivalent postal code associated with the company's address. This string value is essential for identifying the company's location and ensuring accurate mail delivery. In the context of the 'companiesAll' operation, it helps in retrieving detailed address information for each company listed in the CRM system.
    */
   postalCode?: string | null | undefined;
   /**
-   * The country code of the company's location, following the ISO 3166-1 alpha-2 standard. This two-letter code helps identify the country for international operations and integrations. It is returned as a string and is essential for global applications.
+   * This property contains the ISO 3166-1 alpha-2 code representing the country where the company is located. It is a two-letter string code that helps in identifying the country for international operations and data processing. This field is part of the company's address details in the CRM system, aiding in geographical categorization and reporting.
    */
   country?: string | null | undefined;
   /**
-   * The latitude coordinate of the company's address, represented as a string. This value is part of the geographical data used for mapping and location services. It may be empty if the latitude is not available or applicable.
+   * The 'latitude' field contains the geographical latitude coordinate of the company's address, represented as a numeric string. This value is crucial for mapping the company's exact location on a global scale, aiding in spatial analysis and mapping tasks. It is part of the geolocation data returned in the response, providing essential information for applications that require precise location details.
    */
   latitude?: string | null | undefined;
   /**
-   * The longitude coordinate of the company's address, provided as a string. This data point is used in conjunction with latitude for precise location mapping and navigation services. It may be empty if the longitude is not available or applicable.
+   * This property contains the geographical longitude coordinate of the company's address, represented as a numeric string. It is used in conjunction with the latitude to accurately locate the company on a map, which is essential for geolocation services and mapping applications. This field is part of the company's address details returned in the response, providing crucial location information for applications that require spatial data.
    */
   longitude?: string | null | undefined;
   /**
-   * The 'county' field represents the sublocality or administrative division within a region, such as a county or district, associated with the company's address. This field is optional and may be empty if not applicable. It provides additional geographical context for the company's location.
+   * The 'county' field contains the name of the administrative division or sublocality within the address, such as a county or district. This string value helps categorize and geographically locate the company within the CRM system, aiding in regional analysis and reporting.
    */
   county?: string | null | undefined;
   /**
-   * The 'contact_name' field contains the full name of the primary contact person at the specified address. This information is useful for direct communication and correspondence with the company. It is an optional field and may be left blank if no specific contact is designated.
+   * The 'contact_name' field holds the full name of the primary contact person associated with the address. This string is crucial for identifying the main point of contact at the company location, facilitating direct communication and correspondence.
    */
   contactName?: string | null | undefined;
   /**
-   * The 'salutation' field includes the formal greeting or title used for the contact person at the address, such as Mr., Ms., or Dr. This field helps in addressing the contact person appropriately in communications. It is optional and may be omitted if not relevant.
+   * The 'salutation' field specifies the formal greeting or title used for the contact person at the address, such as Mr., Ms., or Dr. This string value helps maintain a professional tone in communications and should reflect the contact's preferred salutation.
    */
   salutation?: string | null | undefined;
   /**
-   * The 'phone_number' field provides the primary telephone number associated with the company's address. This number is used for voice communication and is formatted as a string, potentially including country and area codes. It is optional and may be absent if no phone number is available.
+   * The 'phone_number' field provides the primary telephone number associated with the address. This string should follow international or local dialing conventions and is essential for direct communication with the company or contact person.
    */
   phoneNumber?: string | null | undefined;
   /**
-   * The 'fax' field contains the fax number associated with the company's address, formatted as a string. This number is used for sending and receiving documents via fax. It is an optional field and may be empty if the company does not use fax communication.
+   * The 'fax' field contains the fax number associated with the address, used for sending documents via fax. Although less common today, this string value remains important for certain communications and should be formatted according to standard fax number conventions.
    */
   fax?: string | null | undefined;
   /**
-   * The email address associated with the company's address entry. This is typically used for official communications and may not always be present if the company has not provided an email. The format is a standard email string, such as 'example@company.com'.
+   * This property contains the email address linked to a specific address entry of the company. It is formatted as a standard email address and is used for electronic communications related to that address. This field is optional and may be null if no email address is provided for the address entry.
    */
   email?: string | null | undefined;
   /**
-   * The website URL linked to the company's address entry. This provides a direct link to the company's online presence and is formatted as a standard URL, such as 'https://www.company.com'. It may be absent if the company does not have a website.
+   * This property contains the website URL associated with the company's address entry. It should be in a valid URL format, serving as a digital point of contact or information source for the company. This field is optional and may be null if the website information is not provided in the company's CRM record.
    */
   website?: string | null | undefined;
   /**
-   * Additional notes related to the company's address entry. This field can contain any supplementary information that might be relevant to the address, such as delivery instructions or historical data. The format is a plain text string.
+   * This property contains additional notes or comments related to the company's address entry. It is a string field that can include any supplementary information relevant to the address, such as delivery instructions or historical context. This field is optional and may be null if no additional information is provided, allowing developers to include extra details as needed for clarity or record-keeping.
    */
   notes?: string | null | undefined;
   /**
-   * A versioning string used to track changes to the address entry. This binary value is updated with each modification to prevent data conflicts, ensuring that the latest version of the address is always used. It is crucial for maintaining data integrity in concurrent environments.
+   * A version identifier for the address entry, represented as a binary string. This property is used to track changes and ensure data consistency by preventing update conflicts. It automatically updates with each modification to the address, facilitating synchronization in distributed systems.
    */
   rowVersion?: string | null | undefined;
 };
 
 export type ListCompaniesResponseSocialLinks = {
   /**
-   * A unique identifier assigned to each social link associated with a company. This ID is used internally to distinguish between different social links and is not intended for display purposes. It is optional and may not be present for all social links.
+   * A unique identifier for each social link associated with a company. This ID is used to manage and reference specific social links within the company's profile, facilitating easy updates and retrievals.
    */
   id?: string | null | undefined;
   /**
-   * The full URL of the company's social media profile or page. This is a required field and must be a valid URL, such as 'https://www.twitter.com/apideck'. It provides direct access to the company's social presence and is crucial for integration with social media platforms.
+   * The URL of the company's social media link, such as 'https://www.twitter.com/apideck'. This required field provides direct access to the company's social media presence, enabling seamless integration and interaction.
    */
   url: string;
   /**
-   * Specifies the type of social media platform associated with the URL, such as 'twitter', 'facebook', or 'linkedin'. This field helps categorize the social link and is useful for filtering or displaying specific types of social media connections. It is optional and may not be present for all social links.
+   * Indicates the type of social media platform the link belongs to, such as 'twitter'. This categorization helps in organizing and filtering social links based on platform type, enhancing data management.
    */
   type?: string | null | undefined;
 };
 
 /**
- * The type of phone number, such as 'mobile', 'landline', or 'fax', represented as a string. This optional field helps categorize the phone number, providing context for its intended use within the CRM system.
+ * This property specifies the category of the phone number associated with a company, such as 'mobile', 'landline', or 'fax'. It is a string value that helps in identifying the nature of the phone number, facilitating appropriate communication and routing within the CRM system. Understanding the type of phone number is crucial for applications that need to handle different communication channels effectively.
  */
-export const ListCompaniesResponseDataPhoneNumbersType = {
+export const ListCompaniesResponseDataType = {
   Primary: "primary",
   Secondary: "secondary",
   Home: "home",
@@ -644,41 +256,41 @@ export const ListCompaniesResponseDataPhoneNumbersType = {
   Other: "other",
 } as const;
 /**
- * The type of phone number, such as 'mobile', 'landline', or 'fax', represented as a string. This optional field helps categorize the phone number, providing context for its intended use within the CRM system.
+ * This property specifies the category of the phone number associated with a company, such as 'mobile', 'landline', or 'fax'. It is a string value that helps in identifying the nature of the phone number, facilitating appropriate communication and routing within the CRM system. Understanding the type of phone number is crucial for applications that need to handle different communication channels effectively.
  */
-export type ListCompaniesResponseDataPhoneNumbersType = ClosedEnum<
-  typeof ListCompaniesResponseDataPhoneNumbersType
+export type ListCompaniesResponseDataType = ClosedEnum<
+  typeof ListCompaniesResponseDataType
 >;
 
 export type ListCompaniesResponsePhoneNumbers = {
   /**
-   * A unique identifier for each phone number entry within the company's phone numbers array. This ID is used to differentiate between multiple phone numbers and is not intended for display. It is optional and may not be present for all phone numbers.
+   * A unique identifier for each phone number linked to the company. This ID aids in managing and referencing specific phone numbers within the company's contact information, ensuring precise communication management.
    */
   id?: string | null | undefined;
   /**
-   * The country code of the phone number, represented as a string starting with a '+' followed by the international dialing code (e.g., '+1' for the United States). This field helps identify the country of origin for the phone number, which is useful for international communications and integrations.
+   * This property contains the country code of the phone number, formatted as a string prefixed with a plus sign (e.g., '+1'). It is used to identify the international dialing code associated with the phone number, which is essential for making international calls. In the context of the 'companiesAll' operation, this field helps ensure that phone numbers are correctly formatted for global communication.
    */
   countryCode?: string | null | undefined;
   /**
-   * The area code of the phone number, provided as a string of digits (e.g., '323'). This code specifies the geographic region within a country, aiding in localizing the phone number's origin within the CRM data.
+   * This property contains the area code of a phone number, which is typically a 3-digit string. It identifies a specific geographic region within a country, such as '323', and is crucial for routing calls to the correct local area. In the context of the 'companiesAll' operation, this field helps in understanding the regional distribution of company contact numbers retrieved from the CRM system.
    */
   areaCode?: string | null | undefined;
   /**
-   * The main phone number, excluding country and area codes, formatted as a string of digits. This is a required field and represents the core part of the phone number used for direct dialing within the specified area and country codes.
+   * The main phone number associated with the company, provided as a string. This number is crucial for direct communication and does not include country or area codes, ensuring it is the primary contact point for reaching the company directly. It is a required field in the response, reflecting its importance in company records.
    */
   number: string;
   /**
-   * The extension of the phone number, if applicable, provided as a string. This optional field allows for direct dialing to specific departments or individuals within a larger organization, enhancing the specificity of contact information.
+   * This property contains the extension number associated with a company's phone line. It is a string value that directs calls to specific departments or individuals within the organization, enhancing communication efficiency. This field is optional and particularly useful for large companies with multiple internal divisions.
    */
   extension?: string | null | undefined;
   /**
-   * The type of phone number, such as 'mobile', 'landline', or 'fax', represented as a string. This optional field helps categorize the phone number, providing context for its intended use within the CRM system.
+   * This property specifies the category of the phone number associated with a company, such as 'mobile', 'landline', or 'fax'. It is a string value that helps in identifying the nature of the phone number, facilitating appropriate communication and routing within the CRM system. Understanding the type of phone number is crucial for applications that need to handle different communication channels effectively.
    */
-  type?: ListCompaniesResponseDataPhoneNumbersType | null | undefined;
+  type?: ListCompaniesResponseDataType | null | undefined;
 };
 
 /**
- * Specifies the type of email address, such as 'work', 'personal', or 'other'. This string helps categorize the email addresses, providing context on how each email is used within the company.
+ * This optional field specifies the category of the email address, such as 'work', 'personal', or 'other'. It helps organize and provide context to the email address within the company's contact information.
  */
 export const ListCompaniesResponseDataEmailsType = {
   Primary: "primary",
@@ -689,7 +301,7 @@ export const ListCompaniesResponseDataEmailsType = {
   Other: "other",
 } as const;
 /**
- * Specifies the type of email address, such as 'work', 'personal', or 'other'. This string helps categorize the email addresses, providing context on how each email is used within the company.
+ * This optional field specifies the category of the email address, such as 'work', 'personal', or 'other'. It helps organize and provide context to the email address within the company's contact information.
  */
 export type ListCompaniesResponseDataEmailsType = ClosedEnum<
   typeof ListCompaniesResponseDataEmailsType
@@ -697,29 +309,29 @@ export type ListCompaniesResponseDataEmailsType = ClosedEnum<
 
 export type ListCompaniesResponseEmails = {
   /**
-   * A unique identifier for each email address entry within the company's email list. This string serves as a primary key to distinguish between different email records in the CRM system.
+   * This string serves as a unique identifier for each email address associated with the company. It acts as a distinct key to differentiate between multiple email entries within the company's email array, ensuring each email can be individually referenced.
    */
   id?: string | null | undefined;
   /**
-   * The actual email address associated with the company, formatted as a standard email string (e.g., example@domain.com). This field is mandatory for each email entry, ensuring that every email object contains a valid email address.
+   * This field contains the actual email address linked to the company, formatted as a standard email address. It is required and is used for communication or identification purposes within the company's contact information.
    */
   email: string | null;
   /**
-   * Specifies the type of email address, such as 'work', 'personal', or 'other'. This string helps categorize the email addresses, providing context on how each email is used within the company.
+   * This optional field specifies the category of the email address, such as 'work', 'personal', or 'other'. It helps organize and provide context to the email address within the company's contact information.
    */
   type?: ListCompaniesResponseDataEmailsType | null | undefined;
 };
 
 /**
- * An object that defines the type of data row returned in the response. This object may include metadata or additional attributes that describe the nature of the data, aiding in the interpretation of the company's information within the CRM.
+ * This object represents the type of data row returned in the response, potentially containing additional metadata or attributes. It aids in interpreting and processing the company's data by defining the nature of the row.
  */
 export type ListCompaniesResponseCompanyRowType = {
   /**
-   * A unique identifier for the row type associated with the company data. This string value helps differentiate between various types of company records within the CRM system. It is optional and may not be present for all company entries.
+   * This property contains a unique identifier for the type of row that represents a company in the CRM system. It is a string value used to differentiate various types of company records, facilitating internal categorization and processing within the CRM.
    */
   id?: string | null | undefined;
   /**
-   * The name of the row type that categorizes the company data. This string provides a human-readable label for the type of company record, aiding in classification and filtering within the CRM. It is optional and may not be included for every company.
+   * This property holds the name of the row type, categorizing the company within the CRM. It provides a human-readable label that helps in understanding and managing different categories of company records.
    */
   name?: string | null | undefined;
 };
@@ -729,7 +341,7 @@ export type ListCompaniesResponseValue6 = {};
 export type ListCompaniesResponseValue4 = {};
 
 /**
- * The value assigned to a custom field for a company, represented as a string. This allows for storing specific data that is unique to the company's needs and not covered by standard fields. It is optional and may be empty if no value is set.
+ * This property holds the specific value assigned to a custom field for a company within the CRM system. The format of this value can vary, including text, numbers, or dates, depending on the type of data the custom field is designed to capture. It allows for the storage of unique information that is not covered by the standard fields, providing flexibility in data management.
  */
 export type ListCompaniesResponseValue =
   | ListCompaniesResponseValue4
@@ -741,19 +353,19 @@ export type ListCompaniesResponseValue =
 
 export type ListCompaniesResponseCustomFields = {
   /**
-   * A unique identifier for each custom field associated with the company. This string is required for identifying and managing custom attributes within the CRM, ensuring each field can be distinctly referenced.
+   * This property is a unique identifier for each custom field linked to the company. It is crucial for referencing and managing specific custom fields within the company's data structure, ensuring precise data handling.
    */
   id: string | null;
   /**
-   * The name of the custom field, providing a descriptive label for the additional attribute stored in the CRM. This string helps users understand the purpose of the custom field and is optional, depending on the field's configuration.
+   * The name assigned to a custom field, providing a descriptive label that indicates the type of additional information stored in this field. This helps users understand the purpose and content of the custom field, enhancing data clarity.
    */
   name?: string | null | undefined;
   /**
-   * This property contains additional information about a custom field associated with a company. It is a string that provides context or details that are not covered by standard fields, allowing for more tailored data representation. This field is optional and may be empty if no extra description is provided.
+   * This field contains additional information about the custom field associated with a company. It provides context or details that help in understanding the purpose or usage of the custom field within the CRM system. This information is optional and may not be present for all custom fields.
    */
   description?: string | null | undefined;
   /**
-   * The value assigned to a custom field for a company, represented as a string. This allows for storing specific data that is unique to the company's needs and not covered by standard fields. It is optional and may be empty if no value is set.
+   * This property holds the specific value assigned to a custom field for a company within the CRM system. The format of this value can vary, including text, numbers, or dates, depending on the type of data the custom field is designed to capture. It allows for the storage of unique information that is not covered by the standard fields, providing flexibility in data management.
    */
   value?:
     | ListCompaniesResponseValue4
@@ -767,257 +379,254 @@ export type ListCompaniesResponseCustomFields = {
 };
 
 /**
- * An object containing any custom mappings configured for the company resource. These mappings allow for additional, user-defined fields or data structures that extend the standard company data model, providing flexibility for specific business needs.
+ * This property contains any additional mappings configured for the company resource. It holds custom fields or relationships that extend the standard schema, enabling tailored data integration and retrieval based on specific business needs. This flexibility allows developers to adapt the CRM data structure to unique requirements.
  */
-export type CustomMappings = {};
+export type ListCompaniesResponseCustomMappings = {};
 
 export type ListCompaniesResponseExtendPaths = {
   /**
-   * A JSONPath string that specifies the exact location within the data structure where the value should be applied. This path is essential for accurately targeting and modifying specific elements within complex JSON objects.
+   * This property contains a JSONPath string that specifies the exact location within the data structure where a value should be applied. It is formatted as a string following JSONPath syntax, ensuring precise targeting of data modifications. In the context of the 'companiesAll' operation, this field is crucial for accurately applying changes to specific parts of the company data returned by the CRM system.
    */
   path: string;
   /**
-   * This property contains the value to be set at a specified path within the data structure. It can be of any data type, such as a string, number, or object, depending on the context of its use. This flexibility allows developers to dynamically update or access nested data elements within the CRM system.
+   * This property contains the value to be set at a specified path within the CRM data structure. It can be of any data type, providing flexibility for storing or updating various kinds of information. This is crucial for dynamically adjusting company data based on specific application needs, ensuring that the CRM reflects the most current and relevant data.
    */
   value?: any | undefined;
 };
 
 export type ListCompaniesResponsePassThrough = {
   /**
-   * A unique identifier representing the specific service to which this pass-through operation should be applied. This string is crucial for routing the request to the correct service within the CRM system, ensuring that the data is processed appropriately.
+   * This property holds the unique identifier for the service that the pass-through operation is intended to target. It is a mandatory field, ensuring that data processing or retrieval is directed to the correct service within the CRM system. The value is expected to be a string, typically formatted as a UUID or another unique string identifier.
    */
   serviceId: string;
   /**
-   * An optional string identifier for a specific workflow operation that this pass-through should target. This is particularly useful for Unify calls that involve multiple downstream requests, allowing for precise operation targeting within complex workflows.
+   * This optional property identifies a specific workflow operation that the pass-through should address. It is particularly useful in scenarios involving multiple downstream requests, allowing for precise targeting of operations. The value is a string, aiding in the management of complex workflows within the CRM.
    */
   operationId?: string | undefined;
   /**
-   * An object that can contain any set of properties, allowing for direct extension and customization of the pass-through operation. This flexibility supports various use cases where additional data needs to be included in the request.
+   * This property is an object that allows for the inclusion of additional properties necessary for the pass-through operation. It provides flexibility to incorporate custom data structures required for specific service integrations or data manipulations. The format is a JSON object, capable of holding various key-value pairs.
    */
   extendObject?: { [k: string]: any } | undefined;
   /**
-   * An array of objects designed for structured data modifications using specified paths. Each object within the array defines a path and the corresponding data to be applied, facilitating precise updates to nested data structures.
+   * An array containing objects that specify paths for data modification within the CRM system. Each object in the array includes a path and a corresponding value, allowing for precise updates to company data. This structure supports targeted data transformations, making it easier to apply specific changes to the company's information in the response.
    */
   extendPaths?: Array<ListCompaniesResponseExtendPaths> | undefined;
 };
 
 export type Data = {
   /**
-   * A unique identifier assigned to each company within the CRM. This string is used to distinguish each company record and is essential for operations that require referencing a specific company.
+   * A unique identifier assigned to each company within the CRM system. This ID is used to distinguish and reference individual company records, facilitating operations such as updates or deletions. It is essential for identifying specific companies in subsequent API requests.
    */
   id?: string | undefined;
   /**
-   * The official name of the company as recorded in the CRM. This string is always provided for each company and serves as a key identifier in listings and reports.
+   * The 'data.name' property contains the official name of the company as recorded in the CRM system. It is a string value that serves as a primary identifier for the company, essential for display in user interfaces and reports. This field is required, ensuring that every company entry is uniquely recognizable and can be efficiently accessed or referenced in applications.
    */
   name: string | null;
   /**
-   * The total number of interactions recorded with the company. This integer value provides insight into the level of engagement or activity associated with the company within the CRM.
+   * This property represents the total number of interactions recorded with the company, such as emails, calls, or meetings. It is an integer value that provides insight into the level of engagement and activity with the company, which is useful for analytics and performance tracking. In the context of the 'companiesAll' operation, it helps developers understand the extent of communication and interaction history associated with each company in the CRM system.
    */
   interactionCount?: number | null | undefined;
   /**
-   * The identifier of the user or entity that owns or manages the company record in the CRM. This string helps in assigning responsibility and tracking ownership of the company data.
+   * This property contains the unique identifier of the user or entity responsible for managing the company record within the CRM system. It is a string value that helps in assigning accountability and tracking interactions related to the company. In the context of the 'companiesAll' operation, this ID is crucial for understanding who oversees the company's data and activities, aiding in efficient data management and retrieval.
    */
   ownerId?: string | null | undefined;
   /**
-   * The URL of the company's logo or representative image. This string should be a valid URL format, allowing applications to display the company's image directly from the CRM. It is optional and may not be present for all companies.
+   * This property contains the URL of the company's image, typically used to display the company's logo or a representative image. The URL points to an image file, such as a JPEG or PNG, that can be used in applications to visually represent the company. It is optional and may not be present for all companies, providing a visual context when available.
    */
   image?: string | null | undefined;
   /**
-   * A brief overview or summary of the company's business activities and offerings. This text provides context about the company's operations and is useful for understanding its role within the CRM. It is optional and may vary in length and detail.
+   * This property contains a textual description of the company, offering an overview of its business activities, mission, or other relevant information. The description is presented as a string and can vary in length and detail, providing context to help users understand the company's core focus areas. It is an optional field in the response, allowing developers to include it based on their specific needs when retrieving company data from the CRM system.
    */
   description?: string | null | undefined;
   /**
-   * The company's Value Added Tax (VAT) identification number, formatted as a string. This number is used for tax purposes and is essential for financial transactions and compliance. It is optional and may not be available for all companies.
+   * The VAT (Value Added Tax) number assigned to the company, primarily used for tax identification within the European Union. This alphanumeric identifier is essential for conducting financial transactions and ensuring compliance with EU tax regulations. It is an optional field and may not be present for companies operating outside the EU.
    */
   vatNumber?: string | null | undefined;
+  currency?: Currency | null | undefined;
   /**
-   * The currency code associated with the company's financial transactions, following the ISO 4217 standard. This string indicates the currency used for billing and accounting purposes, helping to standardize financial data across the CRM. It is optional and may not be specified for all companies.
-   */
-  currency?: ListCompaniesResponseCurrency | null | undefined;
-  /**
-   * The current operational status of the company within the CRM, represented as a string. This status helps users understand whether the company is active, inactive, or in another state, aiding in filtering and categorizing company data. It is optional and may vary depending on the company's lifecycle stage.
+   * The current operational status of the company in the CRM system. This field indicates whether the company is active, inactive, or in another state, affecting how the company is managed and displayed in the system. It is optional and can influence business processes and reporting.
    */
   status?: string | null | undefined;
   /**
-   * The company's fax number, formatted as a string. This property may be empty if the company does not have a fax number on record. It is useful for applications that need to send documents via fax or verify contact information.
+   * The fax number of the company, provided as a string. This field contains the company's fax contact information, which can be used for sending documents via fax. It is an optional field and may not be present for all companies, depending on whether they have a fax number listed in the CRM system.
    */
   fax?: string | null | undefined;
   /**
-   * The annual revenue of the company, represented as a string. This value provides insight into the company's financial size and performance, which can be crucial for market analysis and business strategy development.
+   * The annual revenue of the company, represented as a string. This field indicates the total income generated by the company over the past year, providing insight into the company's financial size and market presence. It is optional and may not be available for all companies.
    */
   annualRevenue?: string | null | undefined;
   /**
-   * The total number of employees working at the company, expressed as a string. This information helps in understanding the company's scale and operational capacity, which can be important for partnership or investment considerations.
+   * This property contains the number of employees working at the company, represented as a string. It provides an estimate of the company's workforce size, which can help gauge the scale of its operations. As this field is optional, it may not be available for every company in the response.
    */
   numberOfEmployees?: string | null | undefined;
   /**
-   * The industry sector in which the company operates, provided as a string. This categorization helps in identifying the company's market segment and can be used for filtering or grouping companies in reports and analyses.
+   * The industry in which the company operates, represented as a string. This field categorizes the type of business activities the company is involved in, helping to identify its market sector. It is optional and may vary in specificity.
    */
   industry?: string | null | undefined;
   /**
-   * The type of ownership of the company, such as private, public, or government-owned, represented as a string. This information is useful for understanding the company's governance structure and potential regulatory requirements.
+   * Specifies the type of ownership of the company, such as private or public, providing insight into its governance structure. This string field is optional and may not be present for all companies, reflecting the company's ownership status as recorded in the CRM system.
    */
   ownership?: string | null | undefined;
   /**
-   * The sales tax number uniquely identifies a company for tax purposes within the CRM system. It is typically a string of alphanumeric characters and may vary in format depending on the country or region. This property is optional and may not be present for all companies.
+   * This property contains the sales tax number, an alphanumeric string that uniquely identifies a company for tax purposes within the CRM system. It is crucial for tax reporting and compliance, ensuring the company is recognized by tax authorities. This field is optional and may not be present for all companies.
    */
   salesTaxNumber?: string | null | undefined;
   /**
-   * The payee number is a unique identifier for a payee, used primarily for tax-related transactions. It is a string value that helps in distinguishing different payees within the CRM. This field is optional and may not be available for every company record.
+   * This property holds the payee number, a unique string identifier for a payee used primarily in tax-related transactions. It helps distinguish payees within the CRM, facilitating accurate financial reporting and processing. This field is optional and may not be available for every company entry.
    */
   payeeNumber?: string | null | undefined;
   /**
-   * This field contains either the Australian Business Number (ABN) or the Tax File Number (TFN), essential for businesses and individuals operating in Australia. It is a string that follows specific national formats, aiding in tax identification and compliance. This property is optional and may not be included for all companies.
+   * This field contains either the Australian Business Number (ABN) or the Tax File Number (TFN), both essential for business operations and tax purposes in Australia. The ABN is used for business identification, while the TFN is necessary for individual tax reporting. The format is a string, and it is optional, depending on the company's registration status.
    */
   abnOrTfn?: string | null | undefined;
   /**
-   * The ABN Branch number, also known as a GST Branch number, is used when a segment of a business needs to report GST separately from its main entity. It is a string that follows a specific format, relevant for businesses with multiple branches. This field is optional and may not be present for all companies.
+   * This property represents the ABN Branch number, used when a segment of the business needs to account for GST separately from the main entity. It is a string that helps organize financial records for different business branches, ensuring compliance with tax regulations. This field is optional and applicable only if the business has such a structure.
    */
   abnBranch?: string | null | undefined;
   /**
-   * The Australian Company Number (ACN) is a nine-digit identifier for companies registered in Australia, formatted as three groups of three digits (e.g., XXX XXX XXX). It serves as a unique identifier for legal and official purposes within the CRM. This property is optional and may not be available for all companies.
+   * This field contains the Australian Company Number (ACN), a nine-digit identifier for companies registered in Australia, formatted as XXX XXX XXX. It is crucial for legal and official documentation, ensuring the company is recognized by regulatory bodies. This field is optional and specific to Australian companies.
    */
   acn?: string | null | undefined;
   /**
-   * The first name of the person associated with the company record. This field is optional and may be empty if not applicable. It is typically used for contacts or representatives of the company.
+   * This property contains the first name of a person associated with a company record in the CRM system. It is a string value that can be used to identify or personalize communications with key contacts within the company. Although optional, it complements the 'last_name' field to form a complete name, aiding in the retrieval and display of contact information.
    */
   firstName?: string | null | undefined;
   /**
-   * The last name of the person associated with the company record. Like the first name, this field is optional and may be empty if not applicable. It is used to identify contacts or representatives within the company.
+   * The last name of the individual associated with the company record in the CRM system. This field is optional and complements the 'first_name' to provide a full name for individuals linked to the company, aiding in identification and communication. The value is stored as a string and is useful for applications that need to display or process personal information related to company contacts.
    */
   lastName?: string | null | undefined;
   /**
-   * A unique identifier representing the parent company of the current company record. This field is optional and may be empty if the company does not have a parent entity. It is used to establish hierarchical relationships between companies in the CRM.
+   * This property contains a unique string identifier for the parent company, if one exists. It is used to establish and represent hierarchical relationships within the CRM, allowing developers to organize and manage subsidiary companies under a parent entity. This field is optional and may be absent if the company does not have a parent company associated with it.
    */
   parentId?: string | null | undefined;
   /**
-   * An array containing details of the bank accounts associated with the company. Each entry in the array represents a separate bank account, providing a structured way to access financial information related to the company.
+   * This property contains an array of objects, each representing a bank account associated with the company. The array provides detailed financial information necessary for transactions or audits, such as account numbers, bank names, and account types. This field is optional and may be empty if the company has no linked bank accounts, reflecting the company's financial setup within the CRM system.
    */
   bankAccounts?: Array<ListCompaniesResponseBankAccounts> | undefined;
   /**
-   * An array containing details of the company's websites. Each entry in the array represents a distinct website associated with the company, providing a comprehensive view of the company's online presence. This property is optional and may be empty if no websites are associated with the company.
+   * This property contains an array of objects, each representing a website associated with the company. Each object includes details such as the website's URL and its type (e.g., official site, blog, etc.). This information is crucial for understanding the company's online presence and can be used to display or analyze the company's digital footprint.
    */
   websites?: Array<ListCompaniesResponseWebsites> | undefined;
   /**
-   * An array of address objects associated with the company. Each object within the array contains detailed information about a specific location related to the company, such as headquarters or branch offices. This property is optional and may be empty if no addresses are recorded.
+   * This property contains an array of address objects associated with the company. Each object within the array provides detailed information about a specific location, such as a physical office or mailing address. This data is crucial for applications that need to display or process company location information as part of the CRM data retrieval operation.
    */
   addresses?: Array<ListCompaniesResponseAddresses> | undefined;
   /**
-   * An array of social media links associated with the company. Each entry in the array represents a different social media platform, providing URLs to the company's profiles. This allows users to quickly access the company's social media presence from the CRM.
+   * This property contains an array of social media links associated with the company. Each element in the array represents a different social media platform and includes URLs or identifiers for the company's profiles on those platforms. This field is optional and may be empty if the company has not provided any social media links. It helps developers access and display the company's social media presence as part of the CRM data.
    */
   socialLinks?: Array<ListCompaniesResponseSocialLinks> | undefined;
   /**
-   * An array containing the phone numbers associated with the company. Each entry in the array represents a distinct phone number, which may include various types such as office, mobile, or fax numbers. This array is optional and may be empty if no phone numbers are available for the company.
+   * An array of phone numbers associated with the company. Each element in the array represents a distinct contact number, allowing multiple contact points to be stored and accessed within the company's profile.
    */
   phoneNumbers?: Array<ListCompaniesResponsePhoneNumbers> | undefined;
   /**
-   * An array containing email objects associated with the company. Each object within the array represents a distinct email address entry, providing detailed information about the company's email contacts. This array can be empty if no email addresses are associated with the company.
+   * This property contains an array of email objects linked to the company. Each object in the array provides detailed information about a specific email address, including its unique identifier, the email itself, and its type. This array is optional and may be empty if the company has no associated email addresses.
    */
   emails?: Array<ListCompaniesResponseEmails> | undefined;
   /**
-   * An object that defines the type of data row returned in the response. This object may include metadata or additional attributes that describe the nature of the data, aiding in the interpretation of the company's information within the CRM.
+   * This object represents the type of data row returned in the response, potentially containing additional metadata or attributes. It aids in interpreting and processing the company's data by defining the nature of the row.
    */
   rowType?: ListCompaniesResponseCompanyRowType | undefined;
   /**
-   * An array containing custom fields associated with the company. Each entry in this array represents a specific custom attribute that has been defined to store additional information about the company. This allows for flexible data storage beyond standard fields.
+   * An array that contains custom fields associated with the company. These fields allow for storing additional user-defined data alongside standard company information, offering flexibility in data management.
    */
   customFields?: Array<ListCompaniesResponseCustomFields> | undefined;
   /**
-   * An array containing tags associated with the company, which are used for categorization or filtering purposes. Each tag helps in identifying or grouping companies based on specific criteria or characteristics. This field is optional and can be empty if no tags are assigned.
+   * An array of strings representing tags associated with the company. These tags serve as labels or categories to help organize and filter companies within the CRM system. They provide a flexible way to group companies based on various criteria, enhancing searchability and management.
    */
   tags?: Array<string> | null | undefined;
   /**
-   * Indicates whether the company's data is read-only, meaning it cannot be modified through the API. A value of 'true' signifies that the company is locked for editing, while 'false' allows for potential updates. This is useful for understanding data access permissions.
+   * This property indicates whether the company record is read-only within the CRM system. A value of 'true' means that the company's data cannot be modified through the API, ensuring data integrity for certain records that require protection from changes. This is particularly relevant for GET operations where data retrieval is the focus, and it helps developers understand which records are immutable.
    */
   readOnly?: boolean | null | undefined;
   /**
-   * The timestamp of the most recent activity associated with the company, formatted as an ISO 8601 string. This helps in tracking the last interaction or update made to the company's record within the CRM. Useful for determining engagement recency and activity trends.
+   * This property contains the date and time of the most recent interaction or update related to the company within the CRM. It is formatted as an ISO 8601 string, ensuring a standardized representation of the timestamp. This information is crucial for tracking engagement and activity levels, helping developers monitor when the last activity occurred.
    */
   lastActivityAt?: Date | null | undefined;
   /**
-   * Indicates whether the company record is marked as deleted within the CRM system. A value of 'true' means the company is considered deleted and may not be active in current operations. This helps in filtering out inactive or obsolete company records from the dataset.
+   * This property indicates whether the company record has been marked as deleted in the CRM system. A value of 'true' means the company is no longer active or visible in standard queries, while 'false' indicates the company is still active. This flag is essential for managing the lifecycle of company records and understanding their current status.
    */
   deleted?: boolean | undefined;
   /**
-   * A formal salutation or title associated with a contact person at the company, such as 'Mr.', 'Mrs.', or 'Dr.'. This is used for personalization in communications and is optional depending on the company's contact data.
+   * This property provides a formal greeting or title associated with a contact person at the company, such as 'Mr', 'Mrs', or 'Dr'. It is used to personalize communications and ensure proper etiquette in interactions, enhancing the professionalism of correspondence.
    */
   salutation?: string | null | undefined;
   /**
-   * The birth date of a contact person at the company, formatted as a string in YYYY-MM-DD format. This information can be used for personalizing interactions or for demographic analysis, if applicable.
+   * This property captures the date of birth of a contact person associated with the company. It is formatted as a string in ISO 8601 format, allowing for consistent representation. This information can be used for personalizing interactions or for compliance purposes.
    */
   birthday?: RFCDate | null | undefined;
   /**
-   * An object containing any custom mappings configured for the company resource. These mappings allow for additional, user-defined fields or data structures that extend the standard company data model, providing flexibility for specific business needs.
+   * This property contains any additional mappings configured for the company resource. It holds custom fields or relationships that extend the standard schema, enabling tailored data integration and retrieval based on specific business needs. This flexibility allows developers to adapt the CRM data structure to unique requirements.
    */
-  customMappings?: CustomMappings | null | undefined;
+  customMappings?: ListCompaniesResponseCustomMappings | null | undefined;
   /**
-   * The unique identifier of the user who last updated the company record. This is typically a user ID string, which helps track changes and maintain an audit trail within the CRM system. Useful for understanding who made the most recent modifications to the company data.
+   * The 'updated_by' field contains the unique identifier of the user who last modified the company record. This string value helps track changes by identifying the user responsible for the most recent update, providing accountability and traceability within the CRM system.
    */
   updatedBy?: string | null | undefined;
   /**
-   * The unique identifier of the user who initially created the company record. This string value is crucial for auditing purposes, allowing developers to trace back to the origin of the data entry within the CRM.
+   * The 'created_by' field holds the unique identifier of the user who initially created the company record. This string value provides insight into the origin of the data, allowing developers to trace back to the user responsible for the initial entry of the company information.
    */
   createdBy?: string | null | undefined;
   /**
-   * The timestamp indicating when the company record was last updated. This string is formatted in ISO 8601, providing precise date and time information, which is essential for synchronization and data consistency checks.
+   * The 'updated_at' field indicates the date and time when the company record was last modified, formatted as an ISO 8601 string. This timestamp is crucial for understanding the recency of the data, helping developers determine how current the information is within the CRM system.
    */
   updatedAt?: Date | null | undefined;
   /**
-   * The timestamp representing when the company record was originally created. Provided in ISO 8601 format, this string helps in tracking the age of the record and is vital for historical data analysis.
+   * The 'created_at' field specifies the date and time when the company record was initially created, formatted as an ISO 8601 string. This timestamp helps determine the age of the record, providing context on how long the company information has been stored in the CRM system.
    */
   createdAt?: Date | null | undefined;
   /**
-   * An array that holds service-specific custom data or structured modifications. This property allows developers to include additional, non-standard information in requests, facilitating advanced integrations and custom workflows.
+   * The 'pass_through' property is an array that allows for the inclusion of service-specific custom data or structured modifications in the request body. This feature is particularly useful for extending the API's functionality by enabling the transmission of additional information when retrieving company data, thereby enhancing customization and flexibility.
    */
   passThrough?: Array<ListCompaniesResponsePassThrough> | undefined;
 };
 
 /**
- * This object contains cursors used for paginating through the list of companies. It includes pointers to navigate to the previous or next set of results, facilitating seamless data retrieval across multiple API requests.
+ * This object contains cursor information used for paginating through the list of companies. It assists in navigating between different pages of results, ensuring efficient data retrieval and management in applications dealing with large datasets.
  */
 export type Cursors = {
   /**
-   * This string represents the cursor needed to access the previous page of results in a paginated response. It is used in subsequent API calls to retrieve earlier data entries, ensuring continuity in data navigation.
+   * A string cursor that facilitates navigation to the previous page of company results. This is essential for implementing backward pagination in applications, allowing users to review earlier pages of data efficiently.
    */
   previous?: string | null | undefined;
   /**
-   * This property contains the cursor string used to identify the current page of results in the API response. It is a navigational tool that helps in paginating through the list of companies, allowing developers to retrieve the current set of data efficiently. The format is a string that uniquely represents the current position in the dataset.
+   * The 'meta.cursors.current' property contains a string that uniquely identifies the current page of results in the API response. This cursor is essential for navigating through paginated company data, allowing developers to efficiently retrieve the current set of records. The format is a string that serves as a pointer to the current position within the dataset.
    */
   current?: string | null | undefined;
   /**
-   * This property holds the cursor string for the next page of results, enabling seamless pagination through the API. It allows developers to fetch the subsequent set of company data by using this cursor in their next API call. The value is a string that acts as a pointer to the next page in the dataset.
+   * The 'meta.cursors.next' property holds a string that acts as a unique identifier for the next page of results in the API response. This cursor facilitates seamless pagination by enabling developers to fetch the subsequent set of company records. The format is a string that indicates the next position in the dataset sequence.
    */
   next?: string | null | undefined;
 };
 
 /**
- * This object holds metadata about the API response, providing additional context and information about the data returned. It typically includes details like pagination cursors and item counts, which are essential for navigating through large datasets efficiently.
+ * This object holds metadata about the API response, offering additional context and information about the data returned. It helps developers understand the structure of the response and any supplementary parameters included, facilitating better integration and data handling within applications.
  */
 export type Meta = {
   /**
-   * This integer indicates the number of company records included in the current page of the response. It helps developers understand the volume of data retrieved in a single API call, especially when dealing with paginated results.
+   * This integer indicates the number of company records included in the current API response. It is useful for understanding the volume of data retrieved, aiding in pagination and efficient data display within applications.
    */
   itemsOnPage?: number | undefined;
   /**
-   * This object contains cursors used for paginating through the list of companies. It includes pointers to navigate to the previous or next set of results, facilitating seamless data retrieval across multiple API requests.
+   * This object contains cursor information used for paginating through the list of companies. It assists in navigating between different pages of results, ensuring efficient data retrieval and management in applications dealing with large datasets.
    */
   cursors?: Cursors | undefined;
 };
 
 /**
- * This object contains navigational links that facilitate moving between pages of results in the API response. It includes links to the current and previous pages, providing a structured way to access different parts of the dataset. The object format ensures easy integration with hypermedia-driven applications.
+ * The 'links' object contains navigational URLs that assist in moving between pages of results within the API response. It includes properties for links to the previous and current pages, which are crucial for managing the retrieval of paginated company data. The structure is an object with string URL properties for different page links.
  */
 export type Links = {
   /**
-   * This property provides the URL link to navigate to the previous page of results in the API response. It is used in pagination to access earlier data sets, ensuring developers can traverse backward through the list of companies. The format is a string URL pointing to the previous page.
+   * The 'links.previous' property provides a string URL that directs to the previous page of results in the API response. This URL is part of the pagination mechanism, allowing developers to access earlier sets of company records. It is formatted as a string URL pointing to the previous page.
    */
   previous?: string | null | undefined;
   /**
-   * This property contains the URL link to the current page of results, allowing developers to refresh or re-access the current dataset in the API response. It is part of the pagination links and is formatted as a string URL that points to the current page.
+   * The 'links.current' property offers a string URL that points to the current page of results, helping developers verify their current position within the paginated data. This URL is crucial for maintaining context while navigating through the API's response pages. It is formatted as a string URL that indicates the current page.
    */
   current?: string | undefined;
   /**
-   * This property contains the URL link to navigate to the next page of results in the API response. It is formatted as a string URL and is used in conjunction with pagination to access subsequent pages of company data. If there are no additional pages, this property may be null or omitted.
+   * The 'links.next' property provides the URL for accessing the next page of results in the API response. This string URL is crucial for implementing pagination, allowing developers to seamlessly fetch additional company data when the initial response contains more entries than can be displayed at once. It appears in the response only when there are more pages of data to retrieve, ensuring efficient data navigation.
    */
   next?: string | null | undefined;
 };
@@ -1027,59 +636,38 @@ export type Links = {
  */
 export type ListCompaniesResponse = {
   /**
-   * The HTTP response status code indicating the result of the API request. This integer value helps determine if the request was successful (e.g., 200 for success) or if there was an error (e.g., 404 for not found). It is crucial for error handling and debugging purposes.
+   * This property contains the HTTP response status code as an integer, indicating the result of the GET request to the '/crm/companies' endpoint. It helps developers understand whether the request was successful (e.g., 200) or encountered an error (e.g., 404 for not found). The status code is crucial for error handling and debugging API interactions.
    */
   statusCode: number;
   /**
-   * A textual representation of the HTTP response status, such as 'OK' for a successful request or 'Not Found' for an error. This string provides a human-readable explanation of the status code, aiding in quick understanding of the response outcome.
+   * This property provides a human-readable string that describes the HTTP response status. It complements the status code by offering a textual explanation, such as 'OK' for a successful request or 'Not Found' for a missing resource, aiding developers in quickly understanding the outcome of their API call.
    */
   status: string;
   /**
-   * The unique Apideck identifier for the service provider from which the data is being fetched. This string helps in identifying the source of the data within the unified API ecosystem, ensuring clarity in multi-service environments.
+   * This property identifies the unique Apideck service provider handling the request as a string. It indicates which third-party service or CRM system is accessed through the unified API, helping developers trace the source of the data and ensuring proper integration with the correct service.
    */
   service: string;
   /**
-   * The name of the unified API resource being accessed, such as 'companies'. This string indicates the specific type of data returned by the API, helping developers understand the context of the response data.
+   * This property specifies the name of the unified API resource being accessed, represented as a string. It indicates that the resource in question is 'companies', aligning with the endpoint '/crm/companies', and helps developers understand the type of data being retrieved from the API.
    */
   resource: string;
   /**
-   * The specific operation performed by the API, in this case, 'companiesAll'. This string helps in identifying the action taken by the API, which is crucial for logging and tracking API usage.
+   * This property describes the specific operation performed by the API call as a string. It details the action taken, such as 'fetch' or 'retrieve', and is essential for logging and debugging purposes to track the intended function of the API request.
    */
   operation: string;
   /**
-   * An array containing the list of companies retrieved from the CRM system. Each element in the array represents a company object with detailed information such as ID, name, interaction count, and owner ID. This array is the primary container for the company data returned by the API.
+   * This property contains an array of company objects retrieved from the CRM system. Each object within the array represents a company and includes detailed information such as the company's unique identifier (ID), name, and interaction count. This array serves as the main component of the response, enabling developers to access and manipulate the list of companies efficiently.
    */
   data: Array<Data>;
   /**
-   * This object holds metadata about the API response, providing additional context and information about the data returned. It typically includes details like pagination cursors and item counts, which are essential for navigating through large datasets efficiently.
+   * This object holds metadata about the API response, offering additional context and information about the data returned. It helps developers understand the structure of the response and any supplementary parameters included, facilitating better integration and data handling within applications.
    */
   meta?: Meta | undefined;
   /**
-   * This object contains navigational links that facilitate moving between pages of results in the API response. It includes links to the current and previous pages, providing a structured way to access different parts of the dataset. The object format ensures easy integration with hypermedia-driven applications.
+   * The 'links' object contains navigational URLs that assist in moving between pages of results within the API response. It includes properties for links to the previous and current pages, which are crucial for managing the retrieval of paginated company data. The structure is an object with string URL properties for different page links.
    */
   links?: Links | undefined;
 };
-
-/** @internal */
-export const ListCompaniesResponseCurrency$inboundSchema: z.ZodNativeEnum<
-  typeof ListCompaniesResponseCurrency
-> = z.nativeEnum(ListCompaniesResponseCurrency);
-
-/** @internal */
-export const ListCompaniesResponseCurrency$outboundSchema: z.ZodNativeEnum<
-  typeof ListCompaniesResponseCurrency
-> = ListCompaniesResponseCurrency$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListCompaniesResponseCurrency$ {
-  /** @deprecated use `ListCompaniesResponseCurrency$inboundSchema` instead. */
-  export const inboundSchema = ListCompaniesResponseCurrency$inboundSchema;
-  /** @deprecated use `ListCompaniesResponseCurrency$outboundSchema` instead. */
-  export const outboundSchema = ListCompaniesResponseCurrency$outboundSchema;
-}
 
 /** @internal */
 export const ListCompaniesResponseAccountType$inboundSchema: z.ZodNativeEnum<
@@ -1103,28 +691,6 @@ export namespace ListCompaniesResponseAccountType$ {
 }
 
 /** @internal */
-export const ListCompaniesResponseDataCurrency$inboundSchema: z.ZodNativeEnum<
-  typeof ListCompaniesResponseDataCurrency
-> = z.nativeEnum(ListCompaniesResponseDataCurrency);
-
-/** @internal */
-export const ListCompaniesResponseDataCurrency$outboundSchema: z.ZodNativeEnum<
-  typeof ListCompaniesResponseDataCurrency
-> = ListCompaniesResponseDataCurrency$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListCompaniesResponseDataCurrency$ {
-  /** @deprecated use `ListCompaniesResponseDataCurrency$inboundSchema` instead. */
-  export const inboundSchema = ListCompaniesResponseDataCurrency$inboundSchema;
-  /** @deprecated use `ListCompaniesResponseDataCurrency$outboundSchema` instead. */
-  export const outboundSchema =
-    ListCompaniesResponseDataCurrency$outboundSchema;
-}
-
-/** @internal */
 export const ListCompaniesResponseBankAccounts$inboundSchema: z.ZodType<
   ListCompaniesResponseBankAccounts,
   z.ZodTypeDef,
@@ -1141,8 +707,7 @@ export const ListCompaniesResponseBankAccounts$inboundSchema: z.ZodType<
   bsb_number: z.nullable(z.string()).optional(),
   branch_identifier: z.nullable(z.string()).optional(),
   bank_code: z.nullable(z.string()).optional(),
-  currency: z.nullable(ListCompaniesResponseDataCurrency$inboundSchema)
-    .optional(),
+  currency: z.nullable(Currency$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     "bank_name": "bankName",
@@ -1188,8 +753,7 @@ export const ListCompaniesResponseBankAccounts$outboundSchema: z.ZodType<
   bsbNumber: z.nullable(z.string()).optional(),
   branchIdentifier: z.nullable(z.string()).optional(),
   bankCode: z.nullable(z.string()).optional(),
-  currency: z.nullable(ListCompaniesResponseDataCurrency$outboundSchema)
-    .optional(),
+  currency: z.nullable(Currency$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     bankName: "bank_name",
@@ -1238,24 +802,27 @@ export function listCompaniesResponseBankAccountsFromJSON(
 }
 
 /** @internal */
-export const ListCompaniesResponseType$inboundSchema: z.ZodNativeEnum<
-  typeof ListCompaniesResponseType
-> = z.nativeEnum(ListCompaniesResponseType);
+export const ListCompaniesResponseDataWebsitesType$inboundSchema:
+  z.ZodNativeEnum<typeof ListCompaniesResponseDataWebsitesType> = z.nativeEnum(
+    ListCompaniesResponseDataWebsitesType,
+  );
 
 /** @internal */
-export const ListCompaniesResponseType$outboundSchema: z.ZodNativeEnum<
-  typeof ListCompaniesResponseType
-> = ListCompaniesResponseType$inboundSchema;
+export const ListCompaniesResponseDataWebsitesType$outboundSchema:
+  z.ZodNativeEnum<typeof ListCompaniesResponseDataWebsitesType> =
+    ListCompaniesResponseDataWebsitesType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ListCompaniesResponseType$ {
-  /** @deprecated use `ListCompaniesResponseType$inboundSchema` instead. */
-  export const inboundSchema = ListCompaniesResponseType$inboundSchema;
-  /** @deprecated use `ListCompaniesResponseType$outboundSchema` instead. */
-  export const outboundSchema = ListCompaniesResponseType$outboundSchema;
+export namespace ListCompaniesResponseDataWebsitesType$ {
+  /** @deprecated use `ListCompaniesResponseDataWebsitesType$inboundSchema` instead. */
+  export const inboundSchema =
+    ListCompaniesResponseDataWebsitesType$inboundSchema;
+  /** @deprecated use `ListCompaniesResponseDataWebsitesType$outboundSchema` instead. */
+  export const outboundSchema =
+    ListCompaniesResponseDataWebsitesType$outboundSchema;
 }
 
 /** @internal */
@@ -1266,7 +833,8 @@ export const ListCompaniesResponseWebsites$inboundSchema: z.ZodType<
 > = z.object({
   id: z.nullable(z.string()).optional(),
   url: z.string(),
-  type: z.nullable(ListCompaniesResponseType$inboundSchema).optional(),
+  type: z.nullable(ListCompaniesResponseDataWebsitesType$inboundSchema)
+    .optional(),
 });
 
 /** @internal */
@@ -1284,7 +852,8 @@ export const ListCompaniesResponseWebsites$outboundSchema: z.ZodType<
 > = z.object({
   id: z.nullable(z.string()).optional(),
   url: z.string(),
-  type: z.nullable(ListCompaniesResponseType$outboundSchema).optional(),
+  type: z.nullable(ListCompaniesResponseDataWebsitesType$outboundSchema)
+    .optional(),
 });
 
 /**
@@ -1321,24 +890,24 @@ export function listCompaniesResponseWebsitesFromJSON(
 }
 
 /** @internal */
-export const ListCompaniesResponseDataType$inboundSchema: z.ZodNativeEnum<
-  typeof ListCompaniesResponseDataType
-> = z.nativeEnum(ListCompaniesResponseDataType);
+export const ListCompaniesResponseType$inboundSchema: z.ZodNativeEnum<
+  typeof ListCompaniesResponseType
+> = z.nativeEnum(ListCompaniesResponseType);
 
 /** @internal */
-export const ListCompaniesResponseDataType$outboundSchema: z.ZodNativeEnum<
-  typeof ListCompaniesResponseDataType
-> = ListCompaniesResponseDataType$inboundSchema;
+export const ListCompaniesResponseType$outboundSchema: z.ZodNativeEnum<
+  typeof ListCompaniesResponseType
+> = ListCompaniesResponseType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ListCompaniesResponseDataType$ {
-  /** @deprecated use `ListCompaniesResponseDataType$inboundSchema` instead. */
-  export const inboundSchema = ListCompaniesResponseDataType$inboundSchema;
-  /** @deprecated use `ListCompaniesResponseDataType$outboundSchema` instead. */
-  export const outboundSchema = ListCompaniesResponseDataType$outboundSchema;
+export namespace ListCompaniesResponseType$ {
+  /** @deprecated use `ListCompaniesResponseType$inboundSchema` instead. */
+  export const inboundSchema = ListCompaniesResponseType$inboundSchema;
+  /** @deprecated use `ListCompaniesResponseType$outboundSchema` instead. */
+  export const outboundSchema = ListCompaniesResponseType$outboundSchema;
 }
 
 /** @internal */
@@ -1348,7 +917,7 @@ export const ListCompaniesResponseAddresses$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.nullable(z.string()).optional(),
-  type: z.nullable(ListCompaniesResponseDataType$inboundSchema).optional(),
+  type: z.nullable(ListCompaniesResponseType$inboundSchema).optional(),
   string: z.nullable(z.string()).optional(),
   name: z.nullable(z.string()).optional(),
   line1: z.nullable(z.string()).optional(),
@@ -1416,7 +985,7 @@ export const ListCompaniesResponseAddresses$outboundSchema: z.ZodType<
   ListCompaniesResponseAddresses
 > = z.object({
   id: z.nullable(z.string()).optional(),
-  type: z.nullable(ListCompaniesResponseDataType$outboundSchema).optional(),
+  type: z.nullable(ListCompaniesResponseType$outboundSchema).optional(),
   string: z.nullable(z.string()).optional(),
   name: z.nullable(z.string()).optional(),
   line1: z.nullable(z.string()).optional(),
@@ -1545,26 +1114,24 @@ export function listCompaniesResponseSocialLinksFromJSON(
 }
 
 /** @internal */
-export const ListCompaniesResponseDataPhoneNumbersType$inboundSchema:
-  z.ZodNativeEnum<typeof ListCompaniesResponseDataPhoneNumbersType> = z
-    .nativeEnum(ListCompaniesResponseDataPhoneNumbersType);
+export const ListCompaniesResponseDataType$inboundSchema: z.ZodNativeEnum<
+  typeof ListCompaniesResponseDataType
+> = z.nativeEnum(ListCompaniesResponseDataType);
 
 /** @internal */
-export const ListCompaniesResponseDataPhoneNumbersType$outboundSchema:
-  z.ZodNativeEnum<typeof ListCompaniesResponseDataPhoneNumbersType> =
-    ListCompaniesResponseDataPhoneNumbersType$inboundSchema;
+export const ListCompaniesResponseDataType$outboundSchema: z.ZodNativeEnum<
+  typeof ListCompaniesResponseDataType
+> = ListCompaniesResponseDataType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ListCompaniesResponseDataPhoneNumbersType$ {
-  /** @deprecated use `ListCompaniesResponseDataPhoneNumbersType$inboundSchema` instead. */
-  export const inboundSchema =
-    ListCompaniesResponseDataPhoneNumbersType$inboundSchema;
-  /** @deprecated use `ListCompaniesResponseDataPhoneNumbersType$outboundSchema` instead. */
-  export const outboundSchema =
-    ListCompaniesResponseDataPhoneNumbersType$outboundSchema;
+export namespace ListCompaniesResponseDataType$ {
+  /** @deprecated use `ListCompaniesResponseDataType$inboundSchema` instead. */
+  export const inboundSchema = ListCompaniesResponseDataType$inboundSchema;
+  /** @deprecated use `ListCompaniesResponseDataType$outboundSchema` instead. */
+  export const outboundSchema = ListCompaniesResponseDataType$outboundSchema;
 }
 
 /** @internal */
@@ -1578,8 +1145,7 @@ export const ListCompaniesResponsePhoneNumbers$inboundSchema: z.ZodType<
   area_code: z.nullable(z.string()).optional(),
   number: z.string(),
   extension: z.nullable(z.string()).optional(),
-  type: z.nullable(ListCompaniesResponseDataPhoneNumbersType$inboundSchema)
-    .optional(),
+  type: z.nullable(ListCompaniesResponseDataType$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     "country_code": "countryCode",
@@ -1608,8 +1174,7 @@ export const ListCompaniesResponsePhoneNumbers$outboundSchema: z.ZodType<
   areaCode: z.nullable(z.string()).optional(),
   number: z.string(),
   extension: z.nullable(z.string()).optional(),
-  type: z.nullable(ListCompaniesResponseDataPhoneNumbersType$outboundSchema)
-    .optional(),
+  type: z.nullable(ListCompaniesResponseDataType$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     countryCode: "country_code",
@@ -2061,46 +1626,55 @@ export function listCompaniesResponseCustomFieldsFromJSON(
 }
 
 /** @internal */
-export const CustomMappings$inboundSchema: z.ZodType<
-  CustomMappings,
+export const ListCompaniesResponseCustomMappings$inboundSchema: z.ZodType<
+  ListCompaniesResponseCustomMappings,
   z.ZodTypeDef,
   unknown
 > = z.object({});
 
 /** @internal */
-export type CustomMappings$Outbound = {};
+export type ListCompaniesResponseCustomMappings$Outbound = {};
 
 /** @internal */
-export const CustomMappings$outboundSchema: z.ZodType<
-  CustomMappings$Outbound,
+export const ListCompaniesResponseCustomMappings$outboundSchema: z.ZodType<
+  ListCompaniesResponseCustomMappings$Outbound,
   z.ZodTypeDef,
-  CustomMappings
+  ListCompaniesResponseCustomMappings
 > = z.object({});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace CustomMappings$ {
-  /** @deprecated use `CustomMappings$inboundSchema` instead. */
-  export const inboundSchema = CustomMappings$inboundSchema;
-  /** @deprecated use `CustomMappings$outboundSchema` instead. */
-  export const outboundSchema = CustomMappings$outboundSchema;
-  /** @deprecated use `CustomMappings$Outbound` instead. */
-  export type Outbound = CustomMappings$Outbound;
+export namespace ListCompaniesResponseCustomMappings$ {
+  /** @deprecated use `ListCompaniesResponseCustomMappings$inboundSchema` instead. */
+  export const inboundSchema =
+    ListCompaniesResponseCustomMappings$inboundSchema;
+  /** @deprecated use `ListCompaniesResponseCustomMappings$outboundSchema` instead. */
+  export const outboundSchema =
+    ListCompaniesResponseCustomMappings$outboundSchema;
+  /** @deprecated use `ListCompaniesResponseCustomMappings$Outbound` instead. */
+  export type Outbound = ListCompaniesResponseCustomMappings$Outbound;
 }
 
-export function customMappingsToJSON(customMappings: CustomMappings): string {
-  return JSON.stringify(CustomMappings$outboundSchema.parse(customMappings));
+export function listCompaniesResponseCustomMappingsToJSON(
+  listCompaniesResponseCustomMappings: ListCompaniesResponseCustomMappings,
+): string {
+  return JSON.stringify(
+    ListCompaniesResponseCustomMappings$outboundSchema.parse(
+      listCompaniesResponseCustomMappings,
+    ),
+  );
 }
 
-export function customMappingsFromJSON(
+export function listCompaniesResponseCustomMappingsFromJSON(
   jsonString: string,
-): SafeParseResult<CustomMappings, SDKValidationError> {
+): SafeParseResult<ListCompaniesResponseCustomMappings, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => CustomMappings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CustomMappings' from JSON`,
+    (x) =>
+      ListCompaniesResponseCustomMappings$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListCompaniesResponseCustomMappings' from JSON`,
   );
 }
 
@@ -2256,8 +1830,7 @@ export const Data$inboundSchema: z.ZodType<Data, z.ZodTypeDef, unknown> = z
     image: z.nullable(z.string()).optional(),
     description: z.nullable(z.string()).optional(),
     vat_number: z.nullable(z.string()).optional(),
-    currency: z.nullable(ListCompaniesResponseCurrency$inboundSchema)
-      .optional(),
+    currency: z.nullable(Currency$inboundSchema).optional(),
     status: z.nullable(z.string()).optional(),
     fax: z.nullable(z.string()).optional(),
     annual_revenue: z.nullable(z.string()).optional(),
@@ -2301,8 +1874,9 @@ export const Data$inboundSchema: z.ZodType<Data, z.ZodTypeDef, unknown> = z
     deleted: z.boolean().optional(),
     salutation: z.nullable(z.string()).optional(),
     birthday: z.nullable(z.string().transform(v => new RFCDate(v))).optional(),
-    custom_mappings: z.nullable(z.lazy(() => CustomMappings$inboundSchema))
-      .optional(),
+    custom_mappings: z.nullable(
+      z.lazy(() => ListCompaniesResponseCustomMappings$inboundSchema),
+    ).optional(),
     updated_by: z.nullable(z.string()).optional(),
     created_by: z.nullable(z.string()).optional(),
     updated_at: z.nullable(
@@ -2382,7 +1956,10 @@ export type Data$Outbound = {
   deleted?: boolean | undefined;
   salutation?: string | null | undefined;
   birthday?: string | null | undefined;
-  custom_mappings?: CustomMappings$Outbound | null | undefined;
+  custom_mappings?:
+    | ListCompaniesResponseCustomMappings$Outbound
+    | null
+    | undefined;
   updated_by?: string | null | undefined;
   created_by?: string | null | undefined;
   updated_at?: string | null | undefined;
@@ -2400,8 +1977,7 @@ export const Data$outboundSchema: z.ZodType<Data$Outbound, z.ZodTypeDef, Data> =
     image: z.nullable(z.string()).optional(),
     description: z.nullable(z.string()).optional(),
     vatNumber: z.nullable(z.string()).optional(),
-    currency: z.nullable(ListCompaniesResponseCurrency$outboundSchema)
-      .optional(),
+    currency: z.nullable(Currency$outboundSchema).optional(),
     status: z.nullable(z.string()).optional(),
     fax: z.nullable(z.string()).optional(),
     annualRevenue: z.nullable(z.string()).optional(),
@@ -2446,8 +2022,9 @@ export const Data$outboundSchema: z.ZodType<Data$Outbound, z.ZodTypeDef, Data> =
     salutation: z.nullable(z.string()).optional(),
     birthday: z.nullable(z.instanceof(RFCDate).transform(v => v.toString()))
       .optional(),
-    customMappings: z.nullable(z.lazy(() => CustomMappings$outboundSchema))
-      .optional(),
+    customMappings: z.nullable(
+      z.lazy(() => ListCompaniesResponseCustomMappings$outboundSchema),
+    ).optional(),
     updatedBy: z.nullable(z.string()).optional(),
     createdBy: z.nullable(z.string()).optional(),
     updatedAt: z.nullable(z.date().transform(v => v.toISOString())).optional(),

@@ -1,6 +1,6 @@
 # ListOpportunitiesResponseValue
 
-The value assigned to a custom field for an opportunity, represented as a string. This property holds specific data that can vary depending on the custom field's purpose, such as a numeric value, text, or other relevant information. It is optional and may be empty if no value is set.
+This property holds the actual data or input stored in the custom field for a specific opportunity. It allows for capturing tailored information that can be utilized within the CRM system, enhancing the opportunity's data profile.
 
 
 ## Supported Types

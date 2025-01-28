@@ -24,18 +24,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Add a new contact to the CRM system.
+ * Adds a new contact to the CRM system.
  *
  * @remarks
- * The `contactsAdd` operation allows developers to add a new contact to the CRM system by sending a POST request to the `/crm/contacts` endpoint. This operation is essential for maintaining up-to-date contact information within the CRM, enabling efficient customer relationship management.
- *
- * Key parameters include:
- * - `x-apideck-consumer-id` (header, required): Specifies the consumer ID for data retrieval or submission.
- * - `x-apideck-app-id` (header, required): Identifies the Unify application in use.
- * - `x-apideck-service-id` (header, optional): Indicates the specific service ID to call, necessary when multiple integrations are active.
- * - `raw` (query, optional): Determines if the raw response should be included, primarily for debugging.
- *
- * Upon successful creation, the operation returns a 201 status code along with a JSON object containing the unique identifier of the newly created contact. This response confirms the successful addition of the contact to the CRM system.
+ * The contactsAdd operation allows developers to add a new contact to the CRM system by sending a POST request to the /crm/contacts endpoint. This operation requires a request body containing the contact details to be added. Key headers include 'x-apideck-consumer-id' and 'x-apideck-app-id' for authentication and authorization. Optionally, 'x-apideck-service-id' can be used to specify a particular service integration. The 'raw' query parameter can be set to true to receive raw data for debugging purposes. Upon successful creation, the API returns a status code of 201 along with the newly created contact's resource ID in a JSON object format. This operation is essential for maintaining up-to-date contact information within the CRM, facilitating effective customer relationship management.
  */
 export async function crmContactsCreate(
   client: ApideckCore,
@@ -82,12 +74,12 @@ export async function crmContactsCreate(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

@@ -9,7 +9,7 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
+ * Defines the attribute by which the list of opportunities should be sorted. This parameter helps in organizing the data based on specific fields such as 'created_date' or 'amount', facilitating easier data analysis and reporting.
  */
 export const OpportunitiesSortBy = {
   CreatedAt: "created_at",
@@ -20,19 +20,19 @@ export const OpportunitiesSortBy = {
   Status: "status",
 } as const;
 /**
- * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
+ * Defines the attribute by which the list of opportunities should be sorted. This parameter helps in organizing the data based on specific fields such as 'created_date' or 'amount', facilitating easier data analysis and reporting.
  */
 export type OpportunitiesSortBy = ClosedEnum<typeof OpportunitiesSortBy>;
 
 /**
- * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
+ * Specifies the sorting order for the opportunities. Use 'asc' for ascending order to start from the lowest value, or 'desc' for descending order to start from the highest value, allowing for flexible data presentation.
  */
 export const OpportunitiesSortDirection = {
   Asc: "asc",
   Desc: "desc",
 } as const;
 /**
- * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
+ * Specifies the sorting order for the opportunities. Use 'asc' for ascending order to start from the lowest value, or 'desc' for descending order to start from the highest value, allowing for flexible data presentation.
  */
 export type OpportunitiesSortDirection = ClosedEnum<
   typeof OpportunitiesSortDirection
@@ -40,11 +40,11 @@ export type OpportunitiesSortDirection = ClosedEnum<
 
 export type OpportunitiesSort = {
   /**
-   * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
+   * Defines the attribute by which the list of opportunities should be sorted. This parameter helps in organizing the data based on specific fields such as 'created_date' or 'amount', facilitating easier data analysis and reporting.
    */
   by?: OpportunitiesSortBy | undefined;
   /**
-   * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
+   * Specifies the sorting order for the opportunities. Use 'asc' for ascending order to start from the lowest value, or 'desc' for descending order to start from the highest value, allowing for flexible data presentation.
    */
   direction?: OpportunitiesSortDirection | undefined;
 };

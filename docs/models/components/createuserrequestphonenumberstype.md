@@ -1,6 +1,6 @@
 # CreateUserRequestPhoneNumbersType
 
-Specifies the category of the phone number, such as 'mobile', 'home', or 'work'. This helps in identifying the context in which the phone number is used, enhancing user contact management within the CRM.
+Specifies the category of the phone number, such as 'home', 'work', or 'mobile'. This helps in identifying the context in which the phone number is used, aiding in better organization and retrieval of contact information. It is optional and can be left blank if the type is not specified.
 
 ## Example Usage
 

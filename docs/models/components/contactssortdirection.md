@@ -1,6 +1,6 @@
 # ContactsSortDirection
 
-Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
+Determines the order of sorting for the contact list. Users can choose between ascending or descending order to better manage the display of contact information.
 
 ## Example Usage
 

@@ -9,149 +9,149 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Contains any custom mappings configured for the note resource. This object may include key-value pairs that map custom fields or identifiers to standard fields within the CRM, allowing for tailored data integration and retrieval.
+ * Contains any custom mappings configured for the note resource. This object provides additional metadata or configuration details that are specific to the note, allowing for customized data handling or display. Useful for applications that need to interpret or transform note data based on custom settings.
  */
 export type ListNotesResponseCustomMappings = {};
 
 export type ListNotesResponseExtendPaths = {
   /**
-   * Specifies the JSONPath string where the value should be applied within the note data structure. This path is crucial for targeting specific fields in the notes for updates or retrievals, ensuring precise data manipulation.
+   * This property contains a JSONPath string that specifies the exact location within the JSON structure where a particular value should be applied. It is crucial for directing the API to the correct data point within the response, ensuring that the value is set accurately according to the specified path.
    */
   path: string;
   /**
-   * Represents the value to be set at the specified JSONPath within the note data. This can be of any data type, allowing flexibility in the type of data that can be inserted or updated in the notes.
+   * This property holds the value that needs to be set at the specified JSONPath. The value can be of any data type, allowing flexibility in what can be inserted or updated within the JSON structure. It is essential for dynamically modifying the data returned by the API based on the specified path.
    */
   value?: any | undefined;
 };
 
 export type ListNotesResponsePassThrough = {
   /**
-   * A string identifier for the service to which the pass_through data should be applied. This ensures that the custom data is correctly routed to the appropriate service during the retrieval of notes.
+   * A unique identifier for the service to which the pass_through data should be applied. This ensures that the correct service processes the custom data or modifications included in the pass_through array.
    */
   serviceId: string;
   /**
-   * An optional string identifier for a specific workflow operation. This is useful when the retrieval of notes involves multiple downstream requests, allowing for precise tracking and application of the pass_through data.
+   * An optional identifier for a specific workflow operation that the pass_through data should target. This is particularly useful when multiple downstream requests are involved, ensuring the correct operation processes the data.
    */
   operationId?: string | undefined;
   /**
-   * An object that allows for direct extension with any properties. This flexible structure supports the inclusion of additional data fields that may be necessary for specific service integrations when retrieving notes.
+   * An object that allows for direct extension with any properties. This flexibility supports the inclusion of additional data fields that may be necessary for specific service integrations or custom operations.
    */
   extendObject?: { [k: string]: any } | undefined;
   /**
-   * An array of objects used for structured data modifications via paths. This property enables precise alterations to the data structure, facilitating advanced customization and integration capabilities when accessing notes.
+   * An array of objects that define structured data modifications via specific paths. This property enables precise alterations to the data structure, facilitating complex integrations and custom data handling within the CRM notes retrieval process.
    */
   extendPaths?: Array<ListNotesResponseExtendPaths> | undefined;
 };
 
 export type ListNotesResponseData = {
   /**
-   * A unique string identifier for each note within the CRM. This ID is used to reference and manage individual notes programmatically, ensuring that each note can be distinctly accessed and manipulated.
+   * The unique identifier assigned to each note within the CRM system. This ID is crucial for distinguishing between different notes and is used in operations that require specific note references, such as updates or deletions.
    */
   id?: string | undefined;
   /**
-   * The title or headline of the note, providing a brief summary or subject of the note's content. This string is useful for quickly identifying the note's purpose or topic within the list of notes.
+   * The title or headline of the note, providing a brief summary or subject of the note's content. This field helps users quickly identify the main topic or purpose of the note within the CRM system.
    */
   title?: string | null | undefined;
   /**
-   * The main body of the note, containing detailed text information. This string holds the full content of the note, which can include descriptions, comments, or any other relevant information captured in the note.
+   * The main body of the note, containing detailed information or commentary. This field holds the core message or information that the note is intended to convey, making it essential for understanding the note's purpose and context.
    */
   content?: string | null | undefined;
   /**
-   * The unique identifier of the user who owns or created the note. This string helps in associating the note with a specific user, facilitating user-specific operations and access control within the CRM.
+   * The identifier of the user who owns or created the note. This field is important for tracking note ownership and managing permissions or access rights within the CRM system.
    */
   ownerId?: string | null | undefined;
   /**
-   * The unique identifier of the contact associated with the note. This ID is a string that links the note to a specific contact within the CRM, allowing developers to easily retrieve or reference contact-related notes. It is optional and may not be present if the note is not linked to a contact.
+   * The unique identifier of the contact associated with this note. This ID helps link the note to a specific contact within the CRM, allowing developers to retrieve or manipulate contact-related notes efficiently. The format is a string, typically a UUID or similar unique string identifier.
    */
   contactId?: string | null | undefined;
   /**
-   * The unique identifier of the company associated with the note. This string ID connects the note to a particular company in the CRM, facilitating the retrieval of company-related notes. It is optional and may be absent if the note is not linked to a company.
+   * The unique identifier of the company associated with this note. This property allows the note to be linked to a specific company, facilitating the organization and retrieval of company-related notes. The value is a string, usually formatted as a UUID or another unique string identifier.
    */
   companyId?: string | null | undefined;
   /**
-   * The unique identifier of the opportunity associated with the note. This string serves as a link between the note and a specific opportunity in the CRM, enabling developers to access notes related to particular opportunities. It is optional and may not be included if the note is not tied to an opportunity.
+   * The unique identifier of the opportunity linked to this note. This ID is crucial for associating the note with a particular sales opportunity, enabling developers to track notes related to specific opportunities. The format is a string, often a UUID or similar unique identifier.
    */
   opportunityId?: string | null | undefined;
   /**
-   * The unique identifier of the lead associated with the note. This ID is a string that connects the note to a specific lead within the CRM, allowing for easy retrieval of lead-related notes. It is optional and may not be present if the note is not linked to a lead.
+   * The unique identifier of the lead associated with this note. This property connects the note to a specific lead, which is essential for managing and retrieving notes related to potential sales leads. The format is a string, typically a UUID or another unique identifier.
    */
   leadId?: string | null | undefined;
   /**
-   * Indicates whether the note is currently active. This boolean value helps developers determine the status of the note, where 'true' signifies an active note and 'false' indicates it is inactive. This property is optional and may not be included in all responses.
+   * Indicates whether the note is currently active. This boolean value helps developers determine if the note should be considered in active operations or if it has been archived or deactivated. The value is either true (active) or false (inactive).
    */
   active?: boolean | null | undefined;
   /**
-   * Contains any custom mappings configured for the note resource. This object may include key-value pairs that map custom fields or identifiers to standard fields within the CRM, allowing for tailored data integration and retrieval.
+   * Contains any custom mappings configured for the note resource. This object provides additional metadata or configuration details that are specific to the note, allowing for customized data handling or display. Useful for applications that need to interpret or transform note data based on custom settings.
    */
   customMappings?: ListNotesResponseCustomMappings | null | undefined;
   /**
-   * The identifier or username of the user who last modified the note. This string helps track changes and maintain an audit trail of user interactions with the note data.
+   * The identifier of the user who last modified the note. This string typically represents a user ID or username, providing traceability for changes made to the note. It helps in auditing and understanding the history of modifications within the CRM system.
    */
   updatedBy?: string | null | undefined;
   /**
-   * The identifier or username of the user who originally created the note. This information is crucial for understanding the origin of the note and attributing it to the correct user within the CRM system.
+   * The identifier of the user who originally created the note. This string usually contains a user ID or username, offering insight into the origin of the note. It is essential for tracking the source of information within the CRM.
    */
   createdBy?: string | null | undefined;
   /**
-   * A timestamp indicating when the note was last updated, formatted in ISO 8601. This allows developers to determine the recency of changes and synchronize data accordingly.
+   * The date and time when the note was last updated, formatted as an ISO 8601 string. This timestamp is crucial for determining the recency of the note's content and for synchronizing data updates across systems.
    */
   updatedAt?: string | null | undefined;
   /**
-   * A timestamp indicating when the note was initially created, formatted in ISO 8601. This provides a historical context for the note, useful for chronological sorting and data analysis.
+   * The date and time when the note was initially created, formatted as an ISO 8601 string. This timestamp provides a historical reference for when the note was added to the CRM, aiding in chronological data analysis and reporting.
    */
   createdAt?: string | null | undefined;
   /**
-   * An array containing service-specific custom data or structured modifications. This property is used to pass additional information when retrieving notes, allowing for enhanced customization and integration with specific services.
+   * An array that holds service-specific custom data or structured modifications. This property is used to pass additional data when fetching notes, allowing for enhanced customization and integration with other services.
    */
   passThrough?: Array<ListNotesResponsePassThrough> | undefined;
 };
 
 /**
- * Provides cursors for navigating between pages of results in the API. This object includes pointers to the next or previous pages, facilitating seamless data retrieval across multiple requests.
+ * This property contains cursor information used for navigating through paginated API responses. It includes pointers to the previous and next pages, facilitating efficient data retrieval and seamless integration of paginated data into applications.
  */
 export type ListNotesResponseCursors = {
   /**
-   * A string representing the cursor used to navigate to the previous page of results in the API response. This is useful for implementing backward pagination in applications that consume the API.
+   * This property contains the cursor string used to navigate to the previous page of results in the API response. It is used for pagination control, allowing developers to efficiently traverse through paginated data sets. The format is a string that represents the position in the data set.
    */
   previous?: string | null | undefined;
   /**
-   * A string that indicates the cursor for the current page of results in the API response. This helps in tracking the current position within the paginated data set.
+   * This property holds the cursor string representing the current page of results in the API response. It is essential for maintaining the current position within a paginated data set, enabling consistent data retrieval. The value is a string indicating the current location in the sequence of results.
    */
   current?: string | null | undefined;
   /**
-   * A string representing the cursor used to navigate to the next page of results in the API response. This is essential for forward pagination, allowing seamless data retrieval across multiple pages.
+   * This property provides the cursor string to navigate to the next page of results in the API response. It facilitates pagination by allowing seamless movement to subsequent data pages. The format is a string that indicates the next position in the data sequence.
    */
   next?: string | null | undefined;
 };
 
 /**
- * Contains metadata about the response, including pagination details and other relevant information. This object helps in understanding the context of the returned data, such as how many items are included and navigation aids for paginated results.
+ * This property provides metadata about the API response, including additional information that may not be directly related to the data payload. It serves as a container for supplementary details that can aid in understanding and processing the response effectively.
  */
 export type ListNotesResponseMeta = {
   /**
-   * Indicates the number of note items returned in the current response page. This integer helps developers understand the volume of data retrieved and manage pagination effectively.
+   * This property indicates the number of items included in the 'data' section of the response. It helps developers understand the volume of data returned in a single API call, which is particularly useful for managing pagination and data processing tasks.
    */
   itemsOnPage?: number | undefined;
   /**
-   * Provides cursors for navigating between pages of results in the API. This object includes pointers to the next or previous pages, facilitating seamless data retrieval across multiple requests.
+   * This property contains cursor information used for navigating through paginated API responses. It includes pointers to the previous and next pages, facilitating efficient data retrieval and seamless integration of paginated data into applications.
    */
   cursors?: ListNotesResponseCursors | undefined;
 };
 
 /**
- * An object containing URLs that facilitate navigation to the previous or next pages of results in the API response. This is crucial for implementing pagination controls in client applications.
+ * This object contains links that facilitate navigation between different pages of results in the API response. It includes URLs that point to the previous and next pages, aiding in efficient data traversal. The structure is an object with properties for each navigational link.
  */
 export type ListNotesResponseLinks = {
   /**
-   * A string URL that directs to the previous page of results in the API response. This link is part of the pagination mechanism, enabling users to easily access earlier data sets.
+   * This property contains the URL link to navigate to the previous page of results in the API response. It is part of the pagination mechanism, allowing backward navigation through the data set. The format is a string URL pointing to the prior page of results.
    */
   previous?: string | null | undefined;
   /**
-   * This property contains the URL link to the current page of results in the API response. It is formatted as a string URL and is used to reload or refresh the current set of notes being viewed. This is particularly useful for maintaining the current view state in applications that paginate through CRM notes.
+   * This property contains the URL link to the current page of notes in the CRM system. It is used to retrieve the current set of notes data when navigating through paginated results. The format is a standard URL string, which can be used in subsequent API requests to access the same page of data.
    */
   current?: string | undefined;
   /**
-   * This property provides the URL link to the next page of results in the API response. It is formatted as a string URL and allows developers to programmatically navigate to the subsequent set of notes. This is essential for implementing pagination in applications that need to handle large volumes of CRM note data efficiently.
+   * This property provides the URL link to the next page of notes in the CRM system. It facilitates navigation to the subsequent set of notes data in a paginated response. The value is a URL string that can be used in API requests to continue fetching additional pages of notes.
    */
   next?: string | null | undefined;
 };
@@ -161,35 +161,35 @@ export type ListNotesResponseLinks = {
  */
 export type ListNotesResponse = {
   /**
-   * The HTTP response status code indicating the result of the API request. This integer value helps determine if the request was successful (e.g., 200 for success) or if there was an error (e.g., 404 for not found). It is crucial for error handling and debugging in client applications.
+   * The HTTP response status code returned by the server, indicating the result of the GET request to fetch all notes. This integer value helps determine if the request was successful (e.g., 200 for success) or if there was an error (e.g., 404 for not found). It is crucial for error handling and debugging.
    */
   statusCode: number;
   /**
-   * A textual representation of the HTTP response status, such as 'OK' for a successful request or 'Not Found' for an error. This string provides a human-readable status that complements the status code, aiding in quick understanding of the response outcome.
+   * A textual representation of the HTTP response status, such as 'OK' for a successful request or 'Not Found' for an unsuccessful one. This string provides a human-readable explanation of the status code, aiding in understanding the outcome of the request.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider from which the notes are retrieved. This string uniquely identifies the service within the Apideck ecosystem, ensuring that the data is sourced from the correct provider, especially when multiple services are integrated.
+   * The Apideck ID of the service provider from which the notes data is retrieved. This string uniquely identifies the service within the Apideck ecosystem, ensuring that the data source is correctly recognized and attributed.
    */
   service: string;
   /**
-   * The name of the unified API resource, in this case, 'notes', indicating the type of data returned by the operation. This string helps developers understand the context of the data, ensuring they are working with the correct resource type in their applications.
+   * The name of the unified API resource being accessed, in this case, 'notes'. This string indicates the type of data being retrieved, helping developers understand the context and structure of the returned data.
    */
   resource: string;
   /**
-   * The specific operation performed by the API, represented as a string. For this endpoint, it would typically be 'notesAll', indicating that the operation involved retrieving all notes. This helps in logging and tracking the actions performed via the API.
+   * The specific operation performed by the API, identified as 'notesAll' for this request. This string helps in tracking and logging the type of operation executed, which is useful for auditing and debugging purposes.
    */
   operation: string;
   /**
-   * An array containing all the notes retrieved from the CRM system. Each element in the array represents a single note object, which includes detailed information such as the note's ID, title, content, and owner. This array is essential for accessing and processing multiple notes in a single API call.
+   * An array containing all the notes retrieved from the CRM system. Each element in the array represents a single note object, which includes detailed information such as the note's ID, title, content, and owner. This array is the primary container for the notes data returned by the 'notesAll' operation, facilitating easy access and manipulation of multiple notes at once.
    */
   data: Array<ListNotesResponseData>;
   /**
-   * Contains metadata about the response, including pagination details and other relevant information. This object helps in understanding the context of the returned data, such as how many items are included and navigation aids for paginated results.
+   * This property provides metadata about the API response, including additional information that may not be directly related to the data payload. It serves as a container for supplementary details that can aid in understanding and processing the response effectively.
    */
   meta?: ListNotesResponseMeta | undefined;
   /**
-   * An object containing URLs that facilitate navigation to the previous or next pages of results in the API response. This is crucial for implementing pagination controls in client applications.
+   * This object contains links that facilitate navigation between different pages of results in the API response. It includes URLs that point to the previous and next pages, aiding in efficient data traversal. The structure is an object with properties for each navigational link.
    */
   links?: ListNotesResponseLinks | undefined;
 };

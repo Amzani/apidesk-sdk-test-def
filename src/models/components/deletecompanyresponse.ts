@@ -9,11 +9,11 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This object contains details about the company record that was deleted. It serves as a confirmation of the deletion operation, ensuring that the specified company has been successfully removed from the CRM system. The object includes the unique identifier of the deleted resource, which is crucial for tracking and logging purposes.
+ * This object contains details about the company record that was deleted. It serves as a confirmation that the operation was successful and includes the unique identifier of the deleted resource.
  */
 export type DeleteCompanyResponseUnifiedId = {
   /**
-   * The unique identifier of the company record that was deleted. This string value confirms the specific resource that has been removed from the CRM system, allowing developers to verify the successful execution of the delete operation. It is essential for maintaining accurate records and ensuring that the correct company entry was deleted.
+   * The unique identifier of the company record that was deleted. This ID confirms the specific resource that was removed from the CRM system, ensuring that developers can verify the deletion of the correct company.
    */
   id: string;
 };
@@ -23,27 +23,27 @@ export type DeleteCompanyResponseUnifiedId = {
  */
 export type DeleteCompanyResponse = {
   /**
-   * The HTTP response status code indicating the result of the delete operation. A status code of 200 confirms that the company record was successfully deleted from the CRM system. This integer value is crucial for error handling and validation of the operation's success.
+   * The HTTP response status code returned by the server. This integer value indicates the result of the delete operation, with a successful deletion typically represented by a 200 status code. It helps developers confirm that the company record was successfully removed from the CRM system.
    */
   statusCode: number;
   /**
-   * A textual representation of the HTTP response status, such as 'OK' for a successful operation. This string provides a human-readable confirmation of the operation's outcome, complementing the status code.
+   * A textual representation of the HTTP response status. This string provides a human-readable status message, such as 'OK', corresponding to the status code, confirming the outcome of the delete operation.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider that processed the delete request. This string helps identify which service handled the operation, especially useful in environments with multiple integrations.
+   * The Apideck ID of the service provider that processed the delete request. This string identifies which service within the Apideck ecosystem handled the operation, useful for tracking and logging purposes.
    */
   service: string;
   /**
-   * The name of the Unified API resource that was targeted by the delete operation. This string specifies the type of resource affected, ensuring clarity in multi-resource environments.
+   * The name of the Unified API resource that was targeted by the delete operation. This string specifies the type of resource, such as 'company', that was affected, helping developers understand the context of the operation.
    */
   resource: string;
   /**
-   * The specific operation performed, in this case, 'delete'. This string confirms the action taken on the resource, providing context within the API's operational log.
+   * The specific operation performed, indicated as a string. In this context, it confirms that a 'delete' operation was executed, providing clarity on the action taken on the resource.
    */
   operation: string;
   /**
-   * This object contains details about the company record that was deleted. It serves as a confirmation of the deletion operation, ensuring that the specified company has been successfully removed from the CRM system. The object includes the unique identifier of the deleted resource, which is crucial for tracking and logging purposes.
+   * This object contains details about the company record that was deleted. It serves as a confirmation that the operation was successful and includes the unique identifier of the deleted resource.
    */
   data: DeleteCompanyResponseUnifiedId;
 };

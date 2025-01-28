@@ -1,6 +1,6 @@
 # CreateContactRequestPhoneNumbersType
 
-The type of phone number, such as 'mobile', 'home', or 'work'. This optional field categorizes the phone number, aiding in the organization and prioritization of contact methods within the CRM system.
+The type of phone number, such as 'mobile', 'home', or 'work'. This optional field helps categorize the phone number, aiding in better organization and retrieval of contact information. It should be a descriptive string that accurately represents the phone number's usage context.
 
 ## Example Usage
 

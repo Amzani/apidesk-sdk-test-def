@@ -1,6 +1,6 @@
 # OpportunitiesSortBy
 
-Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
+Defines the attribute by which the list of opportunities should be sorted. This parameter helps in organizing the data based on specific fields such as 'created_date' or 'amount', facilitating easier data analysis and reporting.
 
 ## Example Usage
 

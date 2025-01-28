@@ -1,6 +1,6 @@
 # ListContactsResponseDataEmailsType
 
-Specifies the type of email address, such as 'personal' or 'work'. This classification aids in organizing and prioritizing email communications based on their intended use or context.
+Indicates the type of email address, such as 'personal' or 'work'. This classification helps in understanding the context and preferred usage of the email address within the contact's profile.
 
 ## Example Usage
 

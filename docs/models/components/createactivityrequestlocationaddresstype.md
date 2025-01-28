@@ -1,6 +1,6 @@
 # CreateActivityRequestLocationAddressType
 
-Defines the category or nature of the address, such as 'business' or 'residential'. This field is optional and helps in classifying the address for better organization and retrieval within the CRM system.
+Indicates the type of address being provided, such as 'home', 'work', or 'other'. This optional field helps categorize the address, providing context about its relevance to the activity. It should be a descriptive string that clearly defines the address type.
 
 ## Example Usage
 

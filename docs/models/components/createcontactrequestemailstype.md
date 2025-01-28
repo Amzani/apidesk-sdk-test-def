@@ -1,6 +1,6 @@
 # CreateContactRequestEmailsType
 
-Specifies the type of email address, such as 'work', 'personal', or 'other'. This helps categorize the email for better organization and retrieval. If provided, it should match predefined categories within the CRM system.
+Specifies the type of email address, such as 'work' or 'personal'. This optional field helps categorize the email address, allowing for better organization and filtering of contact information within the CRM.
 
 ## Example Usage
 

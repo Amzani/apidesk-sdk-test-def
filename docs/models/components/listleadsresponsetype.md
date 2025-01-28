@@ -1,6 +1,6 @@
 # ListLeadsResponseType
 
-Specifies the category or nature of the website, such as 'personal', 'business', or 'portfolio'. This string helps in classifying the website's purpose or role in relation to the lead, aiding in better organization and filtering of website data.
+Specifies the category or role of the website in relation to the lead, such as 'personal', 'business', or 'portfolio'. This information helps in categorizing and filtering leads based on their associated websites.
 
 ## Example Usage
 

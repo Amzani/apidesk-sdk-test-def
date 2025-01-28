@@ -1,6 +1,6 @@
 # UpdateOpportunityRequestValue
 
-The actual data or value associated with the custom field in the opportunity record. This value should align with the field's intended use and format, providing meaningful information that enhances the opportunity's data set.
+The value assigned to the custom field for the opportunity. This property holds the actual data or information that the custom field is meant to capture, allowing for tailored data tracking and analysis. Ensure the value aligns with the intended use of the custom field.
 
 
 ## Supported Types

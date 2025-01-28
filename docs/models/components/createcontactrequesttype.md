@@ -1,6 +1,6 @@
 # CreateContactRequestType
 
-Specifies the type of website, such as 'personal' or 'business', to categorize the website's purpose. This optional field helps in organizing and filtering contacts based on their website types within the CRM.
+Specifies the type of website associated with the contact, such as personal, business, or social media. This field helps categorize the website for better organization and retrieval within the CRM system. Although optional, providing this information can enhance the contact's profile.
 
 ## Example Usage
 

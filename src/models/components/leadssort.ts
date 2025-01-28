@@ -9,7 +9,7 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
+ * Specify the field by which to sort the leads. This property determines the attribute used for ordering the results, such as 'name' or 'created_at'.
  */
 export const LeadsSortBy = {
   CreatedAt: "created_at",
@@ -20,29 +20,29 @@ export const LeadsSortBy = {
   Email: "email",
 } as const;
 /**
- * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
+ * Specify the field by which to sort the leads. This property determines the attribute used for ordering the results, such as 'name' or 'created_at'.
  */
 export type LeadsSortBy = ClosedEnum<typeof LeadsSortBy>;
 
 /**
- * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
+ * Define the direction for sorting the results. Use 'asc' for ascending or 'desc' for descending order to control the sequence of the returned leads.
  */
 export const LeadsSortDirection = {
   Asc: "asc",
   Desc: "desc",
 } as const;
 /**
- * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
+ * Define the direction for sorting the results. Use 'asc' for ascending or 'desc' for descending order to control the sequence of the returned leads.
  */
 export type LeadsSortDirection = ClosedEnum<typeof LeadsSortDirection>;
 
 export type LeadsSort = {
   /**
-   * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
+   * Specify the field by which to sort the leads. This property determines the attribute used for ordering the results, such as 'name' or 'created_at'.
    */
   by?: LeadsSortBy | undefined;
   /**
-   * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
+   * Define the direction for sorting the results. Use 'asc' for ascending or 'desc' for descending order to control the sequence of the returned leads.
    */
   direction?: LeadsSortDirection | undefined;
 };

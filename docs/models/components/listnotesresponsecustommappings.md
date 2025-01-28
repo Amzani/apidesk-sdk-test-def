@@ -1,6 +1,6 @@
 # ListNotesResponseCustomMappings
 
-Contains any custom mappings configured for the note resource. This object may include key-value pairs that map custom fields or identifiers to standard fields within the CRM, allowing for tailored data integration and retrieval.
+Contains any custom mappings configured for the note resource. This object provides additional metadata or configuration details that are specific to the note, allowing for customized data handling or display. Useful for applications that need to interpret or transform note data based on custom settings.
 
 ## Example Usage
 

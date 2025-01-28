@@ -9,11 +9,11 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This object contains the updated lead resource, reflecting all changes made during the PATCH operation. It includes all relevant lead details, ensuring that the returned data accurately represents the current state of the lead in the CRM system. The structure of this object aligns with the lead resource schema used throughout the API.
+ * This object contains the updated lead information after a successful PATCH request. It includes all the fields that were modified, confirming the changes made to the lead's record in the CRM. The structure of this object reflects the lead's data model, ensuring consistency with the CRM's schema.
  */
 export type UpdateLeadResponseUnifiedId = {
   /**
-   * The unique identifier of the lead resource that was updated. This string value confirms the specific lead record that has been modified, allowing developers to verify the successful application of changes. It serves as a reference point for any subsequent operations on this lead.
+   * The unique identifier of the lead that was updated. This ID confirms which specific lead record in the CRM has been modified, ensuring that the correct resource was targeted by the PATCH operation. It is essential for tracking and referencing the updated lead within the system.
    */
   id: string;
 };
@@ -23,27 +23,27 @@ export type UpdateLeadResponseUnifiedId = {
  */
 export type UpdateLeadResponse = {
   /**
-   * The HTTP response status code indicating the result of the PATCH operation. A value of 200 confirms that the lead record was successfully updated. This integer is crucial for error handling and confirming successful requests.
+   * The HTTP response status code indicating the result of the PATCH request. A status code of 200 confirms that the lead information was successfully updated. This code is crucial for error handling and understanding the outcome of the operation.
    */
   statusCode: number;
   /**
-   * A textual representation of the HTTP response status, such as 'OK' for a successful update. This string provides a human-readable confirmation of the operation's outcome, complementing the status code.
+   * A textual representation of the HTTP response status. This property provides a human-readable status message, such as 'OK', which corresponds to the status code and helps in quickly understanding the result of the operation.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider that processed the update request. This string helps identify which service handled the operation, especially useful in environments with multiple integrations.
+   * The Apideck ID of the service provider that processed the request. This identifier is essential for tracking which service integration handled the lead update, especially when multiple services are involved.
    */
   service: string;
   /**
-   * The name of the unified API resource that was updated, typically 'lead'. This string confirms the type of resource affected by the operation, ensuring developers can verify the correct entity was modified.
+   * The name of the unified API resource that was affected by the operation. In this context, it refers to the 'lead' resource, indicating that the lead's data was the target of the update operation.
    */
   resource: string;
   /**
-   * The specific operation performed, such as 'update', indicating the action taken on the lead resource. This string helps developers understand the nature of the request processed by the API.
+   * The specific operation performed on the resource, in this case, 'update'. This property confirms the type of action executed, ensuring that the correct modification was applied to the lead's data.
    */
   operation: string;
   /**
-   * This object contains the updated lead resource, reflecting all changes made during the PATCH operation. It includes all relevant lead details, ensuring that the returned data accurately represents the current state of the lead in the CRM system. The structure of this object aligns with the lead resource schema used throughout the API.
+   * This object contains the updated lead information after a successful PATCH request. It includes all the fields that were modified, confirming the changes made to the lead's record in the CRM. The structure of this object reflects the lead's data model, ensuring consistency with the CRM's schema.
    */
   data: UpdateLeadResponseUnifiedId;
 };

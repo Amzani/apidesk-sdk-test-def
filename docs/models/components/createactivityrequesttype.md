@@ -1,6 +1,6 @@
 # CreateActivityRequestType
 
-Specifies the category or nature of the activity, such as 'call', 'meeting', or 'task'. This field is mandatory and helps in classifying the activity for better organization and retrieval within the CRM. The value must be a valid string representing one of the predefined activity types supported by the system.
+This required property defines the category or nature of the activity being added. It is crucial for classifying the activity within the CRM system, ensuring that it is processed and displayed correctly according to its type. The value must be a valid string representing the activity's type.
 
 ## Example Usage
 

@@ -1,6 +1,6 @@
 # UpdateContactRequestEmailsType
 
-Specifies the type of email address, such as 'work', 'personal', or 'other'. This optional field helps categorize the email address for better organization and retrieval within the CRM system.
+Specifies the type of email address being updated, such as 'work' or 'personal'. This field helps categorize the email address within the contact's profile, although it is optional. Providing this information can enhance the organization and retrieval of contact details.
 
 ## Example Usage
 

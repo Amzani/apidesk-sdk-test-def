@@ -10,7 +10,7 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Specifies the category or purpose of the address, such as 'home', 'work', or 'billing'. This helps in organizing and retrieving addresses based on their usage context. The value should be a valid string that clearly indicates the address type, though it is optional.
+ * Specifies the type of address, such as 'home' or 'work', associated with the user. This helps categorize the address within the CRM for better organization and retrieval. Ensure the type is a valid string that accurately represents the address category.
  */
 export const CreateUserRequestType = {
   Primary: "primary",
@@ -22,111 +22,111 @@ export const CreateUserRequestType = {
   Other: "other",
 } as const;
 /**
- * Specifies the category or purpose of the address, such as 'home', 'work', or 'billing'. This helps in organizing and retrieving addresses based on their usage context. The value should be a valid string that clearly indicates the address type, though it is optional.
+ * Specifies the type of address, such as 'home' or 'work', associated with the user. This helps categorize the address within the CRM for better organization and retrieval. Ensure the type is a valid string that accurately represents the address category.
  */
 export type CreateUserRequestType = ClosedEnum<typeof CreateUserRequestType>;
 
 export type CreateUserRequestAddresses = {
   /**
-   * A unique identifier for the address within the CRM system. This ID is used to distinguish between different addresses associated with a user. It should be a valid string if provided, although it is not required for creating a new user.
+   * A unique identifier for the address associated with the user being added. This ID is used to distinguish between different addresses within the CRM system. It should be a valid string that uniquely identifies an address record, if available.
    */
   id?: string | null | undefined;
   /**
-   * Specifies the category or purpose of the address, such as 'home', 'work', or 'billing'. This helps in organizing and retrieving addresses based on their usage context. The value should be a valid string that clearly indicates the address type, though it is optional.
+   * Specifies the type of address, such as 'home' or 'work', associated with the user. This helps categorize the address within the CRM for better organization and retrieval. Ensure the type is a valid string that accurately represents the address category.
    */
   type?: CreateUserRequestType | null | undefined;
   /**
-   * Represents the full address in a single string format. This is particularly useful when the API does not support structured address data. It should be a comprehensive string that includes all necessary address details, but it is not mandatory for the request.
+   * The full address in a single string format, used when structured address data is not available. This field allows for flexibility in address input, accommodating various address formats. It should be a comprehensive string that includes all necessary address details.
    */
   string?: string | null | undefined;
   /**
-   * The designated name for the address, which can be used to identify it easily within the user's address list. This could be a label like 'Headquarters' or 'Main Office'. It should be a descriptive string, although providing it is optional.
+   * The name or label for the address, which can be used to identify it within the CRM system. This is useful for distinguishing between multiple addresses associated with a user. It should be a descriptive string that clearly identifies the address.
    */
   name?: string | null | undefined;
   /**
-   * The first line of the address, typically including the street number, street name, and any apartment or suite numbers. This field is crucial for accurately locating the address, but it is not required for the operation.
+   * The first line of the address, typically including the street number, street name, and any apartment or suite number. This field is essential for accurately locating the address within the CRM. Ensure it is a detailed string that provides the primary address information.
    */
   line1?: string | null | undefined;
   /**
-   * An optional second line for the user's address, typically used for apartment numbers or additional location details. This field can be left empty if not applicable. It helps in providing a more precise address for user records in the CRM.
+   * This optional field allows you to specify additional address details, such as apartment or suite numbers, to ensure accurate delivery and location identification within the CRM system. It enhances the primary address line by providing more specific location information. There are no specific format requirements, but it should be a string that complements the main address line.
    */
   line2?: string | null | undefined;
   /**
-   * An optional third line for the user's address, often used for further address details such as building names or complex identifiers. This field is not mandatory and can be omitted if unnecessary. It aids in capturing comprehensive address information for CRM entries.
+   * An optional field for further address details, such as building or floor information, to enhance the precision of the address in the CRM. This field is useful for complex addresses that require more than two lines for complete identification. It should be a string that provides additional context to the address.
    */
   line3?: string | null | undefined;
   /**
-   * An optional fourth line for the user's address, used for any additional address information that doesn't fit in the previous lines. This field is optional and should be used only when needed to ensure complete address details in the CRM system.
+   * This field is used to capture any additional address information that cannot be accommodated in the previous lines, ensuring comprehensive address details in the CRM. It is particularly useful for addresses with multiple components that need to be distinctly recorded. The input should be a string that adds further detail to the address.
    */
   line4?: string | null | undefined;
   /**
-   * The street number of the user's address, which is essential for accurately locating the address. This field should contain only the numeric part of the street address and is optional if not applicable. It contributes to the precise identification of the user's location within the CRM.
+   * The street number is a crucial part of the address, specifying the exact location on the street for the user being added to the CRM. This field should contain the numeric or alphanumeric identifier of the building or property. It is essential for precise address identification and should be formatted as a string.
    */
   streetNumber?: string | null | undefined;
   /**
-   * The name of the city where the user resides, crucial for identifying the geographical location of the user. This field should be a valid city name and is optional, but recommended for complete address records in the CRM.
+   * This field specifies the city name where the user resides, which is vital for geographic identification and routing within the CRM system. It should be a valid city name formatted as a string, ensuring that the user's location is accurately recorded and managed.
    */
   city?: string | null | undefined;
   /**
-   * The state or province name associated with the user's address. This field helps in identifying the specific region within a country where the user resides. It should be a valid state name recognized within the specified country, aiding in accurate geographical identification for CRM operations.
+   * Specifies the state or region associated with the user's address. This property helps in accurately locating the user within a specific geographical area, which is crucial for regional data management and analysis. The value should be a valid state name or abbreviation as recognized in the user's country.
    */
   state?: string | null | undefined;
   /**
-   * The postal code or ZIP code for the user's address. This code is crucial for pinpointing the exact location within a city or town, facilitating precise delivery and location-based services. It should conform to the postal format of the respective country.
+   * Represents the postal code for the user's address, essential for mail delivery and location-based services. This property should be a valid postal code format as per the country's postal system, ensuring accurate address identification and processing.
    */
   postalCode?: string | null | undefined;
   /**
-   * The country code for the user's address, following the ISO 3166-1 alpha-2 standard. This two-letter code is essential for identifying the user's country, ensuring that the address is correctly categorized and processed within the CRM system.
+   * Denotes the country code of the user's address, following the ISO 3166-1 alpha-2 standard. This property is vital for internationalization and ensuring the address is correctly associated with the respective country. The value must be a valid two-letter country code.
    */
   country?: string | null | undefined;
   /**
-   * The latitude coordinate of the user's address, expressed as a decimal. This value is used for geolocation purposes, allowing the CRM system to map the user's exact position on the globe. It should be a valid latitude value ranging from -90 to 90.
+   * Indicates the latitude coordinate of the user's address, used for precise geolocation and mapping services. This property should be a valid latitude value, typically ranging from -90 to 90, to ensure accurate geographical positioning.
    */
   latitude?: string | null | undefined;
   /**
-   * The longitude coordinate of the user's address, expressed as a decimal. This property is vital for geolocation, enabling the CRM to accurately place the user's address on a map. It should be a valid longitude value ranging from -180 to 180.
+   * Specifies the longitude coordinate of the user's address, crucial for accurate geolocation and mapping. This property must be a valid longitude value, generally ranging from -180 to 180, to facilitate precise location tracking and services.
    */
   longitude?: string | null | undefined;
   /**
-   * Specifies the county or sublocality within the address. This field is optional and can be used to provide more detailed location information, which may be useful for regional segmentation or reporting within the CRM system.
+   * This field specifies the county or sublocality for the address associated with the user being added. It helps in accurately identifying the geographical area for the address, which can be crucial for regional operations or services. The value should be a valid county name, if applicable, to ensure proper address formatting and validation.
    */
   county?: string | null | undefined;
   /**
-   * The full name of the primary contact person associated with the address. This optional field helps identify the individual responsible for communications or transactions at this location, enhancing the CRM's contact management capabilities.
+   * The name of the contact person at the specified address. This is used to personalize communications and ensure that correspondence is directed to the correct individual. It should be a full name that accurately identifies the contact person associated with the address.
    */
   contactName?: string | null | undefined;
   /**
-   * The salutation or title of the contact person, such as Mr., Ms., or Dr. This optional field personalizes communications and is useful for maintaining formal correspondence standards within the CRM.
+   * The salutation for the contact person at the address, such as 'Mr.', 'Ms.', or 'Dr.'. This field is used to address the contact person respectfully in communications. It should be a standard salutation that aligns with the contact's title or preference.
    */
   salutation?: string | null | undefined;
   /**
-   * The primary phone number associated with the address. This optional field should be formatted according to international standards to ensure proper connectivity and is crucial for direct communication with the contact person or organization at this location.
+   * The phone number associated with the address, used for direct communication with the contact person. This should be a valid phone number format, including country and area codes if applicable, to ensure successful contact.
    */
   phoneNumber?: string | null | undefined;
   /**
-   * The fax number for the address, if applicable. This optional field supports traditional communication methods and should be formatted correctly to ensure successful transmission of documents.
+   * The fax number for the address, which can be used for sending documents via fax. This should be a valid fax number format, including any necessary country and area codes, to ensure documents are sent correctly.
    */
   fax?: string | null | undefined;
   /**
-   * The primary email address associated with the user's address. This field should be a valid email format and is used for communication purposes within the CRM system. Although optional, providing an email enhances the user's contact profile.
+   * The email address associated with the user's address. This field is used to contact the user and should be a valid email format to ensure proper communication. It is optional but recommended for effective user management within the CRM.
    */
   email?: string | null | undefined;
   /**
-   * The website URL associated with the user's address. This should be a valid URL format and can be used to link to the user's personal or business website. Including a website helps in providing a comprehensive view of the user's online presence.
+   * The website URL associated with the user's address. This property allows linking to the user's personal or business website, providing additional context and information. It should be a valid URL format if provided.
    */
   website?: string | null | undefined;
   /**
-   * Additional notes or comments related to the user's address. This field can include any extra information that might be relevant for CRM users, such as delivery instructions or personal preferences. It is optional but useful for detailed record-keeping.
+   * Additional notes related to the user's address. This field can be used to store any extra information or comments about the address that may be useful for CRM users. It is optional and can be left empty if not needed.
    */
   notes?: string | null | undefined;
   /**
-   * A concurrency control token used to manage updates to the user's address object. This binary value is automatically incremented with each update to prevent data conflicts and ensure data integrity. It is optional but crucial for systems that require robust data synchronization.
+   * A binary value used to detect updates to an object and prevent data conflicts. This field is crucial for maintaining data integrity by ensuring that updates are applied correctly and no conflicting changes occur. It is automatically incremented with each update to the object.
    */
   rowVersion?: string | null | undefined;
 };
 
 /**
- * Specifies the category of the phone number, such as 'mobile', 'home', or 'work'. This helps in identifying the context in which the phone number is used, enhancing user contact management within the CRM.
+ * Specifies the category of the phone number, such as 'home', 'work', or 'mobile'. This helps in identifying the context in which the phone number is used, aiding in better organization and retrieval of contact information. It is optional and can be left blank if the type is not specified.
  */
 export const CreateUserRequestPhoneNumbersType = {
   Primary: "primary",
@@ -142,7 +142,7 @@ export const CreateUserRequestPhoneNumbersType = {
   Other: "other",
 } as const;
 /**
- * Specifies the category of the phone number, such as 'mobile', 'home', or 'work'. This helps in identifying the context in which the phone number is used, enhancing user contact management within the CRM.
+ * Specifies the category of the phone number, such as 'home', 'work', or 'mobile'. This helps in identifying the context in which the phone number is used, aiding in better organization and retrieval of contact information. It is optional and can be left blank if the type is not specified.
  */
 export type CreateUserRequestPhoneNumbersType = ClosedEnum<
   typeof CreateUserRequestPhoneNumbersType
@@ -150,33 +150,33 @@ export type CreateUserRequestPhoneNumbersType = ClosedEnum<
 
 export type CreateUserRequestPhoneNumbers = {
   /**
-   * A unique identifier for the phone number entry within the user's contact information. This ID is used to distinguish between multiple phone numbers associated with a single user, ensuring accurate updates and retrievals. It should be a valid UUID string if provided.
+   * This property serves as a unique identifier for the phone number within the CRM system. It is used to distinguish between different phone numbers associated with a user, although it is not mandatory to provide. If included, it should be a valid string that uniquely identifies the phone number entry.
    */
   id?: string | null | undefined;
   /**
-   * The international dialing code for the phone number, such as '+1' for the United States. This code is essential for making international calls and should be included if the phone number is intended for global use. It must be a valid country code prefixed with a '+' sign.
+   * The country code for the phone number, such as '+1' for the United States, is used to specify the international dialing code. This property helps ensure that the phone number is correctly formatted for international calls. It is optional but recommended for clarity and accuracy in global communications.
    */
   countryCode?: string | null | undefined;
   /**
-   * The regional area code that specifies the geographic region of the phone number, like '323' for Los Angeles. This code helps in routing calls to the correct local exchange and should be provided if applicable. It must be a valid area code without any leading zeros.
+   * The area code of the phone number, like '323' for Los Angeles, is used to specify the regional part of the phone number. This property is optional and helps in accurately routing calls within specific geographic areas. Providing an area code ensures that the phone number is complete and correctly formatted for local dialing.
    */
   areaCode?: string | null | undefined;
   /**
-   * The main phone number associated with the user, excluding any country or area codes. This number is crucial for direct contact and must be provided in a valid local format. Ensure it contains only digits and is free from spaces or special characters.
+   * This is the main phone number associated with the user and is required for adding a new user to the CRM. It must be a valid string representing the user's phone number, excluding the country and area codes. This property is essential for contact purposes and must be provided to successfully create a user entry.
    */
   number: string;
   /**
-   * An optional extension number used to direct calls to a specific department or individual within an organization. This is particularly useful in corporate environments where a single main number serves multiple endpoints. It should be numeric and can include up to five digits.
+   * The extension of the phone number is used to direct calls to a specific line within a larger phone system, such as an office or department. This property is optional and should be included if the phone number requires an extension for proper routing. It helps in reaching the intended recipient directly when calling.
    */
   extension?: string | null | undefined;
   /**
-   * Specifies the category of the phone number, such as 'mobile', 'home', or 'work'. This helps in identifying the context in which the phone number is used, enhancing user contact management within the CRM.
+   * Specifies the category of the phone number, such as 'home', 'work', or 'mobile'. This helps in identifying the context in which the phone number is used, aiding in better organization and retrieval of contact information. It is optional and can be left blank if the type is not specified.
    */
   type?: CreateUserRequestPhoneNumbersType | null | undefined;
 };
 
 /**
- * Defines the nature of the email address, such as 'personal' or 'work'. This classification aids in organizing and prioritizing communications based on the email type.
+ * Defines the nature of the email address, such as 'personal' or 'work'. This classification helps in organizing emails based on their usage context, enhancing user profile management. It is optional and can be omitted if not applicable.
  */
 export const CreateUserRequestEmailsType = {
   Primary: "primary",
@@ -187,7 +187,7 @@ export const CreateUserRequestEmailsType = {
   Other: "other",
 } as const;
 /**
- * Defines the nature of the email address, such as 'personal' or 'work'. This classification aids in organizing and prioritizing communications based on the email type.
+ * Defines the nature of the email address, such as 'personal' or 'work'. This classification helps in organizing emails based on their usage context, enhancing user profile management. It is optional and can be omitted if not applicable.
  */
 export type CreateUserRequestEmailsType = ClosedEnum<
   typeof CreateUserRequestEmailsType
@@ -195,122 +195,122 @@ export type CreateUserRequestEmailsType = ClosedEnum<
 
 export type CreateUserRequestEmails = {
   /**
-   * A unique identifier for each email address object. This ID is used to distinguish between different email entries, facilitating updates and management of user email information.
+   * A unique identifier for each email address entry. This ID is used to distinguish between different email records within the user's profile, facilitating updates and management of specific email addresses. It is optional and automatically generated if not provided.
    */
   id?: string | null | undefined;
   /**
-   * The actual email address of the user. This field is mandatory and must be a valid email format, as it is crucial for user identification and communication within the CRM system.
+   * The actual email address of the user, which is required for communication and identification purposes within the CRM. This field must be a valid email format and is essential for creating a user profile.
    */
   email: string | null;
   /**
-   * Defines the nature of the email address, such as 'personal' or 'work'. This classification aids in organizing and prioritizing communications based on the email type.
+   * Defines the nature of the email address, such as 'personal' or 'work'. This classification helps in organizing emails based on their usage context, enhancing user profile management. It is optional and can be omitted if not applicable.
    */
   type?: CreateUserRequestEmailsType | null | undefined;
 };
 
 export type CreateUserRequestExtendPaths = {
   /**
-   * Specifies the JSONPath string where the value should be applied within the user's data structure. This path must be a valid JSONPath expression, ensuring precise targeting of the data field to be updated or added. It is crucial for directing the operation to the correct location in the CRM's user data model.
+   * Specifies the JSONPath string where the value should be applied within the user data structure. This path is crucial for accurately placing the new data in the correct location, ensuring that the user information is updated or added precisely as intended. The path must be a valid JSONPath expression to navigate the user data structure effectively.
    */
   path: string;
   /**
-   * Defines the value to be set at the specified JSONPath within the user's data structure. This value can be of any data type, allowing flexibility in the kind of data that can be added or updated. It is essential for customizing user data fields according to specific application needs.
+   * Defines the value to be set at the specified JSONPath within the user data structure. This value can be of any data type, allowing flexibility in the kind of data you can add or update. It is essential for modifying user data accurately, ensuring that the correct information is stored at the designated path.
    */
   value?: any | undefined;
 };
 
 export type CreateUserRequestPassThrough = {
   /**
-   * A mandatory string that specifies the service identifier to which the pass_through data should be applied. This ensures that the custom data is directed to the correct service, facilitating precise integration and operation within the CRM.
+   * The service_id is a mandatory string that identifies the specific service to which the pass_through data should be applied. This ensures that the custom data is routed correctly to the intended service, facilitating precise service-specific operations.
    */
   serviceId: string;
   /**
-   * An optional string that identifies a specific workflow operation for which the pass_through data is intended. This is particularly useful for Unify calls that involve multiple downstream requests, allowing for targeted data application.
+   * The operation_id is an optional string that specifies a particular workflow operation for applying the pass_through data. This is particularly useful in scenarios where multiple downstream requests are involved, allowing for targeted application of custom data.
    */
   operationId?: string | undefined;
   /**
-   * An optional object that allows for direct extension with any properties, enabling developers to include additional data fields as needed. This flexibility supports complex data structures and custom requirements in user management operations.
+   * The extend_object is a flexible object that allows for the inclusion of any additional properties needed to extend the request. This feature supports direct extensions by enabling the addition of custom fields or data structures as required by the service.
    */
   extendObject?: { [k: string]: any } | undefined;
   /**
-   * An optional array of objects designed for structured data modifications using paths. This feature allows developers to specify precise changes to data structures, enhancing the customization and flexibility of user-related requests.
+   * The extend_paths property is an array of objects designed for structured data modifications using paths. This allows developers to specify precise modifications to the data structure, facilitating complex updates or transformations within the request body.
    */
   extendPaths?: Array<CreateUserRequestExtendPaths> | undefined;
 };
 
 export type CreateUserRequest = {
   /**
-   * The parent user ID associated with the new user being added. This is used to establish a hierarchical relationship within the CRM, linking the new user to an existing parent user. If applicable, ensure the ID corresponds to a valid user already present in the system.
+   * This optional field specifies the ID of the parent user, allowing you to establish a hierarchical relationship between users within the CRM. It is useful for organizing users under a common parent, such as a team leader or department head, but is not required for all users. Ensure the ID provided corresponds to an existing user in the system to maintain data integrity.
    */
   parentId?: string | null | undefined;
   /**
-   * The unique username assigned to the new user for login and identification purposes. It should be a non-empty string and must be unique within the CRM system to prevent conflicts. This username will be used for authentication and user management tasks.
+   * The username serves as the unique identifier for the user within the CRM system. It is crucial for user login and authentication processes, ensuring each user can be distinctly recognized. While not mandatory, it is recommended to provide a unique username to facilitate user management and access control.
    */
   username?: string | null | undefined;
   /**
-   * The first name of the user being added to the CRM. This field is used for personal identification and communication purposes within the system. Ensure the name is correctly spelled as it will appear in user profiles and communications.
+   * This field captures the user's first name, which is used for personalization and identification purposes within the CRM. It enhances user interaction by allowing the system to address users by their first name in communications and reports. Although optional, providing a first name can improve the user experience and data completeness.
    */
   firstName?: string | null | undefined;
   /**
-   * The last name of the user being added to the CRM. It complements the first name for full identification and is used in user profiles and official communications. Accurate spelling is important for consistency and professionalism.
+   * The last name of the user, which is used in conjunction with the first name to fully identify the user within the CRM. This field supports personalization and accurate record-keeping, ensuring that users can be properly addressed and managed. While not required, including a last name helps maintain comprehensive user profiles.
    */
   lastName?: string | null | undefined;
   /**
-   * The professional job title of the user within the organization. This field helps in defining the user's role and responsibilities in the CRM system. Ensure the title accurately reflects the user's position for clarity in organizational hierarchy and communication.
+   * This field denotes the user's job title, providing context about their role within the organization. It is useful for understanding the user's position and responsibilities, aiding in role-based access and reporting. Although optional, specifying a job title can enhance the clarity of user roles and organizational structure within the CRM.
    */
   title?: string | null | undefined;
   /**
-   * Specifies the division within the organization where the user is currently assigned. This can represent a collection of departments, teams, or regions. It helps categorize the user within the CRM system for better organizational management. This field is optional and can be left empty if not applicable.
+   * Specifies the division within the organization where the user is currently assigned. This field helps categorize users into larger organizational units, such as regions or teams, for better management and reporting. It is optional and can be left blank if not applicable.
    */
   division?: string | null | undefined;
   /**
-   * Indicates the department where the user is currently working. This field is deprecated in favor of using 'department_id' and 'department_name' for more precise identification. It is optional and should be used only if the new fields are not available.
+   * Indicates the department where the user is currently working. Although deprecated in favor of 'department_id' and 'department_name', it may still be used for backward compatibility. This field is optional and should be used with caution as it might be removed in future versions.
    *
    * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   department?: string | null | undefined;
   /**
-   * Represents the name of the company associated with the user. This field is optional and should be a valid string that accurately reflects the company's official name. It is used to link the user to their respective organization within the CRM.
+   * Represents the name of the company associated with the user. This field is used to link the user to a specific company within the CRM, aiding in organization and data retrieval. It is optional and should be a valid string representing the company's name.
    */
   companyName?: string | null | undefined;
   /**
-   * A unique identifier assigned to the user within the company, such as an Employee Number, ID, or Code. This optional field helps in uniquely identifying and managing the user within the CRM system. It should be a string that follows the company's internal format for employee identifiers.
+   * A unique identifier assigned to the user within the company, such as an Employee Number or ID. This field is crucial for distinguishing between users and managing employee records effectively. It is optional but should be unique and consistent across the organization.
    */
   employeeNumber?: string | null | undefined;
   /**
-   * Provides additional information or context about the user being added. This optional field can include any relevant details that help describe the user's role or position within the company. It should be a concise string that enhances the user's profile in the CRM.
+   * Provides additional information or context about the user being added. This field can be used to include notes or descriptions that are relevant to the user's role or status within the CRM. It is optional and should be a concise, informative string.
    */
   description?: string | null | undefined;
   /**
-   * The URL of the user's avatar image. This property allows you to associate a visual representation with the user profile, enhancing user identification within the CRM. The URL must be a valid string format, pointing to an accessible image resource.
+   * The URL of the user's avatar image. This property allows you to associate a visual representation with the user profile, enhancing user identification and personalization within the CRM. The URL must be a valid string pointing to an accessible image resource.
    */
   image?: string | null | undefined;
   /**
-   * The preferred language code for the user, following the ISO 639-1 standard (e.g., 'EN' for English). This setting helps tailor the user experience by displaying content in the user's preferred language, if supported by the CRM system.
+   * The language code for the user's preferred language, following the ISO 639-1 standard. This property helps tailor the user experience by displaying content in the user's preferred language. For example, 'EN' for English in the United States.
    */
   language?: string | null | undefined;
   /**
-   * The current status of the user within the CRM system, such as 'active', 'inactive', or 'pending'. This property is crucial for managing user access and permissions, ensuring that only users with the appropriate status can interact with the system.
+   * The current status of the user within the CRM system. This property indicates the user's operational state, such as active or inactive, affecting their ability to interact with the system. Ensure the status is a valid string that aligns with the system's user management policies.
    */
   status?: string | null | undefined;
   /**
-   * The password for the user account, used for authentication purposes. It should be a secure string that complies with the system's password policy, ensuring the user's account is protected against unauthorized access.
+   * The password for the user's account, used for authentication purposes. This property is crucial for securing user access and must comply with the system's password policy, typically requiring a mix of letters, numbers, and special characters.
    */
   password?: string | null | undefined;
   /**
-   * A list of addresses associated with the user, which may include home, work, or other relevant locations. Each address should be structured according to the CRM's address format, providing comprehensive location details for the user.
+   * A list of addresses associated with the user, which can include multiple entries for different address types such as home or work. This property supports comprehensive user profiles by storing detailed location information, enhancing CRM functionalities like location-based services.
    */
   addresses?: Array<CreateUserRequestAddresses> | undefined;
   /**
-   * A list of phone numbers associated with the user. Each entry in the array should be a valid phone number format, allowing multiple contact numbers to be stored. This property is optional but enhances the user's contact information within the CRM.
+   * A list of phone numbers associated with the user. This array can include multiple phone numbers, allowing for comprehensive contact information. Each phone number should be formatted correctly to ensure accurate communication.
    */
   phoneNumbers?: Array<CreateUserRequestPhoneNumbers> | undefined;
   /**
-   * A collection of email objects associated with the user. Each object must contain at least an 'email' field, ensuring that the user has one or more valid email addresses for communication purposes.
+   * A collection of email objects associated with the user. Each object within the array must contain at least the 'email' field, ensuring that the user has one or more email addresses registered in the CRM system. This property is mandatory and crucial for user identification and communication.
    */
   emails: Array<CreateUserRequestEmails>;
   /**
-   * An optional array that allows developers to include service-specific custom data or modifications when adding or updating a user. This property is useful for tailoring requests to meet specific service requirements or workflows within the CRM system.
+   * The pass_through property is used to include custom data or modifications specific to a service when creating or updating resources. This allows for flexibility in handling service-specific requirements without altering the core API structure. It should be an array containing objects that define these customizations.
    */
   passThrough?: Array<CreateUserRequestPassThrough> | undefined;
 };

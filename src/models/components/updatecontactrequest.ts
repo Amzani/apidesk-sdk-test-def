@@ -10,7 +10,7 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Specifies the category or classification of the contact, such as 'customer', 'supplier', or 'partner'. This optional field aids in organizing contacts within the CRM for targeted communication and reporting.
+ * Specifies the category or classification of the contact. This optional field helps in organizing contacts based on their type, such as 'customer', 'supplier', or 'partner', enhancing the CRM's ability to filter and manage contacts effectively.
  */
 export const UpdateContactRequestType = {
   Customer: "customer",
@@ -19,14 +19,14 @@ export const UpdateContactRequestType = {
   Personal: "personal",
 } as const;
 /**
- * Specifies the category or classification of the contact, such as 'customer', 'supplier', or 'partner'. This optional field aids in organizing contacts within the CRM for targeted communication and reporting.
+ * Specifies the category or classification of the contact. This optional field helps in organizing contacts based on their type, such as 'customer', 'supplier', or 'partner', enhancing the CRM's ability to filter and manage contacts effectively.
  */
 export type UpdateContactRequestType = ClosedEnum<
   typeof UpdateContactRequestType
 >;
 
 /**
- * The gender of the contact, which can be used for demographic analysis and personalized communication. This optional field should be a string value, typically 'Male', 'Female', or other gender identities as applicable. Providing this information can help tailor interactions and improve user experience.
+ * The gender of the contact, which may be used for demographic analysis or personalized communication. This field is optional and should be provided only if relevant and necessary for the context of the CRM operations.
  */
 export const UpdateContactRequestGender = {
   Male: "male",
@@ -34,14 +34,14 @@ export const UpdateContactRequestGender = {
   Unisex: "unisex",
 } as const;
 /**
- * The gender of the contact, which can be used for demographic analysis and personalized communication. This optional field should be a string value, typically 'Male', 'Female', or other gender identities as applicable. Providing this information can help tailor interactions and improve user experience.
+ * The gender of the contact, which may be used for demographic analysis or personalized communication. This field is optional and should be provided only if relevant and necessary for the context of the CRM operations.
  */
 export type UpdateContactRequestGender = ClosedEnum<
   typeof UpdateContactRequestGender
 >;
 
 /**
- * Specifies the type of website associated with the contact, such as 'personal', 'business', or 'portfolio'. This optional field helps categorize the website, providing context and clarity about its purpose. It should be a descriptive string that accurately reflects the website's nature.
+ * Specifies the type of website, such as personal or business, associated with the contact. This optional field helps categorize the website for better organization and retrieval of contact information. Providing this detail enhances the context and usability of the contact's web data.
  */
 export const UpdateContactRequestWebsitesType = {
   Primary: "primary",
@@ -51,7 +51,7 @@ export const UpdateContactRequestWebsitesType = {
   Other: "other",
 } as const;
 /**
- * Specifies the type of website associated with the contact, such as 'personal', 'business', or 'portfolio'. This optional field helps categorize the website, providing context and clarity about its purpose. It should be a descriptive string that accurately reflects the website's nature.
+ * Specifies the type of website, such as personal or business, associated with the contact. This optional field helps categorize the website for better organization and retrieval of contact information. Providing this detail enhances the context and usability of the contact's web data.
  */
 export type UpdateContactRequestWebsitesType = ClosedEnum<
   typeof UpdateContactRequestWebsitesType
@@ -59,21 +59,21 @@ export type UpdateContactRequestWebsitesType = ClosedEnum<
 
 export type UpdateContactRequestWebsites = {
   /**
-   * A unique identifier for the website associated with the contact. This ID is used to distinguish between multiple websites linked to the same contact, ensuring accurate updates to the correct website entry. It should be a valid string that uniquely identifies a website within the contact's profile.
+   * This property represents the unique identifier for a website associated with the contact. It is used to specify which website entry to update when modifying contact details. Although not required, providing this ID ensures that the correct website record is targeted for updates.
    */
   id?: string | null | undefined;
   /**
-   * The URL of the website associated with the contact. This field is mandatory and must be a valid URL format, ensuring that the contact's website information is correctly updated and accessible. It plays a crucial role in maintaining accurate and up-to-date web presence details for the contact.
+   * The URL of the website associated with the contact. This field is required and must be a valid URL format. It is essential for updating or adding a website link to the contact's information, ensuring accurate and accessible web presence details.
    */
   url: string;
   /**
-   * Specifies the type of website associated with the contact, such as 'personal', 'business', or 'portfolio'. This optional field helps categorize the website, providing context and clarity about its purpose. It should be a descriptive string that accurately reflects the website's nature.
+   * Specifies the type of website, such as personal or business, associated with the contact. This optional field helps categorize the website for better organization and retrieval of contact information. Providing this detail enhances the context and usability of the contact's web data.
    */
   type?: UpdateContactRequestWebsitesType | null | undefined;
 };
 
 /**
- * Specifies the category of the address, such as 'home', 'work', or 'billing'. This helps in identifying the purpose of the address within the contact's profile. It should be a valid string that clearly indicates the address type.
+ * Specifies the category of the address, such as 'home', 'work', or 'billing'. This helps in identifying the purpose of the address within the contact's profile. Ensure the type is a valid string that accurately reflects the address's role.
  */
 export const UpdateContactRequestAddressesType = {
   Primary: "primary",
@@ -85,7 +85,7 @@ export const UpdateContactRequestAddressesType = {
   Other: "other",
 } as const;
 /**
- * Specifies the category of the address, such as 'home', 'work', or 'billing'. This helps in identifying the purpose of the address within the contact's profile. It should be a valid string that clearly indicates the address type.
+ * Specifies the category of the address, such as 'home', 'work', or 'billing'. This helps in identifying the purpose of the address within the contact's profile. Ensure the type is a valid string that accurately reflects the address's role.
  */
 export type UpdateContactRequestAddressesType = ClosedEnum<
   typeof UpdateContactRequestAddressesType
@@ -93,120 +93,120 @@ export type UpdateContactRequestAddressesType = ClosedEnum<
 
 export type UpdateContactRequestAddresses = {
   /**
-   * A unique identifier for each address associated with the contact. This ID ensures that updates are applied to the correct address entry within the contact's profile. It should be a valid string that uniquely identifies an address, supporting precise modifications.
+   * The unique identifier for an address associated with the contact. This ID is used to specify which address entry to update, ensuring precise modifications to the contact's address details. It is not required but is crucial for targeting specific address records.
    */
   id?: string | null | undefined;
   /**
-   * Specifies the category of the address, such as 'home', 'work', or 'billing'. This helps in identifying the purpose of the address within the contact's profile. It should be a valid string that clearly indicates the address type.
+   * Specifies the category of the address, such as 'home', 'work', or 'billing'. This helps in identifying the purpose of the address within the contact's profile. Ensure the type is a valid string that accurately reflects the address's role.
    */
   type?: UpdateContactRequestAddressesType | null | undefined;
   /**
-   * Represents the complete address in a single string format. This is particularly useful when the API does not support structured address data. Ensure the address is formatted correctly to include all necessary details like street, city, and postal code.
+   * Represents the full address in a single string format, useful when structured address data is unavailable. This field should contain the complete address details as a single line, ensuring clarity and completeness for address identification.
    */
   string?: string | null | undefined;
   /**
-   * The label or identifier for the address, often used to distinguish between multiple addresses associated with a contact. This should be a descriptive string that provides context, such as 'Headquarters' or 'Branch Office'.
+   * Denotes the label or identifier for the address, such as 'Headquarters' or 'Branch Office'. This name helps in easily recognizing and managing multiple addresses associated with a contact. It should be a descriptive string that provides context to the address's significance.
    */
   name?: string | null | undefined;
   /**
-   * The primary line of the address, including details like street number, street name, and apartment or suite number. This field is essential for accurately locating the address and should be a well-formatted string.
+   * The primary line of the address, including details like street number, street name, and apartment or suite number. This field is essential for pinpointing the exact location and should be formatted as a clear, concise string.
    */
   line1?: string | null | undefined;
   /**
-   * The secondary line of the address, used for additional information such as building name or floor number. This field complements 'line1' and should be used to provide any extra address details necessary for precise location identification.
+   * Additional address information, such as floor, building, or PO Box, that complements the primary address line. This optional field provides extra details to ensure accurate delivery or identification of the location.
    */
   line2?: string | null | undefined;
   /**
-   * This field represents the third line of the contact's address, often used for additional address details such as apartment or suite numbers. It is optional and should be a string if provided. Including this information helps ensure accurate delivery and location identification within the CRM system.
+   * This optional field allows you to specify additional address details beyond the standard street address, such as a suite or apartment number. It helps in providing a more precise location for the contact, ensuring accurate delivery and correspondence. Use this field if the contact's address includes more than two lines of information.
    */
   line3?: string | null | undefined;
   /**
-   * This field represents the fourth line of the contact's address, typically used for any extra address information that doesn't fit in the previous lines. It is optional and should be a string if provided. This field supports detailed address specifications, enhancing the precision of contact location data.
+   * An optional field for further address details, such as building or floor information, which can be crucial for large complexes or specific delivery instructions. This field supports the inclusion of comprehensive address data, enhancing the accuracy of the contact's location information.
    */
   line4?: string | null | undefined;
   /**
-   * The street number component of the contact's address, indicating the specific building or location on a street. This field is optional and should be a string. Providing the street number is crucial for pinpointing the exact location of the contact within the CRM system.
+   * The street number component of the contact's address, which is essential for identifying the exact location on a street. This field should contain only the numeric part of the address, ensuring precise geolocation and navigation.
    */
   streetNumber?: string | null | undefined;
   /**
-   * The city name where the contact resides, used to identify the geographical area of the contact. This field is optional and should be a string. Including the city name helps in organizing contacts based on their location, facilitating regional data analysis and communication.
+   * Specifies the city where the contact is located, which is a critical part of the address for regional identification and mail delivery. Ensure this field contains the correct city name to facilitate accurate contact management and communication.
    */
   city?: string | null | undefined;
   /**
-   * The state or region name associated with the contact's address, providing a broader geographical context. This field is optional and should be a string. Including the state information aids in categorizing contacts by region, which is useful for targeted marketing and compliance with regional regulations.
+   * Indicates the state or province of the contact's address, which is necessary for regional sorting and legal jurisdiction purposes. This field should be filled with the official state name to ensure proper address validation and processing.
    */
   state?: string | null | undefined;
   /**
-   * The postal code associated with the contact's address. This field is optional and should be a valid postal code format for the specified country. It helps in accurately locating the contact's address within the CRM system.
+   * The postal code for the contact's address, used to identify the specific area or region. This field helps in accurately locating the contact's address for delivery or correspondence purposes. Ensure the postal code is formatted correctly according to the local postal system.
    */
   postalCode?: string | null | undefined;
   /**
-   * The country code for the contact's address, following the ISO 3166-1 alpha-2 standard. This optional field ensures that the address is correctly associated with a specific country, aiding in international data consistency and validation.
+   * The country code for the contact's address, following the ISO 3166-1 alpha-2 standard. This code is essential for identifying the country in which the contact resides, ensuring proper international communication and compliance. It must be a valid two-letter country code.
    */
   country?: string | null | undefined;
   /**
-   * The latitude coordinate of the contact's address. This optional field should be a valid latitude value, aiding in geolocation services and mapping the contact's precise location within the CRM.
+   * The latitude coordinate of the contact's address, used for geographical mapping and location services. This value helps in pinpointing the exact location of the address on a map. Ensure the latitude is a valid decimal number representing the geographical latitude.
    */
   latitude?: string | null | undefined;
   /**
-   * The longitude coordinate of the contact's address. This optional field should be a valid longitude value, which, along with latitude, helps in pinpointing the contact's exact location for mapping and location-based services.
+   * The longitude coordinate of the contact's address, crucial for geographical mapping and navigation purposes. This value allows for precise location tracking of the address on a map. Ensure the longitude is a valid decimal number representing the geographical longitude.
    */
   longitude?: string | null | undefined;
   /**
-   * The county or equivalent sublocality for the contact's address. This optional field provides additional granularity to the address, useful for regional segmentation and detailed location analysis within the CRM.
+   * The county or sublocality of the contact's address, providing additional granularity for location identification. This field is useful for regional segmentation and local governance purposes. Include the full name of the county or sublocality as recognized locally.
    */
   county?: string | null | undefined;
   /**
-   * The full name of the contact person associated with the address. This field is optional and should be a string that accurately represents the individual's name for identification purposes within the CRM system. It helps in personalizing communication and ensuring the correct contact is updated.
+   * The name of the contact person associated with the address. This field is used to identify the individual at the specified address and is crucial for personalizing communications and ensuring accurate contact management. It should be a valid string representing the full name or preferred name of the contact.
    */
   contactName?: string | null | undefined;
   /**
-   * The salutation or title used for the contact person at the address, such as 'Mr.', 'Ms.', or 'Dr.'. This optional field helps in formal communication and should be a string that aligns with the contact's preferred title.
+   * The salutation for the contact person at the address, such as Mr., Mrs., or Dr. This field helps in addressing the contact appropriately in communications and should be a valid string that reflects the contact's preferred title.
    */
   salutation?: string | null | undefined;
   /**
-   * The primary phone number associated with the address. This optional field should be a valid string format, including country code if applicable, to ensure accurate and effective communication with the contact.
+   * The phone number associated with the address, used for direct communication with the contact. This field should contain a valid phone number format, including country code if applicable, to ensure successful contact.
    */
   phoneNumber?: string | null | undefined;
   /**
-   * The fax number linked to the address, provided as an optional string. This field is useful for contacts who prefer or require fax communication, and should be formatted correctly to ensure successful transmission.
+   * The fax number associated with the address, used for sending documents via fax. This field should be a valid fax number format, including any necessary country and area codes, to ensure documents are sent correctly.
    */
   fax?: string | null | undefined;
   /**
-   * The email address associated with the contact at the address. This optional field must be a valid email format to facilitate electronic communication and ensure messages are delivered correctly to the intended recipient.
+   * The email address associated with the address, used for electronic communication with the contact. This field must be a valid email format to ensure messages are delivered successfully and is essential for maintaining digital correspondence.
    */
   email?: string | null | undefined;
   /**
-   * The website URL associated with the contact's address. This field should contain a valid URL format, including the protocol (e.g., https://). It helps in providing additional context or contact method for the address being updated.
+   * The website URL associated with the contact's address. This field allows you to update or add a website link relevant to the contact's location. Ensure the URL is correctly formatted to avoid errors during the update process.
    */
   website?: string | null | undefined;
   /**
-   * Additional notes or comments related to the contact's address. This field can be used to store any extra information that might be relevant for understanding or managing the address details. It supports text input without specific format constraints.
+   * Additional notes related to the contact's address. Use this field to include any extra information or comments that may be useful for understanding the context of the address. This can help in providing personalized service or remembering specific details about the contact.
    */
   notes?: string | null | undefined;
   /**
-   * A concurrency control token used to manage updates to the contact's address. This string value is automatically incremented with each update to prevent data conflicts, ensuring that changes are not overwritten unintentionally.
+   * A version control string used to manage updates to the contact's address. This field helps prevent data conflicts by ensuring that updates are only applied if the row version matches the current version in the database. It is automatically incremented with each update, so ensure you provide the latest version when making changes.
    */
   rowVersion?: string | null | undefined;
 };
 
 export type UpdateContactRequestSocialLinks = {
   /**
-   * The unique identifier for a specific social media link within the contact's profile. This ID is used to reference and manage individual social links, ensuring precise updates and retrievals.
+   * The unique identifier for a specific social media link within the contact's profile. This ID is used to reference and update specific social links, ensuring precise modifications without affecting other entries. It must be a valid identifier that corresponds to an existing social link.
    */
   id?: string | null | undefined;
   /**
-   * The URL of the social media profile associated with the contact. This must be a valid URL format, such as https://www.twitter.com/apideck, and is essential for linking the contact to their social presence. This property ensures that social links are accurately updated within the CRM.
+   * The URL of the social media profile associated with the contact. This field is required and must be a valid URL format, such as https://www.twitter.com/apideck. It helps in linking the contact's social presence to their CRM profile, ensuring comprehensive contact information.
    */
   url: string;
   /**
-   * Specifies the type of social media platform for the URL provided, such as 'twitter' or 'linkedin'. This optional field helps categorize the social link, allowing for better organization and retrieval of social media information within the CRM.
+   * Specifies the type of social media platform for the provided URL, such as 'twitter' or 'linkedin'. This field is optional but helps categorize the social link, enhancing the organization of contact information within the CRM.
    */
   type?: string | null | undefined;
 };
 
 /**
- * The type of phone number, such as 'mobile', 'home', or 'work'. This property helps categorize the phone number for better organization and understanding of the contact's communication preferences. It should be a descriptive string that accurately reflects the phone number's usage context.
+ * Indicates the type of phone number provided, such as 'mobile', 'home', or 'work'. This optional field helps categorize the phone number for better organization and context within the CRM. Ensure the type is specified as a valid string to aid in contact management.
  */
 export const UpdateContactRequestPhoneNumbersType = {
   Primary: "primary",
@@ -222,7 +222,7 @@ export const UpdateContactRequestPhoneNumbersType = {
   Other: "other",
 } as const;
 /**
- * The type of phone number, such as 'mobile', 'home', or 'work'. This property helps categorize the phone number for better organization and understanding of the contact's communication preferences. It should be a descriptive string that accurately reflects the phone number's usage context.
+ * Indicates the type of phone number provided, such as 'mobile', 'home', or 'work'. This optional field helps categorize the phone number for better organization and context within the CRM. Ensure the type is specified as a valid string to aid in contact management.
  */
 export type UpdateContactRequestPhoneNumbersType = ClosedEnum<
   typeof UpdateContactRequestPhoneNumbersType
@@ -230,33 +230,33 @@ export type UpdateContactRequestPhoneNumbersType = ClosedEnum<
 
 export type UpdateContactRequestPhoneNumbers = {
   /**
-   * A unique identifier for each phone number associated with the contact. This identifier is used to distinguish between different phone numbers, facilitating updates and management of contact information within the CRM.
+   * A unique identifier for each phone number associated with the contact. This field is optional and is used to distinguish between different phone numbers, especially when updating or managing multiple numbers for a single contact.
    */
   id?: string | null | undefined;
   /**
-   * The international dialing code for the phone number, such as '+1' for the United States. This field is important for ensuring that phone numbers are formatted correctly and can be dialed internationally, supporting global communication needs.
+   * The international dialing code for the phone number, such as '+1' for the United States. This field is optional and should be included to ensure the phone number is correctly formatted for international dialing, enhancing the accuracy of contact information.
    */
   countryCode?: string | null | undefined;
   /**
-   * The area code of the phone number, e.g. 323. This property is used to specify the regional code associated with the phone number, ensuring accurate dialing and identification of the contact's location. It should be a valid area code that corresponds to the contact's geographical region.
+   * Specifies the area code for the contact's phone number, which is essential for correctly routing calls to the appropriate geographic region. This field is optional but recommended for ensuring accurate dialing and contact identification. The area code should be a valid string representing the regional code, such as '323'.
    */
   areaCode?: string | null | undefined;
   /**
-   * The phone number of the contact, excluding the area code and extension. This is a required field and must be a valid phone number format to ensure successful communication with the contact. It is crucial for identifying and reaching the contact within the CRM system.
+   * The primary phone number for the contact, which is required for direct communication. This field must be a valid phone number string, excluding the area code and extension, and is crucial for identifying the contact's main line of communication. Ensure the number is formatted correctly to facilitate successful calls.
    */
   number: string;
   /**
-   * The extension of the phone number, if applicable. This property allows for specifying additional dialing instructions needed to reach the contact directly, especially in corporate environments. It should be a numeric string if used.
+   * An optional extension for the contact's phone number, used to direct calls to a specific department or individual within an organization. This field should be a valid string representing the extension number, enhancing the precision of call routing within larger organizations.
    */
   extension?: string | null | undefined;
   /**
-   * The type of phone number, such as 'mobile', 'home', or 'work'. This property helps categorize the phone number for better organization and understanding of the contact's communication preferences. It should be a descriptive string that accurately reflects the phone number's usage context.
+   * Indicates the type of phone number provided, such as 'mobile', 'home', or 'work'. This optional field helps categorize the phone number for better organization and context within the CRM. Ensure the type is specified as a valid string to aid in contact management.
    */
   type?: UpdateContactRequestPhoneNumbersType | null | undefined;
 };
 
 /**
- * Specifies the type of email address, such as 'work', 'personal', or 'other'. This optional field helps categorize the email address for better organization and retrieval within the CRM system.
+ * Specifies the type of email address being updated, such as 'work' or 'personal'. This field helps categorize the email address within the contact's profile, although it is optional. Providing this information can enhance the organization and retrieval of contact details.
  */
 export const UpdateContactRequestEmailsType = {
   Primary: "primary",
@@ -267,7 +267,7 @@ export const UpdateContactRequestEmailsType = {
   Other: "other",
 } as const;
 /**
- * Specifies the type of email address, such as 'work', 'personal', or 'other'. This optional field helps categorize the email address for better organization and retrieval within the CRM system.
+ * Specifies the type of email address being updated, such as 'work' or 'personal'. This field helps categorize the email address within the contact's profile, although it is optional. Providing this information can enhance the organization and retrieval of contact details.
  */
 export type UpdateContactRequestEmailsType = ClosedEnum<
   typeof UpdateContactRequestEmailsType
@@ -275,15 +275,15 @@ export type UpdateContactRequestEmailsType = ClosedEnum<
 
 export type UpdateContactRequestEmails = {
   /**
-   * A unique identifier for the email address associated with the contact. This identifier is used to distinguish between multiple email addresses that a contact may have. It is not required when adding a new email but is necessary for updating or removing an existing email address.
+   * This property represents the unique identifier for an email address associated with the contact. It is used to specify which email address record should be updated within the contact's information. Although not required, providing this ID ensures that the correct email entry is modified, especially when multiple emails are associated with a single contact.
    */
   id?: string | null | undefined;
   /**
-   * The primary email address for the contact, which is required for communication purposes. This field must be a valid email format and is essential for ensuring that contact information is accurate and up-to-date within the CRM system.
+   * The primary email address for the contact that you wish to update. This field is required and must be a valid email format, ensuring that the contact's email information is accurate and up-to-date. It is crucial for communication and identification purposes within the CRM.
    */
   email: string | null;
   /**
-   * Specifies the type of email address, such as 'work', 'personal', or 'other'. This optional field helps categorize the email address for better organization and retrieval within the CRM system.
+   * Specifies the type of email address being updated, such as 'work' or 'personal'. This field helps categorize the email address within the contact's profile, although it is optional. Providing this information can enhance the organization and retrieval of contact details.
    */
   type?: UpdateContactRequestEmailsType | null | undefined;
 };
@@ -293,7 +293,7 @@ export type UpdateContactRequestValue6 = {};
 export type UpdateContactRequestValue4 = {};
 
 /**
- * The value assigned to the custom field for the contact. This property is optional and can be any string that represents the data you wish to store in the custom field. It allows for flexible data entry tailored to specific needs of the contact.
+ * The value assigned to the custom field for the contact. This optional field is used to store specific data related to the custom field, which can be utilized for personalized contact management.
  */
 export type UpdateContactRequestValue =
   | UpdateContactRequestValue4
@@ -305,19 +305,19 @@ export type UpdateContactRequestValue =
 
 export type UpdateContactRequestCustomFields = {
   /**
-   * The unique identifier for the custom field associated with the contact. This string must be provided to specify which custom field is being updated or added. It ensures that the correct field is targeted during the update operation, maintaining data integrity within the CRM system.
+   * The unique identifier for the custom field that you wish to update. This ID is required to specify which custom field in the contact's record should be modified. Ensure that this ID corresponds to an existing custom field within the contact's data.
    */
   id: string | null;
   /**
-   * The name of the custom field that provides a label or title for the field being updated. This is optional but recommended for clarity, especially when multiple custom fields exist. It helps in identifying the purpose of the field within the contact's profile.
+   * The name of the custom field that you want to update or add to the contact's record. This field is optional and can be used to provide a descriptive label for the custom field, enhancing the clarity of the contact's information.
    */
   name?: string | null | undefined;
   /**
-   * Additional information or context about the custom field. This optional property can be used to describe the field's purpose or usage, aiding in better understanding and management of custom data within the contact's profile.
+   * Additional information or details about the custom field. This optional field allows you to provide context or notes regarding the custom field's purpose or usage within the contact's record.
    */
   description?: string | null | undefined;
   /**
-   * The value assigned to the custom field for the contact. This property is optional and can be any string that represents the data you wish to store in the custom field. It allows for flexible data entry tailored to specific needs of the contact.
+   * The value assigned to the custom field for the contact. This optional field is used to store specific data related to the custom field, which can be utilized for personalized contact management.
    */
   value?:
     | UpdateContactRequestValue4
@@ -332,171 +332,171 @@ export type UpdateContactRequestCustomFields = {
 
 export type UpdateContactRequestExtendPaths = {
   /**
-   * A JSONPath string that specifies the exact location within the contact record where the value should be applied. This path must be a valid JSONPath expression, ensuring that the update is accurately targeted to the intended property. It is crucial for performing precise modifications in complex data structures.
+   * A required JSONPath string that specifies the exact location within the contact data where the update should be applied. This path is crucial for directing the API to the correct data point for modification, ensuring accurate updates.
    */
   path: string;
   /**
-   * The value to be set at the specified JSONPath within the contact record. This can be of any data type, allowing for flexible updates to the contact's properties. The value must be compatible with the data type of the target property to ensure successful application.
+   * The required value to be set at the specified JSONPath. This property can be of any type, allowing for flexible updates to the contact data, depending on the nature of the modification needed.
    */
   value?: any | undefined;
 };
 
 export type UpdateContactRequestPassThrough = {
   /**
-   * A mandatory string identifier specifying the service to which the pass_through data should be applied. This ensures that the custom data is correctly routed and processed by the intended service, facilitating precise and effective updates.
+   * A mandatory identifier for the service to which the pass_through data applies. This ensures that the custom data is correctly routed and processed by the intended service, maintaining the integrity and specificity of the update operation.
    */
   serviceId: string;
   /**
-   * An optional identifier for a specific workflow operation to which this pass_through should be applied. This is particularly useful for Unify calls that involve multiple downstream requests, allowing for precise tracking and management of each operation. The value should be a unique string that identifies the operation within the context of the request.
+   * An optional identifier for a specific workflow operation. This property is used to apply the pass-through to a particular operation, especially useful when multiple downstream requests are involved in Unify calls. It helps in tracking and managing the operation context effectively.
    */
   operationId?: string | undefined;
   /**
-   * A flexible object that allows for the direct extension of properties within the contact record. This can be used to add custom fields or additional data that are not part of the standard contact schema. The object can contain any key-value pairs, providing a versatile way to enhance contact information.
+   * A flexible object that allows for the direct extension of properties. This property is used to include additional data that may not be explicitly defined in the API schema, enabling custom modifications and extensions as needed.
    */
   extendObject?: { [k: string]: any } | undefined;
   /**
-   * An array of objects designed for structured data modifications using specified paths. Each object in the array should define a path and a corresponding value, enabling precise updates to nested properties within the contact record. This approach allows for targeted modifications without altering the entire object.
+   * An array of objects designed for structured data modifications using paths. This property allows you to specify multiple JSONPath strings and corresponding values to update specific parts of the contact data, facilitating precise and targeted updates.
    */
   extendPaths?: Array<UpdateContactRequestExtendPaths> | undefined;
 };
 
 export type UpdateContactRequest = {
   /**
-   * The full name of the contact to be updated. This is a required field and must be a non-empty string. It is essential for identifying the contact within the CRM system and ensuring the correct record is modified.
+   * The full name of the contact to be updated. This field is required and must contain the complete name as it should appear in the CRM. It is essential for identifying and managing the contact within the system.
    */
   name: string | null;
   /**
-   * The unique identifier of the user who owns the contact. This optional field helps in assigning or reassigning ownership of the contact within the CRM, facilitating better management and accountability.
+   * The unique identifier of the user who owns the contact. This field is optional and can be used to assign or reassign ownership of the contact to a specific user within the CRM, facilitating better management and accountability.
    */
   ownerId?: string | null | undefined;
   /**
-   * Specifies the category or classification of the contact, such as 'customer', 'supplier', or 'partner'. This optional field aids in organizing contacts within the CRM for targeted communication and reporting.
+   * Specifies the category or classification of the contact. This optional field helps in organizing contacts based on their type, such as 'customer', 'supplier', or 'partner', enhancing the CRM's ability to filter and manage contacts effectively.
    */
   type?: UpdateContactRequestType | null | undefined;
   /**
-   * The unique identifier of the company associated with the contact. This optional field links the contact to a specific company within the CRM, enabling seamless integration of contact and company data.
+   * The unique identifier of the company associated with the contact. This optional field links the contact to a specific company within the CRM, ensuring that all interactions and data are correctly attributed to the right organization.
    */
   companyId?: string | null | undefined;
   /**
-   * The name of the company the contact is associated with. This optional field provides a human-readable reference to the company, complementing the company_id for easier identification and association within the CRM.
+   * The name of the company that the contact is associated with. This optional field provides a human-readable reference to the company, complementing the company_id and aiding in the identification and management of the contact's organizational affiliations.
    */
   companyName?: string | null | undefined;
   /**
-   * The unique identifier of the lead associated with the contact. This optional field helps link the contact to a specific lead within the CRM, facilitating lead management and tracking. Ensure the lead ID is valid and corresponds to an existing lead record.
+   * The lead_id property is used to associate the contact with a specific lead within the CRM. This linkage helps in tracking the contact's origin and potential sales opportunities. It should be a valid string that uniquely identifies the lead, if applicable.
    */
   leadId?: string | null | undefined;
   /**
-   * The given name of the contact. This field is used to personalize communications and should be a non-empty string. It is part of the contact's basic identification information within the CRM.
+   * The first_name property represents the given name of the contact. This field is essential for personalizing communications and ensuring accurate identification of the contact within the CRM. It should be a valid string containing the contact's first name.
    */
   firstName?: string | null | undefined;
   /**
-   * The middle name of the contact, if applicable. This optional field can be used for more precise identification and should be a string. It helps in distinguishing contacts with similar first and last names.
+   * The middle_name property holds the middle name of the contact, if available. Including a middle name can help in distinguishing contacts with common first and last names. It should be a valid string representing the contact's middle name.
    */
   middleName?: string | null | undefined;
   /**
-   * The family name or surname of the contact. This field is crucial for identifying the contact and should be a non-empty string. It is used in conjunction with the first name to uniquely identify a contact within the CRM.
+   * The last_name property specifies the family name or surname of the contact. This field is crucial for identifying and organizing contacts within the CRM. It should be a valid string containing the contact's last name.
    */
   lastName?: string | null | undefined;
   /**
-   * An optional title or honorific for the contact, such as Mr., Ms., or Dr. This field can be used to address the contact respectfully in communications and should be a string. It adds a formal touch to the contact's name in records.
+   * The prefix property is used to denote titles or honorifics associated with the contact, such as Mr., Ms., or Dr. This field can enhance the formality and accuracy of communications. It should be a valid string representing the contact's prefix.
    */
   prefix?: string | null | undefined;
   /**
-   * The suffix of the contact, such as 'Jr.', 'Sr.', or 'III'. This field is optional and can be used to provide additional context to the contact's name, ensuring proper identification and personalization within the CRM system. It should be a string value if provided.
+   * The suffix of the contact, such as 'Jr.', 'Sr.', or 'III'. This field is used to provide additional identification or distinction for the contact's name. It is optional and should be included only if relevant to the contact's full name.
    */
   suffix?: string | null | undefined;
   /**
-   * The job title of the contact within their organization. This optional field helps in identifying the contact's role and responsibilities, which can be useful for segmentation and communication strategies. It should be a descriptive string that accurately reflects the contact's position.
+   * The job title of the contact within their organization. This field helps identify the contact's role and responsibilities, which can be crucial for understanding their position in business communications. It is optional and should accurately reflect the contact's current job title.
    */
   title?: string | null | undefined;
   /**
-   * The department to which the contact belongs within their organization. This optional field aids in organizing contacts based on their departmental affiliations, facilitating targeted communication and data management. It should be a string that clearly specifies the department name.
+   * The department within the organization where the contact works. This information is useful for directing communications and understanding the contact's area of expertise or responsibility. It is optional and should be specified if it helps in categorizing the contact's professional context.
    */
   department?: string | null | undefined;
   /**
-   * The preferred language of the contact, specified using the ISO 639-1 code (e.g., 'EN' for English). This optional field is crucial for ensuring that communications are delivered in the contact's preferred language, enhancing engagement and understanding. It must be a valid two-letter language code.
+   * The preferred language of communication for the contact, specified using the ISO 639-1 language code (e.g., 'EN' for English). This field ensures that communications are conducted in the contact's preferred language, enhancing clarity and engagement. It is optional but recommended for international contacts.
    */
   language?: string | null | undefined;
   /**
-   * The gender of the contact, which can be used for demographic analysis and personalized communication. This optional field should be a string value, typically 'Male', 'Female', or other gender identities as applicable. Providing this information can help tailor interactions and improve user experience.
+   * The gender of the contact, which may be used for demographic analysis or personalized communication. This field is optional and should be provided only if relevant and necessary for the context of the CRM operations.
    */
   gender?: UpdateContactRequestGender | null | undefined;
   /**
-   * The contact's date of birth, used to personalize interactions and offers. This should be formatted as 'YYYY-MM-DD' to ensure consistency and proper parsing by the system. Including a birthday can enhance customer engagement strategies.
+   * The birthday of the contact. This field allows you to update the contact's date of birth, which can be used for personalized communications and age verification. The date should be formatted as YYYY-MM-DD to ensure proper processing and storage.
    */
   birthday?: string | null | undefined;
   /**
-   * A base64-encoded string representing the contact's image. This allows the CRM to store and display the contact's picture directly within the application. Ensure the image is properly encoded to avoid errors during processing.
+   * A base64 encoded string representing the contact's image. This field is used to update the contact's profile picture directly in the CRM. Ensure the image is properly encoded to avoid errors during the update process.
    *
    * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   image?: string | null | undefined;
   /**
-   * The web address where the contact's photo is hosted. This URL should be publicly accessible to allow the CRM to fetch and display the image. Using a URL instead of an image file can save storage space and improve load times.
+   * The URL of the contact's photo. This field allows you to link to an externally hosted image, providing a visual representation of the contact in the CRM. Ensure the URL is accessible and points to a valid image file.
    */
   photoUrl?: string | null | undefined;
   /**
-   * Identifies the origin of the contact, such as 'web', 'referral', or 'advertisement'. This information helps in tracking the effectiveness of different marketing channels and strategies. Ensure the lead source is accurately recorded to maintain data integrity.
+   * The lead source of the contact. This field helps track where the contact originated from, aiding in marketing analysis and strategy. It should be a descriptive string that identifies the source accurately.
    */
   leadSource?: string | null | undefined;
   /**
-   * The contact's fax number, used for sending documents via fax. This should include the country code and be formatted according to international dialing standards. Providing a fax number can be crucial for businesses that rely on fax communication.
+   * The fax number of the contact. This field is used to update or add a fax number for the contact, facilitating communication through traditional fax methods. Ensure the number is formatted correctly according to international dialing standards.
    */
   fax?: string | null | undefined;
   /**
-   * A brief text providing additional information about the contact. This field is optional and can be used to store notes or remarks that help in identifying or categorizing the contact within the CRM system. It should be a string value, allowing for flexible input that can be updated as needed to reflect changes in the contact's profile.
+   * A brief overview or additional notes about the contact. This field allows you to provide context or specific details that may be relevant for customer relationship management. It is optional and can be updated to reflect any changes in the contact's information or status.
    */
   description?: string | null | undefined;
   /**
-   * Represents the financial balance associated with the contact, typically used in contexts where the contact has an account or outstanding transactions. This numeric field is optional and should be updated to reflect the latest balance information, ensuring financial records are accurate and up-to-date.
+   * Represents the financial balance associated with the contact. This field is useful for tracking outstanding amounts or credits related to the contact. Ensure the value is a valid number reflecting the current balance status.
    */
   currentBalance?: number | null | undefined;
   /**
-   * Indicates the current state or condition of the contact, such as 'active', 'inactive', or 'pending'. This optional string field helps in managing and filtering contacts based on their engagement or lifecycle stage within the CRM system. It should be updated to reflect any changes in the contact's status.
+   * Indicates the current operational state of the contact within the CRM. This field helps in categorizing contacts based on their engagement or activity level. It should be a valid string that accurately reflects the contact's status.
    */
   status?: string | null | undefined;
   /**
-   * A boolean flag that specifies whether the contact is currently active. This optional field is crucial for enabling or disabling contact interactions within the CRM system. Setting this to 'true' means the contact is active and can participate in CRM activities, while 'false' indicates inactivity.
+   * A flag indicating whether the contact is currently active. This boolean value helps in filtering contacts that are actively engaged or available for communication. Set to true if the contact is active, otherwise false.
    */
   active?: boolean | null | undefined;
   /**
-   * An array of website URLs associated with the contact. This optional field allows for the inclusion of multiple web addresses, providing a comprehensive digital footprint of the contact. Each entry should be a valid URL, and this list can be updated to add or remove websites as necessary.
+   * A list of websites associated with the contact. This array can include multiple URLs that are relevant to the contact's online presence or business operations. Each entry should be a valid URL format to ensure proper linkage.
    */
   websites?: Array<UpdateContactRequestWebsites> | undefined;
   /**
-   * An array of address objects associated with the contact. This property allows for the inclusion of multiple addresses, such as home and work, ensuring comprehensive contact information. Each address object within the array should conform to the expected address structure, facilitating accurate updates.
+   * An array of address objects associated with the contact. Each object within the array can contain detailed address information to be updated. This field allows for comprehensive management of multiple addresses linked to a single contact.
    */
   addresses?: Array<UpdateContactRequestAddresses> | undefined;
   /**
-   * An array of social media links associated with the contact. Each entry in the array should represent a distinct social media profile, allowing for comprehensive social presence tracking within the CRM.
+   * An array of social media links associated with the contact. This field allows you to update or add multiple social media profiles, enhancing the contact's profile with relevant online presence information. Each entry in the array should be a valid social media link object.
    */
   socialLinks?: Array<UpdateContactRequestSocialLinks> | undefined;
   /**
-   * An array of phone number objects associated with the contact. Each object within the array can include details such as the phone number's unique identifier and country code. This allows for the management of multiple contact numbers, ensuring comprehensive contact information is maintained.
+   * An array of phone number objects associated with the contact. Each object within the array can contain details such as the phone number's unique ID and country code. This field is optional and allows for multiple phone numbers to be linked to a single contact, providing flexibility in contact methods.
    */
   phoneNumbers?: Array<UpdateContactRequestPhoneNumbers> | undefined;
   /**
-   * An array of email addresses associated with the contact. This property allows for multiple email entries, facilitating comprehensive communication options. Each email should be a valid email format to ensure proper delivery and identification within the CRM system.
+   * A list of email addresses associated with the contact, allowing for multiple points of electronic communication. This optional array can include various email addresses, enhancing the contact's accessibility and ensuring comprehensive communication options. Each email should be a valid email format to ensure deliverability.
    */
   emails?: Array<UpdateContactRequestEmails> | undefined;
   /**
-   * The domain part of the contact's email address, used for filtering or categorizing contacts based on their email domains. This optional field can assist in segmenting contacts for targeted communication strategies.
+   * Indicates the domain part of the email address, which can be used for validation or categorization purposes. This optional field helps in filtering or organizing contacts based on their email domains, aiding in targeted communication strategies.
    */
   emailDomain?: string | null | undefined;
   /**
-   * An array of custom fields that allow for additional, user-defined information to be stored with the contact. This optional property enables flexibility in capturing unique data points that are not covered by standard fields, enhancing the CRM's adaptability to specific business needs.
+   * An array of custom fields that allow you to include additional, user-defined information about the contact. This field is optional and flexible, enabling the storage of extra data that may not fit into predefined fields, thus enhancing the contact's profile with personalized details.
    */
   customFields?: Array<UpdateContactRequestCustomFields> | undefined;
   /**
-   * An array of tags associated with the contact, used for categorization or labeling purposes. This optional property allows for better organization and retrieval of contact information based on custom tags defined by the user.
+   * A list of tags associated with the contact. This optional array allows you to categorize or label the contact with relevant keywords, facilitating easier search and organization within the CRM.
    */
   tags?: Array<string> | null | undefined;
   /**
-   * An array of opportunity identifiers linked to the contact, representing potential business deals or engagements. This property is optional and can be used to associate the contact with specific opportunities within the CRM system, aiding in tracking and management of sales processes.
+   * An array of opportunity IDs linked to the contact. This property allows you to associate the contact with specific sales opportunities, facilitating better tracking and management of potential deals. Each ID in the array should correspond to an existing opportunity within the CRM.
    */
   opportunityIds?: Array<string> | undefined;
   /**
-   * An array that allows the inclusion of service-specific custom data or structured modifications when updating the contact. This property is optional and provides flexibility for integrating additional data that may not be covered by standard fields, ensuring comprehensive updates.
+   * The pass_through property is used to send custom data or modifications specific to a service when updating contact information. This allows for flexibility in handling service-specific requirements without altering the core API structure. Each entry should be structured according to the service's specifications.
    */
   passThrough?: Array<UpdateContactRequestPassThrough> | undefined;
 };

@@ -1,6 +1,6 @@
 # UpdateActivityRequestValue
 
-The actual data or value stored in the custom field, which can vary based on the field's intended use. This field is optional and should be formatted according to the data type expected by the custom field's definition.
+The value assigned to the custom field, representing the actual data or information it holds. This property is optional and can be used to update the content of the custom field as needed, ensuring the activity record reflects the most current and relevant information.
 
 
 ## Supported Types

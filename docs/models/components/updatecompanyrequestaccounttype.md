@@ -1,6 +1,6 @@
 # UpdateCompanyRequestAccountType
 
-The classification of the company's bank account, such as 'savings', 'checking', or 'business'. This property helps categorize the account for financial management purposes and should reflect the account type as recognized by the bank. It is used to update the company's financial profile in the CRM.
+Specifies the type of bank account, such as checking or savings. This information helps in categorizing the account for financial operations. Ensure the account type is correctly specified to align with the bank's classification.
 
 ## Example Usage
 

@@ -9,11 +9,11 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This object contains the details of the newly created lead, including its unique identifier. It serves as the main container for the response data, confirming the successful addition of the lead to the CRM system. The structure of this object is crucial for further processing or integration steps.
+ * This object contains the details of the lead that was successfully created. It serves as the main container for the response data, encapsulating all relevant information about the new lead entry in the CRM system. The structure of this object is crucial for accessing specific attributes like the lead's unique identifier.
  */
 export type CreateLeadResponseUnifiedId = {
   /**
-   * The unique identifier assigned to the newly created lead in the CRM system. This string value is essential for referencing the lead in subsequent operations, such as updates or retrievals. It confirms the successful creation of the lead and is used to track and manage the lead within the CRM.
+   * The unique identifier assigned to the newly created lead in the CRM system. This ID is essential for referencing the lead in future operations, such as updates or retrievals, and ensures that each lead can be distinctly identified within the database.
    */
   id: string;
 };
@@ -23,27 +23,27 @@ export type CreateLeadResponseUnifiedId = {
  */
 export type CreateLeadResponse = {
   /**
-   * The HTTP response status code indicating the result of the lead creation operation. A value of 201 confirms that the lead was successfully added to the CRM system. This integer is crucial for error handling and confirming successful operations.
+   * The HTTP response status code returned by the API. This integer value indicates the result of the POST request to add a new lead, with a successful creation typically returning a 201 status code. It helps developers understand the outcome of their API call.
    */
   statusCode: number;
   /**
-   * A textual representation of the HTTP response status, such as 'Created' for a successful lead addition. This string provides a human-readable confirmation of the operation's outcome, complementing the status code.
+   * A textual representation of the HTTP response status. This string provides a human-readable status message corresponding to the status code, such as 'Created' for a successful lead addition. It aids in quickly identifying the result of the operation.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider used for this operation. This string identifies which service within the Apideck ecosystem processed the lead addition, essential for tracking and integration purposes.
+   * The Apideck ID of the service provider used for this operation. This string identifies which service integration was utilized when adding the new lead, helping developers track and manage service-specific operations.
    */
   service: string;
   /**
-   * The name of the Unified API resource involved in the operation, typically 'lead' for this endpoint. This string helps developers understand the context of the API call and the type of resource affected.
+   * The name of the unified API resource involved in the operation. This string specifies the type of resource that was affected, in this case, a 'lead', providing context about the nature of the operation performed.
    */
   resource: string;
   /**
-   * The specific operation performed, such as 'create' for adding a new lead. This string indicates the action taken by the API, providing clarity on the operation's intent and result.
+   * The specific operation performed by the API. This string indicates the action taken, such as 'create', reflecting the addition of a new lead to the CRM system. It helps developers understand the nature of the API call made.
    */
   operation: string;
   /**
-   * This object contains the details of the newly created lead, including its unique identifier. It serves as the main container for the response data, confirming the successful addition of the lead to the CRM system. The structure of this object is crucial for further processing or integration steps.
+   * This object contains the details of the lead that was successfully created. It serves as the main container for the response data, encapsulating all relevant information about the new lead entry in the CRM system. The structure of this object is crucial for accessing specific attributes like the lead's unique identifier.
    */
   data: CreateLeadResponseUnifiedId;
 };

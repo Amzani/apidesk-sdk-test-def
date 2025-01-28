@@ -36,19 +36,10 @@ import {
 } from "../types/operations.js";
 
 /**
- * Retrieve a list of users from the CRM system.
+ * Retrieve a list of CRM users with customizable data fields.
  *
  * @remarks
- * The `usersAll` operation allows developers to retrieve a comprehensive list of users from the CRM system using a GET request to the `/crm/users` endpoint. This operation is essential for applications that need to access user data for various purposes, such as displaying user information or integrating with other systems.
- *
- * Key parameters include:
- * - `x-apideck-consumer-id` (required): Identifies the consumer from which data is being accessed.
- * - `x-apideck-app-id` (required): Specifies the Unify application ID.
- * - `x-apideck-service-id`: Optional parameter to specify the service ID when multiple integrations are active.
- * - `limit`: Controls the number of results returned, with a default of 20 and a maximum of 200.
- * - `fields`: Allows selection of specific fields to include in the response, enhancing performance by reducing payload size.
- *
- * The response returns a JSON object containing user data, which can be filtered and paginated using the provided parameters. This operation supports debugging with the `raw` parameter and allows additional query parameters through `pass_through`. It is designed to be efficient and flexible, catering to various application needs.
+ * The 'usersAll' operation fetches a list of users from the CRM system, allowing developers to access user data efficiently. This GET request to the '/crm/users' endpoint supports various query parameters to tailor the response, such as 'fields' for selecting specific data fields, 'limit' for controlling the number of users returned, and 'cursor' for pagination. Essential headers like 'x-apideck-consumer-id' and 'x-apideck-app-id' are required for authentication and routing. The response is typically a JSON object containing user details, and the 'raw' parameter can be used to include raw data for debugging purposes. This operation is crucial for applications needing to integrate or display CRM user information dynamically.
  */
 export async function crmUsersList(
   client: ApideckCore,
@@ -103,12 +94,12 @@ export async function crmUsersList(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

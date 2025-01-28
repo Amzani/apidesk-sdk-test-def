@@ -1,6 +1,6 @@
 # CustomMappings
 
-An object containing any custom mappings configured for the company resource. These mappings allow for additional, user-defined fields or data structures that extend the standard company data model, providing flexibility for specific business needs.
+The 'custom_mappings' field contains any additional, user-defined mappings that have been configured for the company resource. This object holds key-value pairs that extend the standard data model, allowing for customization and integration with other systems or processes.
 
 ## Example Usage
 

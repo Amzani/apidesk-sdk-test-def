@@ -27,16 +27,7 @@ import { Result } from "../types/fp.js";
  * Update company details in the CRM system.
  *
  * @remarks
- * The `companiesUpdate` operation allows developers to update existing company records in the CRM system using a PATCH request to the `/crm/companies/{id}` endpoint. This operation is essential for maintaining accurate and up-to-date company information within the CRM.
- *
- * Key Parameters:
- * - `id` (path): The unique identifier of the company record to be updated. This parameter is required.
- * - `raw` (query): Optional parameter to include the raw response, primarily used for debugging.
- * - `x-apideck-consumer-id` (header): Required parameter that specifies the consumer ID for data retrieval or submission.
- * - `x-apideck-app-id` (header): Required parameter indicating the ID of your Unify application.
- * - `x-apideck-service-id` (header): Optional parameter to specify the service ID when multiple integrations are active.
- *
- * Upon successful update, the operation returns a status code of 200 along with a JSON object representing the updated company resource, including its unique identifier. This ensures that developers can confirm the update and retrieve the latest company data efficiently.
+ * The companiesUpdate operation allows you to modify existing company records in the CRM by sending a PATCH request to the /crm/companies/{id} endpoint. This operation is essential for keeping company data current and accurate. You must provide the company ID in the path to specify which record to update. The request body should contain the fields you wish to update. Required headers include x-apideck-consumer-id and x-apideck-app-id for authentication and authorization. Optionally, use the 'raw' query parameter to receive raw data for debugging purposes. A successful update returns a 200 status code along with the updated company details in a JSON object.
  */
 export async function crmCompaniesUpdate(
   client: ApideckCore,
@@ -90,12 +81,12 @@ export async function crmCompaniesUpdate(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

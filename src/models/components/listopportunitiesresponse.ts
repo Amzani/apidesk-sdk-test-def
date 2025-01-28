@@ -5,212 +5,21 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-/**
- * Denotes the currency in which the monetary amount is expressed, following the ISO 4217 standard (e.g., 'USD' for US Dollars). This string value ensures that the financial data is accurately interpreted across different regions and is essential for international business operations.
- */
-export const ListOpportunitiesResponseCurrency = {
-  UnknownCurrency: "UNKNOWN_CURRENCY",
-  Aed: "AED",
-  Afn: "AFN",
-  All: "ALL",
-  Amd: "AMD",
-  Ang: "ANG",
-  Aoa: "AOA",
-  Ars: "ARS",
-  Aud: "AUD",
-  Awg: "AWG",
-  Azn: "AZN",
-  Bam: "BAM",
-  Bbd: "BBD",
-  Bdt: "BDT",
-  Bgn: "BGN",
-  Bhd: "BHD",
-  Bif: "BIF",
-  Bmd: "BMD",
-  Bnd: "BND",
-  Bob: "BOB",
-  Bov: "BOV",
-  Brl: "BRL",
-  Bsd: "BSD",
-  Btn: "BTN",
-  Bwp: "BWP",
-  Byr: "BYR",
-  Bzd: "BZD",
-  Cad: "CAD",
-  Cdf: "CDF",
-  Che: "CHE",
-  Chf: "CHF",
-  Chw: "CHW",
-  Clf: "CLF",
-  Clp: "CLP",
-  Cny: "CNY",
-  Cop: "COP",
-  Cou: "COU",
-  Crc: "CRC",
-  Cuc: "CUC",
-  Cup: "CUP",
-  Cve: "CVE",
-  Czk: "CZK",
-  Djf: "DJF",
-  Dkk: "DKK",
-  Dop: "DOP",
-  Dzd: "DZD",
-  Egp: "EGP",
-  Ern: "ERN",
-  Etb: "ETB",
-  Eur: "EUR",
-  Fjd: "FJD",
-  Fkp: "FKP",
-  Gbp: "GBP",
-  Gel: "GEL",
-  Ghs: "GHS",
-  Gip: "GIP",
-  Gmd: "GMD",
-  Gnf: "GNF",
-  Gtq: "GTQ",
-  Gyd: "GYD",
-  Hkd: "HKD",
-  Hnl: "HNL",
-  Hrk: "HRK",
-  Htg: "HTG",
-  Huf: "HUF",
-  Idr: "IDR",
-  Ils: "ILS",
-  Inr: "INR",
-  Iqd: "IQD",
-  Irr: "IRR",
-  Isk: "ISK",
-  Jmd: "JMD",
-  Jod: "JOD",
-  Jpy: "JPY",
-  Kes: "KES",
-  Kgs: "KGS",
-  Khr: "KHR",
-  Kmf: "KMF",
-  Kpw: "KPW",
-  Krw: "KRW",
-  Kwd: "KWD",
-  Kyd: "KYD",
-  Kzt: "KZT",
-  Lak: "LAK",
-  Lbp: "LBP",
-  Lkr: "LKR",
-  Lrd: "LRD",
-  Lsl: "LSL",
-  Ltl: "LTL",
-  Lvl: "LVL",
-  Lyd: "LYD",
-  Mad: "MAD",
-  Mdl: "MDL",
-  Mga: "MGA",
-  Mkd: "MKD",
-  Mmk: "MMK",
-  Mnt: "MNT",
-  Mop: "MOP",
-  Mro: "MRO",
-  Mur: "MUR",
-  Mvr: "MVR",
-  Mwk: "MWK",
-  Mxn: "MXN",
-  Mxv: "MXV",
-  Myr: "MYR",
-  Mzn: "MZN",
-  Nad: "NAD",
-  Ngn: "NGN",
-  Nio: "NIO",
-  Nok: "NOK",
-  Npr: "NPR",
-  Nzd: "NZD",
-  Omr: "OMR",
-  Pab: "PAB",
-  Pen: "PEN",
-  Pgk: "PGK",
-  Php: "PHP",
-  Pkr: "PKR",
-  Pln: "PLN",
-  Pyg: "PYG",
-  Qar: "QAR",
-  Ron: "RON",
-  Rsd: "RSD",
-  Rub: "RUB",
-  Rwf: "RWF",
-  Sar: "SAR",
-  Sbd: "SBD",
-  Scr: "SCR",
-  Sdg: "SDG",
-  Sek: "SEK",
-  Sgd: "SGD",
-  Shp: "SHP",
-  Sll: "SLL",
-  Sos: "SOS",
-  Srd: "SRD",
-  Ssp: "SSP",
-  Std: "STD",
-  Svc: "SVC",
-  Syp: "SYP",
-  Szl: "SZL",
-  Thb: "THB",
-  Tjs: "TJS",
-  Tmt: "TMT",
-  Tnd: "TND",
-  Top: "TOP",
-  Trc: "TRC",
-  Try: "TRY",
-  Ttd: "TTD",
-  Twd: "TWD",
-  Tzs: "TZS",
-  Uah: "UAH",
-  Ugx: "UGX",
-  Usd: "USD",
-  Usn: "USN",
-  Uss: "USS",
-  Uyi: "UYI",
-  Uyu: "UYU",
-  Uzs: "UZS",
-  Vef: "VEF",
-  Vnd: "VND",
-  Vuv: "VUV",
-  Wst: "WST",
-  Xaf: "XAF",
-  Xag: "XAG",
-  Xau: "XAU",
-  Xba: "XBA",
-  Xbb: "XBB",
-  Xbc: "XBC",
-  Xbd: "XBD",
-  Xcd: "XCD",
-  Xdr: "XDR",
-  Xof: "XOF",
-  Xpd: "XPD",
-  Xpf: "XPF",
-  Xpt: "XPT",
-  Xts: "XTS",
-  Xxx: "XXX",
-  Yer: "YER",
-  Zar: "ZAR",
-  Zmk: "ZMK",
-  Zmw: "ZMW",
-  Btc: "BTC",
-  Eth: "ETH",
-} as const;
-/**
- * Denotes the currency in which the monetary amount is expressed, following the ISO 4217 standard (e.g., 'USD' for US Dollars). This string value ensures that the financial data is accurately interpreted across different regions and is essential for international business operations.
- */
-export type ListOpportunitiesResponseCurrency = ClosedEnum<
-  typeof ListOpportunitiesResponseCurrency
->;
+import {
+  Currency,
+  Currency$inboundSchema,
+  Currency$outboundSchema,
+} from "./currency.js";
 
 export type ListOpportunitiesResponseValue6 = {};
 
 export type ListOpportunitiesResponseValue4 = {};
 
 /**
- * The value assigned to a custom field for an opportunity, represented as a string. This property holds specific data that can vary depending on the custom field's purpose, such as a numeric value, text, or other relevant information. It is optional and may be empty if no value is set.
+ * This property holds the actual data or input stored in the custom field for a specific opportunity. It allows for capturing tailored information that can be utilized within the CRM system, enhancing the opportunity's data profile.
  */
 export type ListOpportunitiesResponseValue =
   | ListOpportunitiesResponseValue4
@@ -222,19 +31,19 @@ export type ListOpportunitiesResponseValue =
 
 export type ListOpportunitiesResponseCustomFields = {
   /**
-   * A unique string identifier for each custom field within the opportunity. This ID is essential for referencing and managing specific custom fields programmatically.
+   * This property is a unique identifier for each custom field within the opportunity. It ensures that each field can be distinctly referenced and managed, which is crucial for operations involving updates or deletions of specific custom fields.
    */
   id: string | null;
   /**
-   * The display name of the custom field, provided as a string. This name is used to identify the custom field in user interfaces and reports, making it easier for users to understand the purpose of the field.
+   * This property contains the name assigned to the custom field, describing the type of information it holds. It helps users understand the purpose of the field and how it relates to the opportunity's data, facilitating better data management and usage.
    */
   name?: string | null | undefined;
   /**
-   * This property contains additional information about a custom field associated with an opportunity. It is a string that provides context or details that are not covered by standard fields, allowing for more tailored data representation. This field is optional and may be empty if no extra information is provided.
+   * This string field provides additional context or details about a custom field associated with the opportunity. It helps in understanding the purpose or usage of the custom field within the CRM system, offering insights into its role or significance.
    */
   description?: string | null | undefined;
   /**
-   * The value assigned to a custom field for an opportunity, represented as a string. This property holds specific data that can vary depending on the custom field's purpose, such as a numeric value, text, or other relevant information. It is optional and may be empty if no value is set.
+   * This property holds the actual data or input stored in the custom field for a specific opportunity. It allows for capturing tailored information that can be utilized within the CRM system, enhancing the opportunity's data profile.
    */
   value?:
     | ListOpportunitiesResponseValue4
@@ -248,257 +57,254 @@ export type ListOpportunitiesResponseCustomFields = {
 };
 
 /**
- * An object containing custom mappings configured on the resource, if any. This allows for flexibility in data representation and integration with other systems. Developers can use this to access additional, non-standard fields that have been tailored to specific business needs.
+ * This property contains an object that holds custom mappings configured specifically for the opportunity resource. These mappings allow for the inclusion of additional, user-defined fields in the response, offering flexibility in how opportunity data is represented and utilized. This feature is particularly useful for tailoring the CRM data to meet specific business needs or integration requirements.
  */
 export type ListOpportunitiesResponseCustomMappings = {};
 
 export type ListOpportunitiesResponseExtendPaths = {
   /**
-   * This property specifies the JSONPath string that indicates where a particular value should be applied within the data structure. It is a required field that ensures the correct placement of values, facilitating accurate data manipulation and integration processes.
+   * This property contains the JSONPath string that specifies where the value should be applied within the data structure. It is a required field for each object in the 'extend_paths' array, ensuring precise modification of the data. The path must adhere to a valid JSONPath expression format, allowing developers to target specific elements in the JSON response for updates or retrieval.
    */
   path: string;
   /**
-   * This property represents the value to be set at the specified JSONPath within the data structure. It can be of any data type, providing flexibility in the types of data that can be integrated or modified. This is essential for developers who need to apply diverse data updates or extensions.
+   * This property contains the value to be set at the specified JSONPath within the 'extend_paths' array. It is a required field and can hold any data type, providing flexibility for inserting or updating data at the designated path. This is crucial for dynamically managing CRM opportunity data in the response.
    */
   value?: any | undefined;
 };
 
 export type ListOpportunitiesResponsePassThrough = {
   /**
-   * A string identifier for the service to which the pass_through data should be applied. This ensures that the custom data is correctly routed and processed by the intended service, facilitating seamless integration and operation across different platforms.
+   * The 'service_id' within the 'pass_through' array identifies the service to which the custom data or modifications should be applied. This string ID ensures precise association with the intended service, facilitating effective data handling within the CRM system.
    */
   serviceId: string;
   /**
-   * This property contains an optional identifier for a specific workflow operation within the CRM system. It is a string that helps in associating the pass-through data with a particular operation, especially useful when multiple downstream requests are involved in a Unify call. This allows developers to track and manage operations more effectively.
+   * This property contains an optional identifier for a specific workflow operation. It is used to apply the pass-through logic to a particular operation, especially useful in scenarios where multiple downstream requests are made in a single Unify call. The value should be a string that uniquely identifies the operation within the workflow.
    */
   operationId?: string | undefined;
   /**
-   * This property is an object that allows for the direct extension of data with any additional properties. It provides flexibility in adding custom fields or data points to the response, enabling developers to tailor the CRM data to specific needs or integrations.
+   * This property contains a flexible object that allows developers to add custom key-value pairs to extend the functionality of the pass-through operation. It is designed to accommodate additional data that may be necessary for specific use cases, without a predefined structure, enabling seamless integration of extra information into the CRM opportunities response.
    */
   extendObject?: { [k: string]: any } | undefined;
   /**
-   * This property is an array of objects designed for structured data modifications using specified paths. Each object within the array defines a path and a value, allowing precise updates or extensions to the CRM data structure. This feature is particularly useful for developers needing to apply complex data transformations or integrations.
+   * An array containing objects that specify modifications to the data structure using JSONPath strings. Each object in the array includes a 'path' and a 'value', allowing developers to dynamically alter the structure of the returned opportunity data. This feature is useful for customizing the data output to fit specific application needs or workflows.
    */
   extendPaths?: Array<ListOpportunitiesResponseExtendPaths> | undefined;
 };
 
 export type ListOpportunitiesResponseData = {
   /**
-   * A unique identifier for each opportunity within the CRM system. This string is used to distinguish and reference individual opportunities, facilitating operations such as updates or detailed queries on specific opportunities.
+   * This property represents the unique identifier for each opportunity within the CRM system. It is a string that allows developers to reference and manage specific opportunities, ensuring that each can be uniquely identified and accessed for further operations or analysis.
    */
   id?: string | undefined;
   /**
-   * The title or name of the opportunity, which serves as a brief descriptor or label for the sales opportunity. This string is crucial for identifying and differentiating opportunities in lists and reports.
+   * This property holds the title or name of the opportunity, acting as a brief descriptor or label. It is crucial for identifying and differentiating opportunities within the CRM system, enabling users to quickly recognize and categorize them based on their titles.
    */
   title: string;
   /**
-   * The unique identifier of the primary contact associated with the opportunity. This string links the opportunity to a specific contact, enabling users to quickly access contact details and maintain relationships.
+   * This property contains the unique identifier of the primary contact associated with the opportunity. It links the opportunity to a specific contact, which is essential for maintaining communication and managing relationships within the CRM system.
    */
-  primaryContactId: string | null;
+  primaryContactId?: string | null | undefined;
   /**
-   * A textual description of the opportunity, providing additional context or details about the sales opportunity. This optional field can include information such as the opportunity's background, objectives, or any relevant notes.
+   * This property provides a detailed description of the opportunity, offering additional context and information about its nature and scope. It helps users understand the specifics and potential of the opportunity, aiding in decision-making and strategic planning.
    */
   description?: string | null | undefined;
   /**
-   * Specifies the category or classification of the opportunity within the CRM system. This string value helps in organizing and filtering opportunities based on their type, such as 'New Business', 'Renewal', or 'Upsell'. It is optional and may not be present for all opportunities.
+   * This property contains the category or classification of the opportunity within the CRM system. It is a string value that helps in organizing and filtering opportunities based on their type, such as 'new business', 'renewal', or 'upsell'. Understanding the type of opportunity is crucial for sales strategy and prioritization.
    */
   type?: string | null | undefined;
   /**
-   * Represents the total financial value associated with the opportunity, expressed as a numerical amount. This value is crucial for assessing the potential revenue impact of the opportunity and is typically used in financial forecasting and reporting.
+   * This property represents the total financial value associated with the opportunity. It is a numeric value that is crucial for assessing the potential revenue impact of the opportunity within the sales pipeline. This helps in financial forecasting and resource allocation.
    */
   monetaryAmount?: number | null | undefined;
+  currency?: Currency | null | undefined;
   /**
-   * Denotes the currency in which the monetary amount is expressed, following the ISO 4217 standard (e.g., 'USD' for US Dollars). This string value ensures that the financial data is accurately interpreted across different regions and is essential for international business operations.
-   */
-  currency?: ListOpportunitiesResponseCurrency | null | undefined;
-  /**
-   * Indicates the likelihood of successfully closing the opportunity, represented as a percentage from 0 to 100. This numerical value helps sales teams prioritize efforts by focusing on opportunities with higher chances of success.
+   * This property indicates the likelihood of successfully closing the opportunity, expressed as a percentage. It is a numeric value that helps prioritize opportunities based on their potential to convert into actual sales. This metric is essential for sales forecasting and decision-making.
    */
   winProbability?: number | null | undefined;
   /**
-   * Calculates the potential revenue expected from the opportunity, factoring in the win probability. This number is used for revenue projections and strategic planning, providing insights into future financial performance.
+   * This property calculates the anticipated revenue from the opportunity by considering both the monetary amount and the win probability. It is a numeric value that aids in forecasting and strategic planning within the sales process, providing insights into potential future earnings.
    */
   expectedRevenue?: number | null | undefined;
   /**
-   * The actual closing date for the opportunity, formatted as a string in ISO 8601 date format (YYYY-MM-DD). If this field is null, it indicates that the opportunity is still open and has not been closed yet. This property helps users track when deals are finalized, aiding in sales forecasting and analysis.
+   * The 'close_date' field contains the date when the opportunity was finalized, formatted as a string. If this field is null, it indicates that the opportunity is still open and has not yet reached a conclusion. This information is crucial for tracking the timeline of sales opportunities within the CRM system.
    */
   closeDate?: RFCDate | null | undefined;
   /**
-   * A unique string identifier representing the specific reason why an opportunity was lost. This ID is used to categorize and analyze lost opportunities, allowing users to identify patterns or common reasons for lost deals. It is essential for generating reports and improving sales strategies.
+   * The 'loss_reason_id' is a unique string identifier for the reason an opportunity was lost. This identifier is used to categorize and analyze lost opportunities, helping businesses understand patterns and improve future sales strategies.
    */
   lossReasonId?: string | null | undefined;
   /**
-   * A descriptive string explaining why the opportunity was lost. This field provides context and insights into the factors that led to the loss of a deal, which can be used for training and improving future sales approaches. It complements the loss_reason_id by offering a human-readable explanation.
+   * The 'loss_reason' field contains a descriptive text explaining why a particular sales opportunity was not successful. This information is crucial for analyzing sales performance and understanding the factors that contributed to the loss. It helps sales teams to identify patterns and areas for improvement in their sales strategies.
    */
   lossReason?: string | null | undefined;
   /**
-   * A unique string identifier for the reason why an opportunity was won. This ID helps categorize successful deals, enabling users to analyze winning strategies and replicate successful tactics in future opportunities. It is crucial for understanding what contributes to successful sales outcomes.
+   * A unique identifier string representing the reason an opportunity was successfully closed as won. This ID is used to categorize and analyze successful sales strategies and practices, aiding in the understanding of what factors contribute to winning opportunities. It is part of the detailed opportunity data returned by the 'opportunitiesAll' operation, which helps in sales tracking and management.
    */
   wonReasonId?: string | null | undefined;
   /**
-   * A descriptive string detailing the reason why the opportunity was won. This information provides valuable insights into the factors that contributed to closing the deal successfully, which can be leveraged to enhance sales techniques and strategies. It works alongside the won_reason_id to offer a comprehensive understanding of successful sales.
+   * A string detailing the reason why a particular opportunity was successfully closed as a win. This information helps in analyzing successful sales strategies and understanding key factors that contribute to closing deals. It is an optional field that provides insights into the sales process, aiding in strategic planning and decision-making.
    */
   wonReason?: string | null | undefined;
   /**
-   * The unique identifier for the pipeline that this opportunity is part of. This ID is a string and helps in categorizing opportunities within specific sales processes. It is useful for filtering and organizing opportunities based on their respective pipelines.
+   * This property contains the unique identifier for the sales pipeline associated with the opportunity. It is a string value that helps categorize the opportunity within a specific pipeline, facilitating organized tracking and management of sales processes. Understanding which pipeline an opportunity belongs to is crucial for sales strategy and forecasting.
    */
   pipelineId?: string | null | undefined;
   /**
-   * The unique identifier for the stage within the pipeline where the opportunity currently resides. This string value is crucial for tracking the progress of an opportunity through the sales funnel, allowing for precise management and forecasting.
+   * This property holds the unique identifier for the current stage of the opportunity within its sales pipeline. As a string value, it indicates the opportunity's progress and helps determine the next steps in the sales process. Tracking the stage of an opportunity is essential for managing sales cycles effectively.
    */
   pipelineStageId?: string | null | undefined;
   /**
-   * The unique identifier for the origin of the opportunity, represented as a string. This ID helps in tracing back the opportunity to its initial source, which is essential for analyzing lead generation effectiveness and strategy.
+   * This property represents the unique identifier for the source from which the opportunity originated. It is a string value that allows tracing the origin of the opportunity, providing insights into the effectiveness of different lead generation channels. Understanding the source helps in evaluating marketing strategies and optimizing lead acquisition.
    */
   sourceId?: string | null | undefined;
   /**
-   * The unique identifier for the lead associated with this opportunity, provided as a string. This ID links the opportunity to its originating lead, facilitating detailed tracking and management of sales prospects.
+   * This property contains the unique identifier for the lead associated with the opportunity. As a string value, it links the opportunity to its originating lead, enabling tracking and analysis of lead conversion rates. This connection is vital for understanding the journey from lead to opportunity and improving sales conversion strategies.
    */
   leadId?: string | null | undefined;
   /**
-   * The origin or method through which the lead associated with this opportunity was acquired, expressed as a string. Understanding the lead source is vital for evaluating the effectiveness of different marketing channels and strategies.
+   * This property describes the origin of the lead associated with the opportunity, such as a marketing campaign or referral. It is a string value that helps evaluate the success of different lead sources by providing context on where the lead came from. Analyzing lead sources is crucial for optimizing marketing efforts and improving lead quality.
    */
   leadSource?: string | null | undefined;
   /**
-   * A unique string identifier representing the contact associated with this opportunity. This ID is used to link the opportunity to a specific contact within the CRM system, facilitating easy reference and management of related contact information.
+   * A unique string identifier for a contact linked to the opportunity. This ID is used to fetch detailed information about the contact, facilitating the association of the opportunity with a specific individual within the CRM system.
    */
   contactId?: string | null | undefined;
   /**
-   * An array containing unique string identifiers for all contacts linked to this opportunity. This allows for the association of multiple contacts with a single opportunity, enabling comprehensive tracking of all involved parties.
+   * An array of string identifiers, each representing a contact associated with the opportunity. This allows the CRM to manage opportunities involving multiple contacts, ensuring all relevant stakeholders are tracked and managed effectively.
    */
   contactIds?: Array<string> | undefined;
   /**
-   * A unique string identifier for the company associated with the opportunity. This ID helps in linking the opportunity to a specific company, ensuring accurate tracking and management of company-related opportunities.
+   * A unique string identifier for the company linked to the opportunity. This ID connects the opportunity to a specific company record, allowing users to access detailed company information and history within the CRM.
    */
   companyId?: string | null | undefined;
   /**
-   * The official name of the company associated with the opportunity, represented as a string. This name is used for display purposes and helps users identify the company involved in the opportunity within the CRM system.
+   * The name of the company associated with the opportunity, represented as a string. This human-readable name aids in identifying and managing opportunities related to specific companies within the CRM system.
    */
   companyName?: string | null | undefined;
   /**
-   * The unique identifier of the user who owns the opportunity. This ID is a string that links the opportunity to a specific user within the CRM system, allowing for tracking and management of sales responsibilities.
+   * This property contains the unique identifier of the user who owns the opportunity within the CRM system. It is a string value that links the opportunity to a specific user, facilitating the tracking and management of sales activities by the responsible individual. This ID is crucial for associating opportunities with users, enabling efficient sales process management and accountability.
    */
   ownerId?: string | null | undefined;
   /**
-   * The priority level of the opportunity, represented as a string. This indicates the importance or urgency of the opportunity, helping users prioritize their sales efforts effectively.
+   * Indicates the importance or urgency of the opportunity within the sales pipeline. This string value helps prioritize tasks and allocate resources effectively based on the opportunity's significance.
    */
   priority?: string | null | undefined;
   /**
-   * The current status of the opportunity, provided as a string. This reflects the stage of the sales process the opportunity is in, such as 'Open', 'Closed', or 'In Progress', aiding in sales pipeline management.
+   * Reflects the current stage of the opportunity in the sales process. This string value helps in understanding the progress and current position of the opportunity within the sales cycle.
    */
   status?: string | null | undefined;
   /**
-   * The unique identifier of the current status of the opportunity, given as a string. This ID helps in programmatically distinguishing between different statuses within the CRM system.
+   * A unique identifier for the current status of the opportunity, used to reference specific stages in the sales process programmatically. This ID is crucial for integrating and automating workflows based on the opportunity's status.
    */
   statusId?: string | null | undefined;
   /**
-   * An array of tags associated with the opportunity. Tags are used to categorize and filter opportunities, enabling users to organize and retrieve opportunities based on specific criteria.
+   * This property contains an array of tags associated with the CRM opportunity. Each tag is a string that serves as a label for categorizing and organizing opportunities, making them easier to search and filter within the CRM system. The tags help in identifying themes or characteristics of opportunities, enhancing the ability to retrieve relevant data efficiently.
    */
   tags?: Array<string> | null | undefined;
   /**
-   * The total number of interactions recorded for this opportunity. This numeric value helps in assessing the level of engagement and activity related to the opportunity, providing insights into customer interest and sales efforts.
+   * This property represents the total number of interactions recorded with the opportunity, such as calls, emails, or meetings. It is a numeric value that helps assess the level of engagement and activity associated with the opportunity, providing insights into its progress and potential.
    */
   interactionCount?: number | null | undefined;
   /**
-   * A collection of custom fields associated with the opportunity, allowing for additional, user-defined data to be stored. Each entry in the array represents a custom field object, which can include various attributes such as id and name.
+   * This property is an array containing custom fields that store additional, user-defined information about the opportunity. Each element in the array is a custom field object, allowing for flexible data storage tailored to specific business needs. This enables users to extend the standard data model with fields specific to their requirements.
    */
   customFields?: Array<ListOpportunitiesResponseCustomFields> | undefined;
   /**
-   * This property records the date and time when the opportunity's stage was last updated, formatted as an ISO 8601 string. It helps track the progress of an opportunity through different stages, providing insights into the sales process timeline. This field is optional and may be null if the stage has not changed.
+   * This property records the date and time when the opportunity's stage was last updated, formatted as a string in ISO 8601. It provides a timestamp that helps track the opportunity's progression through different stages in the sales pipeline.
    */
   stageLastChangedAt?: Date | null | undefined;
   /**
-   * The timestamp of the most recent activity related to the opportunity, formatted as an ISO 8601 string. This property is crucial for understanding the recency of interactions or updates, aiding in prioritizing opportunities based on activity levels. It is optional and may be null if no activities have been recorded.
+   * This string property indicates the timestamp of the most recent activity related to the opportunity, formatted in ISO 8601. It aids users in tracking the latest interactions or updates associated with the opportunity, facilitating effective activity management.
    */
   lastActivityAt?: string | null | undefined;
   /**
-   * A boolean flag indicating whether the opportunity has been marked as deleted. This property helps in filtering out inactive or removed opportunities from active lists, ensuring data integrity and relevance. It is optional and defaults to false if not explicitly set.
+   * A boolean flag indicating whether the opportunity has been marked as deleted. If true, the opportunity is considered removed from active records, though it may still exist in the system for historical or recovery purposes.
    */
   deleted?: boolean | undefined;
   /**
-   * The date and time when the stage of the opportunity was last changed. This timestamp is formatted as an ISO 8601 string, allowing developers to track the progression of opportunities over time. It is useful for understanding the timeline of sales processes and identifying any delays or accelerations in the sales pipeline.
+   * This property contains the date and time when the opportunity's stage was last updated in the sales pipeline. It is formatted as an ISO 8601 string, such as '2023-10-05T14:48:00Z', providing a standardized timestamp that helps track the opportunity's progress. This information is crucial for understanding the timeline of changes and managing sales activities effectively.
    */
   dateStageChanged?: Date | null | undefined;
   /**
-   * The date and time when the opportunity was last contacted, formatted as an ISO 8601 string. This information helps in managing follow-ups and ensuring timely communication with potential clients. It is crucial for maintaining engagement and moving opportunities through the sales funnel.
+   * This property contains the date and time when the opportunity was last contacted, providing insight into the most recent interaction with the opportunity. It is formatted in ISO 8601, such as '2023-10-05T14:48:00Z', ensuring consistency and ease of parsing across systems. Understanding the last contact date is essential for managing follow-ups and prioritizing sales efforts within the CRM.
    */
   dateLastContacted?: Date | null | undefined;
   /**
-   * The date and time when the lead associated with the opportunity was created, provided as an ISO 8601 string. This property helps in understanding the lifecycle of an opportunity from its inception. It is essential for analyzing lead generation effectiveness and tracking the duration from lead creation to opportunity conversion.
+   * The 'date_lead_created' property contains the timestamp indicating when the lead associated with the CRM opportunity was initially created. This information is crucial for understanding the lead's lifecycle and tracking its progress over time. The value is formatted as an ISO 8601 string, such as '2023-10-05T14:48:00Z', ensuring consistency and ease of parsing across different systems.
    */
   dateLeadCreated?: Date | null | undefined;
   /**
-   * An object containing custom mappings configured on the resource, if any. This allows for flexibility in data representation and integration with other systems. Developers can use this to access additional, non-standard fields that have been tailored to specific business needs.
+   * This property contains an object that holds custom mappings configured specifically for the opportunity resource. These mappings allow for the inclusion of additional, user-defined fields in the response, offering flexibility in how opportunity data is represented and utilized. This feature is particularly useful for tailoring the CRM data to meet specific business needs or integration requirements.
    */
   customMappings?: ListOpportunitiesResponseCustomMappings | null | undefined;
   /**
-   * The unique identifier of the user who last updated the opportunity, typically represented as a UUID. This helps in auditing changes and understanding who is responsible for the latest modifications. It is important for maintaining accountability and tracking user interactions with the CRM system.
+   * Contains the unique identifier of the user who last updated the opportunity. This string value is crucial for tracking changes and maintaining an audit trail, as it identifies the individual responsible for the most recent modifications. In the context of the 'opportunitiesAll' GET operation, it helps users understand the history and accountability of each opportunity record.
    */
   updatedBy?: string | null | undefined;
   /**
-   * The unique identifier of the user who created the opportunity. This is typically a user ID string that links the opportunity to its creator within the CRM system. It helps in tracking and auditing who initiated the opportunity, providing accountability and traceability.
+   * The 'created_by' property contains the unique identifier of the user who initiated the opportunity. This ID is crucial for tracking user actions within the CRM, ensuring accountability and traceability. It is typically a string that corresponds to a user record in the system.
    */
   createdBy?: string | null | undefined;
   /**
-   * The date and time when the opportunity was last updated, formatted as an ISO 8601 string. This timestamp is crucial for understanding the recency of changes to the opportunity, allowing users to manage and prioritize opportunities based on the latest information.
+   * The 'updated_at' property indicates the date and time when the opportunity was last modified. This timestamp, formatted in ISO 8601 (e.g., '2023-10-01T12:00:00Z'), is essential for understanding the recency of changes and maintaining an accurate sales pipeline.
    */
   updatedAt?: Date | null | undefined;
   /**
-   * The date and time when the opportunity was created, provided in ISO 8601 format. This information is essential for tracking the lifecycle of an opportunity from its inception, helping users analyze the duration and progress of sales opportunities.
+   * The 'created_at' property records the date and time when the opportunity was initially created. Formatted in ISO 8601 (e.g., '2023-10-01T12:00:00Z'), this information is vital for tracking the opportunity's lifecycle and supporting historical analysis and reporting.
    */
   createdAt?: Date | null | undefined;
   /**
-   * An array containing service-specific custom data or structured modifications that can be passed in the request body when creating or updating resources. This feature allows for flexible integration with various services by accommodating unique data requirements.
+   * The 'pass_through' property is an array designed to include service-specific, custom data or structured modifications. This feature allows for the integration of additional data not covered by standard fields, enabling more flexible and tailored CRM operations.
    */
   passThrough?: Array<ListOpportunitiesResponsePassThrough> | undefined;
 };
 
 /**
- * Holds the cursors used for paginating through the list of opportunities. This object includes pointers to navigate to different pages, facilitating seamless data retrieval across multiple requests.
+ * This object contains cursor information used for navigating between pages of results. It includes cursors for moving to previous or next pages, facilitating seamless data retrieval in paginated responses and ensuring efficient data management.
  */
 export type ListOpportunitiesResponseCursors = {
   /**
-   * A string cursor that allows navigation to the previous page of results. This is particularly useful for users who need to review earlier data entries in the paginated list of opportunities.
+   * A string representing the cursor used to access the previous page of results. This is essential for implementing backward navigation in paginated API responses, allowing developers to retrieve earlier sets of opportunity data efficiently.
    */
   previous?: string | null | undefined;
   /**
-   * A string cursor representing the current page of results. It is essential for tracking the current position within the paginated data set, ensuring continuity in data retrieval processes.
+   * A string representing the cursor for the current page of results. This cursor is crucial for maintaining the current position in the paginated dataset, ensuring consistent data retrieval across API calls and aiding in data management.
    */
   current?: string | null | undefined;
   /**
-   * A string representing the cursor used to fetch the next set of results in a paginated response. This is essential for navigating through large datasets efficiently, ensuring that developers can continue retrieving additional opportunities beyond the current page.
+   * A string token used to fetch the next set of results in a paginated response. This cursor is essential for navigating through large datasets, allowing seamless continuation from the current page to the next. It appears only when additional pages are available, ensuring efficient data retrieval.
    */
   next?: string | null | undefined;
 };
 
 /**
- * Contains metadata about the response, including pagination details and cursors for navigating through pages of results. This object helps in understanding the context of the data returned and managing large datasets efficiently.
+ * This object contains metadata about the API response, including pagination details and cursors for navigating through pages of results. It provides context for the data returned, helping manage large sets of opportunities efficiently by indicating how to traverse the dataset.
  */
 export type ListOpportunitiesResponseMeta = {
   /**
-   * Indicates the total number of opportunity records included in the current page of the response. This integer value helps in assessing the volume of data retrieved per request and is useful for pagination control.
+   * An integer indicating the number of opportunity items included in the current page of the response. This helps developers understand the volume of data returned in a single API call, which is crucial for implementing effective pagination strategies.
    */
   itemsOnPage?: number | undefined;
   /**
-   * Holds the cursors used for paginating through the list of opportunities. This object includes pointers to navigate to different pages, facilitating seamless data retrieval across multiple requests.
+   * This object contains cursor information used for navigating between pages of results. It includes cursors for moving to previous or next pages, facilitating seamless data retrieval in paginated responses and ensuring efficient data management.
    */
   cursors?: ListOpportunitiesResponseCursors | undefined;
 };
 
 /**
- * An object containing URLs that facilitate navigation between different pages of the API response. This includes links to the current, previous, and next pages, aiding in seamless data traversal and integration.
+ * An object containing URLs for navigating through paginated API results. It includes links to the previous, current, and next pages, enabling developers to easily move between different pages of data. This object is included when pagination is applicable, providing a structured way to access various parts of the dataset.
  */
 export type ListOpportunitiesResponseLinks = {
   /**
-   * A URL string pointing to the previous page of results in the paginated API response. This link is crucial for users who need to review or process earlier data entries.
+   * A URL string that directs to the previous page of results in a paginated response. This link is crucial for backward navigation, allowing developers to revisit earlier data sets. It is included only if there is a preceding page available, ensuring logical data traversal.
    */
   previous?: string | null | undefined;
   /**
-   * A URL string that directs to the current page of results in the API response. This ensures that users can easily refresh or revisit the current dataset without losing their place in the pagination sequence.
+   * A URL string representing the current page of results in the API response. This link helps developers maintain context within the pagination structure, allowing easy reference or reloading of the current dataset. It is included to provide clarity on the current position within the paginated results.
    */
   current?: string | undefined;
   /**
-   * A URL string that provides access to the next page of results in the paginated API response. This link is vital for users to continue exploring additional opportunities beyond the current dataset.
+   * A URL string that directs to the next page of results in a paginated response. This link facilitates forward navigation, enabling developers to proceed to subsequent data sets. It is included only if there is a following page available, ensuring smooth data exploration.
    */
   next?: string | null | undefined;
 };
@@ -508,60 +314,38 @@ export type ListOpportunitiesResponseLinks = {
  */
 export type ListOpportunitiesResponse = {
   /**
-   * The HTTP response status code indicating the result of the API request. This integer value helps determine if the request was successful (e.g., 200 for success) or if there was an error (e.g., 404 for not found). It is crucial for error handling and debugging.
+   * The status_code property contains the HTTP response status code returned by the server. This integer value indicates the outcome of the GET request to retrieve CRM opportunities, helping developers understand if the request was successful (e.g., 200 for success) or if there was an error (e.g., 404 for not found). It is crucial for error handling and debugging in the integration of CRM data.
    */
   statusCode: number;
   /**
-   * A brief textual representation of the HTTP response status. This string provides a human-readable status message, such as 'OK' for successful requests or 'Not Found' for errors, complementing the status_code for easier interpretation.
+   * This property contains a human-readable string that describes the HTTP response status for the request to fetch CRM opportunities. It provides immediate feedback on the success or failure of the operation, such as 'OK' for a successful retrieval. This helps developers quickly assess the outcome of their API call and take appropriate actions based on the status.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider from which the opportunities data is retrieved. This string uniquely identifies the service within the Apideck ecosystem, ensuring the correct integration and data source are used.
+   * This property contains the unique identifier for the service provider from which the CRM opportunities data is retrieved. It is a string that ensures the response is correctly associated with the specific third-party service integrated via Apideck. This identifier is crucial for distinguishing between different service providers and ensuring accurate data retrieval.
    */
   service: string;
   /**
-   * The name of the Unified API resource being accessed, in this case, 'opportunities'. This string indicates the specific type of data returned by the API, helping developers understand the context of the response.
+   * This property contains the name of the unified API resource being accessed, specifically related to CRM opportunities. It is a string that helps developers identify the type of resource involved in the operation, ensuring clarity when dealing with multiple resources. This is crucial for understanding the context of the data returned by the 'opportunitiesAll' operation, which fetches a list of CRM opportunities.
    */
   resource: string;
   /**
-   * The specific operation performed by the API, represented as a string. For this endpoint, it typically indicates a 'GET' operation, reflecting the retrieval of opportunities data from the CRM system.
+   * This property contains the name of the API operation executed, specifically indicating that the action performed is the retrieval of CRM opportunities. It helps developers understand the context of the response by confirming the type of data operation that was requested. The value is a string that directly corresponds to the action taken, ensuring clarity in the API's response structure.
    */
   operation: string;
   /**
-   * An array containing all the opportunity objects retrieved from the CRM system. Each element in the array represents a distinct sales opportunity, providing a comprehensive view of potential deals. This array is essential for iterating over and analyzing multiple opportunities at once.
+   * This property contains an array of CRM opportunities, where each element is a detailed representation of a single opportunity. The array serves as the core component of the response, offering a comprehensive overview of all opportunities available in the CRM system. Each opportunity includes essential details such as ID, title, and primary contact, facilitating effective sales tracking and management.
    */
   data: Array<ListOpportunitiesResponseData>;
   /**
-   * Contains metadata about the response, including pagination details and cursors for navigating through pages of results. This object helps in understanding the context of the data returned and managing large datasets efficiently.
+   * This object contains metadata about the API response, including pagination details and cursors for navigating through pages of results. It provides context for the data returned, helping manage large sets of opportunities efficiently by indicating how to traverse the dataset.
    */
   meta?: ListOpportunitiesResponseMeta | undefined;
   /**
-   * An object containing URLs that facilitate navigation between different pages of the API response. This includes links to the current, previous, and next pages, aiding in seamless data traversal and integration.
+   * An object containing URLs for navigating through paginated API results. It includes links to the previous, current, and next pages, enabling developers to easily move between different pages of data. This object is included when pagination is applicable, providing a structured way to access various parts of the dataset.
    */
   links?: ListOpportunitiesResponseLinks | undefined;
 };
-
-/** @internal */
-export const ListOpportunitiesResponseCurrency$inboundSchema: z.ZodNativeEnum<
-  typeof ListOpportunitiesResponseCurrency
-> = z.nativeEnum(ListOpportunitiesResponseCurrency);
-
-/** @internal */
-export const ListOpportunitiesResponseCurrency$outboundSchema: z.ZodNativeEnum<
-  typeof ListOpportunitiesResponseCurrency
-> = ListOpportunitiesResponseCurrency$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListOpportunitiesResponseCurrency$ {
-  /** @deprecated use `ListOpportunitiesResponseCurrency$inboundSchema` instead. */
-  export const inboundSchema = ListOpportunitiesResponseCurrency$inboundSchema;
-  /** @deprecated use `ListOpportunitiesResponseCurrency$outboundSchema` instead. */
-  export const outboundSchema =
-    ListOpportunitiesResponseCurrency$outboundSchema;
-}
 
 /** @internal */
 export const ListOpportunitiesResponseValue6$inboundSchema: z.ZodType<
@@ -1044,12 +828,11 @@ export const ListOpportunitiesResponseData$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   title: z.string(),
-  primary_contact_id: z.nullable(z.string()),
+  primary_contact_id: z.nullable(z.string()).optional(),
   description: z.nullable(z.string()).optional(),
   type: z.nullable(z.string()).optional(),
   monetary_amount: z.nullable(z.number()).optional(),
-  currency: z.nullable(ListOpportunitiesResponseCurrency$inboundSchema)
-    .optional(),
+  currency: z.nullable(Currency$inboundSchema).optional(),
   win_probability: z.nullable(z.number()).optional(),
   expected_revenue: z.nullable(z.number()).optional(),
   close_date: z.nullable(z.string().transform(v => new RFCDate(v))).optional(),
@@ -1145,7 +928,7 @@ export const ListOpportunitiesResponseData$inboundSchema: z.ZodType<
 export type ListOpportunitiesResponseData$Outbound = {
   id?: string | undefined;
   title: string;
-  primary_contact_id: string | null;
+  primary_contact_id?: string | null | undefined;
   description?: string | null | undefined;
   type?: string | null | undefined;
   monetary_amount?: number | null | undefined;
@@ -1202,12 +985,11 @@ export const ListOpportunitiesResponseData$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   title: z.string(),
-  primaryContactId: z.nullable(z.string()),
+  primaryContactId: z.nullable(z.string()).optional(),
   description: z.nullable(z.string()).optional(),
   type: z.nullable(z.string()).optional(),
   monetaryAmount: z.nullable(z.number()).optional(),
-  currency: z.nullable(ListOpportunitiesResponseCurrency$outboundSchema)
-    .optional(),
+  currency: z.nullable(Currency$outboundSchema).optional(),
   winProbability: z.nullable(z.number()).optional(),
   expectedRevenue: z.nullable(z.number()).optional(),
   closeDate: z.nullable(z.instanceof(RFCDate).transform(v => v.toString()))

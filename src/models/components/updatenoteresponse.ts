@@ -9,11 +9,11 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This object contains the updated note's details, including its unique identifier. It serves as the primary container for the note's data returned after a successful update operation. The structure ensures that developers can access all relevant information about the note in a single, organized format.
+ * This object contains the details of the note that was updated in the CRM. It includes all relevant information about the note, such as its unique identifier and any other updated fields. This object serves as the main container for the response data, confirming the successful update of the note.
  */
 export type UpdateNoteResponseUnifiedId = {
   /**
-   * The unique identifier of the note that was updated. This string value confirms the specific note that has been modified, allowing developers to reference or further interact with this particular note in subsequent operations. It is crucial for tracking changes and ensuring data consistency within the CRM system.
+   * The unique identifier of the note that was updated. This ID is essential for referencing the specific note within the CRM system and confirms which note was successfully modified during the update operation.
    */
   id: string;
 };
@@ -23,27 +23,27 @@ export type UpdateNoteResponseUnifiedId = {
  */
 export type UpdateNoteResponse = {
   /**
-   * The HTTP response status code indicating the result of the PATCH operation. This integer value helps determine if the note update was successful (e.g., 200 for success) or if there was an error. It is crucial for error handling and debugging in client applications.
+   * The HTTP response status code returned by the server, indicating the result of the PATCH request to update a note. A status code of 200 signifies that the note was successfully updated. This integer value helps in programmatically determining the outcome of the operation.
    */
   statusCode: number;
   /**
-   * A textual representation of the HTTP response status, such as 'OK' for a successful request. This string provides a human-readable confirmation of the operation's outcome, complementing the status code for easier interpretation by developers.
+   * A textual representation of the HTTP response status, such as 'OK' for a successful update. This string provides a human-readable confirmation of the operation's result, complementing the numeric status code.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider involved in the note update operation. This string identifies which service within the Apideck ecosystem processed the request, essential for tracking and managing integrations.
+   * The unique Apideck identifier for the service provider involved in the note update operation. This string helps in identifying which service integration was used during the request, especially useful in multi-service environments.
    */
   service: string;
   /**
-   * The name of the Unified API resource that was affected by the operation, in this case, a 'note'. This string helps developers understand which type of resource was updated, facilitating better resource management and API interaction.
+   * The name of the unified API resource that was targeted by the operation, in this case, a 'note'. This string indicates the type of resource that was updated, providing context about the operation's focus within the CRM system.
    */
   resource: string;
   /**
-   * The specific operation performed, represented as a string, such as 'update'. This indicates the action taken on the resource, providing clarity on the type of modification executed within the CRM system.
+   * The specific operation performed, which in this context is 'update'. This string confirms the type of action executed on the resource, ensuring clarity about the nature of the request processed by the API.
    */
   operation: string;
   /**
-   * This object contains the updated note's details, including its unique identifier. It serves as the primary container for the note's data returned after a successful update operation. The structure ensures that developers can access all relevant information about the note in a single, organized format.
+   * This object contains the details of the note that was updated in the CRM. It includes all relevant information about the note, such as its unique identifier and any other updated fields. This object serves as the main container for the response data, confirming the successful update of the note.
    */
   data: UpdateNoteResponseUnifiedId;
 };

@@ -5,351 +5,157 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-/**
- * The currency associated with the pipeline, represented as a three-letter ISO 4217 code. This indicates the currency context for any monetary values related to the pipeline, ensuring accurate financial reporting and analysis.
- */
-export const ListPipelinesResponseCurrency = {
-  UnknownCurrency: "UNKNOWN_CURRENCY",
-  Aed: "AED",
-  Afn: "AFN",
-  All: "ALL",
-  Amd: "AMD",
-  Ang: "ANG",
-  Aoa: "AOA",
-  Ars: "ARS",
-  Aud: "AUD",
-  Awg: "AWG",
-  Azn: "AZN",
-  Bam: "BAM",
-  Bbd: "BBD",
-  Bdt: "BDT",
-  Bgn: "BGN",
-  Bhd: "BHD",
-  Bif: "BIF",
-  Bmd: "BMD",
-  Bnd: "BND",
-  Bob: "BOB",
-  Bov: "BOV",
-  Brl: "BRL",
-  Bsd: "BSD",
-  Btn: "BTN",
-  Bwp: "BWP",
-  Byr: "BYR",
-  Bzd: "BZD",
-  Cad: "CAD",
-  Cdf: "CDF",
-  Che: "CHE",
-  Chf: "CHF",
-  Chw: "CHW",
-  Clf: "CLF",
-  Clp: "CLP",
-  Cny: "CNY",
-  Cop: "COP",
-  Cou: "COU",
-  Crc: "CRC",
-  Cuc: "CUC",
-  Cup: "CUP",
-  Cve: "CVE",
-  Czk: "CZK",
-  Djf: "DJF",
-  Dkk: "DKK",
-  Dop: "DOP",
-  Dzd: "DZD",
-  Egp: "EGP",
-  Ern: "ERN",
-  Etb: "ETB",
-  Eur: "EUR",
-  Fjd: "FJD",
-  Fkp: "FKP",
-  Gbp: "GBP",
-  Gel: "GEL",
-  Ghs: "GHS",
-  Gip: "GIP",
-  Gmd: "GMD",
-  Gnf: "GNF",
-  Gtq: "GTQ",
-  Gyd: "GYD",
-  Hkd: "HKD",
-  Hnl: "HNL",
-  Hrk: "HRK",
-  Htg: "HTG",
-  Huf: "HUF",
-  Idr: "IDR",
-  Ils: "ILS",
-  Inr: "INR",
-  Iqd: "IQD",
-  Irr: "IRR",
-  Isk: "ISK",
-  Jmd: "JMD",
-  Jod: "JOD",
-  Jpy: "JPY",
-  Kes: "KES",
-  Kgs: "KGS",
-  Khr: "KHR",
-  Kmf: "KMF",
-  Kpw: "KPW",
-  Krw: "KRW",
-  Kwd: "KWD",
-  Kyd: "KYD",
-  Kzt: "KZT",
-  Lak: "LAK",
-  Lbp: "LBP",
-  Lkr: "LKR",
-  Lrd: "LRD",
-  Lsl: "LSL",
-  Ltl: "LTL",
-  Lvl: "LVL",
-  Lyd: "LYD",
-  Mad: "MAD",
-  Mdl: "MDL",
-  Mga: "MGA",
-  Mkd: "MKD",
-  Mmk: "MMK",
-  Mnt: "MNT",
-  Mop: "MOP",
-  Mro: "MRO",
-  Mur: "MUR",
-  Mvr: "MVR",
-  Mwk: "MWK",
-  Mxn: "MXN",
-  Mxv: "MXV",
-  Myr: "MYR",
-  Mzn: "MZN",
-  Nad: "NAD",
-  Ngn: "NGN",
-  Nio: "NIO",
-  Nok: "NOK",
-  Npr: "NPR",
-  Nzd: "NZD",
-  Omr: "OMR",
-  Pab: "PAB",
-  Pen: "PEN",
-  Pgk: "PGK",
-  Php: "PHP",
-  Pkr: "PKR",
-  Pln: "PLN",
-  Pyg: "PYG",
-  Qar: "QAR",
-  Ron: "RON",
-  Rsd: "RSD",
-  Rub: "RUB",
-  Rwf: "RWF",
-  Sar: "SAR",
-  Sbd: "SBD",
-  Scr: "SCR",
-  Sdg: "SDG",
-  Sek: "SEK",
-  Sgd: "SGD",
-  Shp: "SHP",
-  Sll: "SLL",
-  Sos: "SOS",
-  Srd: "SRD",
-  Ssp: "SSP",
-  Std: "STD",
-  Svc: "SVC",
-  Syp: "SYP",
-  Szl: "SZL",
-  Thb: "THB",
-  Tjs: "TJS",
-  Tmt: "TMT",
-  Tnd: "TND",
-  Top: "TOP",
-  Trc: "TRC",
-  Try: "TRY",
-  Ttd: "TTD",
-  Twd: "TWD",
-  Tzs: "TZS",
-  Uah: "UAH",
-  Ugx: "UGX",
-  Usd: "USD",
-  Usn: "USN",
-  Uss: "USS",
-  Uyi: "UYI",
-  Uyu: "UYU",
-  Uzs: "UZS",
-  Vef: "VEF",
-  Vnd: "VND",
-  Vuv: "VUV",
-  Wst: "WST",
-  Xaf: "XAF",
-  Xag: "XAG",
-  Xau: "XAU",
-  Xba: "XBA",
-  Xbb: "XBB",
-  Xbc: "XBC",
-  Xbd: "XBD",
-  Xcd: "XCD",
-  Xdr: "XDR",
-  Xof: "XOF",
-  Xpd: "XPD",
-  Xpf: "XPF",
-  Xpt: "XPT",
-  Xts: "XTS",
-  Xxx: "XXX",
-  Yer: "YER",
-  Zar: "ZAR",
-  Zmk: "ZMK",
-  Zmw: "ZMW",
-  Btc: "BTC",
-  Eth: "ETH",
-} as const;
-/**
- * The currency associated with the pipeline, represented as a three-letter ISO 4217 code. This indicates the currency context for any monetary values related to the pipeline, ensuring accurate financial reporting and analysis.
- */
-export type ListPipelinesResponseCurrency = ClosedEnum<
-  typeof ListPipelinesResponseCurrency
->;
+import {
+  Currency,
+  Currency$inboundSchema,
+  Currency$outboundSchema,
+} from "./currency.js";
 
 export type Stages = {
   /**
-   * The unique identifier for each stage within the pipeline. This string value is essential for referencing specific stages when managing or analyzing pipeline data, ensuring precise tracking and updates.
+   * The unique identifier for each stage within the pipeline. This string value is essential for referencing specific stages when managing or analyzing pipeline data. It ensures that each stage can be distinctly identified and manipulated as needed.
    */
   id?: string | null | undefined;
   /**
-   * The name of the pipeline stage, representing a specific phase in the sales process. This is a string value that helps identify and differentiate stages within a pipeline, aiding in the organization and tracking of sales opportunities.
+   * The name of the pipeline stage, representing a specific phase within the sales or project pipeline. This string value helps identify the stage's purpose and position within the overall pipeline structure, aiding in tracking and management of opportunities.
    */
   name?: string | null | undefined;
   /**
-   * The value associated with the pipeline stage, typically representing a monetary amount or other quantifiable metric. This string value is used to assess the potential worth of opportunities at this stage, providing insights into the sales pipeline's financial aspects.
+   * The unique identifier or code associated with the pipeline stage. This string value is used to reference the stage programmatically within integrations or when analyzing pipeline data.
    */
   value?: string | null | undefined;
   /**
-   * An integer representing the likelihood of successfully closing an opportunity at this pipeline stage, expressed as a percentage between 0 and 100. This probability helps prioritize efforts and forecast sales outcomes based on historical data and current trends.
+   * An integer representing the likelihood of successfully closing an opportunity at this stage of the pipeline. The value ranges from 0 to 100, indicating the percentage probability of a win, which is crucial for forecasting and decision-making processes.
    */
   winProbability?: number | null | undefined;
   /**
-   * An integer indicating the sequence in which the pipeline stage appears within the user interface. This order is crucial for visualizing the sales process flow, ensuring stages are presented logically and intuitively to users.
+   * An integer that specifies the sequence in which the pipeline stage appears in the user interface. This order helps users visually navigate through the stages, ensuring a logical progression of opportunities within the pipeline.
    */
   displayOrder?: number | null | undefined;
 };
 
 export type ListPipelinesResponseExtendPaths = {
   /**
-   * A JSONPath string that specifies the exact location within the pipeline data where the modification value should be applied. This path is crucial for accurately targeting and updating specific data fields within the CRM pipelines.
+   * A JSONPath string that specifies the exact location within the data structure where a value should be applied. This path is crucial for pinpointing the data element that needs modification, ensuring precise data manipulation within the pipeline response.
    */
   path: string;
   /**
-   * The value to be set at the specified JSONPath within the pipeline data. This can be of any data type, depending on the context of the modification, and is used to update or extend the existing data structure.
+   * The value to be set at the specified JSONPath, which can be of any data type. This flexibility allows developers to insert or update data within the pipeline response, tailoring the output to meet specific application requirements.
    */
   value?: any | undefined;
 };
 
 export type ListPipelinesResponsePassThrough = {
   /**
-   * A mandatory string identifier for the service that the pass_through data should be applied to. This ensures that the custom data is directed to the correct service within the CRM ecosystem.
+   * The 'service_id' within the 'pass_through' array identifies the specific service to which the custom data or modifications should be applied. This ensures that the correct service processes the additional data, facilitating seamless integration.
    */
   serviceId: string;
   /**
-   * An optional string identifier for a specific workflow operation that the pass_through data should target. This is particularly useful for complex operations involving multiple downstream requests, ensuring precise data application.
+   * The 'operation_id' is an optional identifier used within the 'pass_through' array to specify a particular workflow operation for applying the custom data. This is especially useful in scenarios where multiple downstream requests are made, ensuring the correct operation is targeted.
    */
   operationId?: string | undefined;
   /**
-   * An object that allows for the direct extension of properties, enabling the inclusion of additional, custom attributes as needed. This flexibility supports tailored data structures for specific CRM service requirements.
+   * The 'extend_object' is a flexible object within the 'pass_through' array that allows for the direct extension of properties. Developers can use this to add any additional fields or data structures needed to meet specific service requirements.
    */
   extendObject?: { [k: string]: any } | undefined;
   /**
-   * An array containing objects that define structured data modifications using specified paths. Each object in the array represents a modification operation that can be applied to the pipeline data, allowing for dynamic data transformation and extension.
+   * This property contains an array of objects that define structured data modifications using specified paths. Each object in the array represents a modification operation, allowing developers to dynamically alter data structures within the pipeline response. This is particularly useful for customizing the data output to fit specific integration needs.
    */
   extendPaths?: Array<ListPipelinesResponseExtendPaths> | undefined;
 };
 
 export type ListPipelinesResponseData = {
   /**
-   * The unique identifier for each pipeline within the CRM. This string is used to distinguish between different pipelines and is essential for operations that require specific pipeline references, such as updates or deletions.
+   * The unique identifier for each pipeline within the CRM system. This ID is used to reference and manage individual pipelines, allowing developers to perform operations like updates or deletions on specific pipelines.
    */
   id?: string | undefined;
   /**
-   * The name assigned to the pipeline, which is used to identify it within the CRM system. This string is required and serves as a key reference point for users when managing and analyzing sales processes.
+   * The name assigned to the pipeline, which helps in identifying and differentiating it from other pipelines. This field is crucial for users to understand the purpose or focus of the pipeline within the CRM context.
    */
   name: string;
+  currency?: Currency | null | undefined;
   /**
-   * The currency associated with the pipeline, represented as a three-letter ISO 4217 code. This indicates the currency context for any monetary values related to the pipeline, ensuring accurate financial reporting and analysis.
-   */
-  currency?: ListPipelinesResponseCurrency | null | undefined;
-  /**
-   * A boolean value indicating whether the pipeline is archived. If true, the pipeline is no longer active and is stored for historical reference, helping users manage current and past sales processes effectively.
+   * A boolean flag indicating whether the pipeline is archived. Archived pipelines are typically not active but are retained for historical reference or record-keeping purposes.
    */
   archived?: boolean | undefined;
   /**
-   * Indicates whether the pipeline is currently active. This boolean value helps determine if the pipeline is operational and should be considered in sales process analyses. It is useful for filtering pipelines based on their active status.
+   * Indicates whether the pipeline is currently active. This boolean value helps determine if the pipeline is operational and should be considered in analyses or integrations. An active pipeline is one that is in use and can process data.
    */
   active?: boolean | undefined;
   /**
-   * Specifies the order in which the pipeline appears in the user interface. This integer value is used to organize pipelines visually, ensuring that they are displayed in a logical sequence according to business priorities or workflow stages.
+   * Specifies the order in which the pipeline appears in the user interface. This integer value is used to organize multiple pipelines, ensuring they are displayed in a logical sequence for users. A lower number typically means a higher priority in the display order.
    */
   displayOrder?: number | null | undefined;
   /**
-   * Indicates if the pipeline has win probability calculations enabled. This boolean value is crucial for sales forecasting, as it allows users to assess the likelihood of closing deals within this pipeline.
+   * Indicates if the pipeline has the win probability feature enabled. This boolean value shows whether the pipeline can calculate and display the likelihood of winning deals at various stages. It is useful for sales forecasting and strategic planning.
    */
   winProbabilityEnabled?: boolean | undefined;
   /**
-   * An array containing the stages of the pipeline. Each element in the array represents a distinct stage within the pipeline, detailing the progression of sales opportunities from initiation to closure.
+   * An array containing the stages of the pipeline. Each element in the array represents a distinct phase within the pipeline, detailing the progression of deals from start to finish. This structure is crucial for understanding the workflow and managing the sales process effectively.
    */
   stages?: Array<Stages> | undefined;
   /**
-   * A timestamp indicating when the pipeline data was last modified, formatted as an ISO 8601 string. This information is vital for tracking changes and ensuring data accuracy and currency within the CRM system.
+   * A timestamp indicating when the pipeline data was last modified. This string is formatted in ISO 8601 and is essential for synchronization and ensuring that the most current data is being used in analyses and integrations.
    */
   updatedAt?: Date | null | undefined;
   /**
-   * The timestamp indicating when the pipeline was initially created in the CRM system. This is formatted as an ISO 8601 string, providing precise date and time details. It helps users track the age and history of the pipeline within the CRM.
+   * The 'created_at' field records the exact date and time when the pipeline object was initially created in the CRM system. This timestamp is crucial for tracking the age and history of the pipeline data. It is formatted as an ISO 8601 string, such as '2023-10-01T12:00:00Z'.
    */
   createdAt?: Date | null | undefined;
   /**
-   * An array that holds custom data or modifications specific to the service, which can be included in requests when creating or updating resources. This allows for flexible data handling and integration with various CRM services.
+   * The 'pass_through' property is an array that allows developers to include custom data or make structured modifications specific to a service when creating or updating resources. This feature is particularly useful for integrating unique service requirements into the pipeline data.
    */
   passThrough?: Array<ListPipelinesResponsePassThrough> | undefined;
 };
 
 /**
- * An object containing cursors that facilitate navigation through paginated API results. This includes cursors for moving to previous, current, or next pages, enabling efficient data retrieval in large datasets.
+ * This object contains cursors that help navigate through paginated API results. It includes pointers to move to previous, current, or next pages, facilitating seamless data retrieval across multiple pages. Useful for handling large datasets by breaking them into manageable chunks.
  */
 export type ListPipelinesResponseCursors = {
   /**
-   * A string representing the cursor used to access the previous page of results. This is useful for navigating backward through paginated data sets in the API response.
+   * A string cursor that allows navigation to the previous page of results in a paginated API response. This is particularly useful when reviewing or iterating over data that spans multiple pages, enabling backward traversal.
    */
   previous?: string | null | undefined;
   /**
-   * A string indicating the cursor for the current page of results. This helps in maintaining the current position within the paginated data set when making subsequent API calls.
+   * A string cursor representing the current page in a paginated API response. It helps maintain the current position within the dataset, ensuring continuity in data processing or display.
    */
   current?: string | null | undefined;
   /**
-   * A string that serves as the cursor for the next page of results. This allows forward navigation through the paginated data, facilitating seamless data access in the API response.
+   * A string cursor used to navigate to the next page of results in a paginated API response. This facilitates forward movement through a dataset, allowing access to subsequent data entries efficiently.
    */
   next?: string | null | undefined;
 };
 
 /**
- * An object containing metadata about the response, such as pagination details and other relevant information. This metadata helps in understanding the context of the data returned and managing subsequent API requests efficiently.
+ * An object containing metadata about the response, such as pagination details and other contextual information. This metadata helps developers understand the scope and limits of the data returned, facilitating efficient data handling and navigation.
  */
 export type ListPipelinesResponseMeta = {
   /**
-   * The number of pipeline items included in the current page of the response data. This integer value aids in understanding the volume of data retrieved and is useful for implementing pagination logic in client applications.
+   * Indicates the number of items included in the current page of the response data. This property is essential for managing pagination, allowing developers to efficiently process and display data across multiple pages.
    */
   itemsOnPage?: number | undefined;
   /**
-   * An object containing cursors that facilitate navigation through paginated API results. This includes cursors for moving to previous, current, or next pages, enabling efficient data retrieval in large datasets.
+   * This object contains cursors that help navigate through paginated API results. It includes pointers to move to previous, current, or next pages, facilitating seamless data retrieval across multiple pages. Useful for handling large datasets by breaking them into manageable chunks.
    */
   cursors?: ListPipelinesResponseCursors | undefined;
 };
 
 /**
- * An object containing URLs that provide direct links to navigate between pages of results. These links are part of the pagination mechanism, ensuring easy access to previous or next pages in the API response.
+ * This object contains hyperlinks for navigating between pages in a paginated API response. It provides direct links to previous or next pages, enhancing user experience by simplifying navigation through large datasets.
  */
 export type ListPipelinesResponseLinks = {
   /**
-   * A URL string that provides a direct link to the previous page of results in the paginated response. This is useful for navigating backward through the list of CRM pipelines when multiple pages of data are available. If there is no previous page, this property may be null or omitted.
+   * This property contains the URL link to navigate to the previous page of the pipeline data results. It is used for pagination purposes, allowing developers to retrieve the preceding set of pipeline records if available. The format is a standard URL string, and it is included in the response when there is a previous page to access.
    */
   previous?: string | null | undefined;
   /**
-   * A URL string representing the current page of results in the paginated response. This link is useful for refreshing or reloading the current set of CRM pipeline data. It ensures that developers can easily access the current view without recalculating the request parameters.
+   * This property provides the URL link to the current page of the pipeline data results. It serves as a reference to the current set of pipeline records being viewed or processed. The value is a standard URL string, ensuring developers can easily access the current page of data within the pagination sequence.
    */
   current?: string | undefined;
   /**
-   * A URL string that provides a direct link to the next page of results in the paginated response. This is essential for navigating forward through the list of CRM pipelines when more data is available beyond the current page. If there is no next page, this property may be null or omitted.
+   * This property contains the URL link to navigate to the next page of the pipeline data results. It facilitates pagination by allowing developers to access the subsequent set of pipeline records if more data is available. The format is a standard URL string, and it is included in the response when there is a next page to access.
    */
   next?: string | null | undefined;
 };
@@ -359,59 +165,38 @@ export type ListPipelinesResponseLinks = {
  */
 export type ListPipelinesResponse = {
   /**
-   * The HTTP response status code indicating the result of the GET request. This integer value helps determine if the request was successful (e.g., 200 for success) or if there was an error (e.g., 404 for not found). It is essential for error handling and debugging.
+   * The HTTP response status code returned by the server. This integer value indicates the result of the GET request to the '/crm/pipelines' endpoint, such as 200 for success or 404 for not found. It helps developers understand the outcome of their API call.
    */
   statusCode: number;
   /**
-   * A string representation of the HTTP response status, such as 'OK' for a successful request or 'Not Found' for an unsuccessful one. This provides a human-readable status that complements the status_code, aiding in quick understanding of the response outcome.
+   * A textual representation of the HTTP response status. This string provides a human-readable status message, such as 'OK' for a successful request, complementing the 'status_code' to give a clearer understanding of the response.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider from which the CRM pipelines data is retrieved. This string uniquely identifies the service within the Apideck ecosystem, ensuring that the data source is clear and traceable.
+   * The Apideck ID of the service provider from which the CRM pipeline data is fetched. This string uniquely identifies the service within the Apideck ecosystem, ensuring developers know the source of the data.
    */
   service: string;
   /**
-   * The name of the Unified API resource, specifically indicating the type of data being accessed, such as 'pipelines'. This string helps developers understand the context of the data returned and aligns with the resource structure of the API.
+   * The name of the Unified API resource that was accessed. This string indicates the specific resource within the CRM system, helping developers understand which part of the API was queried.
    */
   resource: string;
   /**
-   * The specific operation performed by the API, in this case, 'pipelinesAll', which signifies the retrieval of all CRM pipelines. This string helps in identifying the action taken and is useful for logging and tracking API usage.
+   * The specific operation that was performed during the API call. This string describes the action taken, such as 'fetch' or 'retrieve', providing context about what the API request was intended to do.
    */
   operation: string;
   /**
-   * An array containing all the pipeline objects retrieved from the CRM. Each object in the array represents a distinct pipeline with its own set of attributes, such as ID, name, currency, and archived status. This array is the main component of the response, providing a comprehensive view of all pipelines available in the CRM.
+   * An array containing the list of CRM pipelines associated with the specified consumer. Each element in the array represents a pipeline object with detailed information such as ID, name, currency, and archived status. This array is the primary container for the pipeline data returned by the 'pipelinesAll' operation.
    */
   data: Array<ListPipelinesResponseData>;
   /**
-   * An object containing metadata about the response, such as pagination details and other relevant information. This metadata helps in understanding the context of the data returned and managing subsequent API requests efficiently.
+   * An object containing metadata about the response, such as pagination details and other contextual information. This metadata helps developers understand the scope and limits of the data returned, facilitating efficient data handling and navigation.
    */
   meta?: ListPipelinesResponseMeta | undefined;
   /**
-   * An object containing URLs that provide direct links to navigate between pages of results. These links are part of the pagination mechanism, ensuring easy access to previous or next pages in the API response.
+   * This object contains hyperlinks for navigating between pages in a paginated API response. It provides direct links to previous or next pages, enhancing user experience by simplifying navigation through large datasets.
    */
   links?: ListPipelinesResponseLinks | undefined;
 };
-
-/** @internal */
-export const ListPipelinesResponseCurrency$inboundSchema: z.ZodNativeEnum<
-  typeof ListPipelinesResponseCurrency
-> = z.nativeEnum(ListPipelinesResponseCurrency);
-
-/** @internal */
-export const ListPipelinesResponseCurrency$outboundSchema: z.ZodNativeEnum<
-  typeof ListPipelinesResponseCurrency
-> = ListPipelinesResponseCurrency$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListPipelinesResponseCurrency$ {
-  /** @deprecated use `ListPipelinesResponseCurrency$inboundSchema` instead. */
-  export const inboundSchema = ListPipelinesResponseCurrency$inboundSchema;
-  /** @deprecated use `ListPipelinesResponseCurrency$outboundSchema` instead. */
-  export const outboundSchema = ListPipelinesResponseCurrency$outboundSchema;
-}
 
 /** @internal */
 export const Stages$inboundSchema: z.ZodType<Stages, z.ZodTypeDef, unknown> = z
@@ -632,7 +417,7 @@ export const ListPipelinesResponseData$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   name: z.string(),
-  currency: z.nullable(ListPipelinesResponseCurrency$inboundSchema).optional(),
+  currency: z.nullable(Currency$inboundSchema).optional(),
   archived: z.boolean().optional(),
   active: z.boolean().optional(),
   display_order: z.nullable(z.number().int()).optional(),
@@ -680,7 +465,7 @@ export const ListPipelinesResponseData$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   name: z.string(),
-  currency: z.nullable(ListPipelinesResponseCurrency$outboundSchema).optional(),
+  currency: z.nullable(Currency$outboundSchema).optional(),
   archived: z.boolean().optional(),
   active: z.boolean().optional(),
   displayOrder: z.nullable(z.number().int()).optional(),

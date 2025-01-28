@@ -36,21 +36,10 @@ import {
 } from "../types/operations.js";
 
 /**
- * Retrieve all CRM notes efficiently.
+ * Retrieve all CRM notes efficiently for analysis and integration.
  *
  * @remarks
- * The `notesAll` operation allows developers to retrieve a comprehensive list of notes from the CRM system. This GET request is essential for accessing detailed note information, which can be used for analysis, reporting, or integration with other systems.
- *
- * Key Parameters:
- * - `x-apideck-consumer-id` (header, required): Identifies the consumer from whom data is being retrieved.
- * - `x-apideck-app-id` (header, required): Specifies the Unify application ID.
- * - `x-apideck-service-id` (header, optional): Indicates the specific service ID to call, useful when multiple integrations are active.
- * - `cursor` (query, optional): Used for pagination to specify the starting point for the next set of results.
- * - `limit` (query, optional): Defines the number of results to return, with a default of 20 and a maximum of 200.
- * - `fields` (query, optional): Allows selection of specific fields to include in the response, enhancing efficiency by reducing payload size.
- *
- * Response Behavior:
- * The operation returns a JSON object containing the requested notes. The response includes metadata for pagination, such as cursors for navigating through pages of results. This operation is crucial for developers needing to access and manipulate CRM note data programmatically.
+ * The 'notesAll' operation allows developers to fetch all notes from the CRM system using a GET request to the '/crm/notes' endpoint. This operation is crucial for applications that need to aggregate, analyze, or integrate CRM notes data. Key parameters include 'raw' for debugging, 'x-apideck-consumer-id' and 'x-apideck-app-id' for authentication, and 'cursor' and 'limit' for pagination control. The response is a JSON object containing the notes data, which can be tailored using the 'fields' parameter to include only specific fields. This operation supports efficient data retrieval and integration into various applications, enhancing CRM data utility.
  */
 export async function crmNotesList(
   client: ApideckCore,
@@ -105,12 +94,12 @@ export async function crmNotesList(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

@@ -11,7 +11,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CrmLeadsAllGlobals = {
   /**
-   * A unique identifier for the consumer, required to specify the data source or destination for the API operation. This ID is essential for authenticating and authorizing the request within the CRM system.
+   * A unique identifier assigned to the consumer, necessary for authenticating and authorizing the API request. This ensures that the request is associated with the correct consumer account.
    */
   consumerId?: string | undefined;
   /**
@@ -22,35 +22,43 @@ export type CrmLeadsAllGlobals = {
 
 export type CrmLeadsAllRequest = {
   /**
-   * A boolean flag that determines whether to include the raw response in the output. This is primarily used for debugging purposes to gain insights into the API's response structure.
+   * A boolean flag that, when set to true, returns the raw data as received from the service. This is primarily useful for debugging and development purposes, allowing you to see the unprocessed response.
    */
   raw?: boolean | undefined;
   /**
-   * An optional identifier for the specific service to be called, such as 'pipedrive'. This is only required when multiple integrations are active, allowing the API to route the request to the appropriate service.
+   * A unique identifier assigned to the consumer, necessary for authenticating and authorizing the API request. This ensures that the request is associated with the correct consumer account.
+   */
+  consumerId?: string | undefined;
+  /**
+   * The unique identifier for your Unify application, required to authenticate API requests and ensure they are processed within the correct application context.
+   */
+  appId?: string | undefined;
+  /**
+   * Optional header to specify the service ID for targeting a specific service integration, such as 'pipedrive'. This is useful when multiple integrations are active and you need to direct the request to a particular service.
    */
   serviceId?: string | undefined;
   /**
-   * The 'cursor' parameter is used for pagination, allowing you to specify the starting point for the next set of results. It is particularly useful for navigating through large datasets efficiently. You can find the cursor for the next or previous page in the 'meta.cursors' property of the response.
+   * This parameter is used for pagination, acting as a pointer to indicate the starting point for the next set of results. It helps in navigating through paginated data efficiently, with cursors typically found in the response's meta.cursors property.
    */
   cursor?: string | null | undefined;
   /**
-   * The 'limit' parameter specifies the maximum number of results to return in a single response. It helps manage the size of the response and can be set between 1 and 200, with a default value of 20 if not specified.
+   * Defines the maximum number of CRM activities to return in the response, allowing control over data volume. Accepts values between 1 and 200, with a default of 20 if unspecified. Useful for managing response size in paginated requests.
    */
   limit?: number | undefined;
   /**
-   * The 'filter' parameter allows you to refine the results by applying specific criteria. It supports nested properties such as 'company_id' and 'owner_id' to filter activities based on company or owner identifiers.
+   * Enables filtering of CRM leads based on specific criteria. This object parameter allows the use of nested properties such as 'name', 'first_name', and 'last_name' to refine search results.
    */
   filter?: components.LeadsFilter | undefined;
   /**
-   * Define sorting preferences for the retrieved activities. Use nested properties to specify the field and order for sorting.
+   * Apply sorting to the list of leads. This parameter allows you to specify sorting preferences using nested properties 'by' and 'direction' to organize the results according to your needs.
    */
   sort?: components.LeadsSort | undefined;
   /**
-   * Allows additional query parameters to be sent directly to the downstream service without modification. This is useful for leveraging specific features of the downstream API that are not directly exposed by this API.
+   * This parameter allows developers to pass additional query parameters directly to the downstream service, extending the API's functionality without modifying its core parameters. It is particularly useful for leveraging specific features or data points offered by the downstream service that are not natively supported by the API.
    */
   passThrough?: { [k: string]: any } | undefined;
   /**
-   * Enables selective retrieval of specific fields in the API response, improving performance by reducing data load. Specify fields as a comma-separated list, and use dot notation for nested properties.
+   * This parameter allows users to specify which fields to include in the API response by providing a comma-separated list. This customization helps optimize data handling and performance by returning only the necessary data fields.
    */
   fields?: string | null | undefined;
 };
@@ -131,6 +139,8 @@ export const CrmLeadsAllRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   raw: z.boolean().default(false),
+  consumerId: z.string().optional(),
+  appId: z.string().optional(),
   serviceId: z.string().optional(),
   cursor: z.nullable(z.string()).optional(),
   limit: z.number().int().default(20),
@@ -147,6 +157,8 @@ export const CrmLeadsAllRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type CrmLeadsAllRequest$Outbound = {
   raw: boolean;
+  consumerId?: string | undefined;
+  appId?: string | undefined;
   serviceId?: string | undefined;
   cursor?: string | null | undefined;
   limit: number;
@@ -163,6 +175,8 @@ export const CrmLeadsAllRequest$outboundSchema: z.ZodType<
   CrmLeadsAllRequest
 > = z.object({
   raw: z.boolean().default(false),
+  consumerId: z.string().optional(),
+  appId: z.string().optional(),
   serviceId: z.string().optional(),
   cursor: z.nullable(z.string()).optional(),
   limit: z.number().int().default(20),

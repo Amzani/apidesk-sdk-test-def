@@ -1,6 +1,6 @@
 # ContactsSortBy
 
-Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
+Specifies the field by which to sort the list of contacts. This parameter allows users to organize the returned contact data based on specific attributes, enhancing data retrieval efficiency.
 
 ## Example Usage
 

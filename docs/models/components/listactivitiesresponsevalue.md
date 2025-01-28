@@ -1,6 +1,6 @@
 # ListActivitiesResponseValue
 
-The actual data or content stored in the custom field, which can vary in type depending on the field's configuration. This property holds the value associated with the custom field, allowing users to access specific information relevant to CRM activities.
+The actual data or content stored in the custom field, which can vary in format depending on the field's purpose. This optional value is crucial for capturing specific information related to CRM activities.
 
 
 ## Supported Types

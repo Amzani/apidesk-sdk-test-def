@@ -24,20 +24,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Delete an existing opportunity record in the CRM.
+ * Deletes a specific opportunity record from the CRM system.
  *
  * @remarks
- * The `opportunitiesDelete` operation allows developers to remove an existing opportunity record from the CRM system. This operation is crucial for maintaining accurate and up-to-date records by enabling the deletion of opportunities that are no longer relevant or were created in error.
- *
- * ### Key Parameters:
- * - **id (path parameter)**: The unique identifier of the opportunity record to be deleted. This parameter is mandatory.
- * - **x-apideck-consumer-id (header)**: Required to specify the consumer ID from which data is being managed.
- * - **x-apideck-app-id (header)**: The ID of the Unify application making the request, also required.
- * - **x-apideck-service-id (header)**: Optional parameter to specify the service ID when multiple integrations are active.
- * - **raw (query parameter)**: Optional flag to include raw response data, useful for debugging.
- *
- * ### Response Behavior:
- * Upon successful deletion, the API returns a status code of 200, indicating that the opportunity record has been successfully removed. No content is returned in the response body, aligning with standard practices for delete operations.
+ * The opportunitiesDelete operation allows developers to remove an opportunity record from the CRM by specifying its unique ID in the endpoint path. This operation is crucial for maintaining accurate and up-to-date CRM data by enabling the deletion of obsolete or incorrect records. To execute this operation, the 'id' parameter is required in the path, along with necessary headers for authentication: 'x-apideck-consumer-id' and 'x-apideck-app-id'. Optionally, 'x-apideck-service-id' can be included to target a specific service integration. The operation does not require a request body and returns a status code of 200 upon successful deletion, indicating that the record has been successfully removed. This operation is essential for developers managing CRM data lifecycle efficiently.
  */
 export async function crmOpportunitiesDelete(
   client: ApideckCore,
@@ -89,12 +79,12 @@ export async function crmOpportunitiesDelete(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

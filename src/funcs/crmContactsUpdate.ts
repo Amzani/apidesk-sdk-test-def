@@ -27,16 +27,7 @@ import { Result } from "../types/fp.js";
  * Update an existing contact in the CRM system.
  *
  * @remarks
- * The `contactsUpdate` operation allows developers to modify details of an existing contact within the CRM system. This operation is essential for maintaining up-to-date contact information, ensuring data accuracy and relevance.
- *
- * Key Parameters:
- * - `id` (path): The unique identifier of the contact record to be updated. This parameter is mandatory.
- * - `x-apideck-consumer-id` (header): Required to specify the consumer ID from which data is being accessed or modified.
- * - `x-apideck-app-id` (header): Required to identify the Unify application making the request.
- * - `x-apideck-service-id` (header): Optional parameter to specify the service ID when multiple integrations are active.
- * - `raw` (query): Optional parameter to include the raw response, useful for debugging.
- *
- * Upon successful execution, the operation returns a status code of 200, along with a JSON object representing the updated contact resource. This response includes the unique identifier of the contact, confirming the update was successful. The operation uses the HTTP PATCH method, allowing partial updates to the contact resource.
+ * The contactsUpdate operation allows you to modify the details of an existing contact in the CRM by sending a PATCH request to the /crm/contacts/{id} endpoint. This operation is crucial for maintaining up-to-date contact information, which is essential for effective customer relationship management. You must provide the contact's unique ID in the path parameter to specify which record to update. Additionally, include the x-apideck-consumer-id and x-apideck-app-id headers for authentication and authorization purposes. Optionally, use the x-apideck-service-id header if targeting a specific service integration. The request body should contain the fields you wish to update. Upon successful update, the API returns a 200 status code along with the updated contact details in a JSON object format. This operation is ideal for keeping contact information current and accurate.
  */
 export async function crmContactsUpdate(
   client: ApideckCore,
@@ -90,12 +81,12 @@ export async function crmContactsUpdate(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

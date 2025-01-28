@@ -9,11 +9,11 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This object contains metadata about the operation performed, specifically indicating the resource that was affected by the delete operation. It serves as a confirmation that the specified user has been successfully deleted from the CRM system. The object structure is typically empty for delete operations, as no additional data is required beyond the confirmation of deletion.
+ * This object contains information about the user resource that was deleted. It serves as a confirmation that the specified user has been successfully removed from the CRM system. The object includes the unique identifier of the deleted user, ensuring that developers can verify the correct user was deleted.
  */
 export type DeleteUserResponseUnifiedId = {
   /**
-   * The unique identifier of the user that was deleted from the CRM system. This string value confirms the specific user record that has been removed, ensuring that developers can verify the correct user was deleted. It is crucial for tracking and logging purposes, especially in systems where audit trails are maintained.
+   * The unique identifier of the user that was deleted. This ID confirms the specific user record that has been removed from the CRM system, allowing developers to track and verify the deletion operation.
    */
   id: string;
 };
@@ -23,27 +23,27 @@ export type DeleteUserResponseUnifiedId = {
  */
 export type DeleteUserResponse = {
   /**
-   * The HTTP response status code returned by the server, indicating the result of the delete operation. A status code of 200 confirms that the user has been successfully removed from the CRM system. This integer value is crucial for error handling and validation of the operation's success.
+   * The HTTP response status code returned by the server. This integer value indicates the result of the delete operation, with a code of 200 signifying that the user was successfully removed from the CRM system. It helps developers confirm the success or failure of the operation.
    */
   statusCode: number;
   /**
-   * A textual representation of the HTTP response status, typically 'OK' for a successful delete operation. This string provides a human-readable confirmation of the operation's outcome, complementing the status code.
+   * A textual representation of the HTTP response status. This string provides a human-readable status message, such as 'OK', which corresponds to the status code and confirms the successful deletion of the user from the CRM system.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider that processed the delete request. This string helps identify which service handled the operation, especially useful in environments with multiple integrations.
+   * The Apideck ID of the service provider involved in the operation. This string identifies which service integration was used to perform the user deletion, aiding in tracking and managing service-specific operations within the CRM.
    */
   service: string;
   /**
-   * The name of the Unified API resource that was targeted by the delete operation. This string specifies the type of resource affected, ensuring clarity in multi-resource environments.
+   * The name of the Unified API resource that was affected by the operation. This string indicates the type of resource, such as 'user', that was deleted, helping developers understand the context of the operation within the broader API ecosystem.
    */
   resource: string;
   /**
-   * The specific operation performed, in this case, 'delete', indicating that a user record was removed. This string helps in logging and tracking the type of action executed by the API.
+   * The specific operation that was performed, represented as a string. In this context, it indicates the 'delete' action taken on the user resource, providing clarity on the type of operation executed within the CRM system.
    */
   operation: string;
   /**
-   * This object contains metadata about the operation performed, specifically indicating the resource that was affected by the delete operation. It serves as a confirmation that the specified user has been successfully deleted from the CRM system. The object structure is typically empty for delete operations, as no additional data is required beyond the confirmation of deletion.
+   * This object contains information about the user resource that was deleted. It serves as a confirmation that the specified user has been successfully removed from the CRM system. The object includes the unique identifier of the deleted user, ensuring that developers can verify the correct user was deleted.
    */
   data: DeleteUserResponseUnifiedId;
 };

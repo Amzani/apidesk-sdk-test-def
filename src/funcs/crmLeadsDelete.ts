@@ -24,20 +24,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Delete a lead from the CRM system.
+ * Deletes a lead record from the CRM system using its unique ID.
  *
  * @remarks
- * The `leadsDelete` operation allows developers to remove a lead from the CRM system by specifying the lead's unique identifier in the endpoint path. This operation is crucial for maintaining an up-to-date and accurate database by removing obsolete or incorrect lead entries.
- *
- * Key Parameters:
- * - `id` (path): The unique identifier of the lead to be deleted. This parameter is mandatory.
- * - `x-apideck-consumer-id` (header): Required to specify the consumer ID from which data is being managed.
- * - `x-apideck-app-id` (header): Required to identify the Unify application making the request.
- * - `x-apideck-service-id` (header): Optional parameter to specify the service ID when multiple integrations are active.
- * - `raw` (query): Optional parameter to include a raw response, useful for debugging.
- *
- * Response Behavior:
- * Upon successful deletion, the operation returns a status code of 200, indicating that the lead has been successfully removed from the system. No content is returned in the response body, confirming the deletion action was completed without errors.
+ * The leadsDelete operation allows you to remove a specific lead from your CRM system by providing the lead's unique ID in the endpoint path. This operation is crucial for maintaining an up-to-date and accurate database by removing outdated or irrelevant lead information. To execute this operation, you must include the 'x-apideck-consumer-id' and 'x-apideck-app-id' headers for authentication and authorization purposes. Optionally, you can specify the 'x-apideck-service-id' if targeting a specific service integration. The operation does not require a request body and will return a status code of 200 upon successful deletion, indicating that the lead has been successfully removed from the system. This operation is essential for data management and ensuring the CRM reflects current business needs.
  */
 export async function crmLeadsDelete(
   client: ApideckCore,
@@ -88,12 +78,12 @@ export async function crmLeadsDelete(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

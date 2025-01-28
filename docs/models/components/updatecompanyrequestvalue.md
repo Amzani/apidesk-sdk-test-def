@@ -1,6 +1,6 @@
 # UpdateCompanyRequestValue
 
-The specific data or information stored in the custom field for the company record. This value can vary based on the custom field's purpose and should be formatted according to the field's requirements.
+The value assigned to the custom field for the company record. This property holds the actual data or information that the custom field is meant to capture. It should be formatted according to the data type expected by the custom field's definition.
 
 
 ## Supported Types
@@ -23,10 +23,10 @@ const value: number = 10;
 const value: boolean = true;
 ```
 
-### `components.Value4`
+### `components.UpdateCompanyRequestValue4`
 
 ```typescript
-const value: components.Value4 = {};
+const value: components.UpdateCompanyRequestValue4 = {};
 ```
 
 ### `string[]`
@@ -37,10 +37,10 @@ const value: string[] = [
 ];
 ```
 
-### `components.Value6[]`
+### `components.UpdateCompanyRequestValue6[]`
 
 ```typescript
-const value: components.Value6[] = [
+const value: components.UpdateCompanyRequestValue6[] = [
   {},
 ];
 ```

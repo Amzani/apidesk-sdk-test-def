@@ -1,0 +1,30 @@
+# NotePassThrough
+
+## Example Usage
+
+```typescript
+import { NotePassThrough } from "apideck/models/components";
+
+let value: NotePassThrough = {
+  serviceId: "<id>",
+  extendPaths: [
+    {
+      path: "$.nested.property",
+      value: {
+        "TaxClassificationRef": {
+          "value": "EUC-99990201-V1-00020000",
+        },
+      },
+    },
+  ],
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                                                                                       | Type                                                                                                                                                                                                                                        | Required                                                                                                                                                                                                                                    | Description                                                                                                                                                                                                                                 |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `serviceId`                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                          | A string that uniquely identifies the service to which the pass_through data should be applied. This ensures that the custom data is directed to the correct service integration when retrieving a note.                                    |
+| `operationId`                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                          | An optional string identifier for a specific workflow operation. This is particularly useful when the note retrieval involves multiple downstream requests, allowing developers to track or modify specific operations within the workflow. |
+| `extendObject`                                                                                                                                                                                                                              | Record<string, *any*>                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                          | An object that allows for direct extension with any properties. This provides flexibility for developers to include additional fields or data structures that may be necessary for the note retrieval process.                              |
+| `extendPaths`                                                                                                                                                                                                                               | [components.NoteExtendPaths](../../models/components/noteextendpaths.md)[]                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                          | An array of objects used for structured data modifications via paths. This allows developers to specify precise modifications or extensions to the note data, enhancing the customization of the response.                                  |

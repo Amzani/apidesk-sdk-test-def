@@ -1,6 +1,6 @@
 # OpportunitiesSortDirection
 
-Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
+Specifies the sorting order for the opportunities. Use 'asc' for ascending order to start from the lowest value, or 'desc' for descending order to start from the highest value, allowing for flexible data presentation.
 
 ## Example Usage
 

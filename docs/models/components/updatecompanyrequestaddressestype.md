@@ -1,6 +1,6 @@
 # UpdateCompanyRequestAddressesType
 
-Specifies the type of address, such as 'billing', 'shipping', or 'office'. This helps categorize the address within the company's records. The value should be a string that matches predefined address types in the CRM system.
+Specifies the type of address, such as 'billing' or 'shipping'. This helps categorize the address within the company's records, allowing for more organized data management and retrieval.
 
 ## Example Usage
 

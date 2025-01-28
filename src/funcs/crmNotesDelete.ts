@@ -24,19 +24,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Delete a specific note from the CRM system.
+ * Deletes a specific note from the CRM system using its unique ID.
  *
  * @remarks
- * The `notesDelete` operation allows developers to remove a specific note from the CRM system using its unique identifier. This operation is crucial for maintaining up-to-date and relevant data within the CRM by enabling the deletion of outdated or incorrect notes.
- *
- * Key Parameters:
- * - `id` (path parameter, required): The unique identifier of the note to be deleted.
- * - `x-apideck-consumer-id` (header, required): Identifies the consumer from which data is being managed.
- * - `x-apideck-app-id` (header, required): The ID of the Unify application making the request.
- * - `x-apideck-service-id` (header, optional): Specifies the service ID when multiple integrations are active.
- * - `raw` (query parameter, optional): If set, includes the raw response, useful for debugging.
- *
- * Response Behavior: Upon successful deletion, the operation returns a status code of 200, indicating that the note has been successfully removed from the CRM system. No content is returned in the response body.
+ * The notesDelete operation allows you to remove a note from the CRM by specifying its unique ID in the endpoint path. This operation is crucial for maintaining data accuracy and relevance within your CRM system by enabling the deletion of outdated or incorrect notes. To execute this operation, you must provide the 'id' of the note you wish to delete, along with the 'x-apideck-consumer-id' and 'x-apideck-app-id' headers for authentication. Optionally, you can specify the 'x-apideck-service-id' if targeting a specific service integration. The operation does not require a request body and will return a status code of 200 upon successful deletion, indicating that the note has been removed from the system. This operation is essential for keeping your CRM data clean and up-to-date.
  */
 export async function crmNotesDelete(
   client: ApideckCore,
@@ -87,12 +78,12 @@ export async function crmNotesDelete(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

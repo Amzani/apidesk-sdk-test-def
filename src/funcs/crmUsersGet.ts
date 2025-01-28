@@ -24,21 +24,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve a specific user's details from the CRM system.
+ * Retrieve detailed information about a specific user in the CRM system.
  *
  * @remarks
- * The `usersOne` operation allows developers to fetch detailed information about a specific user from the CRM system using their unique ID. This operation is crucial for applications that need to display or process user-specific data.
- *
- * ### Key Parameters:
- * - **id (path)**: The unique identifier of the user whose details are being retrieved. This parameter is mandatory.
- * - **x-apideck-consumer-id (header)**: Required header specifying the consumer ID for data retrieval.
- * - **x-apideck-app-id (header)**: Required header indicating the Unify application ID.
- * - **x-apideck-service-id (header)**: Optional header to specify the service ID when multiple integrations are active.
- * - **raw (query)**: Optional parameter to include raw response data, useful for debugging.
- * - **fields (query)**: Optional parameter to specify which fields to include in the response, using a comma-separated string. Supports nested properties with dot notation.
- *
- * ### Response Behavior:
- * The operation returns a JSON object containing the user's details, including all available fields unless specified otherwise by the `fields` parameter. The response is typically a 200 status code, indicating successful retrieval of the user data.
+ * The 'usersOne' operation allows developers to fetch detailed information about a specific user in the CRM system by using their unique ID. This GET request requires the 'id' parameter in the path to specify the user record to retrieve. Additionally, headers such as 'x-apideck-consumer-id' and 'x-apideck-app-id' are mandatory for authentication and routing purposes. Optionally, the 'x-apideck-service-id' header can be used to target a specific service integration, and query parameters like 'raw' and 'fields' can be utilized to customize the response. The response is typically a JSON object containing the user's details, facilitating seamless integration and data retrieval for CRM applications.
  */
 export async function crmUsersGet(
   client: ApideckCore,
@@ -90,12 +79,12 @@ export async function crmUsersGet(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

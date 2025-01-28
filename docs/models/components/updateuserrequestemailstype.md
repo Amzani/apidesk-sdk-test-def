@@ -1,6 +1,6 @@
 # UpdateUserRequestEmailsType
 
-Defines the type of email address, such as 'work', 'personal', or 'other'. This categorization helps in organizing and prioritizing email communications within the CRM system. If specified, it should be a valid string representing the email type.
+Defines the type of email address, such as 'personal', 'work', or 'other'. This classification helps in organizing and prioritizing email communications based on their intended use. It is optional and can be omitted if the type is not relevant.
 
 ## Example Usage
 

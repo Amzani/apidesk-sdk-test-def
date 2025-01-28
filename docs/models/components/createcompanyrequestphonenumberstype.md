@@ -1,6 +1,6 @@
 # CreateCompanyRequestPhoneNumbersType
 
-Specifies the category of the phone number, such as 'work', 'home', or 'mobile'. This helps in organizing and identifying the purpose of each phone number associated with the company. It is optional and can be left blank if categorization is not needed.
+Specifies the category of the phone number, such as 'work', 'home', or 'mobile'. This helps in identifying the context in which the phone number is used within the CRM system. It is optional and can be left out if not applicable.
 
 ## Example Usage
 

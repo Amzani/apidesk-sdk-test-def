@@ -5,26 +5,15 @@
 
 ### Available Operations
 
-* [list](#list) - Retrieve all CRM notes efficiently.
-* [create](#create) - Add a new note to the CRM system.
-* [get](#get) - Retrieve a specific note by its ID from the CRM system.
-* [update](#update) - Update an existing note in the CRM system.
-* [delete](#delete) - Delete a specific note from the CRM system.
+* [list](#list) - Retrieve all CRM notes efficiently for analysis and integration.
+* [create](#create) - Adds a new note to the CRM system for a specified consumer.
+* [get](#get) - Retrieve a specific CRM note by its ID.
+* [update](#update) - Update an existing note in the CRM system using its unique ID.
+* [delete](#delete) - Deletes a specific note from the CRM system using its unique ID.
 
 ## list
 
-The `notesAll` operation allows developers to retrieve a comprehensive list of notes from the CRM system. This GET request is essential for accessing detailed note information, which can be used for analysis, reporting, or integration with other systems. 
-
-Key Parameters:
-- `x-apideck-consumer-id` (header, required): Identifies the consumer from whom data is being retrieved.
-- `x-apideck-app-id` (header, required): Specifies the Unify application ID.
-- `x-apideck-service-id` (header, optional): Indicates the specific service ID to call, useful when multiple integrations are active.
-- `cursor` (query, optional): Used for pagination to specify the starting point for the next set of results.
-- `limit` (query, optional): Defines the number of results to return, with a default of 20 and a maximum of 200.
-- `fields` (query, optional): Allows selection of specific fields to include in the response, enhancing efficiency by reducing payload size.
-
-Response Behavior:
-The operation returns a JSON object containing the requested notes. The response includes metadata for pagination, such as cursors for navigating through pages of results. This operation is crucial for developers needing to access and manipulate CRM note data programmatically.
+The 'notesAll' operation allows developers to fetch all notes from the CRM system using a GET request to the '/crm/notes' endpoint. This operation is crucial for applications that need to aggregate, analyze, or integrate CRM notes data. Key parameters include 'raw' for debugging, 'x-apideck-consumer-id' and 'x-apideck-app-id' for authentication, and 'cursor' and 'limit' for pagination control. The response is a JSON object containing the notes data, which can be tailored using the 'fields' parameter to include only specific fields. This operation supports efficient data retrieval and integration into various applications, enhancing CRM data utility.
 
 ### Example Usage
 
@@ -125,7 +114,7 @@ run();
 
 ## create
 
-The `notesAdd` operation allows developers to add a new note to the CRM system using a POST request to the `/crm/notes` endpoint. This operation is essential for maintaining detailed records and annotations related to CRM entries. Key parameters include `x-apideck-consumer-id` and `x-apideck-app-id`, which are required headers to identify the consumer and application, respectively. The `x-apideck-service-id` header is optional and used when multiple integrations are active. The operation supports a `raw` query parameter for debugging purposes. Upon successful creation, the API responds with a 201 status code and includes the unique identifier of the newly created note in the response, confirming the addition to the CRM system.
+The notesAdd operation allows developers to create and add a new note to the CRM system associated with a specific consumer. This operation is essential for maintaining detailed records and enhancing customer relationship management. To execute this operation, you must include the x-apideck-consumer-id and x-apideck-app-id headers for authentication and authorization. Optionally, the x-apideck-service-id can be specified if targeting a specific service integration. The request body should contain the note details to be added. Upon successful creation, the API returns a status code of 201, indicating the note has been successfully added, along with the ID of the newly created note. This operation supports a 'raw' query parameter for debugging purposes, which, when set to true, includes raw response data.
 
 ### Example Usage
 
@@ -320,18 +309,7 @@ run();
 
 ## get
 
-The 'notesOne' operation allows developers to retrieve a specific note from the CRM system using its unique identifier. This operation is essential for accessing detailed information about a particular note, which can be used for further processing or display in applications. 
-
-Key Parameters:
-- **id** (path): The unique identifier of the note to retrieve. This parameter is required.
-- **x-apideck-consumer-id** (header): The ID of the consumer from which data is being retrieved. This is a mandatory header.
-- **x-apideck-app-id** (header): The ID of the Unify application making the request. This is also required.
-- **x-apideck-service-id** (header): Optional header to specify the service ID when multiple integrations are active.
-- **raw** (query): Optional parameter to include the raw response, useful for debugging.
-- **fields** (query): Optional parameter to specify which fields to include in the response, using a comma-separated string.
-
-Response Behavior:
-This operation returns a JSON object representing the note, including all available fields unless specified otherwise by the 'fields' parameter. The response will include a status code of 200 upon successful retrieval.
+The 'notesOne' operation allows developers to retrieve a specific note from the CRM system using its unique ID. This GET request requires the 'id' parameter in the path to specify which note to fetch. Additionally, headers such as 'x-apideck-consumer-id' and 'x-apideck-app-id' are mandatory for authentication and authorization purposes. The operation can also target specific service integrations using the 'x-apideck-service-id' header if multiple integrations are active. Optional query parameters include 'raw' for obtaining raw service data and 'fields' for customizing the response fields. The response is typically a JSON object containing the note details, provided the request is successful with a 200 status code.
 
 ### Example Usage
 
@@ -422,16 +400,7 @@ run();
 
 ## update
 
-The `notesUpdate` operation allows developers to modify an existing note within the CRM system using a PATCH request to the `/crm/notes/{id}` endpoint. This operation is crucial for maintaining up-to-date information in CRM records. 
-
-Key Parameters:
-- `id` (path): The unique identifier of the note to be updated. This is a required parameter.
-- `x-apideck-consumer-id` (header): Specifies the consumer ID for data retrieval or submission. This is mandatory.
-- `x-apideck-app-id` (header): Identifies your Unify application. This is a required parameter.
-- `x-apideck-service-id` (header): Optional parameter to specify the service ID when multiple integrations are active.
-- `raw` (query): Optional parameter to include the raw response, useful for debugging.
-
-Upon successful update, the operation returns a 200 status code along with a JSON object representing the updated note, including its unique identifier. This ensures developers can confirm the update and retrieve the latest note data efficiently.
+The notesUpdate operation allows you to modify an existing note in the CRM by specifying its unique ID in the endpoint path. This PATCH request requires the 'id' parameter to identify the note to be updated. Additionally, headers such as 'x-apideck-consumer-id' and 'x-apideck-app-id' are mandatory for authentication and routing purposes. Optionally, 'x-apideck-service-id' can be included to target a specific service integration. The 'raw' query parameter can be set to true to receive the raw response data for debugging. Upon successful update, the operation returns a status code of 200, indicating the note has been updated successfully. The response typically includes the updated note details in a JSON format.
 
 ### Example Usage
 
@@ -686,16 +655,7 @@ run();
 
 ## delete
 
-The `notesDelete` operation allows developers to remove a specific note from the CRM system using its unique identifier. This operation is crucial for maintaining up-to-date and relevant data within the CRM by enabling the deletion of outdated or incorrect notes. 
-
-Key Parameters:
-- `id` (path parameter, required): The unique identifier of the note to be deleted.
-- `x-apideck-consumer-id` (header, required): Identifies the consumer from which data is being managed.
-- `x-apideck-app-id` (header, required): The ID of the Unify application making the request.
-- `x-apideck-service-id` (header, optional): Specifies the service ID when multiple integrations are active.
-- `raw` (query parameter, optional): If set, includes the raw response, useful for debugging.
-
-Response Behavior: Upon successful deletion, the operation returns a status code of 200, indicating that the note has been successfully removed from the CRM system. No content is returned in the response body.
+The notesDelete operation allows you to remove a note from the CRM by specifying its unique ID in the endpoint path. This operation is crucial for maintaining data accuracy and relevance within your CRM system by enabling the deletion of outdated or incorrect notes. To execute this operation, you must provide the 'id' of the note you wish to delete, along with the 'x-apideck-consumer-id' and 'x-apideck-app-id' headers for authentication. Optionally, you can specify the 'x-apideck-service-id' if targeting a specific service integration. The operation does not require a request body and will return a status code of 200 upon successful deletion, indicating that the note has been removed from the system. This operation is essential for keeping your CRM data clean and up-to-date.
 
 ### Example Usage
 

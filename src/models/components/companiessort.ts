@@ -9,7 +9,7 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
+ * Indicates the field used for sorting the companies, helping to arrange results based on specific attributes. Common fields include 'name' or 'creation_date'.
  */
 export const By = {
   CreatedAt: "created_at",
@@ -17,29 +17,29 @@ export const By = {
   Name: "name",
 } as const;
 /**
- * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
+ * Indicates the field used for sorting the companies, helping to arrange results based on specific attributes. Common fields include 'name' or 'creation_date'.
  */
 export type By = ClosedEnum<typeof By>;
 
 /**
- * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
+ * Determines the sequence in which company results are presented. Use this parameter to arrange data in either ascending or descending order based on a specified field, facilitating organized data analysis and readability.
  */
 export const Direction = {
   Asc: "asc",
   Desc: "desc",
 } as const;
 /**
- * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
+ * Determines the sequence in which company results are presented. Use this parameter to arrange data in either ascending or descending order based on a specified field, facilitating organized data analysis and readability.
  */
 export type Direction = ClosedEnum<typeof Direction>;
 
 export type CompaniesSort = {
   /**
-   * Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
+   * Indicates the field used for sorting the companies, helping to arrange results based on specific attributes. Common fields include 'name' or 'creation_date'.
    */
   by?: By | undefined;
   /**
-   * Specifies the order in which the results should be sorted. Use 'asc' for ascending order or 'desc' for descending order. This parameter helps in organizing the retrieved activities based on a specified field.
+   * Determines the sequence in which company results are presented. Use this parameter to arrange data in either ascending or descending order based on a specified field, facilitating organized data analysis and readability.
    */
   direction?: Direction | undefined;
 };

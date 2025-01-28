@@ -9,11 +9,11 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This object contains the details of the newly created opportunity within the CRM system. It serves as a container for all relevant information about the opportunity, including its unique identifier. The structure of this object is designed to encapsulate all necessary data for confirming the successful creation of the opportunity.
+ * This object contains the details of the newly created opportunity within the CRM system. It serves as the main container for the response data, encapsulating all relevant information about the opportunity, including its unique identifier. This structure is essential for accessing the specific attributes of the opportunity that was just added.
  */
 export type CreateOpportunityResponseUnifiedId = {
   /**
-   * The unique identifier assigned to the opportunity that was just created. This ID is a string that serves as the primary reference for the opportunity within the CRM, allowing for easy retrieval and management in future operations. It confirms the successful addition of the opportunity to the system.
+   * The unique identifier assigned to the opportunity that has just been created. This ID is crucial for referencing the opportunity in future operations, such as updates or queries, and ensures that each opportunity can be distinctly identified within the CRM system.
    */
   id: string;
 };
@@ -23,27 +23,27 @@ export type CreateOpportunityResponseUnifiedId = {
  */
 export type CreateOpportunityResponse = {
   /**
-   * The HTTP response status code indicating the result of the POST request to create a new opportunity. A successful creation will return a 201 status code, confirming that the opportunity has been added to the CRM system. This integer value is crucial for error handling and confirming successful operations.
+   * The HTTP response status code returned by the server, indicating the result of the POST request to create a new opportunity. A status code of 201 signifies that the opportunity was successfully created. This code helps in identifying the outcome of the operation.
    */
   statusCode: number;
   /**
-   * A textual representation of the HTTP response status, such as 'Created' for a successful POST operation. This string provides a human-readable confirmation of the operation's outcome, complementing the status code.
+   * A textual representation of the HTTP response status, such as 'Created' for a successful POST request. This provides a human-readable confirmation of the operation's result, complementing the numerical status code.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider that processed the request. This string identifies which service within the Apideck ecosystem handled the opportunity creation, useful for tracking and auditing purposes.
+   * The Apideck ID of the service provider that processed the request. This identifier helps in tracking which service integration was used to create the opportunity, especially useful when multiple integrations are involved.
    */
   service: string;
   /**
-   * The name of the Unified API resource involved in the operation, typically 'opportunities' for this endpoint. This string helps developers understand which resource was affected by the POST request, aligning with the CRM's data structure.
+   * The name of the Unified API resource that was acted upon, in this case, 'opportunities'. It indicates the type of resource that was created or modified, helping developers understand the context of the operation.
    */
   resource: string;
   /**
-   * The specific operation performed, such as 'create' for this POST request. This string clarifies the action taken on the resource, ensuring developers can easily identify the type of operation executed.
+   * The specific operation performed by the API, such as 'create' for this POST request. This field clarifies the action taken on the resource, ensuring developers know what change was made to the CRM system.
    */
   operation: string;
   /**
-   * This object contains the details of the newly created opportunity within the CRM system. It serves as a container for all relevant information about the opportunity, including its unique identifier. The structure of this object is designed to encapsulate all necessary data for confirming the successful creation of the opportunity.
+   * This object contains the details of the newly created opportunity within the CRM system. It serves as the main container for the response data, encapsulating all relevant information about the opportunity, including its unique identifier. This structure is essential for accessing the specific attributes of the opportunity that was just added.
    */
   data: CreateOpportunityResponseUnifiedId;
 };

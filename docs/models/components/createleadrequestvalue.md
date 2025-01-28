@@ -1,6 +1,6 @@
 # CreateLeadRequestValue
 
-The custom_fields.value property allows you to specify additional information or attributes for the lead that are not covered by standard fields. This can be any string value that represents custom data relevant to your application's needs. It is optional and can be used to store unique identifiers or metadata specific to your business logic.
+The custom_fields.value property is used to store additional information specific to the lead that does not fit into standard fields. This allows for greater flexibility in capturing unique data points relevant to your business needs. It is optional and can be left empty if no custom data is required.
 
 
 ## Supported Types

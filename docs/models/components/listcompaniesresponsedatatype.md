@@ -1,6 +1,6 @@
 # ListCompaniesResponseDataType
 
-Specifies the category or purpose of the address, such as 'billing', 'shipping', or 'office'. This helps in identifying the role of the address within the company's operations. The value is a string that aligns with predefined address types in the CRM.
+This property specifies the category of the phone number associated with a company, such as 'mobile', 'landline', or 'fax'. It is a string value that helps in identifying the nature of the phone number, facilitating appropriate communication and routing within the CRM system. Understanding the type of phone number is crucial for applications that need to handle different communication channels effectively.
 
 ## Example Usage
 
@@ -13,5 +13,5 @@ let value: ListCompaniesResponseDataType = "primary";
 ## Values
 
 ```typescript
-"primary" | "secondary" | "home" | "office" | "shipping" | "billing" | "other"
+"primary" | "secondary" | "home" | "work" | "office" | "mobile" | "assistant" | "fax" | "direct-dial-in" | "personal" | "other"
 ```

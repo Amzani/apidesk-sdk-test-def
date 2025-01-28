@@ -1,6 +1,6 @@
 # ListCompaniesResponseValue
 
-The value assigned to a custom field for a company, represented as a string. This allows for storing specific data that is unique to the company's needs and not covered by standard fields. It is optional and may be empty if no value is set.
+This property holds the specific value assigned to a custom field for a company within the CRM system. The format of this value can vary, including text, numbers, or dates, depending on the type of data the custom field is designed to capture. It allows for the storage of unique information that is not covered by the standard fields, providing flexibility in data management.
 
 
 ## Supported Types

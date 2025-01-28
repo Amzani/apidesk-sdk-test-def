@@ -1,6 +1,6 @@
 # Gender
 
-The gender of the contact, which can be used for personalization and demographic analysis. This optional field allows for more customized communication strategies and insights into the contact base.
+The gender of the contact, which can be used for demographic analysis and personalized communication. This field is optional and should be filled based on the contact's preference or available information.
 
 ## Example Usage
 

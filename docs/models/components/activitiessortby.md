@@ -1,6 +1,6 @@
 # ActivitiesSortBy
 
-Specify the field by which to sort the activities, such as 'date' or 'type'. This determines the order in which the activities are returned.
+The field on which to sort the activities. This property specifies the attribute used for sorting, such as 'date' or 'type', to arrange the activities accordingly.
 
 ## Example Usage
 

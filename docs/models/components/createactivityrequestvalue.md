@@ -1,6 +1,6 @@
 # CreateActivityRequestValue
 
-The actual data or value stored in the custom field, which can vary in type depending on the field's purpose. This property is optional and should be populated with the relevant information that the custom field is intended to capture.
+The value assigned to the custom field, representing the actual data or information that the field is meant to capture. This property is optional and can be tailored to fit the specific needs of the activity being recorded.
 
 
 ## Supported Types

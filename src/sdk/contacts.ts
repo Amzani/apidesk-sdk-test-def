@@ -14,20 +14,10 @@ import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class Contacts extends ClientSDK {
   /**
-   * Retrieve all contacts from the CRM system.
+   * Retrieve all CRM contacts efficiently.
    *
    * @remarks
-   * The 'contactsAll' operation allows developers to fetch a comprehensive list of contacts from the CRM system using a GET request to the '/crm/contacts' endpoint. This operation is essential for applications that need to access contact data for various purposes such as displaying contact lists, synchronizing data, or performing analytics.
-   *
-   * Key Parameters:
-   * - **x-apideck-consumer-id** (header, required): Specifies the consumer ID for data retrieval.
-   * - **x-apideck-app-id** (header, required): Identifies the Unify application making the request.
-   * - **cursor** (query): Used for pagination to specify the starting point for the next set of results.
-   * - **limit** (query): Defines the number of results to return, with a default of 20 and a maximum of 200.
-   * - **fields** (query): Allows selection of specific fields to include in the response, optimizing data transfer by excluding unnecessary information.
-   *
-   * Response Behavior:
-   * The operation returns a JSON object containing the list of contacts, with support for pagination and field selection to tailor the response to specific needs. This enables efficient data handling and integration into various applications.
+   * The 'contactsAll' operation allows developers to retrieve a comprehensive list of CRM contacts using a GET request to the '/crm/contacts' endpoint. This operation is essential for accessing contact data across various CRM systems, enabling seamless integration and data management. Key parameters include 'raw' for debugging, 'x-apideck-consumer-id' and 'x-apideck-app-id' for authentication, and 'cursor' and 'limit' for pagination control. The response is typically a JSON object containing contact details, supporting efficient data handling and integration. This operation is crucial for applications requiring up-to-date contact information from multiple CRM platforms.
    */
   async list(
     request: operations.CrmContactsAllRequest,
@@ -43,18 +33,10 @@ export class Contacts extends ClientSDK {
   }
 
   /**
-   * Add a new contact to the CRM system.
+   * Adds a new contact to the CRM system.
    *
    * @remarks
-   * The `contactsAdd` operation allows developers to add a new contact to the CRM system by sending a POST request to the `/crm/contacts` endpoint. This operation is essential for maintaining up-to-date contact information within the CRM, enabling efficient customer relationship management.
-   *
-   * Key parameters include:
-   * - `x-apideck-consumer-id` (header, required): Specifies the consumer ID for data retrieval or submission.
-   * - `x-apideck-app-id` (header, required): Identifies the Unify application in use.
-   * - `x-apideck-service-id` (header, optional): Indicates the specific service ID to call, necessary when multiple integrations are active.
-   * - `raw` (query, optional): Determines if the raw response should be included, primarily for debugging.
-   *
-   * Upon successful creation, the operation returns a 201 status code along with a JSON object containing the unique identifier of the newly created contact. This response confirms the successful addition of the contact to the CRM system.
+   * The contactsAdd operation allows developers to add a new contact to the CRM system by sending a POST request to the /crm/contacts endpoint. This operation requires a request body containing the contact details to be added. Key headers include 'x-apideck-consumer-id' and 'x-apideck-app-id' for authentication and authorization. Optionally, 'x-apideck-service-id' can be used to specify a particular service integration. The 'raw' query parameter can be set to true to receive raw data for debugging purposes. Upon successful creation, the API returns a status code of 201 along with the newly created contact's resource ID in a JSON object format. This operation is essential for maintaining up-to-date contact information within the CRM, facilitating effective customer relationship management.
    */
   async create(
     request: operations.CrmContactsAddRequest,
@@ -68,10 +50,10 @@ export class Contacts extends ClientSDK {
   }
 
   /**
-   * Retrieve a specific contact by ID from the CRM system.
+   * Retrieve a specific contact's details from the CRM.
    *
    * @remarks
-   * The 'contactsOne' operation allows developers to fetch detailed information about a specific contact from the CRM system using the contact's unique ID. This operation is essential for accessing individual contact records for viewing or processing purposes. Key parameters include the 'id' path parameter, which specifies the contact to retrieve, and several header parameters such as 'x-apideck-consumer-id' and 'x-apideck-app-id' that authenticate and identify the request. Optional query parameters like 'fields' and 'filter' enable customization of the response data. The operation returns a JSON object containing the contact's details, facilitating integration with other systems or applications.
+   * The 'contactsOne' operation allows you to fetch detailed information about a specific contact from the CRM system using their unique ID. This GET request requires the contact ID to be specified in the path parameter, ensuring you access the correct record. Additionally, headers such as 'x-apideck-consumer-id' and 'x-apideck-app-id' are mandatory for authentication and authorization purposes. Optional query parameters like 'fields' and 'raw' enable customization of the response, allowing you to select specific fields or receive raw data for debugging. The response is typically a JSON object containing the contact's details, facilitating seamless integration into your application.
    */
   async get(
     request: operations.CrmContactsOneRequest,
@@ -88,16 +70,7 @@ export class Contacts extends ClientSDK {
    * Update an existing contact in the CRM system.
    *
    * @remarks
-   * The `contactsUpdate` operation allows developers to modify details of an existing contact within the CRM system. This operation is essential for maintaining up-to-date contact information, ensuring data accuracy and relevance.
-   *
-   * Key Parameters:
-   * - `id` (path): The unique identifier of the contact record to be updated. This parameter is mandatory.
-   * - `x-apideck-consumer-id` (header): Required to specify the consumer ID from which data is being accessed or modified.
-   * - `x-apideck-app-id` (header): Required to identify the Unify application making the request.
-   * - `x-apideck-service-id` (header): Optional parameter to specify the service ID when multiple integrations are active.
-   * - `raw` (query): Optional parameter to include the raw response, useful for debugging.
-   *
-   * Upon successful execution, the operation returns a status code of 200, along with a JSON object representing the updated contact resource. This response includes the unique identifier of the contact, confirming the update was successful. The operation uses the HTTP PATCH method, allowing partial updates to the contact resource.
+   * The contactsUpdate operation allows you to modify the details of an existing contact in the CRM by sending a PATCH request to the /crm/contacts/{id} endpoint. This operation is crucial for maintaining up-to-date contact information, which is essential for effective customer relationship management. You must provide the contact's unique ID in the path parameter to specify which record to update. Additionally, include the x-apideck-consumer-id and x-apideck-app-id headers for authentication and authorization purposes. Optionally, use the x-apideck-service-id header if targeting a specific service integration. The request body should contain the fields you wish to update. Upon successful update, the API returns a 200 status code along with the updated contact details in a JSON object format. This operation is ideal for keeping contact information current and accurate.
    */
   async update(
     request: operations.CrmContactsUpdateRequest,
@@ -111,19 +84,10 @@ export class Contacts extends ClientSDK {
   }
 
   /**
-   * Delete a contact from the CRM system.
+   * Deletes a contact from the CRM system using the specified contact ID.
    *
    * @remarks
-   * The `contactsDelete` operation allows developers to remove a specific contact from the CRM system by providing the contact's unique identifier. This operation is crucial for maintaining an up-to-date and accurate contact list within the CRM.
-   *
-   * Key Parameters:
-   * - `id` (path): The unique identifier of the contact to be deleted. This parameter is required.
-   * - `x-apideck-consumer-id` (header): The ID of the consumer from which data is being managed. This is a required parameter.
-   * - `x-apideck-app-id` (header): The ID of the Unify application in use. This is also required.
-   * - `x-apideck-service-id` (header): Optional parameter to specify the service ID when multiple integrations are active.
-   * - `raw` (query): Optional parameter to include raw response data, useful for debugging.
-   *
-   * Upon successful deletion, the operation returns a status code of 200, indicating that the contact has been successfully removed from the system. This operation does not return a response body, focusing solely on the status code to confirm the deletion action.
+   * The contactsDelete operation allows you to remove a contact from your CRM system by specifying the contact's unique ID in the endpoint path. This operation is crucial for maintaining an up-to-date and accurate contact list by removing obsolete or incorrect entries. To execute this operation, you must provide the contact ID as a path parameter, and include the x-apideck-consumer-id and x-apideck-app-id headers for authentication and authorization purposes. Optionally, you can specify the x-apideck-service-id header if targeting a specific service integration. The operation does not require a request body and, upon successful deletion, returns a status code of 200, indicating the contact was successfully removed. This operation is essential for managing contact data efficiently within your CRM.
    */
   async delete(
     request: operations.CrmContactsDeleteRequest,

@@ -9,11 +9,11 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This object contains the unique identifier of the contact that was deleted. It serves as a confirmation that the specified contact has been successfully removed from the CRM system. The presence of this object in the response indicates that the deletion operation was completed without errors.
+ * This object contains details about the contact that was deleted. It serves as a confirmation that the specified contact has been successfully removed from the CRM system. The object includes the unique identifier of the deleted contact, ensuring that developers can verify the correct resource was affected.
  */
 export type DeleteContactResponseUnifiedId = {
   /**
-   * The unique identifier of the contact that was deleted. This string value confirms the specific contact that was removed from the CRM system, ensuring that developers can verify the correct resource was affected by the delete operation.
+   * The unique identifier of the contact that was deleted. This string confirms the specific contact entry that has been removed from the CRM system, allowing developers to ensure the correct contact was deleted based on the provided ID.
    */
   id: string;
 };
@@ -23,27 +23,27 @@ export type DeleteContactResponseUnifiedId = {
  */
 export type DeleteContactResponse = {
   /**
-   * The HTTP response status code returned by the server, indicating the result of the delete operation. A status code of 200 confirms that the contact was successfully deleted from the CRM system. This integer value is crucial for error handling and confirming the success of the operation.
+   * The HTTP response status code returned by the server. This integer value indicates the result of the delete operation, with a successful deletion typically returning a 200 status code. It helps developers confirm that the contact was successfully removed from the CRM system.
    */
   statusCode: number;
   /**
-   * A textual representation of the HTTP response status, such as 'OK' for a successful operation. This string provides a human-readable confirmation of the operation's outcome, complementing the numeric status code.
+   * A textual representation of the HTTP response status. This string provides a human-readable status message, such as 'OK', to indicate the outcome of the delete operation. It complements the status code by offering a more descriptive result of the operation.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider that processed the delete request. This string helps identify which service within the Apideck ecosystem handled the operation, especially useful in environments with multiple integrations.
+   * The Apideck ID of the service provider involved in the operation. This string identifies which service integration was used to perform the contact deletion, helping developers track and manage service-specific operations within the CRM.
    */
   service: string;
   /**
-   * The name of the Unified API resource that was targeted by the delete operation. This string specifies the type of resource affected, ensuring clarity about what was deleted in the context of the API's broader functionality.
+   * The name of the unified API resource that was affected by the operation. This string specifies the type of resource, such as 'contact', that was deleted, providing context about the operation's target within the CRM system.
    */
   resource: string;
   /**
-   * The specific operation performed, in this case, 'delete', indicating that a contact was removed from the CRM. This string helps in logging and auditing by clearly stating the action taken by the API.
+   * The specific operation that was performed, in this case, 'delete'. This string indicates the action taken on the resource, confirming that the contact was removed from the CRM system as intended.
    */
   operation: string;
   /**
-   * This object contains the unique identifier of the contact that was deleted. It serves as a confirmation that the specified contact has been successfully removed from the CRM system. The presence of this object in the response indicates that the deletion operation was completed without errors.
+   * This object contains details about the contact that was deleted. It serves as a confirmation that the specified contact has been successfully removed from the CRM system. The object includes the unique identifier of the deleted contact, ensuring that developers can verify the correct resource was affected.
    */
   data: DeleteContactResponseUnifiedId;
 };

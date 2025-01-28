@@ -8,204 +8,14 @@ import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import {
+  Currency,
+  Currency$inboundSchema,
+  Currency$outboundSchema,
+} from "./currency.js";
 
 /**
- * Specifies the currency type associated with monetary values for the lead. This should be a valid ISO 4217 currency code, such as 'USD' for US Dollars. Ensuring the correct currency code is crucial for accurate financial data representation in the CRM.
- */
-export const UpdateLeadRequestCurrency = {
-  UnknownCurrency: "UNKNOWN_CURRENCY",
-  Aed: "AED",
-  Afn: "AFN",
-  All: "ALL",
-  Amd: "AMD",
-  Ang: "ANG",
-  Aoa: "AOA",
-  Ars: "ARS",
-  Aud: "AUD",
-  Awg: "AWG",
-  Azn: "AZN",
-  Bam: "BAM",
-  Bbd: "BBD",
-  Bdt: "BDT",
-  Bgn: "BGN",
-  Bhd: "BHD",
-  Bif: "BIF",
-  Bmd: "BMD",
-  Bnd: "BND",
-  Bob: "BOB",
-  Bov: "BOV",
-  Brl: "BRL",
-  Bsd: "BSD",
-  Btn: "BTN",
-  Bwp: "BWP",
-  Byr: "BYR",
-  Bzd: "BZD",
-  Cad: "CAD",
-  Cdf: "CDF",
-  Che: "CHE",
-  Chf: "CHF",
-  Chw: "CHW",
-  Clf: "CLF",
-  Clp: "CLP",
-  Cny: "CNY",
-  Cop: "COP",
-  Cou: "COU",
-  Crc: "CRC",
-  Cuc: "CUC",
-  Cup: "CUP",
-  Cve: "CVE",
-  Czk: "CZK",
-  Djf: "DJF",
-  Dkk: "DKK",
-  Dop: "DOP",
-  Dzd: "DZD",
-  Egp: "EGP",
-  Ern: "ERN",
-  Etb: "ETB",
-  Eur: "EUR",
-  Fjd: "FJD",
-  Fkp: "FKP",
-  Gbp: "GBP",
-  Gel: "GEL",
-  Ghs: "GHS",
-  Gip: "GIP",
-  Gmd: "GMD",
-  Gnf: "GNF",
-  Gtq: "GTQ",
-  Gyd: "GYD",
-  Hkd: "HKD",
-  Hnl: "HNL",
-  Hrk: "HRK",
-  Htg: "HTG",
-  Huf: "HUF",
-  Idr: "IDR",
-  Ils: "ILS",
-  Inr: "INR",
-  Iqd: "IQD",
-  Irr: "IRR",
-  Isk: "ISK",
-  Jmd: "JMD",
-  Jod: "JOD",
-  Jpy: "JPY",
-  Kes: "KES",
-  Kgs: "KGS",
-  Khr: "KHR",
-  Kmf: "KMF",
-  Kpw: "KPW",
-  Krw: "KRW",
-  Kwd: "KWD",
-  Kyd: "KYD",
-  Kzt: "KZT",
-  Lak: "LAK",
-  Lbp: "LBP",
-  Lkr: "LKR",
-  Lrd: "LRD",
-  Lsl: "LSL",
-  Ltl: "LTL",
-  Lvl: "LVL",
-  Lyd: "LYD",
-  Mad: "MAD",
-  Mdl: "MDL",
-  Mga: "MGA",
-  Mkd: "MKD",
-  Mmk: "MMK",
-  Mnt: "MNT",
-  Mop: "MOP",
-  Mro: "MRO",
-  Mur: "MUR",
-  Mvr: "MVR",
-  Mwk: "MWK",
-  Mxn: "MXN",
-  Mxv: "MXV",
-  Myr: "MYR",
-  Mzn: "MZN",
-  Nad: "NAD",
-  Ngn: "NGN",
-  Nio: "NIO",
-  Nok: "NOK",
-  Npr: "NPR",
-  Nzd: "NZD",
-  Omr: "OMR",
-  Pab: "PAB",
-  Pen: "PEN",
-  Pgk: "PGK",
-  Php: "PHP",
-  Pkr: "PKR",
-  Pln: "PLN",
-  Pyg: "PYG",
-  Qar: "QAR",
-  Ron: "RON",
-  Rsd: "RSD",
-  Rub: "RUB",
-  Rwf: "RWF",
-  Sar: "SAR",
-  Sbd: "SBD",
-  Scr: "SCR",
-  Sdg: "SDG",
-  Sek: "SEK",
-  Sgd: "SGD",
-  Shp: "SHP",
-  Sll: "SLL",
-  Sos: "SOS",
-  Srd: "SRD",
-  Ssp: "SSP",
-  Std: "STD",
-  Svc: "SVC",
-  Syp: "SYP",
-  Szl: "SZL",
-  Thb: "THB",
-  Tjs: "TJS",
-  Tmt: "TMT",
-  Tnd: "TND",
-  Top: "TOP",
-  Trc: "TRC",
-  Try: "TRY",
-  Ttd: "TTD",
-  Twd: "TWD",
-  Tzs: "TZS",
-  Uah: "UAH",
-  Ugx: "UGX",
-  Usd: "USD",
-  Usn: "USN",
-  Uss: "USS",
-  Uyi: "UYI",
-  Uyu: "UYU",
-  Uzs: "UZS",
-  Vef: "VEF",
-  Vnd: "VND",
-  Vuv: "VUV",
-  Wst: "WST",
-  Xaf: "XAF",
-  Xag: "XAG",
-  Xau: "XAU",
-  Xba: "XBA",
-  Xbb: "XBB",
-  Xbc: "XBC",
-  Xbd: "XBD",
-  Xcd: "XCD",
-  Xdr: "XDR",
-  Xof: "XOF",
-  Xpd: "XPD",
-  Xpf: "XPF",
-  Xpt: "XPT",
-  Xts: "XTS",
-  Xxx: "XXX",
-  Yer: "YER",
-  Zar: "ZAR",
-  Zmk: "ZMK",
-  Zmw: "ZMW",
-  Btc: "BTC",
-  Eth: "ETH",
-} as const;
-/**
- * Specifies the currency type associated with monetary values for the lead. This should be a valid ISO 4217 currency code, such as 'USD' for US Dollars. Ensuring the correct currency code is crucial for accurate financial data representation in the CRM.
- */
-export type UpdateLeadRequestCurrency = ClosedEnum<
-  typeof UpdateLeadRequestCurrency
->;
-
-/**
- * Specifies the category or role of the website associated with the lead, such as 'personal', 'business', or 'portfolio'. This helps in categorizing the website information for better organization and retrieval. Ensure the type is a valid string that accurately reflects the website's purpose.
+ * Specifies the category or role of the website associated with the lead. This property helps in distinguishing between different types of websites, such as personal, business, or social media, which can be crucial for targeted communication and marketing strategies. Ensure the type is a valid string that accurately represents the website's purpose.
  */
 export const UpdateLeadRequestType = {
   Primary: "primary",
@@ -215,27 +25,27 @@ export const UpdateLeadRequestType = {
   Other: "other",
 } as const;
 /**
- * Specifies the category or role of the website associated with the lead, such as 'personal', 'business', or 'portfolio'. This helps in categorizing the website information for better organization and retrieval. Ensure the type is a valid string that accurately reflects the website's purpose.
+ * Specifies the category or role of the website associated with the lead. This property helps in distinguishing between different types of websites, such as personal, business, or social media, which can be crucial for targeted communication and marketing strategies. Ensure the type is a valid string that accurately represents the website's purpose.
  */
 export type UpdateLeadRequestType = ClosedEnum<typeof UpdateLeadRequestType>;
 
 export type UpdateLeadRequestWebsites = {
   /**
-   * A unique identifier for each website entry associated with the lead. This ID helps in distinguishing between multiple websites and is useful for updates or deletions. It should be a unique string within the context of the lead's websites.
+   * A unique identifier for each website entry associated with the lead. This ID is crucial for distinguishing between multiple websites and managing them individually within the lead's profile. Use this to reference specific websites when updating or querying lead data.
    */
   id?: string | null | undefined;
   /**
-   * The URL of the lead's website, which must be a valid and reachable web address. This is a required field for each website entry, ensuring that the lead's online presence is accurately captured and accessible.
+   * The URL of the website associated with the lead, which must be a valid web address. This field is required to ensure that each website entry has a corresponding URL, facilitating direct access to the lead's online resources or information.
    */
   url: string;
   /**
-   * Specifies the category or role of the website associated with the lead, such as 'personal', 'business', or 'portfolio'. This helps in categorizing the website information for better organization and retrieval. Ensure the type is a valid string that accurately reflects the website's purpose.
+   * Specifies the category or role of the website associated with the lead. This property helps in distinguishing between different types of websites, such as personal, business, or social media, which can be crucial for targeted communication and marketing strategies. Ensure the type is a valid string that accurately represents the website's purpose.
    */
   type?: UpdateLeadRequestType | null | undefined;
 };
 
 /**
- * Defines the category of the address, such as 'home', 'work', or 'billing', to clarify its intended use. This categorization aids in managing and utilizing address data effectively within the CRM system. Ensure the type is a valid string that accurately describes the address's purpose.
+ * Defines the category or purpose of the address, such as home, work, or billing. This property helps in organizing and utilizing addresses effectively within the CRM system. Ensure the type is a valid string that accurately describes the address's role.
  */
 export const UpdateLeadRequestAddressesType = {
   Primary: "primary",
@@ -247,7 +57,7 @@ export const UpdateLeadRequestAddressesType = {
   Other: "other",
 } as const;
 /**
- * Defines the category of the address, such as 'home', 'work', or 'billing', to clarify its intended use. This categorization aids in managing and utilizing address data effectively within the CRM system. Ensure the type is a valid string that accurately describes the address's purpose.
+ * Defines the category or purpose of the address, such as home, work, or billing. This property helps in organizing and utilizing addresses effectively within the CRM system. Ensure the type is a valid string that accurately describes the address's role.
  */
 export type UpdateLeadRequestAddressesType = ClosedEnum<
   typeof UpdateLeadRequestAddressesType
@@ -255,120 +65,120 @@ export type UpdateLeadRequestAddressesType = ClosedEnum<
 
 export type UpdateLeadRequestAddresses = {
   /**
-   * A unique identifier for each address associated with the lead, used to distinguish between different addresses. This ID is crucial for updating or referencing specific addresses within the lead's address list. It should be a unique string value for each address entry.
+   * A unique identifier for each address within the lead's address list. This ID is essential for distinguishing between different addresses when updating or managing them. Ensure the ID is a valid string that uniquely identifies an address entry.
    */
   id?: string | null | undefined;
   /**
-   * Defines the category of the address, such as 'home', 'work', or 'billing', to clarify its intended use. This categorization aids in managing and utilizing address data effectively within the CRM system. Ensure the type is a valid string that accurately describes the address's purpose.
+   * Defines the category or purpose of the address, such as home, work, or billing. This property helps in organizing and utilizing addresses effectively within the CRM system. Ensure the type is a valid string that accurately describes the address's role.
    */
   type?: UpdateLeadRequestAddressesType | null | undefined;
   /**
-   * Represents the full address in a single string format, useful when structured address data is unavailable. This property allows for flexibility in storing address information that may not fit into predefined fields. Ensure the address string is complete and accurate for effective use.
+   * Represents the full address in a single string format, useful when structured address data is unavailable. This field allows for flexibility in address entry, accommodating various formats and international addresses. Ensure the address string is complete and accurately reflects the location details.
    */
   string?: string | null | undefined;
   /**
-   * The name associated with the address entry for the lead. This field is used to identify or label the address within the lead's contact information. It can be any descriptive name that helps distinguish this address from others, such as 'Home', 'Office', or 'Billing'.
+   * The name associated with the address entry for the lead. This field helps in identifying or labeling the address, especially useful when multiple addresses are associated with a single lead. It should be a descriptive name that makes it easy to distinguish between different addresses.
    */
   name?: string | null | undefined;
   /**
-   * The primary line of the address, typically including the street number, street name, and any apartment or suite number. This field is essential for accurately locating the address and should be formatted according to standard postal guidelines.
+   * The primary address line, typically including the street number, street name, and any apartment or suite number. This field is essential for accurately locating the lead's address and should be formatted according to standard postal address conventions.
    */
   line1?: string | null | undefined;
   /**
-   * An additional line for the address, often used for supplementary information such as building name, floor number, or additional location details. This field helps provide a complete address when the primary line is insufficient.
+   * An additional address line used for supplementary information such as building name, floor number, or other relevant details. This field provides extra context to ensure precise address identification and should be used when necessary to complete the address.
    */
   line2?: string | null | undefined;
   /**
-   * A third line for the address, allowing for further details that may be necessary for precise location identification. This field is optional and can be used for extended address information.
+   * A tertiary address line for further address details that do not fit in the primary or secondary lines. This field can include any additional information needed to ensure the address is complete and accurate.
    */
   line3?: string | null | undefined;
   /**
-   * A fourth line for the address, providing additional space for any extra address details that do not fit in the previous lines. This field ensures comprehensive address information can be captured when needed.
+   * A fourth address line for any remaining address details that need to be captured. This field ensures that all components of a complex address are recorded, supporting comprehensive address documentation.
    */
   line4?: string | null | undefined;
   /**
-   * The street number component of the lead's address. This property is used to specify the exact location of the lead's residence or business, aiding in precise geographical identification. It should be a string that accurately reflects the street number as per local addressing standards.
+   * The street number component of the lead's address. This field is used to specify the exact number of the building or residence on the street, which is essential for accurate location identification. It should be a string that represents the numeric or alphanumeric identifier of the property.
    */
   streetNumber?: string | null | undefined;
   /**
-   * The city name where the lead is located. This property helps in identifying the lead's geographical area for regional analysis and communication purposes. It should be a valid city name, formatted as a string.
+   * The city name where the lead is located. This property helps in identifying the geographical area of the lead, which can be crucial for regional sales strategies and customer engagement. It should be a valid city name as a string.
    */
   city?: string | null | undefined;
   /**
-   * The state or region name associated with the lead's address. This property is crucial for regional segmentation and ensuring accurate delivery of services or products. It should be a string representing the official state or region name.
+   * The state or province name associated with the lead's address. This field is important for regional categorization and can affect tax calculations and shipping logistics. It should be a valid state or province name as a string.
    */
   state?: string | null | undefined;
   /**
-   * The postal code or ZIP code for the lead's address. This property is essential for mail delivery and location-based services, ensuring that communications and services reach the correct area. It should be a string formatted according to local postal standards.
+   * The postal code or ZIP code for the lead's address. This property is used for precise location mapping and can influence delivery services and regional marketing efforts. It should be a string that accurately represents the postal code format of the area.
    */
   postalCode?: string | null | undefined;
   /**
-   * The country code for the lead's address, following the ISO 3166-1 alpha-2 standard. This property is used to identify the lead's country, facilitating international communication and compliance with global standards. It should be a two-letter string representing the country code.
+   * The country code for the lead's address, following the ISO 3166-1 alpha-2 standard. This field is crucial for international operations and ensures that the address is recognized globally. It should be a two-letter country code string that complies with the ISO standard.
    */
   country?: string | null | undefined;
   /**
-   * The latitude coordinate of the address, used to pinpoint the exact geographical location of the lead's address. This should be a valid string representation of a latitude value, typically in decimal degrees format. Including this information helps in mapping and location-based services within the CRM.
+   * Specifies the latitude coordinate for the address location. This property is used to accurately place the lead's address on a map, which can be crucial for location-based services and analytics. Ensure the latitude is a valid string representation of a decimal number, typically ranging from -90 to 90.
    */
   latitude?: string | null | undefined;
   /**
-   * The longitude coordinate of the address, essential for determining the precise geographical location of the lead's address. This should be a valid string representation of a longitude value, usually in decimal degrees format. Providing this data supports mapping and location-based functionalities in the CRM.
+   * Specifies the longitude coordinate for the address location. This property is essential for mapping the lead's address and integrating with geographic information systems. Ensure the longitude is a valid string representation of a decimal number, typically ranging from -180 to 180.
    */
   longitude?: string | null | undefined;
   /**
-   * The county or sublocality of the address, which helps in further categorizing the lead's location within a broader geographical area. This field is useful for regional analysis and reporting within the CRM system.
+   * Represents the county or sublocality of the lead's address. This field helps in categorizing and organizing leads based on their geographic location, which can be useful for regional marketing strategies. Provide a valid string that accurately reflects the county name.
    */
   county?: string | null | undefined;
   /**
-   * The full name of the contact person associated with the address, crucial for personalizing communications and ensuring accurate contact management. This should be a string containing the first and last name of the contact person.
+   * The full name of the contact person associated with the lead's address. This property is important for personalizing communication and ensuring that correspondence is directed to the correct individual. Provide a valid string containing the contact's name.
    */
   contactName?: string | null | undefined;
   /**
-   * The salutation or title of the contact person at the address, such as Mr., Ms., or Dr. This field is used to address the contact person appropriately in communications and should be a valid string representing common salutations.
+   * The salutation or title used for the contact person at the lead's address. This field is used to address the contact appropriately in communications, enhancing professionalism and personalization. Provide a valid string such as 'Mr.', 'Ms.', or 'Dr.' as applicable.
    */
   salutation?: string | null | undefined;
   /**
-   * The phone number associated with the lead's address. This optional field allows you to update or add a contact number for the lead, facilitating direct communication. Ensure the phone number is formatted correctly according to international standards to avoid any issues with data processing.
+   * The phone number associated with the lead's address. This field is used to update or add a contact number for the lead's location, ensuring accurate communication details. It should be formatted according to international standards if applicable.
    */
   phoneNumber?: string | null | undefined;
   /**
-   * The fax number linked to the lead's address. This optional property can be used to update or include a fax contact for the lead, which might be necessary for businesses that still utilize fax communication. Ensure the fax number follows the standard format to ensure proper handling.
+   * The fax number linked to the lead's address. This property allows you to update or specify a fax contact for the lead, which can be crucial for businesses that still utilize fax communication. Ensure the number is correctly formatted for successful transmission.
    */
   fax?: string | null | undefined;
   /**
-   * The email address associated with the lead's address. This optional field is crucial for updating or adding an email contact, enabling electronic communication with the lead. Ensure the email address is valid and correctly formatted to prevent delivery issues.
+   * The email address associated with the lead's address. Use this field to update or provide an email contact for the lead's location, facilitating electronic communication. The email must be in a valid format to ensure deliverability.
    */
   email?: string | null | undefined;
   /**
-   * The website URL linked to the lead's address. This optional property allows you to update or add a website for the lead, providing additional context or resources related to the lead's business. Ensure the URL is complete and valid to facilitate proper access.
+   * The website URL related to the lead's address. This field is used to update or add a web presence for the lead, which can be important for verifying business legitimacy and providing additional contact methods. Ensure the URL is complete and valid.
    */
   website?: string | null | undefined;
   /**
-   * Additional notes related to the lead's address. This optional field can be used to include any extra information or context about the lead's address that might be relevant for CRM purposes. Keep the notes concise and relevant to ensure clarity and usefulness.
+   * Additional notes regarding the lead's address. This property allows you to include any extra information or context about the lead's location that might be relevant for CRM purposes. Keep the notes concise and relevant to the address.
    */
   notes?: string | null | undefined;
   /**
-   * A string representing the current version of the address object, used to detect and prevent data conflicts during updates. This value should be incremented with each update to ensure data integrity.
+   * The row_version is a concurrency control mechanism used to prevent data conflicts during updates. It is a binary value that increments with each update to the address object, ensuring that changes are not overwritten by simultaneous operations. This property is optional but recommended for maintaining data integrity when updating lead addresses.
    */
   rowVersion?: string | null | undefined;
 };
 
 export type UpdateLeadRequestSocialLinks = {
   /**
-   * A unique string identifier for each social link associated with the lead. This ID is used to manage and reference specific social links within the lead's profile.
+   * The unique identifier for each social link within the array. This ID is used to specify which existing social link is being updated, ensuring that the correct link is modified. It is optional and should be included if you are updating an existing social link rather than adding a new one.
    */
   id?: string | null | undefined;
   /**
-   * The complete URL of the social media profile or link, such as 'https://www.twitter.com/apideck'. This field is required to ensure accurate linking to the lead's social media presence.
+   * The URL of the social link, which must be a valid web address. This field is required for each social link object and specifies the exact location of the lead's social media profile or page. Ensure the URL is correctly formatted to avoid errors during the update process.
    */
   url: string;
   /**
-   * A string indicating the type of social media platform, such as 'twitter' or 'linkedin'. This helps categorize the social link for better organization and retrieval.
+   * Specifies the type of social link, such as 'twitter' or 'linkedin'. This property helps categorize the social link and is optional, allowing for better organization and retrieval of social media information related to the lead.
    */
   type?: string | null | undefined;
 };
 
 /**
- * Specifies the category of the phone number, such as 'mobile', 'home', or 'work'. This helps in identifying the context in which the phone number is used, aiding in more personalized communication strategies. The value should be a predefined string that matches one of the accepted phone number types in the CRM system.
+ * Indicates the category of the phone number, such as 'mobile', 'home', or 'work'. This optional field helps in identifying the context in which the phone number is used, aiding in better communication management with the lead.
  */
 export const UpdateLeadRequestPhoneNumbersType = {
   Primary: "primary",
@@ -384,7 +194,7 @@ export const UpdateLeadRequestPhoneNumbersType = {
   Other: "other",
 } as const;
 /**
- * Specifies the category of the phone number, such as 'mobile', 'home', or 'work'. This helps in identifying the context in which the phone number is used, aiding in more personalized communication strategies. The value should be a predefined string that matches one of the accepted phone number types in the CRM system.
+ * Indicates the category of the phone number, such as 'mobile', 'home', or 'work'. This optional field helps in identifying the context in which the phone number is used, aiding in better communication management with the lead.
  */
 export type UpdateLeadRequestPhoneNumbersType = ClosedEnum<
   typeof UpdateLeadRequestPhoneNumbersType
@@ -392,33 +202,33 @@ export type UpdateLeadRequestPhoneNumbersType = ClosedEnum<
 
 export type UpdateLeadRequestPhoneNumbers = {
   /**
-   * A unique identifier for each phone number entry. This ID is used to distinguish between different phone numbers associated with the lead, facilitating precise updates or deletions of specific numbers.
+   * A unique identifier for each phone number entry within the array. This ID is used to specify which existing phone number record should be updated. If omitted, a new phone number entry will be created instead of updating an existing one.
    */
   id?: string | null | undefined;
   /**
-   * The international dialing code for the phone number, such as '+1' for the United States. This property ensures that phone numbers are formatted correctly for international dialing, which is crucial for global communication with leads.
+   * The international dialing code for the phone number, such as '+1' for the United States. This field ensures that the phone number is correctly formatted for international dialing and is optional if the country code remains unchanged.
    */
   countryCode?: string | null | undefined;
   /**
-   * The regional area code for the phone number, such as '323' for Los Angeles. Including the area code helps in accurately routing calls within specific geographic regions, enhancing local communication efforts.
+   * The regional area code for the phone number, such as '323' for Los Angeles. This field helps in identifying the geographic region of the phone number and is optional if the area code remains unchanged.
    */
   areaCode?: string | null | undefined;
   /**
-   * The main phone number associated with the lead, excluding the country and area codes. This property is required to ensure that there is a valid contact number for the lead, which is essential for direct communication.
+   * The main phone number associated with the lead, excluding the country and area codes. This field is required to update or add a phone number entry and must be a valid string of digits representing the local number.
    */
   number: string;
   /**
-   * The extension number associated with the lead's phone number. This property allows for more precise contact information, especially in organizations with multiple internal lines. It should be a numeric string, if applicable, to ensure correct routing of calls within a business environment.
+   * Specifies the extension number associated with the primary phone number for the lead. This field is optional and should be used when the lead's phone number includes an extension. It helps in directing calls to the correct internal line within an organization.
    */
   extension?: string | null | undefined;
   /**
-   * Specifies the category of the phone number, such as 'mobile', 'home', or 'work'. This helps in identifying the context in which the phone number is used, aiding in more personalized communication strategies. The value should be a predefined string that matches one of the accepted phone number types in the CRM system.
+   * Indicates the category of the phone number, such as 'mobile', 'home', or 'work'. This optional field helps in identifying the context in which the phone number is used, aiding in better communication management with the lead.
    */
   type?: UpdateLeadRequestPhoneNumbersType | null | undefined;
 };
 
 /**
- * Specifies the category of the email address, such as 'work', 'personal', or 'other'. This helps in organizing and distinguishing between different types of email addresses associated with the lead. It should be a valid string that clearly indicates the email's purpose.
+ * Specifies the category of the email address, such as 'work', 'personal', or 'other'. This helps in identifying the context in which the email is used, ensuring accurate communication with the lead. It is optional and should be a string that clearly defines the email's purpose.
  */
 export const UpdateLeadRequestEmailsType = {
   Primary: "primary",
@@ -429,7 +239,7 @@ export const UpdateLeadRequestEmailsType = {
   Other: "other",
 } as const;
 /**
- * Specifies the category of the email address, such as 'work', 'personal', or 'other'. This helps in organizing and distinguishing between different types of email addresses associated with the lead. It should be a valid string that clearly indicates the email's purpose.
+ * Specifies the category of the email address, such as 'work', 'personal', or 'other'. This helps in identifying the context in which the email is used, ensuring accurate communication with the lead. It is optional and should be a string that clearly defines the email's purpose.
  */
 export type UpdateLeadRequestEmailsType = ClosedEnum<
   typeof UpdateLeadRequestEmailsType
@@ -437,15 +247,15 @@ export type UpdateLeadRequestEmailsType = ClosedEnum<
 
 export type UpdateLeadRequestEmails = {
   /**
-   * A unique identifier for each email address object within the emails array. This ID is used to distinguish between different email entries, facilitating updates and management of specific email records. It should be a unique string that adheres to the CRM's identifier format.
+   * A unique identifier for each email address associated with the lead. This optional field is used to distinguish between different email entries, especially when updating or removing specific emails from the lead's contact information.
    */
   id?: string | null | undefined;
   /**
-   * The actual email address used for contacting the lead. This is a required field and must be a valid email format to ensure successful communication. It serves as a primary electronic contact method within the CRM system.
+   * The primary email address for contacting the lead. This field is required and must be a valid email format, ensuring reliable communication. It is essential for sending updates, offers, or any correspondence to the lead.
    */
   email: string | null;
   /**
-   * Specifies the category of the email address, such as 'work', 'personal', or 'other'. This helps in organizing and distinguishing between different types of email addresses associated with the lead. It should be a valid string that clearly indicates the email's purpose.
+   * Specifies the category of the email address, such as 'work', 'personal', or 'other'. This helps in identifying the context in which the email is used, ensuring accurate communication with the lead. It is optional and should be a string that clearly defines the email's purpose.
    */
   type?: UpdateLeadRequestEmailsType | null | undefined;
 };
@@ -455,7 +265,7 @@ export type UpdateLeadRequestValue6 = {};
 export type UpdateLeadRequestValue4 = {};
 
 /**
- * The value assigned to a custom field for the lead. This allows for storing additional, non-standard information specific to the lead, which can be tailored to fit unique business needs. Ensure the value aligns with the expected data type and format for the custom field.
+ * The custom_fields.value property is used to update specific custom field data for a lead. This allows for the inclusion of tailored information that may not be covered by standard fields, enhancing the flexibility of lead management. Ensure the value provided aligns with the expected data type and format for the custom field being updated.
  */
 export type UpdateLeadRequestValue =
   | UpdateLeadRequestValue4
@@ -467,19 +277,19 @@ export type UpdateLeadRequestValue =
 
 export type UpdateLeadRequestCustomFields = {
   /**
-   * A mandatory unique identifier for each custom field, ensuring that each field can be distinctly referenced and managed. This ID must be a valid string that uniquely identifies the custom field within the context of the lead.
+   * A mandatory unique identifier for each custom field, ensuring that each field can be distinctly recognized and managed. This ID is crucial for updating or referencing specific custom fields within the lead's data.
    */
   id: string | null;
   /**
-   * The display name of the custom field, providing a human-readable label that describes the field's content or purpose. This name should be a string that clearly conveys the nature of the data stored in the field.
+   * The name assigned to the custom field, which serves as a label for the data it holds. This is optional but recommended for clarity, as it helps in identifying the purpose of the custom field within the lead's profile.
    */
   name?: string | null | undefined;
   /**
-   * Provides additional context or details about the custom field, helping users understand its purpose and usage. This description should be a string that elaborates on the field's role or significance within the lead's data structure.
+   * Provides additional context or details about what the custom field represents. This optional description can help users understand the significance of the data captured by the custom field, enhancing the lead's profile information.
    */
   description?: string | null | undefined;
   /**
-   * The value assigned to a custom field for the lead. This allows for storing additional, non-standard information specific to the lead, which can be tailored to fit unique business needs. Ensure the value aligns with the expected data type and format for the custom field.
+   * The custom_fields.value property is used to update specific custom field data for a lead. This allows for the inclusion of tailored information that may not be covered by standard fields, enhancing the flexibility of lead management. Ensure the value provided aligns with the expected data type and format for the custom field being updated.
    */
   value?:
     | UpdateLeadRequestValue4
@@ -494,157 +304,133 @@ export type UpdateLeadRequestCustomFields = {
 
 export type UpdateLeadRequestExtendPaths = {
   /**
-   * A JSONPath string that specifies the exact location within the lead data where the value should be applied. This is crucial for ensuring that updates are made to the correct data fields, maintaining data integrity.
+   * A JSONPath string that specifies the exact location within the lead data where the new value should be applied. This path must be valid and correctly formatted to ensure the update is applied to the intended field. It is crucial for pinpointing the exact data point for modification.
    */
   path: string;
   /**
-   * The value to be set at the specified JSONPath, which can be of any data type. This flexibility allows developers to update lead data with a wide range of values, accommodating various data types and structures.
+   * The value to be set at the specified JSONPath location, which can be of any data type. This allows for flexibility in updating various types of data fields within the lead record. Ensure the value is compatible with the field type at the specified path to prevent errors.
    */
   value?: any | undefined;
 };
 
 export type UpdateLeadRequestPassThrough = {
   /**
-   * The unique identifier for the service to which the pass_through data should be applied. This ensures that the custom data is directed to the correct service integration, facilitating accurate data processing.
+   * The service_id within the pass_through array identifies the specific service for which the custom data or modifications are intended. This ensures that the data is correctly applied to the appropriate service integration, facilitating seamless updates across different platforms. The service_id must be a valid identifier for the target service.
    */
   serviceId: string;
   /**
-   * An optional identifier for a specific workflow operation to which this pass_through should be applied. It is particularly useful for Unify calls that involve multiple downstream requests, allowing developers to track and manage these operations effectively.
+   * An optional identifier for a specific workflow operation that this pass-through should apply to. This is particularly useful when making multiple downstream requests in Unify calls, allowing you to track and manage each operation distinctly. Ensure the operation_id is unique within the context of your workflow to avoid conflicts.
    */
   operationId?: string | undefined;
   /**
-   * A flexible object that allows for the direct extension of properties. This can be used to add custom fields or additional data to the lead update request, providing a way to tailor the operation to specific needs.
+   * A flexible object that allows you to include additional properties for direct extension of the lead data. This can be used to add custom fields or metadata that are not part of the standard lead schema. Ensure that the properties added are relevant and necessary for your specific use case.
    */
   extendObject?: { [k: string]: any } | undefined;
   /**
-   * An array of objects designed for structured data modifications using specified paths. This allows developers to precisely target and update specific parts of the lead data, ensuring accurate and efficient data management.
+   * An array of objects designed for making structured modifications to lead data using specified paths. Each object in the array should define a path and a corresponding value to update, allowing for precise and targeted data changes. This is useful for complex updates where multiple fields need to be adjusted simultaneously.
    */
   extendPaths?: Array<UpdateLeadRequestExtendPaths> | undefined;
 };
 
 export type UpdateLeadRequest = {
   /**
-   * The full name of the lead being updated. This field is required and must be a non-empty string, as it identifies the lead within the CRM system. Keeping this information current ensures accurate identification and communication with the lead.
+   * The full name of the lead that you want to update. This field is required to identify the lead within the CRM system and ensure that the correct record is modified. It must be a non-empty string that accurately represents the lead's name.
    */
   name: string;
   /**
-   * The name of the company associated with the lead. This required field must be a non-empty string, linking the lead to their respective organization. Accurate company information is crucial for contextualizing the lead's business environment.
+   * The name of the company associated with the lead. This required field helps in categorizing and managing leads based on their business affiliations. Ensure the company name is a valid string that reflects the correct business entity.
    */
   companyName: string | null;
   /**
-   * The unique identifier of the lead's owner within the CRM. This optional field helps assign responsibility and track interactions with the lead. Providing this ID facilitates efficient lead management and accountability.
+   * The unique identifier for the owner of the lead. This optional field allows you to specify or change the lead's owner within the CRM, facilitating proper assignment and follow-up. It should be a valid string that corresponds to an existing user ID in the system.
    */
   ownerId?: string | null | undefined;
   /**
-   * The name of the individual who owns the lead. This optional field complements the owner_id by providing a human-readable reference, aiding in the quick identification of the lead's manager.
+   * The name of the individual who owns the lead. This optional field is used to display or update the owner's name in the CRM, aiding in personalizing lead management. It should be a valid string that matches the owner's actual name.
    */
   ownerName?: string | null | undefined;
   /**
-   * The unique identifier for the company associated with the lead. This optional field links the lead to their company within the CRM, supporting detailed organizational insights and reporting.
+   * The unique identifier for the company associated with the lead. This optional field is used to link the lead to a specific company within the CRM, ensuring accurate association and data integrity. It should be a valid string that corresponds to an existing company ID.
    */
   companyId?: string | null | undefined;
   /**
-   * The unique identifier for the lead within the CRM system. This property is used to specify which lead record is being updated, ensuring that the correct data is modified. It must be a valid string that matches an existing lead ID in the system.
+   * The unique identifier for the lead you wish to update. This property is used to specify which lead record should be modified in the CRM system. Although not required in the request body, it is essential for identifying the lead when making changes.
    */
   leadId?: string | null | undefined;
   /**
-   * Indicates the origin of the lead, such as a marketing campaign or referral. This property helps categorize and track the effectiveness of different lead generation sources. It should be a descriptive string that clearly identifies the lead's source.
+   * Indicates the origin of the lead, such as a marketing campaign or referral. This information helps in tracking the effectiveness of different lead generation strategies. Ensure the source is accurately represented to maintain data integrity.
    */
   leadSource?: string | null | undefined;
   /**
-   * The first name of the lead, used to personalize communications and records within the CRM. This property should be a valid string containing only alphabetic characters, and it enhances the ability to manage and interact with leads on a personal level.
+   * The first name of the lead, used to personalize communications and maintain accurate records. This field should contain only alphabetic characters and be formatted correctly to ensure proper data entry.
    */
   firstName?: string | null | undefined;
   /**
-   * The last name of the lead, essential for identifying and organizing lead records. This property should be a valid string containing only alphabetic characters, ensuring accurate and professional record-keeping within the CRM.
+   * The last name of the lead, essential for identification and personalization in CRM interactions. Ensure this field is correctly spelled and formatted to maintain data accuracy.
    */
   lastName?: string | null | undefined;
   /**
-   * A detailed description or notes about the lead, providing context or additional information that may be relevant for sales or marketing purposes. This property can include any text that helps in understanding the lead's background or specific needs.
+   * A detailed description or notes about the lead, providing context or additional information that may be relevant for sales or marketing purposes. This field can include any pertinent details that help in understanding the lead's background or needs.
    */
   description?: string | null | undefined;
   /**
-   * The prefix used to address the lead, such as Mr., Ms., or Dr. This field helps in personalizing communication with the lead. It should be a valid string representing a common title or salutation.
+   * The prefix of the lead, such as Mr., Ms., or Dr. This field is used to address the lead appropriately in communications and is optional. It helps personalize interactions and should be a valid string if provided.
    */
   prefix?: string | null | undefined;
   /**
-   * The professional job title of the lead, such as 'Software Engineer' or 'Marketing Manager'. This information is used to understand the lead's role within their organization and tailor interactions accordingly. It should be a descriptive string that accurately reflects the lead's position.
+   * The job title of the lead, which provides context about their role within their organization. This information can be used to tailor communications and offers to the lead's professional position. It should be a valid string representing the lead's current job title.
    */
   title?: string | null | undefined;
   /**
-   * The preferred language of communication for the lead, specified using the ISO 639-1 language code (e.g., 'EN' for English). This helps in ensuring that all communications are in the lead's preferred language, enhancing engagement and understanding.
+   * The preferred language of the lead, specified using the ISO 639-1 code (e.g., 'EN' for English). This field ensures that communications are delivered in the lead's preferred language, enhancing engagement and understanding. It should be a valid ISO 639-1 language code.
    */
   language?: string | null | undefined;
   /**
-   * The current status of the lead within the CRM, such as 'New', 'Contacted', or 'Qualified'. This field is crucial for tracking the lead's progress through the sales pipeline and determining the next steps in engagement.
+   * The current status of the lead within the CRM system, which may indicate their engagement level or stage in the sales process. This field helps in categorizing and prioritizing leads for follow-up actions. It should be a valid status string that aligns with the CRM's lead management workflow.
    */
   status?: string | null | undefined;
   /**
-   * The potential monetary value associated with the lead, often representing the estimated revenue from a successful conversion. This numeric value helps prioritize leads based on their financial potential and is used in forecasting and sales strategy planning.
+   * The potential monetary value associated with the lead, which can be used to prioritize and strategize sales efforts. This field helps in assessing the lead's potential contribution to revenue and should be a valid numerical value representing currency.
    */
   monetaryAmount?: number | null | undefined;
+  currency?: Currency | null | undefined;
   /**
-   * Specifies the currency type associated with monetary values for the lead. This should be a valid ISO 4217 currency code, such as 'USD' for US Dollars. Ensuring the correct currency code is crucial for accurate financial data representation in the CRM.
-   */
-  currency?: UpdateLeadRequestCurrency | null | undefined;
-  /**
-   * The lead's fax number, used for sending and receiving documents via fax. This should be a valid fax number format, including country and area codes if applicable. Including a fax number can facilitate traditional communication methods with the lead.
+   * The lead's fax number, used for sending and receiving documents via fax. This field should contain a valid fax number format, allowing for effective communication with the lead through traditional fax methods. Include this if the lead prefers or requires fax communication.
    */
   fax?: string | null | undefined;
   /**
-   * A list of websites associated with the lead, providing additional online presence information. Each entry in the array should include a valid URL and may include an identifier for reference. This helps in tracking and managing the lead's digital footprint.
+   * A list of websites associated with the lead, providing additional online presence or resources related to the lead. Each entry in the array should represent a distinct website, allowing for comprehensive digital profiling of the lead.
    */
   websites?: Array<UpdateLeadRequestWebsites> | undefined;
   /**
-   * A collection of address objects associated with the lead, allowing for multiple addresses to be stored and updated. Each address in the array should conform to the specified address object structure, ensuring consistency and completeness of address data.
+   * A collection of address objects associated with the lead. This array allows you to update multiple addresses for a lead, providing flexibility in managing contact information. Each address object within the array should conform to the specified structure, including fields like id, type, and string.
    */
   addresses?: Array<UpdateLeadRequestAddresses> | undefined;
   /**
-   * An array of social link objects associated with the lead. Each object should contain details such as the URL and type of the social link, allowing for comprehensive social media tracking.
+   * An array of social link objects associated with the lead. Each object within the array represents a distinct social media profile or link, allowing you to update or add multiple social links for the lead in a single request. This property is optional and can be omitted if no social links need updating.
    */
   socialLinks?: Array<UpdateLeadRequestSocialLinks> | undefined;
   /**
-   * An array of phone number objects associated with the lead. Each object within the array should contain details such as the phone number, country code, and area code. This property allows updating multiple phone numbers for a lead, ensuring comprehensive contact information is maintained.
+   * An array of phone number objects associated with the lead. Each object within the array should represent a distinct phone number entry, allowing for multiple contact numbers to be updated simultaneously. This property is optional and can be omitted if no phone number updates are needed.
    */
   phoneNumbers?: Array<UpdateLeadRequestPhoneNumbers> | undefined;
   /**
-   * A collection of email objects associated with the lead. Each object within the array should represent a distinct email address, allowing for multiple contact points. This array is crucial for ensuring comprehensive communication options with the lead.
+   * A collection of email objects associated with the lead. Each object within the array should represent a distinct email address, allowing for multiple contact points. This field is optional but crucial for maintaining comprehensive contact information.
    */
   emails?: Array<UpdateLeadRequestEmails> | undefined;
   /**
-   * An array of custom fields that allow for additional, user-defined data to be associated with the lead. Each entry in the array should conform to the structure defined for custom fields, enabling flexible data management tailored to specific business needs.
+   * An array of custom fields that allows you to include additional, user-defined information about the lead. This is useful for capturing data that is not covered by standard fields, providing flexibility in lead management. Each entry in the array should conform to the structure defined for custom fields.
    */
   customFields?: Array<UpdateLeadRequestCustomFields> | undefined;
   /**
-   * An array of tags associated with the lead, used for categorization and easy retrieval. Tags help in organizing leads based on specific criteria or campaigns. Each tag should be a meaningful string that represents a category or label.
+   * The tags property allows you to assign or update a list of tags associated with the lead. Tags are useful for categorizing leads and can help in filtering and segmenting them for targeted actions. Each tag should be a string that represents a meaningful label for the lead.
    */
   tags?: Array<string> | null | undefined;
   /**
-   * An array that allows the inclusion of service-specific custom data or modifications when updating the lead. This property is useful for passing through additional information that may not be covered by standard fields, ensuring flexibility in data handling.
+   * The pass_through property is designed to carry service-specific custom data or modifications when updating a lead. This allows for the integration of unique service requirements directly into the request, ensuring that all necessary data is transmitted. Each entry should be structured according to the service's specifications.
    */
   passThrough?: Array<UpdateLeadRequestPassThrough> | undefined;
 };
-
-/** @internal */
-export const UpdateLeadRequestCurrency$inboundSchema: z.ZodNativeEnum<
-  typeof UpdateLeadRequestCurrency
-> = z.nativeEnum(UpdateLeadRequestCurrency);
-
-/** @internal */
-export const UpdateLeadRequestCurrency$outboundSchema: z.ZodNativeEnum<
-  typeof UpdateLeadRequestCurrency
-> = UpdateLeadRequestCurrency$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateLeadRequestCurrency$ {
-  /** @deprecated use `UpdateLeadRequestCurrency$inboundSchema` instead. */
-  export const inboundSchema = UpdateLeadRequestCurrency$inboundSchema;
-  /** @deprecated use `UpdateLeadRequestCurrency$outboundSchema` instead. */
-  export const outboundSchema = UpdateLeadRequestCurrency$outboundSchema;
-}
 
 /** @internal */
 export const UpdateLeadRequestType$inboundSchema: z.ZodNativeEnum<
@@ -1551,7 +1337,7 @@ export const UpdateLeadRequest$inboundSchema: z.ZodType<
   language: z.nullable(z.string()).optional(),
   status: z.nullable(z.string()).optional(),
   monetary_amount: z.nullable(z.number()).optional(),
-  currency: z.nullable(UpdateLeadRequestCurrency$inboundSchema).optional(),
+  currency: z.nullable(Currency$inboundSchema).optional(),
   fax: z.nullable(z.string()).optional(),
   websites: z.array(z.lazy(() => UpdateLeadRequestWebsites$inboundSchema))
     .optional(),
@@ -1640,7 +1426,7 @@ export const UpdateLeadRequest$outboundSchema: z.ZodType<
   language: z.nullable(z.string()).optional(),
   status: z.nullable(z.string()).optional(),
   monetaryAmount: z.nullable(z.number()).optional(),
-  currency: z.nullable(UpdateLeadRequestCurrency$outboundSchema).optional(),
+  currency: z.nullable(Currency$outboundSchema).optional(),
   fax: z.nullable(z.string()).optional(),
   websites: z.array(z.lazy(() => UpdateLeadRequestWebsites$outboundSchema))
     .optional(),

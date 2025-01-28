@@ -5,23 +5,130 @@
 
 ### Available Operations
 
-* [create](#create) - Add a new company to the CRM system.
-* [list](#list) - Retrieve a list of companies from the CRM.
+* [list](#list) - Retrieve a list of companies from the CRM system.
+* [create](#create) - Adds a new company to the CRM system.
 * [get](#get) - Retrieve detailed information about a specific company from the CRM.
 * [update](#update) - Update company details in the CRM system.
-* [delete](#delete) - Delete a company record from the CRM system.
+* [delete](#delete) - Deletes a company record from the CRM system using its unique ID.
+
+## list
+
+The 'companiesAll' operation allows developers to retrieve a comprehensive list of companies stored within the CRM system. This GET request to the '/crm/companies' endpoint supports various query parameters to customize the response, such as 'limit' for controlling the number of results, 'filter' for narrowing down the list based on specific criteria, and 'sort' for ordering the results. Essential headers like 'x-apideck-consumer-id' and 'x-apideck-app-id' are required for authentication. The response is typically a JSON object containing company details, and developers can specify which fields to include using the 'fields' parameter. This operation is crucial for applications needing to access or display company data efficiently.
+
+### Example Usage
+
+```typescript
+import { Apideck } from "apideck";
+
+const apideck = new Apideck({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
+
+async function run() {
+  const result = await apideck.crm.companies.list({
+    raw: false,
+    serviceId: "salesforce",
+    limit: 20,
+    filter: {
+      name: "SpaceX",
+    },
+    sort: {
+      by: "created_at",
+      direction: "desc",
+    },
+    passThrough: {
+      "search": "San Francisco",
+    },
+    fields: "id,updated_at",
+  });
+
+  for await (const page of result) {
+    // Handle the page
+    console.log(page);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ApideckCore } from "apideck/core.js";
+import { crmCompaniesList } from "apideck/funcs/crmCompaniesList.js";
+
+// Use `ApideckCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const apideck = new ApideckCore({
+  apiKey: process.env["APIDECK_API_KEY"] ?? "",
+  consumerId: "test-consumer",
+  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+});
+
+async function run() {
+  const res = await crmCompaniesList(apideck, {
+    raw: false,
+    serviceId: "salesforce",
+    limit: 20,
+    filter: {
+      name: "SpaceX",
+    },
+    sort: {
+      by: "created_at",
+      direction: "desc",
+    },
+    passThrough: {
+      "search": "San Francisco",
+    },
+    fields: "id,updated_at",
+  });
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
+
+  for await (const page of result) {
+    // Handle the page
+    console.log(page);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.CrmCompaniesAllRequest](../../models/operations/crmcompaniesallrequest.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.CrmCompaniesAllResponse](../../models/operations/crmcompaniesallresponse.md)\>**
+
+### Errors
+
+| Error Type                         | Status Code                        | Content Type                       |
+| ---------------------------------- | ---------------------------------- | ---------------------------------- |
+| errors.BadRequestResponse          | 400                                | application/json                   |
+| errors.UnauthorizedResponse        | 401                                | application/json                   |
+| errors.PaymentRequiredResponse     | 402                                | application/json                   |
+| errors.NotFoundResponse            | 404                                | application/json                   |
+| errors.UnprocessableEntityResponse | 422                                | application/json                   |
+| errors.APIError                    | 4XX, 5XX                           | \*/\*                              |
 
 ## create
 
-The `companiesAdd` operation allows developers to add a new company to the CRM system using a POST request to the `/crm/companies` endpoint. This operation is essential for integrating new company data into the CRM, enabling seamless management and tracking of company information. 
-
-Key Parameters:
-- `x-apideck-consumer-id` (header, required): Specifies the consumer ID for data retrieval or submission.
-- `x-apideck-app-id` (header, required): Identifies the Unify application making the request.
-- `x-apideck-service-id` (header, optional): Indicates the specific service ID to call, necessary when multiple integrations are active.
-- `raw` (query, optional): Determines if the raw response should be included, mainly for debugging.
-
-Upon successful creation, the operation returns a status code of 201, along with a JSON object containing the unique identifier of the newly created company resource. This response confirms the successful addition of the company to the CRM system.
+The companiesAdd operation allows developers to add a new company to the CRM system by sending a POST request to the /crm/companies endpoint. This operation is essential for maintaining up-to-date company records within the CRM. The request must include a valid x-apideck-consumer-id and x-apideck-app-id in the headers for authentication and authorization purposes. Optionally, the x-apideck-service-id can be specified if targeting a specific service integration. The 'raw' query parameter can be set to true to receive the raw data response, useful for debugging. Upon successful creation, the API returns a 201 status code along with the ID of the newly created company resource in a JSON object.
 
 ### Example Usage
 
@@ -628,143 +735,9 @@ run();
 | errors.UnprocessableEntityResponse | 422                                | application/json                   |
 | errors.APIError                    | 4XX, 5XX                           | \*/\*                              |
 
-## list
-
-The `companiesAll` operation allows developers to fetch a comprehensive list of companies stored within the CRM system. This operation is crucial for applications that need to access company data for analysis, reporting, or integration purposes. 
-
-Key Parameters:
-- `x-apideck-consumer-id` (header, required): Identifies the consumer accessing the data.
-- `x-apideck-app-id` (header, required): Specifies the Unify application ID.
-- `limit` (query): Determines the number of results returned, with a default of 20 and a maximum of 200.
-- `fields` (query): Allows selection of specific fields to include in the response, enhancing performance by reducing payload size.
-
-The response returns a JSON object containing the list of companies, with pagination supported through the `cursor` parameter. This operation does not modify data and is safe to use for read-only purposes.
-
-### Example Usage
-
-```typescript
-import { Apideck } from "apideck";
-
-const apideck = new Apideck({
-  apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  consumerId: "test-consumer",
-  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
-});
-
-async function run() {
-  const result = await apideck.crm.companies.list({
-    raw: false,
-    serviceId: "salesforce",
-    limit: 20,
-    filter: {
-      name: "SpaceX",
-    },
-    sort: {
-      by: "created_at",
-      direction: "desc",
-    },
-    passThrough: {
-      "search": "San Francisco",
-    },
-    fields: "id,updated_at",
-  });
-
-  for await (const page of result) {
-    // Handle the page
-    console.log(page);
-  }
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { ApideckCore } from "apideck/core.js";
-import { crmCompaniesList } from "apideck/funcs/crmCompaniesList.js";
-
-// Use `ApideckCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const apideck = new ApideckCore({
-  apiKey: process.env["APIDECK_API_KEY"] ?? "",
-  consumerId: "test-consumer",
-  appId: "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
-});
-
-async function run() {
-  const res = await crmCompaniesList(apideck, {
-    raw: false,
-    serviceId: "salesforce",
-    limit: 20,
-    filter: {
-      name: "SpaceX",
-    },
-    sort: {
-      by: "created_at",
-      direction: "desc",
-    },
-    passThrough: {
-      "search": "San Francisco",
-    },
-    fields: "id,updated_at",
-  });
-
-  if (!res.ok) {
-    throw res.error;
-  }
-
-  const { value: result } = res;
-
-  for await (const page of result) {
-    // Handle the page
-    console.log(page);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.CrmCompaniesAllRequest](../../models/operations/crmcompaniesallrequest.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.CrmCompaniesAllResponse](../../models/operations/crmcompaniesallresponse.md)\>**
-
-### Errors
-
-| Error Type                         | Status Code                        | Content Type                       |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| errors.BadRequestResponse          | 400                                | application/json                   |
-| errors.UnauthorizedResponse        | 401                                | application/json                   |
-| errors.PaymentRequiredResponse     | 402                                | application/json                   |
-| errors.NotFoundResponse            | 404                                | application/json                   |
-| errors.UnprocessableEntityResponse | 422                                | application/json                   |
-| errors.APIError                    | 4XX, 5XX                           | \*/\*                              |
-
 ## get
 
-The `companiesOne` operation allows developers to fetch detailed information about a specific company from the CRM system using its unique identifier. This operation is crucial for applications that need to display or process company data based on user interactions or business logic.
-
-### Key Parameters:
-- **id (path parameter)**: The unique identifier of the company record you wish to retrieve. This parameter is mandatory.
-- **x-apideck-consumer-id (header)**: Required to specify the consumer ID for data retrieval.
-- **x-apideck-app-id (header)**: Required to identify your Unify application.
-- **x-apideck-service-id (header)**: Optional; specify if multiple integrations are active.
-- **fields (query parameter)**: Optional; allows specifying which fields to include in the response, using a comma-separated string.
-- **raw (query parameter)**: Optional; include raw response for debugging purposes.
-
-### Response Behavior:
-The operation returns a JSON object representing the company resource, including all or specified fields based on the `fields` parameter. The response will include a status code of 200 upon successful retrieval.
+The 'companiesOne' operation allows developers to fetch detailed information about a specific company using its unique ID from the CRM system. This GET request requires the 'id' parameter in the path to identify the company record. Additionally, headers such as 'x-apideck-consumer-id' and 'x-apideck-app-id' are mandatory for authentication and authorization purposes. Optional query parameters include 'raw' for obtaining raw data and 'fields' for specifying which fields to include in the response. The response is typically a JSON object containing the company's details, making it essential for applications that need to display or process company data efficiently.
 
 ### Example Usage
 
@@ -855,16 +828,7 @@ run();
 
 ## update
 
-The `companiesUpdate` operation allows developers to update existing company records in the CRM system using a PATCH request to the `/crm/companies/{id}` endpoint. This operation is essential for maintaining accurate and up-to-date company information within the CRM. 
-
-Key Parameters:
-- `id` (path): The unique identifier of the company record to be updated. This parameter is required.
-- `raw` (query): Optional parameter to include the raw response, primarily used for debugging.
-- `x-apideck-consumer-id` (header): Required parameter that specifies the consumer ID for data retrieval or submission.
-- `x-apideck-app-id` (header): Required parameter indicating the ID of your Unify application.
-- `x-apideck-service-id` (header): Optional parameter to specify the service ID when multiple integrations are active.
-
-Upon successful update, the operation returns a status code of 200 along with a JSON object representing the updated company resource, including its unique identifier. This ensures that developers can confirm the update and retrieve the latest company data efficiently.
+The companiesUpdate operation allows you to modify existing company records in the CRM by sending a PATCH request to the /crm/companies/{id} endpoint. This operation is essential for keeping company data current and accurate. You must provide the company ID in the path to specify which record to update. The request body should contain the fields you wish to update. Required headers include x-apideck-consumer-id and x-apideck-app-id for authentication and authorization. Optionally, use the 'raw' query parameter to receive raw data for debugging purposes. A successful update returns a 200 status code along with the updated company details in a JSON object.
 
 ### Example Usage
 
@@ -1399,16 +1363,7 @@ run();
 
 ## delete
 
-The `companiesDelete` operation allows developers to remove a company record from the CRM system using its unique identifier. This operation is crucial for maintaining up-to-date and accurate data within the CRM by enabling the deletion of outdated or incorrect company entries. 
-
-Key Parameters:
-- `id` (path parameter, required): The unique identifier of the company record to be deleted.
-- `x-apideck-consumer-id` (header, required): Identifies the consumer from which data is being managed.
-- `x-apideck-app-id` (header, required): Specifies the Unify application ID associated with the request.
-- `x-apideck-service-id` (header, optional): Indicates the specific service to be called, necessary when multiple integrations are active.
-- `raw` (query parameter, optional): When set, includes the raw response, useful for debugging.
-
-Response Behavior: Upon successful deletion, the operation returns a status code of 200, confirming the removal of the specified company record. This ensures developers can verify the successful execution of the delete operation.
+The companiesDelete operation allows you to remove a specific company record from the CRM system by providing its unique ID in the endpoint path. This operation is crucial for maintaining up-to-date and accurate company data within your CRM. To execute this operation, you must include the 'x-apideck-consumer-id' and 'x-apideck-app-id' headers for authentication and authorization purposes. Optionally, you can specify the 'raw' query parameter to receive the raw response data, which is useful for debugging. Upon successful deletion, the operation returns a status code of 200, indicating that the company record has been successfully removed. This operation does not require a request body.
 
 ### Example Usage
 

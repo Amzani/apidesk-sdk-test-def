@@ -1,6 +1,6 @@
 # UpdateCompanyRequestType
 
-Defines the category or purpose of the website, such as 'corporate', 'e-commerce', or 'blog'. This helps categorize the company's online resources and provides context for the website's role in the company's digital strategy.
+Describes the type of website associated with the company, such as 'official', 'blog', or 'support'. This field helps categorize the website's purpose and is optional, allowing for more detailed classification of the company's web resources.
 
 ## Example Usage
 

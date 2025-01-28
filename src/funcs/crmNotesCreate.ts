@@ -24,10 +24,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Add a new note to the CRM system.
+ * Adds a new note to the CRM system for a specified consumer.
  *
  * @remarks
- * The `notesAdd` operation allows developers to add a new note to the CRM system using a POST request to the `/crm/notes` endpoint. This operation is essential for maintaining detailed records and annotations related to CRM entries. Key parameters include `x-apideck-consumer-id` and `x-apideck-app-id`, which are required headers to identify the consumer and application, respectively. The `x-apideck-service-id` header is optional and used when multiple integrations are active. The operation supports a `raw` query parameter for debugging purposes. Upon successful creation, the API responds with a 201 status code and includes the unique identifier of the newly created note in the response, confirming the addition to the CRM system.
+ * The notesAdd operation allows developers to create and add a new note to the CRM system associated with a specific consumer. This operation is essential for maintaining detailed records and enhancing customer relationship management. To execute this operation, you must include the x-apideck-consumer-id and x-apideck-app-id headers for authentication and authorization. Optionally, the x-apideck-service-id can be specified if targeting a specific service integration. The request body should contain the note details to be added. Upon successful creation, the API returns a status code of 201, indicating the note has been successfully added, along with the ID of the newly created note. This operation supports a 'raw' query parameter for debugging purposes, which, when set to true, includes raw response data.
  */
 export async function crmNotesCreate(
   client: ApideckCore,
@@ -72,12 +72,12 @@ export async function crmNotesCreate(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(

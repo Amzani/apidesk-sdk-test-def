@@ -11,7 +11,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CrmCompaniesUpdateGlobals = {
   /**
-   * A unique identifier for the consumer, required to specify the data source or destination for the API operation. This ID is essential for authenticating and authorizing the request within the CRM system.
+   * A unique identifier assigned to the consumer, necessary for authenticating and authorizing the API request. This ensures that the request is associated with the correct consumer account.
    */
   consumerId?: string | undefined;
   /**
@@ -22,15 +22,23 @@ export type CrmCompaniesUpdateGlobals = {
 
 export type CrmCompaniesUpdateRequest = {
   /**
-   * The unique identifier of the activity to be deleted. This parameter is required to specify which activity record should be removed from the CRM system. Ensure that the ID corresponds to an existing activity to avoid errors.
+   * The unique identifier of the activity record you wish to delete. This ID is crucial for specifying which record should be removed from the CRM system.
    */
   id: string;
   /**
-   * A boolean flag that determines whether to include the raw response in the output. This is primarily used for debugging purposes to gain insights into the API's response structure.
+   * A boolean flag that, when set to true, returns the raw data as received from the service. This is primarily useful for debugging and development purposes, allowing you to see the unprocessed response.
    */
   raw?: boolean | undefined;
   /**
-   * An optional identifier for the specific service to be called, such as 'pipedrive'. This is only required when multiple integrations are active, allowing the API to route the request to the appropriate service.
+   * A unique identifier assigned to the consumer, necessary for authenticating and authorizing the API request. This ensures that the request is associated with the correct consumer account.
+   */
+  consumerId?: string | undefined;
+  /**
+   * The unique identifier for your Unify application, required to authenticate API requests and ensure they are processed within the correct application context.
+   */
+  appId?: string | undefined;
+  /**
+   * Optional header to specify the service ID for targeting a specific service integration, such as 'pipedrive'. This is useful when multiple integrations are active and you need to direct the request to a particular service.
    */
   serviceId?: string | undefined;
   updateCompanyRequest: components.UpdateCompanyRequest;
@@ -113,6 +121,8 @@ export const CrmCompaniesUpdateRequest$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string(),
   raw: z.boolean().default(false),
+  consumerId: z.string().optional(),
+  appId: z.string().optional(),
   serviceId: z.string().optional(),
   UpdateCompanyRequest: components.UpdateCompanyRequest$inboundSchema,
 }).transform((v) => {
@@ -125,6 +135,8 @@ export const CrmCompaniesUpdateRequest$inboundSchema: z.ZodType<
 export type CrmCompaniesUpdateRequest$Outbound = {
   id: string;
   raw: boolean;
+  consumerId?: string | undefined;
+  appId?: string | undefined;
   serviceId?: string | undefined;
   UpdateCompanyRequest: components.UpdateCompanyRequest$Outbound;
 };
@@ -137,6 +149,8 @@ export const CrmCompaniesUpdateRequest$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string(),
   raw: z.boolean().default(false),
+  consumerId: z.string().optional(),
+  appId: z.string().optional(),
   serviceId: z.string().optional(),
   updateCompanyRequest: components.UpdateCompanyRequest$outboundSchema,
 }).transform((v) => {

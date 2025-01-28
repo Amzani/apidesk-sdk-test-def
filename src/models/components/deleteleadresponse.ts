@@ -9,11 +9,11 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * This object contains the unique identifier of the lead that was deleted. It confirms the successful execution of the delete operation by providing the ID of the lead that has been removed from the CRM system. The structure is an object with a single key-value pair.
+ * This object contains details about the lead that was deleted, specifically focusing on the unique identifier of the lead. It serves as a confirmation that the specified lead has been successfully removed from the CRM system. The structure of this object is crucial for verifying the deletion operation's success.
  */
 export type DeleteLeadResponseUnifiedId = {
   /**
-   * The unique identifier of the lead that was deleted. This string value confirms which specific lead entry was successfully removed from the CRM system, ensuring developers can verify the correct resource was targeted in the delete operation.
+   * The unique identifier of the lead that was deleted. This string confirms the specific lead that has been removed from the CRM system, ensuring that the correct record was targeted and successfully deleted during the operation.
    */
   id: string;
 };
@@ -23,27 +23,27 @@ export type DeleteLeadResponseUnifiedId = {
  */
 export type DeleteLeadResponse = {
   /**
-   * The HTTP response status code returned by the server. This integer value indicates the result of the delete operation, with a 200 status code confirming that the lead was successfully removed from the CRM system. It is crucial for verifying the success of the operation.
+   * The HTTP response status code returned by the server. This integer value indicates the result of the delete operation, with a successful deletion typically returning a 200 status code. It helps developers confirm that the lead has been successfully removed from the CRM system.
    */
   statusCode: number;
   /**
-   * A string representation of the HTTP response status. This property provides a textual description of the status code, such as 'OK' for a successful deletion, helping developers quickly understand the outcome of the operation.
+   * A textual representation of the HTTP response status. This string provides a human-readable summary of the operation's outcome, such as 'OK' for a successful deletion, aiding in quick understanding of the response.
    */
   status: string;
   /**
-   * The Apideck ID of the service provider involved in the operation. This string identifies which service within the Apideck ecosystem processed the delete request, useful for tracking and logging purposes.
+   * The Apideck ID of the service provider involved in the operation. This string identifies which service integration was used to perform the delete operation, helping developers track and manage service-specific actions within the CRM.
    */
   service: string;
   /**
-   * The name of the Unified API resource that was targeted by the operation. This string indicates the specific resource type, such as 'lead', that was deleted, providing context about the nature of the operation.
+   * The name of the Unified API resource that was affected by the operation. This string specifies the type of resource, such as 'lead', that was deleted, providing context about what data was modified in the CRM system.
    */
   resource: string;
   /**
-   * A string indicating the type of operation performed, in this case, 'delete'. This property confirms the action taken on the resource, ensuring clarity about the operation executed on the lead.
+   * The specific operation that was performed, in this case, 'delete'. This string indicates the action taken on the resource, confirming that the lead was removed from the CRM system.
    */
   operation: string;
   /**
-   * This object contains the unique identifier of the lead that was deleted. It confirms the successful execution of the delete operation by providing the ID of the lead that has been removed from the CRM system. The structure is an object with a single key-value pair.
+   * This object contains details about the lead that was deleted, specifically focusing on the unique identifier of the lead. It serves as a confirmation that the specified lead has been successfully removed from the CRM system. The structure of this object is crucial for verifying the deletion operation's success.
    */
   data: DeleteLeadResponseUnifiedId;
 };

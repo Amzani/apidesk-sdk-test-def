@@ -1,6 +1,6 @@
 # CreateOpportunityRequestValue
 
-The actual data or content stored in the custom field. This value should be formatted according to the type of data it represents, such as a string, number, or date, and should accurately reflect the information intended for the custom field.
+The 'custom_fields.value' property holds the actual data or value for the custom field. This is where users input the specific information that the custom field is meant to capture. It is optional and should match the expected data type for the custom field.
 
 
 ## Supported Types

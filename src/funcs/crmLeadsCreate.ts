@@ -27,15 +27,7 @@ import { Result } from "../types/fp.js";
  * Add a new lead to the CRM system.
  *
  * @remarks
- * The `leadsAdd` operation allows developers to add a new lead to the CRM system using a POST request to the `/crm/leads` endpoint. This operation is essential for integrating lead management capabilities into applications, enabling the creation of new lead records in the CRM.
- *
- * Key Parameters:
- * - `x-apideck-consumer-id` (header, required): Specifies the consumer ID for data interaction.
- * - `x-apideck-app-id` (header, required): Identifies the Unify application making the request.
- * - `x-apideck-service-id` (header, optional): Indicates the specific service to call, necessary when multiple integrations are active.
- * - `raw` (query, optional): Determines if the raw response should be included, useful for debugging.
- *
- * Upon successful creation, the operation returns a 201 status code along with a JSON object containing the unique identifier of the newly created lead. This response confirms the lead's addition to the CRM system, facilitating further processing or integration steps.
+ * The leadsAdd operation allows you to add a new lead to your CRM system by sending a POST request to the /crm/leads endpoint. This operation is essential for capturing potential customer information and expanding your sales pipeline. The request must include a valid x-apideck-consumer-id and x-apideck-app-id in the headers for authentication. Optionally, specify the x-apideck-service-id if targeting a specific service integration. The raw query parameter can be set to true to receive raw data for debugging purposes. Upon successful creation, the API returns a 201 status code along with the ID of the newly created lead in a JSON object. This operation is crucial for maintaining an up-to-date and comprehensive lead database.
  */
 export async function crmLeadsCreate(
   client: ApideckCore,
@@ -80,12 +72,12 @@ export async function crmLeadsCreate(
     Accept: "application/json",
     "x-apideck-app-id": encodeSimple(
       "x-apideck-app-id",
-      client._options.appId,
+      payload.appId ?? client._options.appId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-consumer-id": encodeSimple(
       "x-apideck-consumer-id",
-      client._options.consumerId,
+      payload.consumerId ?? client._options.consumerId,
       { explode: false, charEncoding: "none" },
     ),
     "x-apideck-service-id": encodeSimple(
